@@ -1,3 +1,34 @@
+## 2025-10-14 - Integrated Three.js and CSS background system
+
+**Problem:** The marketing site required an animated background experience that matched existing gradient branding, plus tooling to switch between WebGL and CSS implementations with configurable controls.
+
+**Root Cause:** The project lacked a reusable Three.js integration, state management for background presets, and UI controls to manage gradient parameters while preserving the legacy CSS gradient option.
+
+**Solution:**
+1. Added a `three-bg-kit/` module with providers, shaders, and presets to render the animated gradient and expose settings.
+2. Built `BackgroundAnimation` and expanded global styling to coordinate theme-specific colors, CSS fallback behavior, and favicon assets.
+3. Implemented a control panel with tabs for CSS, Simple, Advanced, and Dither options, including editable colors, scaling, angle, and animation controls that update both Three.js and CSS backgrounds.
+
+**Files Modified:**
+- `package.json`
+- `package-lock.json`
+- `public/favicon.ico`
+- `public/favicon.png`
+- `public/favicon.svg`
+- `src/app/globals.css`
+- `src/app/layout.tsx`
+- `src/components/svg-circle.tsx`
+- `src/components/background-animation.tsx`
+- `src/three-bg-kit/GradientControls.tsx`
+- `src/three-bg-kit/PostProcessor.tsx`
+- `src/three-bg-kit/ThreeBGContext.tsx`
+- `src/three-bg-kit/ThreeGradientBackground.tsx`
+- `src/three-bg-kit/index.ts`
+- `src/three-bg-kit/presets.ts`
+- `src/three-bg-kit/shaders/ditherShader.ts`
+
+**Outcome:** The site now supports both Three.js and CSS gradient backgrounds with full control over colors, scale, angles, and animation, providing a flexible visual experience that aligns with theme colors and preserves branding assets.
+
 ## 2025-10-13 - Implement themed landing page and wrap workflow docs
 
 **Problem:** The new marketing site lacked theming support, focused landing content, and end-of-session documentation guidance.
