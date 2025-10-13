@@ -46,6 +46,7 @@
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
+  --gradient-background: linear-gradient(55deg, #eef2db 0%, #dfddf2 100%);
   --foreground: oklch(0.147 0.004 49.25);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.147 0.004 49.25);
@@ -80,6 +81,7 @@
 
 .dark {
   --background: oklch(0.147 0.004 49.25);
+  --gradient-background: linear-gradient(55deg, #10100f 0%, #23222b 100%);
   --foreground: oklch(0.985 0.001 106.423);
   --card: oklch(0.216 0.006 56.043);
   --card-foreground: oklch(0.985 0.001 106.423);
@@ -117,6 +119,11 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground antialiased transition-colors duration-500 ease-in-out;
+    @apply bg-background text-foreground antialiased;
+    transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out,
+      background-image 0.5s ease-in-out;
+    background-image: var(--gradient-background);
+    background-size: cover;
+    background-attachment: fixed;
   }
 }

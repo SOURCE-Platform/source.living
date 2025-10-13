@@ -1,7 +1,7 @@
 export function SvgCircle() {
   return (
     <svg
-      className="h-[80vh] w-[80vh]"
+      className="h-[80vh] w-[80vh] text-white dark:text-black"
       viewBox="0 0 100 100"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
