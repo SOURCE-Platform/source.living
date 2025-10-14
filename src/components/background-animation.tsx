@@ -23,24 +23,27 @@ const DARK_COLORS: Pick<ThreeBGState, "colorA" | "colorB"> = {
 };
 
 const SHARED_INITIAL_STATE: Omit<ThreeBGState, "colorA" | "colorB"> = {
-  complexity: 3,
-  speed: 0.6,
+  complexity: 2,
+  speed: 0.1,
   noiseType: "simplex" as const,
-  scale: 1.15,
-  warp: 0.4,
-  contrast: 1.05,
-  bias: 0.02,
+  scale: 0.25,
+  warp: 0.31,
+  contrast: 1.16,
+  bias: 0.09,
   rotation: 0,
-  autoRotate: false,
-  autoRotateSpeed: 4,
+  autoRotate: true,
+  autoRotateSpeed: 2.5,
   ditherEnabled: true,
   ditherScale: 1.25,
-  ditherContrast: 1.0,
-  ditherBrightness: 1.0,
-  ditherType: DITHER_TYPES.BAYER_4X4,
+  ditherContrast: 0.86,
+  ditherBrightness: 1.05,
+  ditherType: DITHER_TYPES.RANDOM,
   ditherErrorDiffusion: 1.0,
   ditherThreshold: 0.5,
-  ditherLevels: 8,
+  ditherLevels: 6,
+  ditherAnimateNoise: true,
+  ditherNoiseSpeed: 1.4,
+  ditherNoiseScale: 1.0,
   renderMode: "simple",
   simpleSpeed: 0.3,
   simpleScale: 1.0,
@@ -50,12 +53,14 @@ const SHARED_INITIAL_STATE: Omit<ThreeBGState, "colorA" | "colorB"> = {
   simpleAngleSpeed: 0.2,
   simpleAngleDirection: "cw",
   simpleType: "hard",
-  backgroundSource: "three",
-  cssScale: 1.0,
+  backgroundSource: "css",
+  cssScale: 1.5,
   cssAngle: 55,
   cssAnimate: false,
   cssRotateSpeed: 45,
   cssRotateDirection: "cw",
+  cssScrollRotate: true,
+  cssScrollRotateSpeed: 120,
 };
 
 const CONTROL_TOGGLE_CLASSES =
@@ -72,6 +77,7 @@ function BackgroundRuntime() {
 
   const lastThemeRef = useRef<string | undefined>(resolvedTheme ?? undefined);
   const cssAnimationFrameRef = useRef<number | null>(null);
+  const scrollRotationRef = useRef(0);
 
   const targetColors = useMemo<Pick<ThreeBGState, "colorA" | "colorB">>(() => {
     return resolvedTheme === "dark" ? DARK_COLORS : LIGHT_COLORS;
@@ -105,6 +111,8 @@ function BackgroundRuntime() {
     cssAnimate,
     cssRotateSpeed,
     cssRotateDirection,
+    cssScrollRotate,
+    cssScrollRotateSpeed,
   } = controls;
 
   useEffect(() => {
@@ -112,7 +120,8 @@ function BackgroundRuntime() {
     if (!body) return undefined;
 
     const applyBackground = (angleDeg: number) => {
-      const normalizedAngle = ((angleDeg % 360) + 360) % 360;
+      const scrollAngle = cssScrollRotate ? scrollRotationRef.current : 0;
+      const normalizedAngle = ((angleDeg + scrollAngle) % 360 + 360) % 360;
       const span = Math.max(cssScale, 0.01);
       const margin = (1 - span) / 2;
       const startStop = margin * 100;
@@ -132,10 +141,22 @@ function BackgroundRuntime() {
       body.style.backgroundPosition = "center";
     };
 
+    const updateScrollRotation = () => {
+      if (!cssScrollRotate) {
+        scrollRotationRef.current = 0;
+        return;
+      }
+      const speed = Math.max(cssScrollRotateSpeed, 1);
+      scrollRotationRef.current = window.scrollY / speed;
+    };
+
     if (backgroundSource !== "css") {
       if (cssAnimationFrameRef.current !== null) {
         cancelAnimationFrame(cssAnimationFrameRef.current);
         cssAnimationFrameRef.current = null;
+      }
+      if (cssScrollRotate) {
+        window.removeEventListener("scroll", updateScrollRotation);
       }
       body.style.backgroundImage = "";
       body.style.backgroundSize = "";
@@ -147,6 +168,13 @@ function BackgroundRuntime() {
     let startTime: number | null = null;
     const direction = cssRotateDirection === "cw" ? 1 : -1;
     const speed = cssRotateSpeed;
+
+    if (cssScrollRotate) {
+      updateScrollRotation();
+      window.addEventListener("scroll", updateScrollRotation, { passive: true });
+    } else {
+      scrollRotationRef.current = 0;
+    }
 
     const step = (timestamp: number) => {
       if (startTime === null) {
@@ -169,6 +197,9 @@ function BackgroundRuntime() {
         cancelAnimationFrame(cssAnimationFrameRef.current);
         cssAnimationFrameRef.current = null;
       }
+      if (cssScrollRotate) {
+        window.removeEventListener("scroll", updateScrollRotation);
+      }
     };
   }, [
     backgroundSource,
@@ -179,6 +210,8 @@ function BackgroundRuntime() {
     cssAnimate,
     cssRotateSpeed,
     cssRotateDirection,
+    cssScrollRotate,
+    cssScrollRotateSpeed,
   ]);
 
   return (
@@ -205,6 +238,9 @@ function BackgroundRuntime() {
           ditherErrorDiffusion={controls.ditherErrorDiffusion}
           ditherThreshold={controls.ditherThreshold}
           ditherLevels={controls.ditherLevels}
+          ditherAnimateNoise={controls.ditherAnimateNoise}
+          ditherNoiseSpeed={controls.ditherNoiseSpeed}
+          ditherNoiseScale={controls.ditherNoiseScale}
           renderMode={controls.renderMode}
           simpleSpeed={controls.simpleSpeed}
           simpleScale={controls.simpleScale}
@@ -238,6 +274,9 @@ function BackgroundRuntime() {
           ditherErrorDiffusion={controls.ditherErrorDiffusion}
           ditherThreshold={controls.ditherThreshold}
           ditherLevels={controls.ditherLevels}
+          ditherAnimateNoise={controls.ditherAnimateNoise}
+          ditherNoiseSpeed={controls.ditherNoiseSpeed}
+          ditherNoiseScale={controls.ditherNoiseScale}
           renderMode={controls.renderMode}
           simpleSpeed={controls.simpleSpeed}
           simpleScale={controls.simpleScale}
@@ -253,6 +292,8 @@ function BackgroundRuntime() {
           cssAnimate={controls.cssAnimate}
           cssRotateSpeed={controls.cssRotateSpeed}
           cssRotateDirection={controls.cssRotateDirection}
+          cssScrollRotate={controls.cssScrollRotate}
+          cssScrollRotateSpeed={controls.cssScrollRotateSpeed}
           activeTab={activeTab}
           onTabChange={(tab) => setActiveTab(tab)}
           onChange={setState}

@@ -28,6 +28,9 @@ export interface ThreeGradientBackgroundProps {
   ditherErrorDiffusion?: number;
   ditherThreshold?: number;
   ditherLevels?: number;
+  ditherAnimateNoise?: boolean;
+  ditherNoiseSpeed?: number;
+  ditherNoiseScale?: number;
   renderMode?: "advanced" | "simple";
   simpleSpeed?: number;
   simpleScale?: number;
@@ -239,6 +242,9 @@ export const ThreeGradientBackground: React.FC<ThreeGradientBackgroundProps> = (
   ditherErrorDiffusion = 1.0,
   ditherThreshold = 0.5,
   ditherLevels = 4,
+  ditherAnimateNoise = false,
+  ditherNoiseSpeed = 0.6,
+  ditherNoiseScale = 1.0,
   renderMode = "advanced",
   simpleSpeed = 0.3,
   simpleScale = 1.0,
@@ -387,7 +393,7 @@ export const ThreeGradientBackground: React.FC<ThreeGradientBackgroundProps> = (
           lastPathRef.current = 'dither';
           lastLogTimeRef.current = now;
         }
-        (renderer as any).renderWithDither();
+        (renderer as any).renderWithDither(t);
       } else {
         if (lastPathRef.current !== 'normal' && now - lastLogTimeRef.current > 1000) {
           console.log('[ThreeGradientBackground] Using NORMAL render path', { ditherEnabled: ditherEnabledRef.current, canDither });
@@ -485,6 +491,9 @@ export const ThreeGradientBackground: React.FC<ThreeGradientBackgroundProps> = (
       colorA={new THREE.Color(colorA)}
       colorB={new THREE.Color(colorB)}
       levels={ditherLevels}
+      ditherAnimateNoise={ditherAnimateNoise}
+      ditherNoiseSpeed={ditherNoiseSpeed}
+      ditherNoiseScale={ditherNoiseScale}
     />
   ) : null;
 };

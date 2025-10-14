@@ -22,6 +22,10 @@ export type GradientPreset = {
   ditherErrorDiffusion: number;
   ditherThreshold: number;
   ditherLevels: number;
+  ditherAnimateNoise?: boolean;
+  ditherNoiseSpeed?: number;
+  ditherNoiseScale?: number;
+  backgroundSource?: "css" | "three";
   renderMode: "advanced" | "simple";
   simpleSpeed: number;
   simpleScale: number;

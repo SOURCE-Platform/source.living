@@ -18,6 +18,9 @@ interface PostProcessorProps {
   colorA?: THREE.Color | string;
   colorB?: THREE.Color | string;
   levels?: number;
+  ditherAnimateNoise?: boolean;
+  ditherNoiseSpeed?: number;
+  ditherNoiseScale?: number;
 }
 
 export function PostProcessor({
@@ -33,7 +36,10 @@ export function PostProcessor({
   enabled = true,
   colorA = new THREE.Color(0x000000),
   colorB = new THREE.Color(0xffffff),
-  levels = 4
+  levels = 4,
+  ditherAnimateNoise = false,
+  ditherNoiseSpeed = 1.0,
+  ditherNoiseScale = 1.0,
 }: PostProcessorProps) {
   const renderTargetRef = useRef<THREE.WebGLRenderTarget | null>(null);
   const ditherMaterialRef = useRef<THREE.ShaderMaterial | null>(null);
@@ -74,7 +80,11 @@ export function PostProcessor({
         uThreshold: { value: threshold },
         uColorA: { value: (colorA instanceof THREE.Color) ? colorA : new THREE.Color(colorA as string) },
         uColorB: { value: (colorB instanceof THREE.Color) ? colorB : new THREE.Color(colorB as string) },
-        uLevels: { value: levels }
+        uLevels: { value: levels },
+        uTime: { value: 0.0 },
+        uAnimateNoise: { value: ditherAnimateNoise ? 1.0 : 0.0 },
+        uNoiseSpeed: { value: ditherNoiseSpeed },
+        uNoiseScale: { value: ditherNoiseScale },
       },
       vertexShader: ditherVertexShader,
       fragmentShader: ditherFragmentShader,
@@ -108,10 +118,13 @@ export function PostProcessor({
     ditherMaterialRef.current.uniforms.uResolution.value.set(width, height);
   }, [renderer]);
 
-  const render = useCallback(() => {
+  const render = useCallback((time?: number) => {
     if (!renderer || !scene || !camera || !enabled) return;
     if (!renderTargetRef.current || !postSceneRef.current || !postCameraRef.current) return;
     if (!ditherMaterialRef.current) return;
+
+    const now = time ?? performance.now() * 0.001;
+    ditherMaterialRef.current.uniforms.uTime.value = now;
 
     const originalTarget = renderer.getRenderTarget();
     renderer.setRenderTarget(renderTargetRef.current);
@@ -166,8 +179,24 @@ export function PostProcessor({
       ditherMaterialRef.current.uniforms.uColorA.value = ca;
       ditherMaterialRef.current.uniforms.uColorB.value = cb;
       ditherMaterialRef.current.uniforms.uLevels.value = Math.max(2, Math.floor(levels));
+      ditherMaterialRef.current.uniforms.uAnimateNoise.value = ditherAnimateNoise ? 1.0 : 0.0;
+      ditherMaterialRef.current.uniforms.uNoiseSpeed.value = ditherNoiseSpeed;
+      ditherMaterialRef.current.uniforms.uNoiseScale.value = ditherNoiseScale;
     }
-  }, [ditherScale, contrast, brightness, ditherType, errorDiffusion, threshold, colorA, colorB, levels]);
+  }, [
+    ditherScale,
+    contrast,
+    brightness,
+    ditherType,
+    errorDiffusion,
+    threshold,
+    colorA,
+    colorB,
+    levels,
+    ditherAnimateNoise,
+    ditherNoiseSpeed,
+    ditherNoiseScale,
+  ]);
 
   useEffect(() => {
     if (renderer && render) {

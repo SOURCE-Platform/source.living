@@ -28,6 +28,9 @@ export interface ThreeBGState {
   ditherErrorDiffusion: number;
   ditherThreshold: number;
   ditherLevels: number;
+  ditherAnimateNoise: boolean;
+  ditherNoiseSpeed: number;
+  ditherNoiseScale: number;
   renderMode: "advanced" | "simple";
   simpleSpeed: number;
   simpleScale: number;
@@ -43,6 +46,8 @@ export interface ThreeBGState {
   cssAnimate: boolean;
   cssRotateSpeed: number;
   cssRotateDirection: "cw" | "ccw";
+  cssScrollRotate: boolean;
+  cssScrollRotateSpeed: number;
 }
 
 export interface ThreeBGControls extends ThreeBGState {
@@ -71,6 +76,9 @@ const defaultState: ThreeBGState = {
   ditherErrorDiffusion: 1.0,
   ditherThreshold: 0.5,
   ditherLevels: 4,
+  ditherAnimateNoise: false,
+  ditherNoiseSpeed: 0.6,
+  ditherNoiseScale: 1.0,
   renderMode: "simple",
   simpleSpeed: 0.3,
   simpleScale: 1.0,
@@ -86,6 +94,8 @@ const defaultState: ThreeBGState = {
   cssAnimate: false,
   cssRotateSpeed: 45,
   cssRotateDirection: "cw",
+  cssScrollRotate: true,
+  cssScrollRotateSpeed: 120,
 };
 
 const ThreeBGContext = createContext<ThreeBGControls | null>(null);
@@ -131,6 +141,9 @@ export const ThreeBGProvider: React.FC<ThreeBGProviderProps> = ({ children, init
         ditherErrorDiffusion: preset.ditherErrorDiffusion,
         ditherThreshold: preset.ditherThreshold,
         ditherLevels: preset.ditherLevels,
+        ditherAnimateNoise: preset.ditherAnimateNoise ?? prev.ditherAnimateNoise,
+        ditherNoiseSpeed: preset.ditherNoiseSpeed ?? prev.ditherNoiseSpeed,
+        ditherNoiseScale: preset.ditherNoiseScale ?? prev.ditherNoiseScale,
         renderMode: preset.renderMode,
         simpleSpeed: preset.simpleSpeed,
         simpleScale: preset.simpleScale,
@@ -146,6 +159,8 @@ export const ThreeBGProvider: React.FC<ThreeBGProviderProps> = ({ children, init
         cssAnimate: prev.cssAnimate,
         cssRotateSpeed: prev.cssRotateSpeed,
         cssRotateDirection: prev.cssRotateDirection,
+        cssScrollRotate: preset.cssScrollRotate ?? prev.cssScrollRotate,
+        cssScrollRotateSpeed: preset.cssScrollRotateSpeed ?? prev.cssScrollRotateSpeed,
       };
       onStateChange?.(updated);
       return updated;

@@ -1,7 +1,13 @@
-export function SvgCircle() {
+type SvgCircleProps = {
+  className?: string;
+};
+
+export function SvgCircle({
+  className = "h-[80vh] w-[80vh] text-white dark:text-black",
+}: SvgCircleProps) {
   return (
     <svg
-      className="h-[80vh] w-[80vh] text-white dark:text-black"
+      className={className}
       viewBox="0 0 100 100"
       xmlns="http://www.w3.org/2000/svg"
       role="img"

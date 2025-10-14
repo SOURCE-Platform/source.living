@@ -16,6 +16,7 @@ uniform float uBrightness;
 uniform int uDitherType;
 uniform float uErrorDiffusion;
 uniform float uThreshold;
+uniform float uTime;
 uniform vec3 uColorA;
 uniform vec3 uColorB;
 uniform float uLevels;
@@ -74,7 +75,8 @@ float getBayer8x8(vec2 coord) {
 }
 
 float random(vec2 coord) {
-  return fract(sin(dot(coord, vec2(12.9898, 78.233))) * 43758.5453);
+  vec2 offset = vec2(uTime * 37.0, uTime * 73.0);
+  return fract(sin(dot(coord + offset, vec2(12.9898, 78.233))) * 43758.5453);
 }
 
 float getBlueNoise(vec2 coord) {
@@ -239,7 +241,8 @@ export const ditherShaderUniforms = {
   uThreshold: { value: 0.5 },
   uColorA: { value: { x: 0, y: 0, z: 0 } },
   uColorB: { value: { x: 1, y: 1, z: 1 } },
-  uLevels: { value: 4.0 }
+  uLevels: { value: 4.0 },
+  uTime: { value: 0.0 }
 };
 
 export const DITHER_TYPES = {

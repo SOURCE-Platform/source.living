@@ -1,3 +1,22 @@
+## 2025-10-15 - Section badges, video placeholders, and favicon restore
+
+**Problem:** Section headers still used outdated micro-labels, video placeholders lacked refined styling, architecture cards were missing media slots, the Three.js gradient component had a malformed return causing build failures, and the favicon no longer matched the white-circle branding.
+
+**Root Cause:** Prior iterations introduced partial UI updates without replacing legacy markup, left placeholder styling untouched, truncated the JSX return in `ThreeGradientBackground.tsx`, and added a `.ico` reference overriding the desired SVG/favicon assets.
+
+**Solution:**
+1. Replaced micro-label text with sized `SvgCircle` markers, added spacing, and inserted architecture video placeholders in `src/app/page.tsx`.
+2. Restyled `.video-frame` in `src/app/globals.css` to remove shadows, lighten dark-mode fill, enlarge the play icon, and render a rounded equilateral triangle SVG.
+3. Restored the JSX return block in `src/three-bg-kit/ThreeGradientBackground.tsx` and removed the `.ico` favicon reference in `src/app/layout.tsx`.
+
+**Files Modified:**
+- `src/app/page.tsx`
+- `src/app/globals.css`
+- `src/three-bg-kit/ThreeGradientBackground.tsx`
+- `src/app/layout.tsx`
+
+**Outcome:** Landing sections now feature consistent white circle markers with balanced spacing, architecture cards include dedicated video placeholders, the play icon and background styling align with the updated visual direction, the Three.js background compiles cleanly, and the favicon reverts to the branded white circle.
+
 ## 2025-10-14 - Integrated Three.js and CSS background system
 
 **Problem:** The marketing site required an animated background experience that matched existing gradient branding, plus tooling to switch between WebGL and CSS implementations with configurable controls.

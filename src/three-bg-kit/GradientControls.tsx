@@ -2,7 +2,7 @@
 
 import React from "react";
 import type { NoiseType } from "./ThreeGradientBackground";
-import type { DitherType } from "./shaders/ditherShader";
+import { DITHER_TYPES, type DitherType } from "./shaders/ditherShader";
 
 export interface GradientControlsProps {
   complexity: number;
@@ -25,6 +25,9 @@ export interface GradientControlsProps {
   ditherErrorDiffusion: number;
   ditherThreshold: number;
   ditherLevels?: number;
+  ditherAnimateNoise: boolean;
+  ditherNoiseSpeed: number;
+  ditherNoiseScale: number;
   renderMode: "advanced" | "simple";
   simpleSpeed: number;
   simpleScale: number;
@@ -40,6 +43,8 @@ export interface GradientControlsProps {
   cssAnimate: boolean;
   cssRotateSpeed: number;
   cssRotateDirection: "cw" | "ccw";
+  cssScrollRotate: boolean;
+  cssScrollRotateSpeed: number;
   activeTab: "css" | "simple" | "advanced" | "dither";
   onTabChange: (tab: "css" | "simple" | "advanced" | "dither") => void;
   onChange: (next: {
@@ -63,6 +68,9 @@ export interface GradientControlsProps {
     ditherErrorDiffusion?: number;
     ditherThreshold?: number;
     ditherLevels?: number;
+    ditherAnimateNoise?: boolean;
+    ditherNoiseSpeed?: number;
+    ditherNoiseScale?: number;
     renderMode?: "advanced" | "simple";
     simpleSpeed?: number;
     simpleScale?: number;
@@ -78,6 +86,8 @@ export interface GradientControlsProps {
     cssAnimate?: boolean;
     cssRotateSpeed?: number;
     cssRotateDirection?: "cw" | "ccw";
+    cssScrollRotate?: boolean;
+    cssScrollRotateSpeed?: number;
   }) => void;
   onClose?: () => void;
 }
@@ -103,6 +113,9 @@ export const GradientControls: React.FC<GradientControlsProps> = ({
   ditherErrorDiffusion,
   ditherThreshold,
   ditherLevels = 4,
+  ditherAnimateNoise,
+  ditherNoiseSpeed,
+  ditherNoiseScale,
   renderMode,
   simpleSpeed,
   simpleScale,
@@ -118,6 +131,8 @@ export const GradientControls: React.FC<GradientControlsProps> = ({
   cssAnimate,
   cssRotateSpeed,
   cssRotateDirection,
+  cssScrollRotate,
+  cssScrollRotateSpeed,
   activeTab,
   onTabChange,
   onChange,
@@ -142,6 +157,10 @@ export const GradientControls: React.FC<GradientControlsProps> = ({
       onChange({ renderMode: "advanced" });
     }
   };
+
+  const noiseTypeSupportsAnimation =
+    ditherType === DITHER_TYPES.RANDOM || ditherType === DITHER_TYPES.BLUE_NOISE;
+  const canAnimateNoise = ditherEnabled && noiseTypeSupportsAnimation;
 
   return (
     <div className="fixed bottom-5 right-5 z-20 pointer-events-auto select-none">
@@ -271,6 +290,33 @@ export const GradientControls: React.FC<GradientControlsProps> = ({
                     <option value="ccw">Counter-clockwise</option>
                   </select>
                 </div>
+              </div>
+            </div>
+
+            <div className="space-y-2 rounded border border-neutral-200/60 dark:border-neutral-800/60 p-3">
+              <div className="flex items-center justify-between">
+                <label className="text-xs text-neutral-600 dark:text-neutral-400">Scroll rotates gradient</label>
+                <input
+                  type="checkbox"
+                  checked={cssScrollRotate}
+                  onChange={(e) => onChange({ cssScrollRotate: e.target.checked })}
+                  className="h-4 w-4 accent-indigo-600"
+                />
+              </div>
+              <div className="flex flex-col gap-1 text-xs">
+                <span className="text-neutral-600 dark:text-neutral-400">
+                  Scroll Speed {cssScrollRotateSpeed.toFixed(0)} px / 1°
+                </span>
+                <input
+                  type="range"
+                  min={40}
+                  max={360}
+                  step={5}
+                  value={cssScrollRotateSpeed}
+                  onChange={(e) => onChange({ cssScrollRotateSpeed: parseFloat(e.target.value) })}
+                  className="w-full accent-indigo-600"
+                  disabled={!cssScrollRotate}
+                />
               </div>
             </div>
 
@@ -570,6 +616,67 @@ export const GradientControls: React.FC<GradientControlsProps> = ({
         {activeTab === "dither" && (
           <div className="space-y-4">
             <div className="flex items-center justify-between">
+              <label className="text-xs text-neutral-600 dark:text-neutral-400 mb-1">Dither Type</label>
+              <select
+                value={ditherType}
+                onChange={(e) => onChange({ ditherType: parseInt(e.target.value, 10) as DitherType })}
+                className="rounded border border-neutral-300 dark:border-neutral-700 bg-white/70 dark:bg-neutral-900/70 px-2 py-1.5 text-xs"
+              >
+                {Object.entries(DITHER_TYPES).map(([label, value]) => (
+                  <option key={label} value={value}>
+                    {label.replace(/_/g, " ")}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="space-y-2 rounded border border-neutral-200/60 dark:border-neutral-800/60 p-3">
+              <div className="flex items-center justify-between">
+                <label className="text-xs text-neutral-600 dark:text-neutral-400">Animate Noise</label>
+                <input
+                  type="checkbox"
+                  checked={ditherAnimateNoise}
+                  onChange={(e) => onChange({ ditherAnimateNoise: e.target.checked })}
+                  className="h-4 w-4 accent-indigo-600"
+                  disabled={!noiseTypeSupportsAnimation || !ditherEnabled}
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-3 text-xs">
+                <div className="flex flex-col gap-1">
+                  <span className="text-neutral-600 dark:text-neutral-400">Speed {ditherNoiseSpeed.toFixed(2)}</span>
+                  <input
+                    type="range"
+                    min={0}
+                    max={5}
+                    step={0.05}
+                    value={ditherNoiseSpeed}
+                    onChange={(e) => onChange({ ditherNoiseSpeed: parseFloat(e.target.value) })}
+                    className="w-full accent-indigo-600"
+                    disabled={!canAnimateNoise}
+                  />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <span className="text-neutral-600 dark:text-neutral-400">Scale {ditherNoiseScale.toFixed(2)}</span>
+                  <input
+                    type="range"
+                    min={0.25}
+                    max={4}
+                    step={0.05}
+                    value={ditherNoiseScale}
+                    onChange={(e) => onChange({ ditherNoiseScale: parseFloat(e.target.value) })}
+                    className="w-full accent-indigo-600"
+                    disabled={!canAnimateNoise}
+                  />
+                </div>
+              </div>
+              {!noiseTypeSupportsAnimation && (
+                <p className="text-[11px] leading-snug text-neutral-500 dark:text-neutral-400">
+                  Noise animation is available for Random and Blue Noise dithers.
+                </p>
+              )}
+            </div>
+
+            <div className="flex items-center justify-between">
               <label className="text-xs text-neutral-600 dark:text-neutral-400">Enable Dither</label>
               <input
                 type="checkbox"
@@ -609,39 +716,14 @@ export const GradientControls: React.FC<GradientControlsProps> = ({
               <label className="block text-xs text-neutral-600 dark:text-neutral-400 mb-1">Brightness: {ditherBrightness.toFixed(2)}</label>
               <input
                 type="range"
-                min={0}
+                min={0.2}
                 max={2}
                 step={0.01}
                 value={ditherBrightness}
                 onChange={(e) => onChange({ ditherBrightness: parseFloat(e.target.value) })}
                 className="w-full accent-indigo-600"
+                disabled={!ditherEnabled}
               />
-            </div>
-
-            <div>
-              <label className="block text-xs text-neutral-600 dark:text-neutral-400 mb-1">Dither Type</label>
-              <select
-                value={ditherType}
-                onChange={(e) => onChange({ ditherType: parseInt(e.target.value, 10) as DitherType })}
-                className="w-full text-sm rounded-md border border-neutral-300 dark:border-neutral-700 bg-white/80 dark:bg-neutral-900/80 px-2 py-1"
-              >
-                <option value={0}>Bayer 2x2</option>
-                <option value={1}>Bayer 4x4</option>
-                <option value={2}>Bayer 8x8</option>
-                <option value={3}>Random</option>
-                <option value={4}>Blue Noise</option>
-                <option value={5}>Pattern</option>
-                <option value={6}>Threshold</option>
-                <option value={7}>Floyd–Steinberg</option>
-                <option value={8}>Atkinson</option>
-                <option value={9}>Burkes</option>
-                <option value={10}>Jarvis</option>
-                <option value={11}>Sierra2</option>
-                <option value={12}>Stucki</option>
-                <option value={13}>Diffusion Row</option>
-                <option value={14}>Diffusion Column</option>
-                <option value={15}>Diffusion 2D</option>
-              </select>
             </div>
 
             <div>

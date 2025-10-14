@@ -1,30 +1,55 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { BackgroundAnimation } from "@/components/background-animation";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const ppMori = localFont({
+  src: [
+    {
+      path: "../fonts/PPMori-Extralight.otf",
+      weight: "200",
+      style: "normal",
+    },
+    {
+      path: "../fonts/PPMori-ExtralightItalic.otf",
+      weight: "200",
+      style: "italic",
+    },
+    {
+      path: "../fonts/PPMori-Regular.otf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../fonts/PPMori-RegularItalic.otf",
+      weight: "400",
+      style: "italic",
+    },
+    {
+      path: "../fonts/PPMori-SemiBold.otf",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../fonts/PPMori-SemiBoldItalic.otf",
+      weight: "600",
+      style: "italic",
+    },
+  ],
+  variable: "--font-pp-mori",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "SOURCE",
   description: "Simple marketing site for SOURCE",
   icons: {
-    icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon.ico", type: "image/x-icon" },
-    ],
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
     apple: { url: "/favicon.png", type: "image/png" },
   },
 };
@@ -37,17 +62,19 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground transition-colors duration-300`}
+        className={`${ppMori.variable} antialiased bg-background text-foreground transition-colors duration-300`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <BackgroundAnimation />
-          <div className="relative z-10 flex h-screen overflow-hidden">
-            <div className="absolute right-6 top-6">
+          <div className="relative z-10 flex h-screen">
+            <div className="pointer-events-auto absolute right-6 top-6 z-50 flex flex-col items-end gap-3 text-right">
               <ThemeToggle />
             </div>
-            <main className="flex flex-1 items-center justify-center">
-              {children}
-            </main>
+            <ScrollArea className="flex-1">
+              <main className="min-h-screen w-full">
+                {children}
+              </main>
+            </ScrollArea>
           </div>
         </ThemeProvider>
       </body>
