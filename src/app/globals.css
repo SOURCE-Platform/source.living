@@ -134,7 +134,7 @@
 
 @layer components {
   .video-frame {
-    @apply relative aspect-video w-full overflow-hidden rounded-3xl bg-neutral-900 dark:bg-neutral-700;
+    @apply relative aspect-video w-full overflow-hidden rounded-3xl bg-stone-300 dark:bg-zinc-800;
   }
 
   .video-frame::after {
@@ -156,6 +156,10 @@
 
   .solution-video {
     @apply w-full justify-self-start;
+  }
+
+  .description-text {
+    @apply text-xl font-normal leading-relaxed text-muted-foreground;
   }
 
   @media (max-width: 1023px) {

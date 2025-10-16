@@ -10,7 +10,7 @@ export default function Home() {
         <SvgCircle />
         <div className="max-w-3xl space-y-4">
           <h1 className="text-5xl font-semibold sm:text-6xl">SOURCE</h1>
-          <p className="mx-auto w-full text-lg leading-relaxed text-muted-foreground sm:max-w-[80%] lg:max-w-[60%]">
+          <p className="mx-auto w-full description-text sm:max-w-[80%] lg:max-w-[60%]">
             A holistic companion platform delivering context-aware assistance, privacy-first data
             stewardship, and intuitive ambient computing.
           </p>
@@ -24,7 +24,7 @@ export default function Home() {
             Problem Set
           </h1>
         </div>
-        <div className="mx-auto w-full sm:max-w-[85%] lg:max-w-[75%]">
+        <div className="mx-auto w-full sm:max-w-[85%] lg:max-w-[75%] mb-20">
           <div className="video-frame"></div>
         </div>
         <div className="grid gap-12 pt-8 sm:grid-cols-2 sm:gap-16 lg:gap-20 lg:pt-12">
@@ -80,12 +80,12 @@ export default function Home() {
             Solutions
           </h1>
         </div>
-        <div className="space-y-16">
+        <div className="space-y-18">
           <div className="grid items-start gap-8 lg:grid-cols-[0.75fr_1fr]">
             <div className="video-frame solution-video"></div>
             <section className="space-y-6" id="video-audio-metadata">
               <h2 className="text-3xl font-semibold">Video &amp; Audio Metadata</h2>
-              <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+              <p className="mt-4 description-text w-3/4">
                 SUR interprets multi-modal data to understand family routines, respond to stimuli,
                 and identify physical or emotional needs early.
               </p>
@@ -101,32 +101,32 @@ export default function Home() {
             <div className="video-frame solution-video"></div>
             <section className="space-y-6" id="data-privacy">
               <h2 className="text-3xl font-semibold">Data Privacy &amp; Ownership</h2>
-              <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+              <p className="mt-4 description-text w-3/4">
                 A secure enclave architecture ensures every resident owns their data,
                 controls sharing, and benefits from privacy-first processing.
               </p>
               <div className="mt-6 grid gap-6 sm:grid-cols-3">
                 <div className="space-y-2">
-                  <h3 className="text-sm font-semibold uppercase tracking-wide text-primary">
+                  <h3 className="text-md font-semibold uppercase tracking-wide text-primary">
                     Capture
                   </h3>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                     Video, audio, and LiDAR inputs are distilled into actionable metadata.
                   </p>
                 </div>
                 <div className="space-y-2">
-                  <h3 className="text-sm font-semibold uppercase tracking-wide text-primary">
+                  <h3 className="text-md font-semibold uppercase tracking-wide text-primary">
                     Secure Enclave
                   </h3>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                     Two-stage verification with hashing, tokenization, and privacy filtering.
                   </p>
                 </div>
                 <div className="space-y-2">
-                  <h3 className="text-sm font-semibold uppercase tracking-wide text-primary">
+                  <h3 className="text-md font-semibold uppercase tracking-wide text-primary">
                     Ownership
                   </h3>
-                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                     Individuals choose what to share and with whom, retaining full control.
                   </p>
                 </div>
@@ -137,26 +137,26 @@ export default function Home() {
             <div className="video-frame solution-video"></div>
             <section className="space-y-6" id="source-id">
               <h2 className="text-3xl font-semibold">Source ID</h2>
-              <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+              <p className="mt-4 description-text w-3/4">
                 A multi-modal identity platform providing frictionless IAM that understands
                 people through rich context and sensor fusion.
               </p>
               <div className="mt-6 grid gap-6 sm:grid-cols-3">
                 <div className="space-y-2">
-                  <h3 className="text-sm font-semibold text-primary">Biometrics</h3>
-                  <p className="text-xs text-muted-foreground">
+                  <h3 className="text-md font-semibold text-primary">Biometrics</h3>
+                  <p className="text-sm text-muted-foreground">
                     Face, iris, retina, voice, and gait captured with adaptive trust scoring.
                   </p>
                 </div>
                 <div className="space-y-2">
-                  <h3 className="text-sm font-semibold text-primary">Behavior</h3>
-                  <p className="text-xs text-muted-foreground">
+                  <h3 className="text-md font-semibold text-primary">Behavior</h3>
+                  <p className="text-sm text-muted-foreground">
                     Device usage, gestures, and routines keep authentication invisible.
                   </p>
                 </div>
                 <div className="space-y-2">
-                  <h3 className="text-sm font-semibold text-primary">Hardware</h3>
-                  <p className="text-xs text-muted-foreground">
+                  <h3 className="text-md font-semibold text-primary">Hardware</h3>
+                  <p className="text-sm text-muted-foreground">
                     Secure agents across home devices provide zero-friction access.
                   </p>
                 </div>
@@ -167,7 +167,7 @@ export default function Home() {
             <div className="video-frame solution-video"></div>
             <section className="space-y-6" id="cast">
               <h2 className="text-3xl font-semibold">CAST</h2>
-              <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+              <p className="mt-4 description-text w-3/4">
                 Social network and communication platform powered by SOURCE ID.
               </p>
               <ul className="mt-6 space-y-3 text-sm text-muted-foreground">
@@ -186,7 +186,7 @@ export default function Home() {
           <h1 className="text-4xl font-semibold leading-tight sm:text-5xl">
             Use Cases
           </h1>
-          <p className="text-base text-muted-foreground">
+          <p className="description-text">
             Specific examples and UX narratives demonstrating SUR&apos;s real-world impact.
           </p>
         </div>
@@ -255,7 +255,7 @@ export default function Home() {
           <article className="space-y-6" id="hardware">
             <h2 className="text-3xl font-semibold">Hardware</h2>
             <div className="video-frame" />
-            <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+            <p className="mt-4 description-text">
               Ambient sensors, wearable integrations, and adaptive edge devices form a resilient perimeter.
             </p>
             <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
@@ -267,7 +267,7 @@ export default function Home() {
           <article className="space-y-6" id="software">
             <h2 className="text-3xl font-semibold">Software</h2>
             <div className="video-frame" />
-            <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+            <p className="mt-4 description-text">
               A modular platform orchestrating AI services, privacy-preserving analytics, and identity management.
             </p>
             <ul className="mt-4 space-y-3 text-sm text-muted-foreground">

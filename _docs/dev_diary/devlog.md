@@ -1,3 +1,22 @@
+## 2025-10-17 - Agent documentation, video styling, and description text refinements
+
+**Problem:** The codebase lacked standardized agent tooling documentation, video placeholders had inconsistent styling across light/dark themes, and description text throughout the site needed improved typography and layout consistency.
+
+**Root Cause:** No AGENTS.md file existed for coding tools, video frames used dark-only styling that didn't adapt well to light mode, and description paragraphs used inconsistent styling classes that were difficult to maintain.
+
+**Solution:**
+1. Created comprehensive AGENTS.md file with build commands, architecture overview, and code style guidelines for agentic coding tools.
+2. Updated video frame styling to use very light gray backgrounds in light mode and darker gray in dark mode.
+3. Consolidated description text styling into a single `.description-text` CSS class with larger, semi-bold typography.
+4. Reduced description paragraph width by 33% in the Solutions section for better visual balance.
+
+**Files Modified:**
+- `AGENTS.md`
+- `src/app/globals.css`
+- `src/app/page.tsx`
+
+**Outcome:** Agentic coding tools now have comprehensive project documentation, video placeholders have improved theme-aware styling, and description text throughout the site features consistent, prominent typography with optimized layout spacing.
+
 ## 2025-10-15 - Section badges, video placeholders, and favicon restore
 
 **Problem:** Section headers still used outdated micro-labels, video placeholders lacked refined styling, architecture cards were missing media slots, the Three.js gradient component had a malformed return causing build failures, and the favicon no longer matched the white-circle branding.
