@@ -11,7 +11,7 @@ export default function Home() {
         <div className="max-w-3xl space-y-4">
           <h1 className="text-5xl font-semibold sm:text-6xl">SOURCE</h1>
           <p className="mx-auto w-full description-text sm:max-w-[80%] lg:max-w-[60%]">
-            A holistic companion platform delivering context-aware assistance, privacy-first data
+            A decentralised open-source AI platform delivering context-aware assistance, privacy-first data
             stewardship, and intuitive ambient computing.
           </p>
         </div>
@@ -25,7 +25,9 @@ export default function Home() {
           </h1>
         </div>
         <div className="mx-auto w-full sm:max-w-[85%] lg:max-w-[75%] mb-20">
-          <div className="video-frame"></div>
+          <div className="video-frame">
+            <span className="video-play-icon" aria-hidden="true" />
+          </div>
         </div>
         <div className="grid gap-12 pt-8 sm:grid-cols-2 sm:gap-16 lg:gap-20 lg:pt-12">
           <article className="space-y-4">
@@ -65,7 +67,7 @@ export default function Home() {
             <h2 className="text-2xl font-semibold text-primary">AI Slop &amp; Bots</h2>
             <ul className="space-y-3 text-base leading-relaxed text-muted-foreground">
               <li>Near-future impossible to distinguish from reality video and audio content</li>
-              <li>Enshitification of Internet content</li>
+              <li>The death and enshitification of the Internet</li>
               <li>Humans unable to discern real from fake</li>
               <li>Loss of meaning. Nothing is true.</li>
             </ul>
@@ -82,23 +84,35 @@ export default function Home() {
         </div>
         <div className="space-y-18">
           <div className="grid items-start gap-8 lg:grid-cols-[0.75fr_1fr]">
-            <div className="video-frame solution-video"></div>
+            <div className="video-frame solution-video">
+              <span className="video-play-icon" aria-hidden="true" />
+            </div>
             <section className="space-y-6" id="video-audio-metadata">
               <h2 className="text-3xl font-semibold">Video &amp; Audio Metadata</h2>
               <p className="mt-4 description-text w-3/4">
                 SUR interprets multi-modal data to understand family routines, respond to stimuli,
                 and identify physical or emotional needs early.
               </p>
-              <ul className="mt-6 grid gap-3 text-sm text-muted-foreground sm:grid-cols-2">
-                <li>Daily habits and scheduling</li>
-                <li>Emotional reaction mapping</li>
-                <li>Health indicator detection</li>
-                <li>Relationship context awareness</li>
+              <ul className="mt-6 grid gap-4 text-sm sm:grid-cols-2">
+                <li className="solution-card">
+                  Daily habits and scheduling
+                </li>
+                <li className="solution-card">
+                  Emotional reaction mapping
+                </li>
+                <li className="solution-card">
+                  Health indicator detection
+                </li>
+                <li className="solution-card">
+                  Relationship context awareness
+                </li>
               </ul>
             </section>
           </div>
           <div className="grid items-start gap-8 lg:grid-cols-[0.75fr_1fr]">
-            <div className="video-frame solution-video"></div>
+            <div className="video-frame solution-video">
+              <span className="video-play-icon" aria-hidden="true" />
+            </div>
             <section className="space-y-6" id="data-privacy">
               <h2 className="text-3xl font-semibold">Data Privacy &amp; Ownership</h2>
               <p className="mt-4 description-text w-3/4">
@@ -134,7 +148,9 @@ export default function Home() {
             </section>
           </div>
           <div className="grid items-start gap-8 lg:grid-cols-[0.75fr_1fr]">
-            <div className="video-frame solution-video"></div>
+            <div className="video-frame solution-video">
+              <span className="video-play-icon" aria-hidden="true" />
+            </div>
             <section className="space-y-6" id="source-id">
               <h2 className="text-3xl font-semibold">Source ID</h2>
               <p className="mt-4 description-text w-3/4">
@@ -164,16 +180,24 @@ export default function Home() {
             </section>
           </div>
           <div className="grid items-start gap-8 lg:grid-cols-[0.75fr_1fr]">
-            <div className="video-frame solution-video"></div>
+            <div className="video-frame solution-video">
+              <span className="video-play-icon" aria-hidden="true" />
+            </div>
             <section className="space-y-6" id="cast">
               <h2 className="text-3xl font-semibold">CAST</h2>
               <p className="mt-4 description-text w-3/4">
                 Social network and communication platform powered by SOURCE ID.
               </p>
-              <ul className="mt-6 space-y-3 text-sm text-muted-foreground">
-                <li>Live Audio &amp; Video Chat</li>
-                <li>Email Replacement</li>
-                <li>User Controlled Algo</li>
+              <ul className="mt-6 grid gap-3 text-sm sm:grid-cols-3">
+                <li className="solution-card">
+                  Live Audio &amp; Video Chat
+                </li>
+                <li className="solution-card">
+                  Email Replacement
+                </li>
+                <li className="solution-card">
+                  User Controlled Algo
+                </li>
               </ul>
             </section>
           </div>
@@ -254,7 +278,9 @@ export default function Home() {
         <div className="grid gap-12 sm:gap-16 lg:grid-cols-2 lg:gap-20">
           <article className="space-y-6" id="hardware">
             <h2 className="text-3xl font-semibold">Hardware</h2>
-            <div className="video-frame" />
+            <div className="video-frame">
+              <span className="video-play-icon" aria-hidden="true" />
+            </div>
             <p className="mt-4 description-text">
               Ambient sensors, wearable integrations, and adaptive edge devices form a resilient perimeter.
             </p>
@@ -266,7 +292,9 @@ export default function Home() {
           </article>
           <article className="space-y-6" id="software">
             <h2 className="text-3xl font-semibold">Software</h2>
-            <div className="video-frame" />
+            <div className="video-frame">
+              <span className="video-play-icon" aria-hidden="true" />
+            </div>
             <p className="mt-4 description-text">
               A modular platform orchestrating AI services, privacy-preserving analytics, and identity management.
             </p>

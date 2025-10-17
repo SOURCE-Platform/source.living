@@ -134,28 +134,42 @@
 
 @layer components {
   .video-frame {
-    @apply relative aspect-video w-full overflow-hidden rounded-3xl bg-stone-300 dark:bg-zinc-800;
+    @apply relative aspect-video w-full overflow-hidden rounded-3xl bg-stone-300 transition-transform duration-200 ease-out dark:bg-zinc-800;
   }
 
-  .video-frame::after {
-    content: "";
-    position: absolute;
-    inset: 50%;
-    width: 7rem;
-    aspect-ratio: 1;
-    transform: translate(-50%, -50%) scale(0.85);
-    opacity: 0;
-    transition: opacity 200ms ease, transform 200ms ease;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath fill='%23ffffff' d='M30 28 Q30 20 36.93 24 L99.28 60 Q107.28 64 99.28 68 L36.93 96 Q30 100 30 92 Z'/%3E%3C/svg%3E") center / contain no-repeat;
-  }
-
-  .video-frame:hover::after {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+  .video-frame:hover {
+    @apply cursor-pointer;
   }
 
   .solution-video {
     @apply w-full justify-self-start;
+  }
+
+  .video-play-icon {
+    @apply pointer-events-none absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center opacity-0 transition-all duration-200 ease-out;
+    height: 20%;
+    width: 20%;
+    min-height: 3.5rem;
+    min-width: 3.5rem;
+    max-height: 7rem;
+    max-width: 7rem;
+  }
+
+  .video-play-icon::before {
+    content: "";
+    @apply block h-full w-full;
+    background: linear-gradient(-30deg, #ffc1d5 0%, #fefee3 35%, #fefee3 64%, #97a1fb 100%);
+    mask: url("/icons/play.svg") center / contain no-repeat;
+    -webkit-mask: url("/icons/play.svg") center / contain no-repeat;
+    filter: drop-shadow(0 20px 40px rgba(23, 23, 32, 0.12));
+  }
+
+  .video-frame:hover .video-play-icon {
+    @apply scale-105 opacity-100;
+  }
+
+  .solution-card {
+    @apply rounded-2xl bg-zinc-100 p-4 font-medium text-zinc-800 backdrop-blur-sm dark:bg-zinc-800 dark:text-zinc-200;
   }
 
   .description-text {

@@ -1,3 +1,21 @@
+## 2025-10-17 - Gradient play icons and solution layout polish
+
+**Problem:** Video placeholders across sections lacked consistent interactive affordances, solution lists were unstyled, and the CAST/Problem Set descriptions didn't match updated copy.
+
+**Root Cause:** Play icons were only plain placeholders without hover states or consistent sizing, some sections reused generic lists without distinct cards, and marketing copy updates hadn't been propagated.
+
+**Solution:**
+1. Added grayscale solution cards with hover-ready play icons across Problem Set, Solutions, and Architecture video frames.
+2. Centralized `solution-card` and `video-play-icon` styles in `src/app/globals.css`, including gradient fill, sizing (20% height), and hover transitions without strokes.
+3. Updated `public/icons/play.svg` to a fill-only triangle and refreshed hero/problem copy in `src/app/page.tsx`.
+
+**Files Modified:**
+- `src/app/page.tsx`
+- `src/app/globals.css`
+- `public/icons/play.svg`
+
+**Outcome:** All video frames now reveal a gradient play affordance on hover, solution content follows a consistent card design, and copy aligns with the decentralized SOURCE messaging.
+
 ## 2025-10-17 - Agent documentation, video styling, and description text refinements
 
 **Problem:** The codebase lacked standardized agent tooling documentation, video placeholders had inconsistent styling across light/dark themes, and description text throughout the site needed improved typography and layout consistency.
