@@ -1,3 +1,25 @@
+## 2025-10-20 - Floating navigation header with scroll transitions
+
+**Problem:** The site needed a dynamic header that transitions from a full-width bar with logo and subscribe form to a compact floating navigation island when users scroll down, with smooth animations and proper content flow underneath.
+
+**Root Cause:** Initial implementation created duplicate nav elements and used sticky positioning that clipped scrolling content. Position transitions between percentage-based (`top-1/2`) and fixed values (`top-6`) caused snapping instead of smooth animations.
+
+**Solution:**
+1. Created `SourceLogo` component combining pictogram and wordmark SVGs with light/dark mode support via CSS invert filters.
+2. Built `MainHeader` with mega menu navigation structure, newsletter subscribe form, and theme toggle.
+3. Implemented scroll detection using ScrollArea viewport element to trigger floating state at 120px threshold.
+4. Refactored to single nav element using fixed positioning with transform-based vertical movement for smooth transitions.
+5. Applied conditional styling for rounded background, border, padding, and shadow that animate with `transition-all duration-300 ease-out`.
+6. Changed header from sticky to fixed with `h-0` when floating to prevent content clipping.
+
+**Files Modified:**
+- `src/components/source-logo.tsx` (new)
+- `src/components/main-header.tsx` (new)
+- `src/components/ui/scroll-area.tsx`
+- `src/app/layout.tsx`
+
+**Outcome:** Header smoothly transitions between full-width bar and floating navigation island on scroll, with logo/subscribe form fading out while nav links morph into a centered rounded pill. Content scrolls freely underneath without clipping, and all animations use consistent easing for a polished user experience.
+
 ## 2025-10-17 - Gradient play icons and solution layout polish
 
 **Problem:** Video placeholders across sections lacked consistent interactive affordances, solution lists were unstyled, and the CAST/Problem Set descriptions didn't match updated copy.

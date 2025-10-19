@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 
 import { ThemeProvider } from "@/components/theme-provider";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { BackgroundAnimation } from "@/components/background-animation";
+import { MainHeader } from "@/components/main-header";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 import "./globals.css";
@@ -66,11 +66,9 @@ export default function RootLayout({
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <BackgroundAnimation />
-          <div className="relative z-10 flex h-screen">
-            <div className="pointer-events-auto absolute right-6 top-6 z-50 flex flex-col items-end gap-3 text-right">
-              <ThemeToggle />
-            </div>
-            <ScrollArea className="flex-1">
+          <div className="relative z-10 flex h-screen flex-col">
+            <MainHeader />
+            <ScrollArea className="flex-1" viewportId="main-content">
               <main className="min-h-screen w-full">
                 {children}
               </main>

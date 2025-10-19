@@ -3,7 +3,7 @@ type SvgCircleProps = {
 };
 
 export function SvgCircle({
-  className = "h-[80vh] w-[80vh] text-white dark:text-black",
+  className = "h-[40vh] w-[40vh] text-white dark:text-black",
 }: SvgCircleProps) {
   return (
     <svg

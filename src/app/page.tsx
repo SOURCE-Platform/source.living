@@ -29,49 +29,99 @@ export default function Home() {
             <span className="video-play-icon" aria-hidden="true" />
           </div>
         </div>
-        <div className="grid gap-12 pt-8 sm:grid-cols-2 sm:gap-16 lg:gap-20 lg:pt-12">
-          <article className="space-y-4">
-            <h2 className="text-2xl font-semibold text-primary">Mental &amp; Emotional</h2>
-            <ul className="space-y-3 text-base leading-relaxed text-muted-foreground">
-              <li>Loneliness and social isolation</li>
-              <li>Persistent depression and mood disorders</li>
-              <li>Neurodivergent learning pathways</li>
-              <li>Rigid &ldquo;one size fits all&rdquo; education</li>
-            </ul>
-          </article>
-          <article className="space-y-4">
-            <h2 className="text-2xl font-semibold text-primary">Social</h2>
-            <ul className="space-y-3 text-base leading-relaxed text-muted-foreground">
-              <li>Fragmented relationships and conflicts</li>
-              <li>Degradation of meaningful social bonds</li>
-              <li>Bullying, crime, and covert emotional abuse</li>
-            </ul>
-          </article>
-          <article className="space-y-4">
-            <h2 className="text-2xl font-semibold text-primary">Physical</h2>
-            <ul className="space-y-3 text-base leading-relaxed text-muted-foreground">
-              <li>Poor, reactive health management</li>
-              <li>Late-stage diagnosis of disease</li>
-              <li>Lack of accident detection and prevention</li>
-            </ul>
-          </article>
-          <article className="space-y-4">
-            <h2 className="text-2xl font-semibold text-primary">Computing UX</h2>
-            <ul className="space-y-3 text-base leading-relaxed text-muted-foreground">
-              <li>GUI friction and digital overwhelm</li>
-              <li>Fragmented ecosystems of OSs, apps, and data</li>
-              <li>Identity and access management pain points</li>
-            </ul>
-          </article>
-          <article className="space-y-4">
-            <h2 className="text-2xl font-semibold text-primary">AI Slop &amp; Bots</h2>
-            <ul className="space-y-3 text-base leading-relaxed text-muted-foreground">
-              <li>Near-future impossible to distinguish from reality video and audio content</li>
-              <li>The death and enshitification of the Internet</li>
-              <li>Humans unable to discern real from fake</li>
-              <li>Loss of meaning. Nothing is true.</li>
-            </ul>
-          </article>
+        <div className="relative space-y-16 pt-8 sm:space-y-20 lg:space-y-32 lg:pt-12">
+          <svg
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 h-full w-full -translate-y-0 text-gray-300 dark:text-zinc-700 -z-10"
+            preserveAspectRatio="xMidYMid meet"
+            viewBox="-50 -50 100 100"
+          >
+            <line
+              x1="0"
+              x2="0"
+              y1="-50"
+              y2="50"
+              stroke="currentColor"
+              strokeWidth="0.5"
+              vectorEffect="non-scaling-stroke"
+            />
+            <line
+              x1="0"
+              x2="0"
+              y1="-50"
+              y2="50"
+              stroke="currentColor"
+              strokeWidth="0.5"
+              vectorEffect="non-scaling-stroke"
+              transform="rotate(60 0 0)"
+            />
+            <line
+              x1="0"
+              x2="0"
+              y1="-50"
+              y2="50"
+              stroke="currentColor"
+              strokeWidth="0.5"
+              vectorEffect="non-scaling-stroke"
+              transform="rotate(120 0 0)"
+            />
+          </svg>
+          <div className="grid gap-12 justify-center sm:grid-cols-2 sm:gap-x-12 sm:gap-y-12 lg:gap-x-20">
+            <article className="space-y-4 w-[300px] sm:justify-self-end">
+              <h2 className="text-2xl font-semibold text-primary">Mental &amp; Emotional</h2>
+              <ul className="space-y-3 text-base leading-relaxed text-muted-foreground">
+                <li>Loneliness and social isolation</li>
+                <li>Persistent depression and mood disorders</li>
+                <li>Neurodivergent learning pathways</li>
+                <li>Rigid &ldquo;one size fits all&rdquo; education</li>
+              </ul>
+            </article>
+            <article className="space-y-4 w-[300px]">
+              <h2 className="text-2xl font-semibold text-primary">Social</h2>
+              <ul className="space-y-3 text-base leading-relaxed text-muted-foreground">
+                <li>Fragmented relationships and conflicts</li>
+                <li>Degradation of meaningful social bonds</li>
+                <li>Bullying, crime, and covert emotional abuse</li>
+              </ul>
+            </article>
+          </div>
+          <div className="grid gap-12 justify-center sm:grid-cols-2 sm:gap-x-[18rem] sm:gap-y-12 lg:gap-x-[24rem] xl:gap-x-[32rem]">
+            <article className="space-y-4 w-[300px] sm:justify-self-end">
+              <h2 className="text-2xl font-semibold text-primary">Physical</h2>
+              <ul className="space-y-3 text-base leading-relaxed text-muted-foreground">
+                <li>Poor, reactive health management</li>
+                <li>Late-stage diagnosis of disease</li>
+                <li>Lack of accident detection and prevention</li>
+              </ul>
+            </article>
+            <article className="space-y-4 w-[300px]">
+              <h2 className="text-2xl font-semibold text-primary">Computing UX</h2>
+              <ul className="space-y-3 text-base leading-relaxed text-muted-foreground">
+                <li>GUI friction and digital overwhelm</li>
+                <li>Fragmented ecosystems of OSs, apps, and data</li>
+                <li>Identity and access management pain points</li>
+              </ul>
+            </article>
+          </div>
+          <div className="grid gap-12 justify-center sm:grid-cols-2 sm:gap-x-12 sm:gap-y-12 lg:gap-x-20">
+            <article className="space-y-4 w-[300px] sm:justify-self-end">
+              <h2 className="text-2xl font-semibold text-primary">AI Slop &amp; Bots</h2>
+              <ul className="space-y-3 text-base leading-relaxed text-muted-foreground">
+                <li>Near-future impossible to distinguish from reality video and audio content</li>
+                <li>The death and enshitification of the Internet</li>
+                <li>Humans unable to discern real from fake</li>
+                <li>Loss of meaning. Nothing is true.</li>
+              </ul>
+            </article>
+            <article className="space-y-4 w-[300px]">
+              <h2 className="text-2xl font-semibold text-primary">Dark Social Networks</h2>
+              <ul className="space-y-3 text-base leading-relaxed text-muted-foreground">
+                <li>Users unable to have fine grain control over their algo</li>
+                <li>Ineffectivness and annoyance of the status quo of &ldquo;interuption advertising&rdquo;</li>
+                <li>Lack of human verification and holistically tying user to real world people</li>
+              </ul>
+            </article>
+          </div>
         </div>
       </section>
 
@@ -93,7 +143,7 @@ export default function Home() {
                 SUR interprets multi-modal data to understand family routines, respond to stimuli,
                 and identify physical or emotional needs early.
               </p>
-              <ul className="mt-6 grid gap-4 text-sm sm:grid-cols-2">
+              <ul className="mt-6 flex flex-wrap gap-4 text-sm">
                 <li className="solution-card">
                   Daily habits and scheduling
                 </li>
@@ -188,7 +238,7 @@ export default function Home() {
               <p className="mt-4 description-text w-3/4">
                 Social network and communication platform powered by SOURCE ID.
               </p>
-              <ul className="mt-6 grid gap-3 text-sm sm:grid-cols-3">
+              <ul className="mt-6 flex flex-wrap gap-3 text-sm">
                 <li className="solution-card">
                   Live Audio &amp; Video Chat
                 </li>
@@ -215,55 +265,76 @@ export default function Home() {
           </p>
         </div>
         <div className="grid gap-12 lg:grid-cols-2">
-          <article className="space-y-3">
-            <h2 className="text-2xl font-semibold text-primary">Francis</h2>
-            <p className="mx-auto w-full text-sm leading-relaxed text-muted-foreground sm:max-w-[85%] lg:max-w-[75%]">
-              Francis, an elderly lady, falls down and can&apos;t get up. SUR alerts emergency services immediately,
-              allowing her to stay in her home longer and postpone assisted care facilities indefinitely.
-            </p>
+          <article className="flex items-start gap-6">
+            <div className="h-24 w-24 flex-none rounded-3xl bg-stone-300 dark:bg-zinc-800" aria-hidden="true" />
+            <div className="space-y-3">
+              <h2 className="text-2xl font-semibold text-primary">Francis</h2>
+              <p className="text-base leading-relaxed text-muted-foreground sm:max-w-[85%] lg:max-w-[75%]">
+                Francis, an elderly lady, falls down and can&apos;t get up. SUR alerts emergency services immediately,
+                allowing her to stay in her home longer and postpone assisted care facilities indefinitely.
+              </p>
+            </div>
           </article>
-          <article className="space-y-3">
-            <h2 className="text-2xl font-semibold text-primary">Jane</h2>
-            <p className="mx-auto w-full text-sm leading-relaxed text-muted-foreground sm:max-w-[85%] lg:max-w-[75%]">
-              Jane can&apos;t afford a human therapist and desperately needs to see one. With SUR continuously collecting
-              real-world and digital user data, it builds a holistic understanding of her behavior and supports
-              recovery via its AI therapist.
-            </p>
+          <article className="flex items-start gap-6">
+            <div className="h-24 w-24 flex-none rounded-3xl bg-stone-300 dark:bg-zinc-800" aria-hidden="true" />
+            <div className="space-y-3">
+              <h2 className="text-2xl font-semibold text-primary">Jane</h2>
+              <p className="text-base leading-relaxed text-muted-foreground sm:max-w-[85%] lg:max-w-[75%]">
+                Jane can&apos;t afford a human therapist and desperately needs to see one. With SUR continuously collecting
+                real-world and digital user data, it builds a holistic understanding of her behavior and supports
+                recovery via its AI therapist.
+              </p>
+            </div>
           </article>
-          <article className="space-y-3">
-            <h2 className="text-2xl font-semibold text-primary">Fred</h2>
-            <p className="mx-auto w-full text-sm leading-relaxed text-muted-foreground sm:max-w-[85%] lg:max-w-[75%]">
-              Fred is very lonely and turns to his companion Sen to share feelings without worry, confident that his
-              data remains fully private and user-owned.
-            </p>
+          <article className="flex items-start gap-6">
+            <div className="h-24 w-24 flex-none rounded-3xl bg-stone-300 dark:bg-zinc-800" aria-hidden="true" />
+            <div className="space-y-3">
+              <h2 className="text-2xl font-semibold text-primary">Fred</h2>
+              <p className="text-base leading-relaxed text-muted-foreground sm:max-w-[85%] lg:max-w-[75%]">
+                Fred is very lonely and turns to his companion Sen to share feelings without worry, confident that his
+                data remains fully private and user-owned.
+              </p>
+            </div>
           </article>
-          <article className="space-y-3">
-            <h2 className="text-2xl font-semibold text-primary">Sam</h2>
-            <p className="mx-auto w-full text-sm leading-relaxed text-muted-foreground sm:max-w-[85%] lg:max-w-[75%]">
-              Sam wants to decrease screen time yet stay productive. She walks around her home doing chores while SUR&apos;s
-              assistant recites messages from email, social feeds, and messenger apps hands-free.
-            </p>
+          <article className="flex items-start gap-6">
+            <div className="h-24 w-24 flex-none rounded-3xl bg-stone-300 dark:bg-zinc-800" aria-hidden="true" />
+            <div className="space-y-3">
+              <h2 className="text-2xl font-semibold text-primary">Sam</h2>
+              <p className="text-base leading-relaxed text-muted-foreground sm:max-w-[85%] lg:max-w-[75%]">
+                Sam wants to decrease screen time yet stay productive. She walks around her home doing chores while SUR&apos;s
+                assistant recites messages from email, social feeds, and messenger apps hands-free.
+              </p>
+            </div>
           </article>
-          <article className="space-y-3">
-            <h2 className="text-2xl font-semibold text-primary">Sara</h2>
-            <p className="mx-auto w-full text-sm leading-relaxed text-muted-foreground sm:max-w-[85%] lg:max-w-[75%]">
-              Sara is on a calorie-restricted diet. SUR tracks her daily intake, monitors pantry levels, and coaches her
-              toward healthier habits without micromanaging.
-            </p>
+          <article className="flex items-start gap-6">
+            <div className="h-24 w-24 flex-none rounded-3xl bg-stone-300 dark:bg-zinc-800" aria-hidden="true" />
+            <div className="space-y-3">
+              <h2 className="text-2xl font-semibold text-primary">Sara</h2>
+              <p className="text-base leading-relaxed text-muted-foreground sm:max-w-[85%] lg:max-w-[75%]">
+                Sara is on a calorie-restricted diet. SUR tracks her daily intake, monitors pantry levels, and coaches her
+                toward healthier habits without micromanaging.
+              </p>
+            </div>
           </article>
-          <article className="space-y-3">
-            <h2 className="text-2xl font-semibold text-primary">Jack</h2>
-            <p className="mx-auto w-full text-sm leading-relaxed text-muted-foreground sm:max-w-[85%] lg:max-w-[75%]">
-              Jack misplaces his keys while rushing out. SUR notices and intervenes, alerting him that the keys are
-              behind last night&apos;s couch cushions, saving him precious time.
-            </p>
+          <article className="flex items-start gap-6">
+            <div className="h-24 w-24 flex-none rounded-3xl bg-stone-300 dark:bg-zinc-800" aria-hidden="true" />
+            <div className="space-y-3">
+              <h2 className="text-2xl font-semibold text-primary">Jack</h2>
+              <p className="text-base leading-relaxed text-muted-foreground sm:max-w-[85%] lg:max-w-[75%]">
+                Jack misplaces his keys while rushing out. SUR notices and intervenes, alerting him that the keys are
+                behind last night&apos;s couch cushions, saving him precious time.
+              </p>
+            </div>
           </article>
-          <article className="space-y-3">
-            <h2 className="text-2xl font-semibold text-primary">Tabitha</h2>
-            <p className="mx-auto w-full text-sm leading-relaxed text-muted-foreground sm:max-w-[85%] lg:max-w-[75%]">
-              Tabitha jumps between devices all day while working from home. SUR keeps her logged in automatically as
-              she approaches any device, blending presence detection with Source ID.
-            </p>
+          <article className="flex items-start gap-6">
+            <div className="h-24 w-24 flex-none rounded-3xl bg-stone-300 dark:bg-zinc-800" aria-hidden="true" />
+            <div className="space-y-3">
+              <h2 className="text-2xl font-semibold text-primary">Tabitha</h2>
+              <p className="text-base leading-relaxed text-muted-foreground sm:max-w-[85%] lg:max-w-[75%]">
+                Tabitha jumps between devices all day while working from home. SUR keeps her logged in automatically as
+                she approaches any device, blending presence detection with Source ID.
+              </p>
+            </div>
           </article>
         </div>
       </section>
