@@ -1,3 +1,22 @@
+## 2025-10-23 - Data-driven navigation with category routes
+
+**Problem:** The header mega menu items were static labels without real navigation targets, and there were no category or subpage routes for users to land on.
+
+**Root Cause:** The menu structure lived inline inside `MainHeader()` with plain strings for submenu items, and the `src/app/` directory lacked dynamic routes for categories and detail pages.
+
+**Solution:**
+1. Moved navigation definitions into `src/lib/navigation.ts` with typed helpers for finding categories and subpages.
+2. Updated `MainHeader()` to render `Link` elements styled as full-width buttons, backed by the shared navigation data.
+3. Added dynamic routes under `src/app/[category]/` and `src/app/[category]/[slug]/` to list section links and provide placeholder content for each subpage.
+
+**Files Modified:**
+- `src/components/main-header.tsx`
+- `src/lib/navigation.ts`
+- `src/app/[category]/page.tsx`
+- `src/app/[category]/[slug]/page.tsx`
+
+**Outcome:** Mega menu items now navigate to dedicated category pages with internal section links, submenu selections open their corresponding subpages, and the header dropdown presents fully clickable, accessible link buttons.
+
 ## 2025-10-20 - Floating navigation header with scroll transitions
 
 **Problem:** The site needed a dynamic header that transitions from a full-width bar with logo and subscribe form to a compact floating navigation island when users scroll down, with smooth animations and proper content flow underneath.

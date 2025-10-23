@@ -1,21 +1,13 @@
 "use client";
 
 import { useEffect, useMemo, useState, type FormEvent } from "react";
+import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { SourceLogo } from "@/components/source-logo";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { cn } from "@/lib/utils";
-
-interface MegaMenuSection {
-  title: string;
-  items?: string[];
-}
-
-interface MegaMenuItem {
-  label: string;
-  sections: MegaMenuSection[];
-}
+import { MAIN_NAV_ITEMS, type MainNavItem } from "@/lib/navigation";
 
 const FLOAT_THRESHOLD = 120;
 
@@ -23,55 +15,7 @@ export function MainHeader() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [isFloating, setIsFloating] = useState(false);
 
-  const menuItems = useMemo<MegaMenuItem[]>(
-    () => [
-      {
-        label: "Hardware",
-        sections: [
-          { title: "Sensor Speaker" },
-          { title: "AI Computer" },
-          { title: "Private & Public" },
-        ],
-      },
-      {
-        label: "Software",
-        sections: [{ title: "0" }, { title: "CAST" }],
-      },
-      {
-        label: "SOURCE ID",
-        sections: [
-          { title: "Applications & UX" },
-          { title: "Architecture" },
-          { title: "ZKPs" },
-        ],
-      },
-      {
-        label: "Anti-Ad Platform",
-        sections: [
-          { title: "Company's Perspective" },
-          { title: "Consumer's Perspective" },
-        ],
-      },
-      {
-        label: "Roadmap",
-        sections: [
-          {
-            title: "GTM Private",
-            items: [
-              "Influencers & Streamers",
-              "Early Adopters",
-              "Elderly",
-            ],
-          },
-          {
-            title: "GTM Public",
-            items: ["Smart cities", "Government contracts"],
-          },
-        ],
-      },
-    ],
-    []
-  );
+  const menuItems = useMemo<MainNavItem[]>(() => MAIN_NAV_ITEMS, []);
 
   useEffect(() => {
     const viewport = document.querySelector<HTMLElement>(
@@ -126,10 +70,12 @@ export function MainHeader() {
         onMouseEnter={() => handleMenuEnter(index)}
         onMouseLeave={handleMenuLeave}
       >
-        <button
-          type="button"
+        <Link
+          href={item.href}
           className={cn(
-            "rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50",
+            "inline-flex items-center rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50",
+            "hover:text-foreground",
+            "cursor-pointer",
             buttonPadding,
             activeIndex === index && "text-foreground"
           )}
@@ -137,7 +83,7 @@ export function MainHeader() {
           onBlur={handleMenuLeave}
         >
           {item.label}
-        </button>
+        </Link>
         <div
           className={cn(
             "pointer-events-none absolute left-1/2 top-full hidden -translate-x-1/2 pt-4",
@@ -148,13 +94,17 @@ export function MainHeader() {
             <div className="space-y-5 text-left">
               {item.sections.map((section) => (
                 <div key={section.title} className="space-y-2">
-                  <h3 className="text-sm font-semibold text-foreground">
-                    {section.title}
-                  </h3>
                   {section.items ? (
-                    <ul className="space-y-1.5 text-sm text-muted-foreground">
+                    <ul className="space-y-1.5 text-sm">
                       {section.items.map((subItem) => (
-                        <li key={subItem}>{subItem}</li>
+                        <li key={subItem.href}>
+                          <Link
+                            href={subItem.href}
+                            className="flex w-full cursor-pointer items-center rounded-lg px-4 py-4 text-left text-sm font-medium text-foreground transition-colors hover:bg-muted/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+                          >
+                            {subItem.label}
+                          </Link>
+                        </li>
                       ))}
                     </ul>
                   ) : null}
