@@ -1,6 +1,7 @@
 export interface NavLinkItem {
   label: string;
   href: string;
+  description?: string;
 }
 
 export interface NavSection {
@@ -22,11 +23,11 @@ export const MAIN_NAV_ITEMS: MainNavItem[] = [
       {
         title: "Software",
         items: [
-          { label: "0", href: "/software/0" },
-          { label: "CAST", href: "/software/cast" },
-          { label: "Prover", href: "/software/prover" },
-          { label: "Non-Ad Platform", href: "/software/non-ad-platform" },
-          { label: "SOURCE ID", href: "/software/source-id" },
+          { label: "0", href: "/software/0", description: "OS level user behaviour understander" },
+          { label: "CAST", href: "/software/cast", description: "Open-source trustless social network" },
+          { label: "Prover", href: "/software/prover", description: "Cryptographic infra for proof generation" },
+          { label: "Non-Ad Platform", href: "/software/non-ad-platform", description: "The ad platform that doesn't exist" },
+          { label: "SOURCE ID", href: "/software/source-id", description: "Mutlimodal ID system to prove humanity" },
         ],
       },
     ],
@@ -38,9 +39,9 @@ export const MAIN_NAV_ITEMS: MainNavItem[] = [
       {
         title: "Hardware",
         items: [
-          { label: "Monitor", href: "/hardware/monitor" },
-          { label: "Computer", href: "/hardware/computer" },
-          { label: "Poles", href: "/hardware/poles" },
+          { label: "SOURCE Monitor", href: "/hardware/monitor", description: "Eyes, ears, and voice for civic spaces" },
+          { label: "SOURCE Compute", href: "/hardware/computer", description: "Distributed edge computing and processing" },
+          { label: "Public Infra", href: "/hardware/public-infrastructure", description: "Civic nervous system architecture" },
         ],
       },
     ],
@@ -52,9 +53,9 @@ export const MAIN_NAV_ITEMS: MainNavItem[] = [
       {
         title: "Open-Source",
         items: [
-          { label: "Process", href: "/open-source/process" },
-          { label: "Transparency", href: "/open-source/transparency" },
-          { label: "Trustless Trust", href: "/open-source/trustless-trust" },
+          { label: "Paranoid R&D Process", href: "/open-source/process", description: "Our collaborative & strictly paranoid development approach" },
+          { label: "Transparency", href: "/open-source/transparency", description: "Public audits and verification" },
+          { label: "Trustless Trust", href: "/open-source/trustless-trust", description: "MP-ZKP trustless commits" },
         ],
       },
     ],
@@ -66,8 +67,8 @@ export const MAIN_NAV_ITEMS: MainNavItem[] = [
       {
         title: "Installation",
         items: [
-          { label: "Teams", href: "/installation/teams" },
-          { label: "Robots", href: "/installation/robots" },
+          { label: "Teams", href: "/installation/teams", description: "Deployment and integration teams" },
+          { label: "Robots", href: "/installation/robots", description: "Autonomous installation systems" },
         ],
       },
     ],
@@ -82,14 +83,17 @@ export const MAIN_NAV_ITEMS: MainNavItem[] = [
           {
             label: "Demo sites",
             href: "/timeline/demo-sites",
+            description: "Showcase installations and live deployments",
           },
           {
             label: "GTM : Elderly, Streamers, Early Adopters",
             href: "/timeline/gtm-elderly-streamers-early-adopters",
+            description: "Community and early adoption strategy",
           },
           {
             label: "GTM : Smart Cities & Gov Contracts",
             href: "/timeline/gtm-smart-cities-gov-contracts",
+            description: "Municipal and government partnerships",
           },
         ],
       },

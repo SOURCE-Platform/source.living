@@ -38,7 +38,7 @@ export default function SubPage({ params }: SubPageProps) {
         </Link>
       </nav>
       <header className="space-y-3">
-        <p className="text-sm uppercase tracking-wide text-muted-foreground">Subpage</p>
+        <p className="text-sm uppercase tracking-wide text-muted-foreground">{category.label}</p>
         <h1 className="text-4xl font-semibold">{page.label}</h1>
       </header>
       <section className="space-y-4 text-base leading-relaxed text-muted-foreground">

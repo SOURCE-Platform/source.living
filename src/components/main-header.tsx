@@ -74,10 +74,11 @@ export function MainHeader() {
           href={item.href}
           className={cn(
             "inline-flex items-center rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50",
-            "hover:text-foreground",
+            "font-normal",
+            "hover:text-foreground hover:bg-muted/30",
             "cursor-pointer",
             buttonPadding,
-            activeIndex === index && "text-foreground"
+            activeIndex === index && "text-foreground bg-muted/30"
           )}
           onFocus={() => handleMenuEnter(index)}
           onBlur={handleMenuLeave}
@@ -90,19 +91,25 @@ export function MainHeader() {
             activeIndex === index && "pointer-events-auto block"
           )}
         >
-          <div className="w-[320px] rounded-2xl border border-border/70 bg-card/95 p-6 shadow-xl backdrop-blur-xl">
+          <div className="w-[420px] rounded-2xl border border-border/70 bg-background p-6 shadow-xl">
             <div className="space-y-5 text-left">
               {item.sections.map((section) => (
                 <div key={section.title} className="space-y-2">
                   {section.items ? (
-                    <ul className="space-y-1.5 text-sm">
+                    <ul className="space-y-3 text-sm">
                       {section.items.map((subItem) => (
                         <li key={subItem.href}>
                           <Link
                             href={subItem.href}
-                            className="flex w-full cursor-pointer items-center rounded-lg px-4 py-4 text-left text-sm font-medium text-foreground transition-colors hover:bg-muted/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+                            className="flex w-full cursor-pointer items-center gap-4 rounded-lg p-0 text-left bg-transparent transition-colors hover:bg-muted/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
                           >
-                            {subItem.label}
+                            <div className="h-16 w-16 flex-shrink-0 rounded-lg bg-muted/40" aria-hidden="true" />
+                            <div className="flex flex-col gap-1">
+                              <span className="text-base font-medium text-foreground">{subItem.label}</span>
+                              {subItem.description && (
+                                <span className="text-xs text-muted-foreground">{subItem.description}</span>
+                              )}
+                            </div>
                           </Link>
                         </li>
                       ))}
@@ -129,7 +136,7 @@ export function MainHeader() {
     return (
       <nav
         className={cn(
-          "flex items-center gap-6 text-sm font-medium text-muted-foreground",
+          "flex items-center gap-3 text-base font-medium text-muted-foreground",
           "transition-all duration-300 ease-out",
           "rounded-full border backdrop-blur",
           withDecor
@@ -143,11 +150,11 @@ export function MainHeader() {
     );
   }
 
-  const navPadding = isFloating ? "px-3 py-2" : "px-2 py-2";
+  const navPadding = isFloating ? "px-3 py-2" : "px-4 py-2";
   const navClass = "fixed left-1/2 top-0 hidden -translate-x-1/2 lg:flex";
   const navTransform = isFloating
-    ? "translate-y-6 opacity-100"
-    : "translate-y-6 opacity-100";
+    ? "translate-y-4 opacity-100"
+    : "translate-y-4 opacity-100";
 
   return (
     <header
@@ -162,7 +169,9 @@ export function MainHeader() {
           isFloating && "translate-y-4 opacity-0 pointer-events-none"
         )}
       >
-        <SourceLogo className="flex-shrink-0 py-2" />
+        <Link href="/" className="flex-shrink-0 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50">
+          <SourceLogo className="py-2" />
+        </Link>
         <div className="flex flex-shrink-0 items-center gap-3">
           <form
             className={cn(
