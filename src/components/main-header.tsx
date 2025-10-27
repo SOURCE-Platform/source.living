@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, type FormEvent } from "react";
+import { useEffect, useRef, useMemo, useState, type FormEvent } from "react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
@@ -14,6 +14,9 @@ const FLOAT_THRESHOLD = 120;
 export function MainHeader() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [isFloating, setIsFloating] = useState(false);
+  const [isHeaderHidden, setIsHeaderHidden] = useState(false);
+  const scrollPositionRef = useRef(0);
+  const scrollDirectionRef = useRef<"up" | "down">("down");
 
   const menuItems = useMemo<MainNavItem[]>(() => MAIN_NAV_ITEMS, []);
 
@@ -24,7 +27,22 @@ export function MainHeader() {
 
     function handleScroll() {
       const offset = viewport ? viewport.scrollTop : window.scrollY;
-      setIsFloating(offset > FLOAT_THRESHOLD);
+      
+      if (offset > scrollPositionRef.current) {
+        scrollDirectionRef.current = "down";
+      } else {
+        scrollDirectionRef.current = "up";
+      }
+      
+      scrollPositionRef.current = offset;
+      
+      if (offset > FLOAT_THRESHOLD) {
+        setIsHeaderHidden(true);
+        setIsFloating(scrollDirectionRef.current === "up");
+      } else {
+        setIsHeaderHidden(false);
+        setIsFloating(false);
+      }
     }
 
     handleScroll();
@@ -151,16 +169,22 @@ export function MainHeader() {
   }
 
   const navPadding = isFloating ? "px-3 py-2" : "px-4 py-2";
-  const navClass = "fixed left-1/2 top-0 hidden -translate-x-1/2 lg:flex";
+  const navClass = isFloating 
+    ? "fixed left-1/2 top-0 hidden -translate-x-1/2 lg:flex"
+    : "absolute left-1/2 top-[37.5px] hidden -translate-x-1/2 -translate-y-1/2 lg:flex";
   const navTransform = isFloating
     ? "translate-y-4 opacity-100"
-    : "translate-y-4 opacity-100";
+    : "opacity-100";
 
   return (
     <header
       className={cn(
-        "pointer-events-auto z-50 transition-all duration-300",
-        isFloating ? "fixed top-0 left-0 right-0 h-0" : "sticky top-0 relative"
+        "z-50 transition-all duration-300",
+        isFloating 
+          ? "fixed top-0 left-0 right-0 h-0 pointer-events-auto" 
+          : isHeaderHidden
+            ? "fixed -top-full left-0 right-0 pointer-events-none"
+            : "fixed top-0 left-0 right-0 pointer-events-auto"
       )}
     >
       <div

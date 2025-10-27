@@ -2,7 +2,7 @@ import { SvgCircle } from "@/components/svg-circle";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col gap-40 px-6 py-24 sm:px-12 lg:px-20 xl:px-32 2xl:px-48">
+    <div className="flex min-h-screen flex-col gap-40 px-6 py-12 sm:px-12 lg:px-20 xl:px-32 2xl:px-48">
       <section
         id="hero"
         className="flex min-h-[80vh] flex-col items-center justify-center gap-12 text-center"

@@ -1,3 +1,25 @@
+## 2025-10-27 - Implement scroll-direction-aware floating header with smooth transitions
+
+**Problem:** The header remained visible while scrolling down, taking up screen space and interfering with content. Additionally, when the floating navigation appeared, it would cause visual clipping of the hero SVG element beneath it. Users needed a smarter header that disappears on downward scroll and reappears as a floating island on upward scroll, without any layout disruption or content clipping.
+
+**Root Cause:** The header used `sticky` positioning which kept it in the document flow and created a stacking context that caused content clipping. The header visibility was only threshold-based (scroll depth), not direction-aware, so it remained visible regardless of scroll direction. These positioning issues created visual artifacts where hero content appeared to be cut off.
+
+**Solution:**
+1. Added scroll direction tracking using `useRef` to track previous scroll position and detect whether user is scrolling up or down without causing unnecessary re-renders.
+2. Introduced `isHeaderHidden` state to manage header visibility separately from floating state, enabling three distinct states: normal (visible at top), hidden (scrolled down), and floating (scrolled up).
+3. Implemented scroll direction logic: when offset exceeds 120px threshold, only set `isFloating` to true if scrolling up; set to false immediately when scrolling down.
+4. Changed header positioning from `sticky` to `fixed` to remove it from document flow entirely, preventing any layout interference or clipping.
+5. Applied conditional header positioning: `fixed top-0` when normal, `fixed -top-full` when hidden, `fixed top-0 h-0` when floating (shows floating nav only).
+6. Updated navigation positioning: absolute within header for normal state (centered at `top-[37.5px]` with `-translate-y-1/2` for perfect vertical centering), fixed to viewport when floating.
+7. Conditioned navigation rendering: always render nav but change styling—transparent border and no backdrop in normal state, blur backdrop only when floating.
+8. Cleaned up by removing conflicting translate-y values that were causing centering issues.
+
+**Files Modified:**
+- `src/components/main-header.tsx` - Complete scroll direction implementation, positioning logic, and state management
+- `src/app/page.tsx` - Minor padding adjustment (py-24 → py-12) for better spacing
+
+**Outcome:** The header now intelligently disappears when scrolling down and reappears as a floating island when scrolling up, providing a modern, distraction-free scrolling experience. The fixed positioning eliminates all clipping and layout issues. Navigation is perfectly centered in the normal header state and smoothly transitions to the floating state with proper visual styling. Users get the navigation benefits without the screen real estate penalty of a persistent sticky header.
+
 ## 2025-10-26 - Enhanced header navigation UI with descriptions and visual refinements
 
 **Problem:** The header navigation needed visual improvements including: placeholder images for dropdowns, navigation item descriptions, better visual hierarchy, improved icon placement, and proper vertical alignment. Additionally, the SOURCE logo needed to be clickable to navigate to the homepage.
