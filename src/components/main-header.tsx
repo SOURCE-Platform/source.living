@@ -109,10 +109,32 @@ export function MainHeader() {
             activeIndex === index && "pointer-events-auto block"
           )}
         >
-          <div className="w-[420px] rounded-2xl border border-border/70 bg-background p-6 shadow-xl">
-            <div className="space-y-5 text-left">
+          <div className={cn(
+            "rounded-2xl border border-border/70 bg-background shadow-xl",
+            item.sections.length === 3 ? "w-[1260px] p-6" : item.sections.length > 1 ? "w-[840px] p-6" : "w-[420px] p-6"
+          )}>
+            {item.sections.length === 3 && item.label === "Timeline" && (
+              <div className="mb-6 flex items-center justify-center px-4">
+                <svg width="100%" height="60" viewBox="0 0 1000 60" className="overflow-visible">
+                  <line x1="80" y1="30" x2="920" y2="30" stroke="currentColor" strokeWidth="1" className="text-muted-foreground/40" />
+                  <circle cx="80" cy="30" r="6" fill="currentColor" className="text-foreground" />
+                  <circle cx="500" cy="30" r="6" fill="currentColor" className="text-foreground" />
+                  <circle cx="920" cy="30" r="6" fill="currentColor" className="text-foreground" />
+                </svg>
+              </div>
+            )}
+            <div className={cn(
+              item.sections.length === 3 ? "grid grid-cols-3 gap-8" : item.sections.length > 1 ? "grid grid-cols-2 gap-8" : "space-y-5",
+              "text-left"
+            )}>
               {item.sections.map((section) => (
                 <div key={section.title} className="space-y-2">
+                  <Link
+                    href={item.label === "Timeline" ? `/timeline/${section.title.toLowerCase()}` : `/software#${section.title.toLowerCase().replace(/\s+/g, "-")}`}
+                    className="inline-block text-xs font-bold uppercase tracking-widest text-foreground hover:text-muted-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 mb-4"
+                  >
+                    {section.title}
+                  </Link>
                   {section.items ? (
                     <ul className="space-y-3 text-sm">
                       {section.items.map((subItem) => (

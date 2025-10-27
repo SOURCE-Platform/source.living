@@ -1,3 +1,25 @@
+## 2025-10-27 - Consolidate navigation structure into multi-column dropdowns with semantic grouping
+
+**Problem:** The navigation was spread across 5 separate top-level items (Software, Hardware, Open-Source, Installation, Timeline), making the header cluttered. Related items should be grouped together in larger dropdown menus to reduce navigation complexity and create semantic relationships between products and processes.
+
+**Root Cause:** The original structure treated each category as independent with its own dropdown, which didn't reflect the logical relationships—Open-Source belongs conceptually with Software, Installation belongs with Hardware, and Timeline phases (R&D, GTM, Scale) need visual differentiation.
+
+**Solution:**
+1. Consolidated Software nav: Merged "Open-Source" nav item into Software dropdown as right column alongside "APPS" column, removing standalone Open-Source nav item entirely.
+2. Consolidated Hardware nav: Merged "Installation" nav item into Hardware dropdown as right column alongside "HARDWARE" column, removing standalone Installation nav item entirely.
+3. Restructured Timeline nav: Split into 3 semantic columns (R&D, GTM, Scale) replacing the previous single-section Timeline. Reorganized items: R&D includes "HQ Manufacturing & Lab", "AI Research Lab", "Test Demo Site"; GTM keeps existing 2 items; Scale has new items "Sales for Gov Civic Space Contracts" and "Marketing for Consumers".
+4. Added clickable section titles: All section headers within dropdowns are now Link components pointing to `/software#apps`, `/software#open-source`, `/hardware#hardware`, `/hardware#installation`, `/timeline/r&d`, `/timeline/gtm`, `/timeline/scale`.
+5. Implemented dynamic dropdown sizing: Dropdowns now scale based on section count—420px for single-column, 840px for 2-column (Software/Hardware), 1260px for 3-column (Timeline).
+6. Enhanced Timeline dropdown with visual decoration: Added SVG timeline visualization with horizontal line spanning the dropdown width and 3 circles positioned under each column (R&D, GTM, Scale), creating a visual phase progression indicator.
+7. Updated rendering logic in main-header: Added conditional checks for 3-column layout with responsive grid styling, section title link generation based on nav item type, and SVG rendering only for Timeline 3-column layout.
+8. Normalized section titles to uppercase: APPS, OPEN-SOURCE, HARDWARE, INSTALLATION, R&D, GTM, Scale for visual consistency and semantic clarity.
+
+**Files Modified:**
+- `src/lib/navigation.ts` - Consolidated nav structure, removed standalone Open-Source and Installation items, restructured Timeline into 3 columns with new items, added new route paths
+- `src/components/main-header.tsx` - Added dynamic width logic, 3-column grid support, clickable section titles with conditional link generation, SVG timeline decoration for Timeline dropdown
+
+**Outcome:** Navigation is now more logically organized with 4 top-level items (Software, Hardware, Timeline, removed: Open-Source and Installation). Users see clear semantic groupings in mega menus that reflect product/process relationships. The Timeline dropdown features an innovative visual timeline decoration showing the three phases of development (R&D → GTM → Scale). Section titles are clickable enabling direct navigation to page anchors or dedicated sections. The dropdown system is now flexible enough to support any number of columns (1-3+) with proper scaling. This reduces navigation cognitive load while maintaining full feature access.
+
 ## 2025-10-27 - Implement scroll-direction-aware floating header with smooth transitions
 
 **Problem:** The header remained visible while scrolling down, taking up screen space and interfering with content. Additionally, when the floating navigation appeared, it would cause visual clipping of the hero SVG element beneath it. Users needed a smarter header that disappears on downward scroll and reappears as a floating island on upward scroll, without any layout disruption or content clipping.
