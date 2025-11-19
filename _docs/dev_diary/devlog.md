@@ -1,3 +1,25 @@
+## 2025-11-19 - Add 2x2 forecast grid layout and custom eye cursor
+
+**Problem:** The Forecasts section needed a better layout for its 4 articles, and the hover triggers for popup panels needed a distinctive cursor to indicate interactivity.
+
+**Root Cause:** The forecast articles were stacked vertically with `space-y-10`, which didn't make efficient use of space. The default pointer cursor didn't communicate that hovering would reveal additional content.
+
+**Solution:**
+1. Changed Forecasts section from vertical stack to 2x2 grid with `grid grid-cols-2 gap-12`
+2. Extended grid width beyond container with `-mx-24` for visual emphasis
+3. Increased spacing between forecast header and grid from `space-y-8` to `space-y-16`
+4. Created custom eye cursor SVG with filled shapes for light and dark modes
+5. Added `.cursor-eye` CSS class with URL-encoded inline SVG cursors
+6. Light mode: black eye with white pupil
+7. Dark mode: white eye with black pupil
+8. Applied `cursor-eye` class to all popup trigger spans
+
+**Files Modified:**
+- `src/app/page.tsx` - Forecast grid layout, spacing adjustments, cursor class
+- `src/app/globals.css` - Custom eye cursor definitions for light/dark modes
+
+**Outcome:** The Forecasts section now displays in a balanced 2x2 grid that's wider than other content, creating visual hierarchy. Users see a custom eye cursor when hovering over interactive items, clearly indicating that additional content will be revealed. The cursor adapts to light/dark themes for optimal visibility.
+
 ## 2025-11-19 - Enhance homepage with Economic/Political popups, UI refinements, and component extraction
 
 **Problem:** The homepage needed additional interactive popup panels for Economic and Political sections (matching the existing Social and Technological patterns), improved popup positioning, hover states for trigger items, dark mode color adjustments, and the navigation island needed to be extracted into a reusable component for future use.

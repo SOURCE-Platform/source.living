@@ -231,7 +231,7 @@ export default function Home() {
             <ul className="space-y-3 text-sm text-foreground">
               {economicIssues.map((issue) => (
                 <li key={issue.label} className="group">
-                  <span className="relative inline-block cursor-default rounded-md px-2 -mx-2 py-1 transition-colors group-hover:bg-black/5 dark:group-hover:bg-white/5">
+                  <span className="relative inline-block cursor-eye rounded-md px-2 -mx-2 py-1 transition-colors group-hover:bg-black/5 dark:group-hover:bg-white/5">
                     {issue.label}
                     <div className="pointer-events-none absolute left-full top-0 z-50 ml-4 w-80 -translate-y-[19px] rounded-lg border border-border/70 bg-background p-3 pl-5 opacity-0 shadow-lg dark:shadow-[0_10px_40px_rgba(255,255,255,0.1)] transition-opacity group-hover:pointer-events-auto group-hover:opacity-100 dark:bg-zinc-900">
                       <ul className="space-y-1">
@@ -262,7 +262,7 @@ export default function Home() {
             <ul className="space-y-3 text-sm text-foreground">
               {socialIssues.map((issue) => (
                 <li key={issue.label} className="group">
-                  <span className="relative inline-block cursor-default rounded-md px-2 -mx-2 py-1 transition-colors group-hover:bg-black/5 dark:group-hover:bg-white/5">
+                  <span className="relative inline-block cursor-eye rounded-md px-2 -mx-2 py-1 transition-colors group-hover:bg-black/5 dark:group-hover:bg-white/5">
                     {issue.label}
                     <div className="pointer-events-none absolute left-full top-0 z-50 ml-4 w-80 -translate-y-[19px] rounded-lg border border-border/70 bg-background p-3 pl-5 opacity-0 shadow-lg dark:shadow-[0_10px_40px_rgba(255,255,255,0.1)] transition-opacity group-hover:pointer-events-auto group-hover:opacity-100 dark:bg-zinc-900">
                     <ul className="space-y-1">
@@ -293,7 +293,7 @@ export default function Home() {
             <ul className="space-y-3 text-sm text-foreground">
               {politicalIssues.map((issue) => (
                 <li key={issue.label} className="group">
-                  <span className="relative inline-block cursor-default rounded-md px-2 -mx-2 py-1 transition-colors group-hover:bg-black/5 dark:group-hover:bg-white/5">
+                  <span className="relative inline-block cursor-eye rounded-md px-2 -mx-2 py-1 transition-colors group-hover:bg-black/5 dark:group-hover:bg-white/5">
                     {issue.label}
                     <div className="pointer-events-none absolute left-full top-0 z-50 ml-4 w-80 -translate-y-[19px] rounded-lg border border-border/70 bg-background p-3 pl-5 opacity-0 shadow-lg dark:shadow-[0_10px_40px_rgba(255,255,255,0.1)] transition-opacity group-hover:pointer-events-auto group-hover:opacity-100 dark:bg-zinc-900">
                       <ul className="space-y-1">
@@ -324,7 +324,7 @@ export default function Home() {
             <ul className="space-y-3 text-sm text-foreground">
               {techIssues.map((issue) => (
                 <li key={issue.label} className="group">
-                  <span className="relative inline-block cursor-default rounded-md px-2 -mx-2 py-1 transition-colors group-hover:bg-black/5 dark:group-hover:bg-white/5">
+                  <span className="relative inline-block cursor-eye rounded-md px-2 -mx-2 py-1 transition-colors group-hover:bg-black/5 dark:group-hover:bg-white/5">
                     {issue.label}
                     <div className="pointer-events-none absolute left-full top-0 z-50 ml-4 w-80 -translate-y-[19px] rounded-lg border border-border/70 bg-background p-3 pl-5 opacity-0 shadow-lg dark:shadow-[0_10px_40px_rgba(255,255,255,0.1)] transition-opacity group-hover:pointer-events-auto group-hover:opacity-100 dark:bg-zinc-900">
                       <ul className="space-y-1">
@@ -352,7 +352,7 @@ export default function Home() {
       </section>
 
       {/* Forecasts Section */}
-      <section className="mx-auto w-full max-w-xl space-y-8">
+      <section className="mx-auto w-full max-w-xl space-y-16">
         <div className="space-y-3">
           <h1 className="text-4xl font-semibold sm:text-5xl">Forecasts</h1>
           <h2 className="text-2xl font-semibold sm:text-3xl">A Dark Dystopian Future</h2>
@@ -361,8 +361,8 @@ export default function Home() {
           </p>
         </div>
 
-        {/* Forecast Items */}
-        <div className="space-y-10">
+        {/* Forecast Items - 2x2 Grid */}
+        <div className="grid grid-cols-2 gap-12 -mx-24">
           <article className="space-y-2">
             <h3 className="text-lg font-semibold">Escalating Crime Rates Global</h3>
             <p className="text-sm text-muted-foreground">

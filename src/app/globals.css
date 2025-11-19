@@ -138,6 +138,14 @@
 }
 
 @layer components {
+  .cursor-eye {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='%23000000' stroke='%23000000' stroke-width='2'%3E%3Cpath d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'/%3E%3Ccircle cx='12' cy='12' r='3' fill='%23ffffff'/%3E%3C/svg%3E") 12 12, pointer;
+  }
+
+  .dark .cursor-eye {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='%23ffffff' stroke='%23ffffff' stroke-width='2'%3E%3Cpath d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'/%3E%3Ccircle cx='12' cy='12' r='3' fill='%23000000'/%3E%3C/svg%3E") 12 12, pointer;
+  }
+
   .video-frame {
     @apply relative aspect-video w-full overflow-hidden rounded-3xl bg-stone-300 transition-transform duration-200 ease-out dark:bg-zinc-800;
   }
