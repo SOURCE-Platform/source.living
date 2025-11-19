@@ -1,3 +1,28 @@
+## 2025-11-19 - Create new homepage with interactive research link panels
+
+**Problem:** The existing homepage needed to be replaced with a new design based on Figma mockups. The new design features a "Setting the Stage" section with systemic conditions across Economic, Social, Political, and Technological categories, plus a "Forecasts" section. Each item in the Social and Technological sections needed hover-activated popup panels displaying curated research article links.
+
+**Root Cause:** The original homepage had a different content structure focused on problem sets, solutions, use cases, and architecture. The new design required a complete restructure with a 2x2 grid layout and interactive citation panels for research references.
+
+**Solution:**
+1. Renamed the existing homepage to `OLD-homepage.tsx` to preserve it
+2. Created new `page.tsx` with "Setting the Stage" and "Forecasts" sections matching Figma design
+3. Built data structures for Social issues (6 categories) and Technological issues (5 categories) with article links
+4. Implemented hover-activated popup panels with CSS transitions that appear to the right of each item
+5. Added `getDomain()` helper function to extract and display website domains under each article title
+6. Styled panels with rounded corners, shadows, dark mode support (`dark:bg-zinc-900`), and hover states
+7. Removed newsletter subscription form from header as it was no longer needed
+8. Created `.claude/commands/wrap.md` and `.claude/commands/handoff.md` for session documentation
+
+**Files Modified:**
+- `src/app/page.tsx` - Complete rewrite with new homepage design and interactive link panels
+- `src/app/OLD-homepage.tsx` - Renamed from original page.tsx
+- `src/components/main-header.tsx` - Removed newsletter form, cleaned up unused imports
+- `.claude/commands/wrap.md` - New file for session wrap-up workflow
+- `.claude/commands/handoff.md` - New file for developer handoff template
+
+**Outcome:** Users now see a research-focused homepage with curated links to articles about systemic social and technological issues. Hovering over items in the Social and Technological sections reveals popup panels with clickable article titles and source domains. The design is clean, accessible, and provides evidence-based context for the platform's mission. The old homepage is preserved for reference.
+
 ## 2025-10-27 - Consolidate navigation structure into multi-column dropdowns with semantic grouping
 
 **Problem:** The navigation was spread across 5 separate top-level items (Software, Hardware, Open-Source, Installation, Timeline), making the header cluttered. Related items should be grouped together in larger dropdown menus to reduce navigation complexity and create semantic relationships between products and processes.

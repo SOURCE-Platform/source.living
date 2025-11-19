@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useMemo, useState, type FormEvent } from "react";
+import { useEffect, useRef, useMemo, useState } from "react";
 import Link from "next/link";
 
-import { Button } from "@/components/ui/button";
 import { SourceLogo } from "@/components/source-logo";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { cn } from "@/lib/utils";
@@ -74,10 +73,6 @@ export function MainHeader() {
 
   function handleMenuLeave() {
     setActiveIndex(null);
-  }
-
-  function handleSubscribeSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
   }
 
   function renderMenuItems(buttonPadding: string) {
@@ -219,27 +214,6 @@ export function MainHeader() {
           <SourceLogo className="py-2" />
         </Link>
         <div className="flex flex-shrink-0 items-center gap-3">
-          <form
-            className={cn(
-              "hidden items-center gap-2 rounded-full border border-border/70 bg-background/80 px-3 py-1.5 shadow-sm transition focus-within:border-ring focus-within:ring-2 focus-within:ring-ring/40 sm:flex",
-              isFloating && "opacity-0"
-            )}
-            onSubmit={handleSubscribeSubmit}
-          >
-            <label className="sr-only" htmlFor="newsletter-email">
-              Email address
-            </label>
-            <input
-              id="newsletter-email"
-              type="email"
-              placeholder="Subscribe to newsletter"
-              className="w-52 bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
-              required
-            />
-            <Button size="sm" type="submit">
-              Subscribe
-            </Button>
-          </form>
           <ThemeToggle />
         </div>
       </div>
