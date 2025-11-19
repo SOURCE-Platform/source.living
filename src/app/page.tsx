@@ -381,9 +381,9 @@ export default function Home() {
         {/* Forecast Items - 2x2 Grid */}
         <div className="grid grid-cols-2 gap-12 -mx-24">
           <article className="space-y-2">
-            <h3 className="text-lg font-semibold">Escalating Crime Rates Global</h3>
+            <h3 className="text-lg font-semibold">A New Global Populous Movement</h3>
             <p className="text-sm text-muted-foreground">
-              Due to rising unemployment, decrease in purchasing power, increase cost of goods, and social inequality, crime rates will likely increase as individuals are pressure-cooked to their limits and struggle to meet their basic needs.
+              Due to the widespread economic and political discontent across the left, right, and center, there&apos;s a strong possibility that a unification of the 99% will emerge. One that transcends traditional political divides and focuses on addressing the root causes of inequality and disenfranchisement.
             </p>
           </article>
 
@@ -398,9 +398,9 @@ export default function Home() {
           </article>
 
           <article className="space-y-2">
-            <h3 className="text-lg font-semibold">A New Global Populous Movement</h3>
+            <h3 className="text-lg font-semibold">Escalating Crime Rates Global</h3>
             <p className="text-sm text-muted-foreground">
-              Due to the widespread economic and political discontent across the left, right, and center, there&apos;s a strong possibility that a unification of the 99% will emerge. One that transcends traditional political divides and focuses on addressing the root causes of inequality and disenfranchisement.
+              Due to rising unemployment, decrease in purchasing power, increase cost of goods, and social inequality, crime rates will likely increase as individuals are pressure-cooked to their limits and struggle to meet their basic needs.
             </p>
           </article>
 
