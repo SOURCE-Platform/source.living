@@ -1,10 +1,9 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useTheme } from "next-themes";
 
 import {
-  GradientControls,
   ThreeBGProvider,
   ThreeGradientBackground,
   useThreeBG,
@@ -63,17 +62,10 @@ const SHARED_INITIAL_STATE: Omit<ThreeBGState, "colorA" | "colorB"> = {
   cssScrollRotateSpeed: 120,
 };
 
-const CONTROL_TOGGLE_CLASSES =
-  "fixed bottom-5 right-5 z-20 rounded-full bg-neutral-900/80 px-4 py-2 text-xs font-medium text-white backdrop-blur transition hover:bg-neutral-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-200/60 dark:bg-neutral-100/80 dark:text-black dark:hover:bg-neutral-100";
-
 function BackgroundRuntime() {
   const { resolvedTheme } = useTheme();
-  const [controlsOpen, setControlsOpen] = useState(false);
   const controls = useThreeBG();
-  const { setState, renderMode, backgroundSource } = controls;
-  const [activeTab, setActiveTab] = useState<"css" | "simple" | "advanced" | "dither">(
-    backgroundSource === "css" ? "css" : renderMode === "simple" ? "simple" : "advanced"
-  );
+  const { setState, backgroundSource } = controls;
 
   const lastThemeRef = useRef<string | undefined>(resolvedTheme ?? undefined);
   const cssAnimationFrameRef = useRef<number | null>(null);
@@ -90,18 +82,6 @@ function BackgroundRuntime() {
       lastThemeRef.current = resolvedTheme;
     }
   }, [resolvedTheme, setState, targetColors]);
-
-  useEffect(() => {
-    if (backgroundSource === "css") {
-      setActiveTab("css");
-      return;
-    }
-
-    setActiveTab((prev) => {
-      if (prev === "dither") return prev;
-      return renderMode === "simple" ? "simple" : "advanced";
-    });
-  }, [renderMode, backgroundSource]);
 
   const {
     colorA,
@@ -252,58 +232,7 @@ function BackgroundRuntime() {
           simpleType={controls.simpleType}
         />
       )}
-      {controlsOpen ? (
-        <GradientControls
-          complexity={controls.complexity}
-          speed={controls.speed}
-          noiseType={controls.noiseType}
-          colorA={controls.colorA}
-          colorB={controls.colorB}
-          scale={controls.scale}
-          warp={controls.warp}
-          contrast={controls.contrast}
-          bias={controls.bias}
-          rotation={controls.rotation}
-          autoRotate={controls.autoRotate}
-          autoRotateSpeed={controls.autoRotateSpeed}
-          ditherEnabled={controls.ditherEnabled}
-          ditherScale={controls.ditherScale}
-          ditherContrast={controls.ditherContrast}
-          ditherBrightness={controls.ditherBrightness}
-          ditherType={controls.ditherType}
-          ditherErrorDiffusion={controls.ditherErrorDiffusion}
-          ditherThreshold={controls.ditherThreshold}
-          ditherLevels={controls.ditherLevels}
-          ditherAnimateNoise={controls.ditherAnimateNoise}
-          ditherNoiseSpeed={controls.ditherNoiseSpeed}
-          ditherNoiseScale={controls.ditherNoiseScale}
-          renderMode={controls.renderMode}
-          simpleSpeed={controls.simpleSpeed}
-          simpleScale={controls.simpleScale}
-          simpleDirection={controls.simpleDirection}
-          simpleAngle={controls.simpleAngle}
-          simpleAnimateAngle={controls.simpleAnimateAngle}
-          simpleAngleSpeed={controls.simpleAngleSpeed}
-          simpleAngleDirection={controls.simpleAngleDirection}
-          simpleType={controls.simpleType}
-          backgroundSource={controls.backgroundSource}
-          cssScale={controls.cssScale}
-          cssAngle={controls.cssAngle}
-          cssAnimate={controls.cssAnimate}
-          cssRotateSpeed={controls.cssRotateSpeed}
-          cssRotateDirection={controls.cssRotateDirection}
-          cssScrollRotate={controls.cssScrollRotate}
-          cssScrollRotateSpeed={controls.cssScrollRotateSpeed}
-          activeTab={activeTab}
-          onTabChange={(tab) => setActiveTab(tab)}
-          onChange={setState}
-          onClose={() => setControlsOpen(false)}
-        />
-      ) : (
-        <button type="button" onClick={() => setControlsOpen(true)} className={CONTROL_TOGGLE_CLASSES}>
-          Gradient Controls
-        </button>
-      )}
+{/* Gradient controls hidden for production */}
     </>
   );
 }

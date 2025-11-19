@@ -200,6 +200,7 @@ export function PostProcessor({
 
   useEffect(() => {
     if (renderer && render) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (renderer as any).renderWithDither = render;
       console.log('[Dither] renderWithDither attached to renderer');
     }
@@ -210,8 +211,8 @@ export function PostProcessor({
 
 export function usePostProcessor(
   renderer: THREE.WebGLRenderer | null,
-  scene: THREE.Scene | null,
-  camera: THREE.Camera | null,
+  _scene: THREE.Scene | null,
+  _camera: THREE.Camera | null,
   _options: {
     ditherScale?: number;
     contrast?: number;
@@ -223,7 +224,9 @@ export function usePostProcessor(
   } = {}
 ) {
   const render = useCallback(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if (renderer && (renderer as any).renderWithDither) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (renderer as any).renderWithDither();
     }
   }, [renderer]);
