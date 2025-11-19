@@ -1,29 +1,28 @@
-import Image from "next/image";
-
+/* eslint-disable @next/next/no-img-element */
 import { cn } from "@/lib/utils";
 
 interface SourceLogoProps {
   className?: string;
 }
 
+const basePath = process.env.NODE_ENV === 'production' ? '/source.living' : '';
+
 export function SourceLogo({ className }: SourceLogoProps) {
   return (
     <div className={cn("flex items-center gap-[18px]", className)}>
-      <Image
-        src="/logo/SOURCE-pictogram.svg"
+      <img
+        src={`${basePath}/logo/SOURCE-pictogram.svg`}
         alt="SOURCE pictogram"
         width={44}
         height={44}
         className="h-11 w-11 min-w-[2.75rem] invert transition-colors duration-300 dark:invert-0"
-        priority
       />
-      <Image
-        src="/logo/SOURCE-wordmark.svg"
+      <img
+        src={`${basePath}/logo/SOURCE-wordmark.svg`}
         alt="SOURCE wordmark"
         width={184}
         height={34}
         className="h-8 w-auto invert transition-colors duration-300 dark:invert-0"
-        priority
       />
     </div>
   );
