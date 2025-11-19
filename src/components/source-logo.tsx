@@ -5,20 +5,18 @@ interface SourceLogoProps {
   className?: string;
 }
 
-const basePath = process.env.NODE_ENV === 'production' ? '/source.living' : '';
-
 export function SourceLogo({ className }: SourceLogoProps) {
   return (
     <div className={cn("flex items-center gap-[18px]", className)}>
       <img
-        src={`${basePath}/logo/SOURCE-pictogram.svg`}
+        src="/logo/SOURCE-pictogram.svg"
         alt="SOURCE pictogram"
         width={44}
         height={44}
         className="h-11 w-11 min-w-[2.75rem] invert transition-colors duration-300 dark:invert-0"
       />
       <img
-        src={`${basePath}/logo/SOURCE-wordmark.svg`}
+        src="/logo/SOURCE-wordmark.svg"
         alt="SOURCE wordmark"
         width={184}
         height={34}

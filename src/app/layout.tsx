@@ -45,14 +45,12 @@ const ppMori = localFont({
   display: "swap",
 });
 
-const basePath = process.env.NODE_ENV === 'production' ? '/source.living' : '';
-
 export const metadata: Metadata = {
   title: "SOURCE",
   description: "Simple marketing site for SOURCE",
   icons: {
-    icon: [{ url: `${basePath}/favicon.svg`, type: "image/svg+xml" }],
-    apple: { url: `${basePath}/favicon.png`, type: "image/png" },
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+    apple: { url: "/favicon.png", type: "image/png" },
   },
 };
 
