@@ -226,7 +226,24 @@ export default function Home() {
         {/* 2x2 Grid of Categories */}
         <div className="grid grid-cols-2 gap-0">
           {/* Economic */}
-          <div className="border-b border-r border-border/40 p-6">
+          <div className="relative border-b border-r border-[#CCCCCC] dark:border-[#333333] p-6">
+            {/* Center Star - positioned at border intersection */}
+            <div className="absolute bottom-0 right-0 z-10 translate-x-1/2 translate-y-1/2">
+              <svg
+                width="48"
+                height="48"
+                viewBox="0 0 55 55"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="size-12"
+                aria-hidden="true"
+              >
+                <path
+                  d="M27.5 0L28.8318 20.5684C29.0266 23.5767 31.4233 25.9734 34.4316 26.1682L55 27.5L34.4316 28.8318C31.4233 29.0266 29.0266 31.4233 28.8318 34.4316L27.5 55L26.1682 34.4316C25.9734 31.4233 23.5767 29.0266 20.5684 28.8318L0 27.5L20.5684 26.1682C23.5767 25.9734 25.9734 23.5767 26.1682 20.5684L27.5 0Z"
+                  className="fill-[#CCCCCC] dark:fill-[#333333]"
+                />
+              </svg>
+            </div>
             <h3 className="mb-4 text-lg font-semibold">Economic</h3>
             <ul className="space-y-3 text-sm text-foreground">
               {economicIssues.map((issue) => (
@@ -257,7 +274,7 @@ export default function Home() {
           </div>
 
           {/* Social */}
-          <div className="border-b border-border/40 p-6">
+          <div className="border-b border-[#CCCCCC] dark:border-[#333333] p-6">
             <h3 className="mb-4 text-lg font-semibold">Social</h3>
             <ul className="space-y-3 text-sm text-foreground">
               {socialIssues.map((issue) => (
@@ -288,7 +305,7 @@ export default function Home() {
           </div>
 
           {/* Political */}
-          <div className="border-r border-border/40 p-6">
+          <div className="border-r border-[#CCCCCC] dark:border-[#333333] p-6">
             <h3 className="mb-4 text-lg font-semibold">Political</h3>
             <ul className="space-y-3 text-sm text-foreground">
               {politicalIssues.map((issue) => (

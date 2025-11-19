@@ -1,3 +1,24 @@
+## 2025-11-19 - Add star icon at 2x2 grid intersection and improve border styling
+
+**Problem:** The 2x2 grid of categories needed a decorative star icon at the center intersection point, and the grid lines needed better visibility with darker colors in light mode and brighter in dark mode.
+
+**Root Cause:** The grid borders were using `border-border/40` which had low contrast. The center intersection needed a visual anchor point to enhance the design. Using transparency for colors caused overlap artifacts.
+
+**Solution:**
+1. Changed grid borders from `border-border/40` to solid colors `#CCCCCC` (light) and `#333333` (dark)
+2. Added star SVG icon positioned at the bottom-right corner of the Economic cell
+3. Used `translate-x-1/2 translate-y-1/2` to center it on the border intersection
+4. Converted star to inline SVG for color control
+5. Applied same solid colors to star fill: `fill-[#CCCCCC] dark:fill-[#333333]`
+6. Star size set to `size-12` (48px)
+7. Position is deterministic - anchored to borders, not percentages
+
+**Files Modified:**
+- `src/app/page.tsx` - Star SVG at grid intersection, solid border colors
+- `public/icons/star.svg` - New star icon asset
+
+**Outcome:** The 2x2 category grid now has a decorative 4-pointed star at the center intersection that matches the border colors exactly. The borders are more visible with solid colors instead of transparency, and the star position will remain correct regardless of content changes.
+
 ## 2025-11-19 - Update text colors to neutral grays and redesign theme toggle
 
 **Problem:** Text colors had blue/purple tints instead of pure white/black, the muted foreground color needed adjustment for better readability, and the theme toggle needed a complete redesign with universal icon, proper styling, and consistent hover states.
