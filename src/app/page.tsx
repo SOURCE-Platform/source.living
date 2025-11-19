@@ -412,6 +412,17 @@ export default function Home() {
           </article>
         </div>
       </section>
+
+      {/* Solution Space Section */}
+      <section className="mx-auto w-full max-w-xl space-y-8 pt-32">
+        <div className="space-y-3">
+          <h1 className="text-4xl font-semibold sm:text-5xl">Solution Space</h1>
+          <h2 className="text-2xl font-semibold sm:text-3xl">A Novel Approach</h2>
+          <p className="pt-2 text-base text-muted-foreground">
+            A decentralised open-source trustless hardware + software AI platform to solve the entire problem stack from micro to macro
+          </p>
+        </div>
+      </section>
     </div>
   );
 }

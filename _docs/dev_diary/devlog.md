@@ -1,3 +1,40 @@
+## 2025-11-19 - Deploy site to GitHub Pages with custom domain source.living
+
+**Problem:** The site needed to be deployed to a live URL for public access. GitHub Pages was chosen as the hosting platform, and the custom domain `source.living` needed to be configured with proper HTTPS.
+
+**Root Cause:** Next.js 15 requires specific configuration for static export to GitHub Pages, including handling of basePath for repository subpaths, proper asset prefixing, and special considerations for custom domains. The build initially failed due to orphaned pages referencing non-existent navigation categories, TypeScript errors in Three.js shader code, and missing image/favicon paths.
+
+**Solution:**
+1. Configured Next.js for static export with `output: 'export'` and `images.unoptimized: true`
+2. Initially added basePath `/source.living` for GitHub Pages subdirectory hosting
+3. Created GitHub Actions workflow (`.github/workflows/deploy.yml`) for automated builds and deployments
+4. Fixed build errors by removing orphaned pages (`/installation`, `/open-source`) that referenced non-existent categories
+5. Added ESLint disable comments for necessary `any` types in Three.js shader uniform access
+6. Hidden gradient controls button in production by removing controls UI
+7. Updated logo and favicon paths to include basePath prefix
+8. Configured Spaceship DNS with 4 A records pointing to GitHub's IPs and CNAME for www subdomain
+9. Added custom domain `source.living` in GitHub Pages settings
+10. Removed basePath configuration once custom domain was active (no longer needed subdirectory path)
+11. Updated all asset paths to remove basePath after domain switch
+12. Enabled HTTPS enforcement after SSL certificate was issued
+13. Added new "Solution Space" section with heading and description
+14. Swapped order of forecast items per user request
+15. Adjusted Solution Space section with large top margin (`pt-32`)
+
+**Files Modified:**
+- `next.config.ts` - Static export config, basePath (later removed for custom domain)
+- `.github/workflows/deploy.yml` - GitHub Actions deployment workflow
+- `src/app/installation/page.tsx` - Deleted (orphaned page)
+- `src/app/open-source/page.tsx` - Deleted (orphaned page)
+- `src/components/background-animation.tsx` - Removed gradient controls, cleaned imports
+- `src/three-bg-kit/PostProcessor.tsx` - Added ESLint disable for `any` types
+- `src/three-bg-kit/ThreeGradientBackground.tsx` - Added ESLint disable for shader uniforms
+- `src/components/source-logo.tsx` - Updated image paths (basePath added then removed)
+- `src/app/layout.tsx` - Updated favicon paths (basePath added then removed)
+- `src/app/page.tsx` - Added Solution Space section, swapped forecast items, added top margin
+
+**Outcome:** The site is now successfully deployed and accessible at https://source.living with a valid SSL certificate. The deployment pipeline automatically builds and deploys changes when pushed to the main branch. All assets load correctly, HTTPS is enforced, and the site is production-ready. The CSS gradient background is set as default, gradient controls are hidden in production, and the new Solution Space section provides a clear transition from problem to solution.
+
 ## 2025-11-19 - Add star icon at 2x2 grid intersection and improve border styling
 
 **Problem:** The 2x2 grid of categories needed a decorative star icon at the center intersection point, and the grid lines needed better visibility with darker colors in light mode and brighter in dark mode.
