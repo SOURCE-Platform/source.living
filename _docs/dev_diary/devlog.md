@@ -1,3 +1,32 @@
+## 2025-11-19 - Enhance homepage with Economic/Political popups, UI refinements, and component extraction
+
+**Problem:** The homepage needed additional interactive popup panels for Economic and Political sections (matching the existing Social and Technological patterns), improved popup positioning, hover states for trigger items, dark mode color adjustments, and the navigation island needed to be extracted into a reusable component for future use.
+
+**Root Cause:** The initial homepage implementation only included popups for Social and Technological sections. Economic and Political sections were static text. The popup positioning was based on the full width of the list item rather than the text content, and various UI elements needed polish including hover states, dark mode colors, and shadow effects.
+
+**Solution:**
+1. Added `economicIssues` data array with 5 categories (Escalating Layoffs, AI Agentification, Supply Chain Disruptions, Erosion of Purchasing Power, Inflation) and their research article links
+2. Added `politicalIssues` data array with 3 categories (Inadequate Problem Solving, Political Polarization, Erosion of Trust) and their research article links
+3. Updated Economic and Political sections to use the same interactive popup pattern as Social/Technological
+4. Improved popup positioning: changed from `left-full` on the `<li>` to positioning relative to the `<span>` text content with `ml-4` gap
+5. Added vertical alignment with `-translate-y-[19px]` so first popup item aligns with trigger text
+6. Added hover background states for trigger items: `group-hover:bg-black/5 dark:group-hover:bg-white/5` with `rounded-md px-2 -mx-2 py-1`
+7. Changed popup article titles from muted to full intensity: `text-foreground` (white in dark mode, black in light mode)
+8. Fixed dark mode muted foreground color from blue-tinted `rgba(171, 173, 199, 1)` to neutral gray `rgba(163, 163, 163, 1)`
+9. Added white glow shadow for dark mode popups: `dark:shadow-[0_10px_40px_rgba(255,255,255,0.1)]`
+10. Extracted NavIsland component from main-header.tsx into separate `nav-island.tsx` file for future reuse
+11. Moved SourceLogo from header to homepage above "Setting the Stage" section
+12. Removed logo from header, leaving only ThemeToggle
+13. Adjusted section padding: decreased top padding from `pt-32` to `pt-10`, increased logo bottom margin from `mb-8` to `mb-24`
+
+**Files Modified:**
+- `src/app/page.tsx` - Added economicIssues/politicalIssues data, updated all 4 sections with popup pattern, improved positioning/styling
+- `src/app/globals.css` - Fixed dark mode muted-foreground color to neutral gray
+- `src/components/main-header.tsx` - Simplified to only ThemeToggle, removed logo and navigation island code
+- `src/components/nav-island.tsx` - New component extracted for future navigation use
+
+**Outcome:** All four homepage sections (Economic, Social, Political, Technological) now have interactive hover popups with curated research links. Popups are properly positioned relative to the trigger text with smooth transitions, hover states provide visual feedback, and dark mode has improved contrast with neutral grays and white glow shadows. The navigation island component is ready for future pages. The logo is prominently displayed on the homepage above the content.
+
 ## 2025-11-19 - Create new homepage with interactive research link panels
 
 **Problem:** The existing homepage needed to be replaced with a new design based on Figma mockups. The new design features a "Setting the Stage" section with systemic conditions across Economic, Social, Political, and Technological categories, plus a "Forecasts" section. Each item in the Social and Technological sections needed hover-activated popup panels displaying curated research article links.

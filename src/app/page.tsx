@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SourceLogo } from "@/components/source-logo";
 
 function getDomain(url: string): string {
   try {
@@ -8,6 +9,97 @@ function getDomain(url: string): string {
     return url;
   }
 }
+
+const politicalIssues = [
+  {
+    label: "Inadequate Problem Solving",
+    links: [
+      { url: "https://www.cidob.org/en/publications/world-2025-ten-issues-will-shape-international-agenda", title: "The world in 2025: ten issues that will shape international agenda" },
+      { url: "https://www.oecd.org/content/dam/oecd/en/publications/reports/2025/06/oecd-economic-outlook-volume-2025-issue-1_1fd979a8/8336338", title: "OECD Economic Outlook, Volume 2025 Issue 1" },
+      { url: "https://www.pewresearch.org/2025/05/08/americans-trust-in-one-another/", title: "Americans' Trust in One Another" },
+      { url: "https://market-insights.upply.com/en/economic-outlook-2025-moderate-growth-and-increased-tensions", title: "Economic outlook 2025: moderate growth and increased tensions" },
+      { url: "https://publichealth.jhu.edu/center-for-health-equity/2025/restoring-trust-in-our-institutions-and-each-other", title: "Restoring Trust in Our Institutions and Each Other" },
+    ],
+  },
+  {
+    label: "Political Polarization",
+    links: [
+      { url: "https://www.wtwco.com/en-ca/news/2025/06/political-polarisation-is-rising-globally-and-posing-new-challenges-for-businesses", title: "Political polarisation is rising globally says Willis report" },
+      { url: "https://academic.oup.com/pnasnexus/article/3/10/pgae310/7821173", title: "Affective polarization is uniformly distributed across American state lines" },
+      { url: "https://journals.sagepub.com/doi/10.1177/00208345251323534", title: "Trends in Political Science Research: Affective Polarization" },
+      { url: "https://www.allianz.com/en/mediacenter/news/media-releases/241118-how-polarization-is-shaping-the-economy.html", title: "Little fires everywhere: How polarization is shaping the economy" },
+      { url: "https://www.gu.se/sites/default/files/2025-02/R2025_1.pdf", title: "The electoral rise of affective polarization: also in European democracies" },
+    ],
+  },
+  {
+    label: "Erosion of Trust",
+    links: [
+      { url: "https://www.eurofound.europa.eu/en/commentary-and-analysis/all-content/trust-national-institutions-falling-data-behind-decline", title: "Trust in national institutions is falling: Data behind the decline" },
+      { url: "https://www.socialeurope.eu/trust-in-crisis-europes-social-contract-under-threat", title: "Trust in crisis: Europe's social contract under threat" },
+      { url: "https://www.who.int/europe/news/item/12-07-2023-widening-inequities--declining-trust---they-are-inextricably-linked--with-signif", title: "Widening inequities, declining trust – they are inextricably linked" },
+      { url: "https://www.oecd.org/en/publications/oecd-survey-on-drivers-of-trust-in-public-institutions-2024-results_9a20554b-en.html", title: "OECD Survey on Drivers of Trust in Public Institutions (2024)" },
+      { url: "https://www.frontlinebesci.com/p/is-trust-losing-its-grip-and-might", title: "Is trust in government now a relic of the past?" },
+    ],
+  },
+];
+
+const economicIssues = [
+  {
+    label: "Escalating Layoffs",
+    links: [
+      { url: "https://www.linkedin.com/pulse/layoffs-getting-ugly-new-data-exposes-2025s-harsh-reality-j1l6e", title: "Layoffs Are Getting Ugly: New Data Exposes 2025's Harsh Reality" },
+      { url: "https://www.isemediaagency.com/article/u-s-corporate-layoffs-surge-in-late-2025-amid-economic-slowdown-and-ai-restructuring", title: "U.S. Corporate Layoffs Surge in Late 2025 Amid Economic Slowdown and AI Restructuring" },
+      { url: "https://www.forbes.com/sites/jackkelly/2025/05/10/big-layoffs-are-hitting-these-sectors-the-hardest/", title: "Big Layoffs Hit These Sectors Hardest in 2025" },
+      { url: "https://intellizence.com/insights/layoff-downsizing/major-companies-that-announced-mass-layoffs/", title: "Companies that announced Major Layoffs and Hiring Freezes" },
+      { url: "https://www.reuters.com/business/factbox-us-companies-announce-layoffs-cut-costs-2025-09-25/", title: "US companies step up job cuts amid uncertain economy" },
+      { url: "https://www.latimes.com/business/story/2025-10-30/layoffs-are-piling-up-raising-worker-anxiety-here-are-some-companies-that-have", title: "Layoffs are piling up. Here are companies that have cut jobs" },
+    ],
+  },
+  {
+    label: "AI Agentification of the Org",
+    links: [
+      { url: "https://www.bcg.com/publications/2025/how-agentic-ai-is-transforming-enterprise-platforms", title: "How Agentic AI is Transforming Enterprise Platforms" },
+      { url: "https://www.klover.ai/how-ai-agents-will-redefine-enterprise-leadership-in-2025/", title: "How AI Agents Will Redefine Enterprise Leadership in 2025" },
+      { url: "https://hbr.org/2025/05/agentic-ai-is-already-changing-the-workforce", title: "Agentic AI Is Already Changing the Workforce" },
+      { url: "https://www.ibm.com/think/insights/ai-agents-2025-expectations-vs-reality", title: "AI Agents in 2025: Expectations vs. Reality" },
+      { url: "https://genesishumanexperience.com/2025/10/19/ai-agent-trends-of-2025-entering-the-agentic-era-of-autonomous-intelligence/", title: "AI Agent Trends of 2025: Entering the Agentic Era of Autonomous Intelligence" },
+      { url: "https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai", title: "The State of AI: Global Survey 2025" },
+    ],
+  },
+  {
+    label: "Supply Chain Disruptions",
+    links: [
+      { url: "https://optimizepros.ai/supply-chain/disruption/", title: "Supply Chain Disruptions in 2025" },
+      { url: "https://www.xeneta.com/blog/the-biggest-global-supply-chain-risks-of-2025", title: "The Biggest Global Supply Chain Risks of 2025" },
+      { url: "https://www.oecd.org/en/about/news/speech-statements/2025/06/2025-oecd-supply-chain-resilience-review-launch.html", title: "2025 OECD Supply Chain Resilience Review Launch" },
+      { url: "https://www.achilles.com/industry-insights/supply-chain-risk-hotspots-to-watch-in-2025-and-beyond/", title: "Supply Chain Risk Management: Trends & Strategies 2025" },
+      { url: "https://www.maersk.com/insights/resilience/2025/05/02/monitoring-global-risks-in-the-supply-chain", title: "2025 Supply Chains Risks: Monitoring Global Events" },
+      { url: "https://market-insights.upply.com/en/economic-outlook-2025-moderate-growth-and-increased-tensions", title: "Economic outlook 2025: moderate growth and increased tensions" },
+    ],
+  },
+  {
+    label: "Erosion of Purchasing Power",
+    links: [
+      { url: "https://discoveryalert.com.au/purchasing-power-2025-economic-well-being-impact/", title: "Understanding the Declining Purchasing Power of the Dollar (2025)" },
+      { url: "https://www.clevelandfed.org/publications/economic-commentary/2025/ec-202511-did-inflation-affect-households-differently", title: "Did Inflation Affect Households Differently?" },
+      { url: "https://www.jrf.org.uk/cost-of-living/jrfs-cost-of-living-tracker-summer-2025", title: "A year of Labour but no progress: JRF's cost of living tracker (2025)" },
+      { url: "https://www.deloitte.com/us/en/insights/industry/consumer-products/consumer-products-industry-outlook.html", title: "2025 Consumer Products Industry Outlook" },
+      { url: "https://www.cbo.gov/publication/61738", title: "CBO's Current View of the Economy From 2025 to 2028" },
+      { url: "https://onlinelibrary.wiley.com/doi/10.1111/roiw.70009?af=R", title: "Who Suffers the Most From the Cost of Living Crisis?" },
+    ],
+  },
+  {
+    label: "Inflation",
+    links: [
+      { url: "https://www.jpmorgan.com/insights/global-research/economy/global-inflation-forecast", title: "Global Inflation Forecast" },
+      { url: "https://www.ifo.de/en/facts/2025-04-09/economic-experts-survey-experts-expect-inflation-rates-rise-worldwide", title: "Economic Experts Survey: Experts Expect Inflation Rates to Rise Worldwide (2025)" },
+      { url: "https://www.oecd.org/en/publications/2025/07/oecd-employment-outlook-2025_5345f034/full-report/component-5.html", title: "OECD Employment Outlook 2025: Bouncing back, but on shaky ground" },
+      { url: "https://thedocs.worldbank.org/en/doc/8bf0b62ec6bcb886d97295ad930059e9-0050012025/original/GEP-June-2025.pdf", title: "Global Economic Prospects -- June 2025" },
+      { url: "https://www.ecb.europa.eu/pub/pdf/ecbu/eb202502.en.pdf", title: "Economic Bulletin Issue 2, 2025 - European Central Bank" },
+      { url: "https://www.oecd.org/content/dam/oecd/en/publications/reports/2025/06/oecd-economic-outlook-volume-2025-issue-1_1fd979a8/8336338", title: "OECD Economic Outlook, Volume 2025 Issue 1" },
+    ],
+  },
+];
 
 const socialIssues = [
   {
@@ -121,7 +213,8 @@ export default function Home() {
   return (
     <div className="flex min-h-screen flex-col gap-24 px-6 py-12 sm:px-12 lg:px-20 xl:px-32 2xl:px-48">
       {/* Setting the Stage Section */}
-      <section className="mx-auto w-full max-w-xl space-y-8 pt-32">
+      <section className="mx-auto w-full max-w-xl space-y-8 pt-10">
+        <SourceLogo className="mb-24" />
         <div className="space-y-3">
           <h1 className="text-4xl font-semibold sm:text-5xl">Setting the Stage</h1>
           <h2 className="text-2xl font-semibold sm:text-3xl">Current Systemic Conditions</h2>
@@ -136,11 +229,30 @@ export default function Home() {
           <div className="border-b border-r border-border/40 p-6">
             <h3 className="mb-4 text-lg font-semibold">Economic</h3>
             <ul className="space-y-3 text-sm text-foreground">
-              <li>Escalating Layoffs</li>
-              <li>AI agentification of the org</li>
-              <li>Supply chain disruptions</li>
-              <li>Erosion of purchasing power</li>
-              <li>Inflation</li>
+              {economicIssues.map((issue) => (
+                <li key={issue.label} className="group">
+                  <span className="relative inline-block cursor-default rounded-md px-2 -mx-2 py-1 transition-colors group-hover:bg-black/5 dark:group-hover:bg-white/5">
+                    {issue.label}
+                    <div className="pointer-events-none absolute left-full top-0 z-50 ml-4 w-80 -translate-y-[19px] rounded-lg border border-border/70 bg-background p-3 pl-5 opacity-0 shadow-lg dark:shadow-[0_10px_40px_rgba(255,255,255,0.1)] transition-opacity group-hover:pointer-events-auto group-hover:opacity-100 dark:bg-zinc-900">
+                      <ul className="space-y-1">
+                        {issue.links.map((link, i) => (
+                          <li key={i}>
+                            <Link
+                              href={link.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block rounded-md px-2 py-2 text-xs text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground"
+                            >
+                              <span className="block text-foreground">{link.title}</span>
+                              <span className="block text-[10px] text-muted-foreground/60">{getDomain(link.url)}</span>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </span>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -149,9 +261,10 @@ export default function Home() {
             <h3 className="mb-4 text-lg font-semibold">Social</h3>
             <ul className="space-y-3 text-sm text-foreground">
               {socialIssues.map((issue) => (
-                <li key={issue.label} className="group relative">
-                  <span className="cursor-default">{issue.label}</span>
-                  <div className="pointer-events-none absolute left-full -top-5 z-50 -ml-2 w-80 rounded-lg border border-border/70 bg-background p-3 pl-5 opacity-0 shadow-lg transition-opacity group-hover:pointer-events-auto group-hover:opacity-100 dark:bg-zinc-900">
+                <li key={issue.label} className="group">
+                  <span className="relative inline-block cursor-default rounded-md px-2 -mx-2 py-1 transition-colors group-hover:bg-black/5 dark:group-hover:bg-white/5">
+                    {issue.label}
+                    <div className="pointer-events-none absolute left-full top-0 z-50 ml-4 w-80 -translate-y-[19px] rounded-lg border border-border/70 bg-background p-3 pl-5 opacity-0 shadow-lg dark:shadow-[0_10px_40px_rgba(255,255,255,0.1)] transition-opacity group-hover:pointer-events-auto group-hover:opacity-100 dark:bg-zinc-900">
                     <ul className="space-y-1">
                       {issue.links.map((link, i) => (
                         <li key={i}>
@@ -161,13 +274,14 @@ export default function Home() {
                             rel="noopener noreferrer"
                             className="block rounded-md px-2 py-2 text-xs text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground"
                           >
-                            <span className="block">{link.title}</span>
+                            <span className="block text-foreground">{link.title}</span>
                             <span className="block text-[10px] text-muted-foreground/60">{getDomain(link.url)}</span>
                           </Link>
                         </li>
                       ))}
                     </ul>
-                  </div>
+                    </div>
+                  </span>
                 </li>
               ))}
             </ul>
@@ -177,9 +291,30 @@ export default function Home() {
           <div className="border-r border-border/40 p-6">
             <h3 className="mb-4 text-lg font-semibold">Political</h3>
             <ul className="space-y-3 text-sm text-foreground">
-              <li>Inadequate Problem Solving</li>
-              <li>Political Polarization</li>
-              <li>Erosion of Trust</li>
+              {politicalIssues.map((issue) => (
+                <li key={issue.label} className="group">
+                  <span className="relative inline-block cursor-default rounded-md px-2 -mx-2 py-1 transition-colors group-hover:bg-black/5 dark:group-hover:bg-white/5">
+                    {issue.label}
+                    <div className="pointer-events-none absolute left-full top-0 z-50 ml-4 w-80 -translate-y-[19px] rounded-lg border border-border/70 bg-background p-3 pl-5 opacity-0 shadow-lg dark:shadow-[0_10px_40px_rgba(255,255,255,0.1)] transition-opacity group-hover:pointer-events-auto group-hover:opacity-100 dark:bg-zinc-900">
+                      <ul className="space-y-1">
+                        {issue.links.map((link, i) => (
+                          <li key={i}>
+                            <Link
+                              href={link.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block rounded-md px-2 py-2 text-xs text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground"
+                            >
+                              <span className="block text-foreground">{link.title}</span>
+                              <span className="block text-[10px] text-muted-foreground/60">{getDomain(link.url)}</span>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </span>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -188,25 +323,27 @@ export default function Home() {
             <h3 className="mb-4 text-lg font-semibold">Technological</h3>
             <ul className="space-y-3 text-sm text-foreground">
               {techIssues.map((issue) => (
-                <li key={issue.label} className="group relative">
-                  <span className="cursor-default">{issue.label}</span>
-                  <div className="pointer-events-none absolute left-full -top-5 z-50 -ml-2 w-80 rounded-lg border border-border/70 bg-background p-3 pl-5 opacity-0 shadow-lg transition-opacity group-hover:pointer-events-auto group-hover:opacity-100 dark:bg-zinc-900">
-                    <ul className="space-y-1">
-                      {issue.links.map((link, i) => (
-                        <li key={i}>
-                          <Link
-                            href={link.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="block rounded-md px-2 py-2 text-xs text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground"
-                          >
-                            <span className="block">{link.title}</span>
-                            <span className="block text-[10px] text-muted-foreground/60">{getDomain(link.url)}</span>
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                <li key={issue.label} className="group">
+                  <span className="relative inline-block cursor-default rounded-md px-2 -mx-2 py-1 transition-colors group-hover:bg-black/5 dark:group-hover:bg-white/5">
+                    {issue.label}
+                    <div className="pointer-events-none absolute left-full top-0 z-50 ml-4 w-80 -translate-y-[19px] rounded-lg border border-border/70 bg-background p-3 pl-5 opacity-0 shadow-lg dark:shadow-[0_10px_40px_rgba(255,255,255,0.1)] transition-opacity group-hover:pointer-events-auto group-hover:opacity-100 dark:bg-zinc-900">
+                      <ul className="space-y-1">
+                        {issue.links.map((link, i) => (
+                          <li key={i}>
+                            <Link
+                              href={link.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block rounded-md px-2 py-2 text-xs text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground"
+                            >
+                              <span className="block text-foreground">{link.title}</span>
+                              <span className="block text-[10px] text-muted-foreground/60">{getDomain(link.url)}</span>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </span>
                 </li>
               ))}
             </ul>
