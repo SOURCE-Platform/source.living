@@ -1,3 +1,28 @@
+## 2025-11-19 - Update text colors to neutral grays and redesign theme toggle
+
+**Problem:** Text colors had blue/purple tints instead of pure white/black, the muted foreground color needed adjustment for better readability, and the theme toggle needed a complete redesign with universal icon, proper styling, and consistent hover states.
+
+**Root Cause:** The foreground colors were using tinted values like `rgba(236, 236, 248, 1)` (blue-white) and `rgba(32, 31, 36, 1)` (blue-black) instead of pure white/black. The theme toggle used sun/moon icons which can confuse users, and had different styling than other popup elements.
+
+**Solution:**
+1. Changed light mode `--foreground` to pure black `rgba(0, 0, 0, 1)`
+2. Changed dark mode `--foreground` to pure white `rgba(255, 255, 255, 1)`
+3. Updated light mode `--muted-foreground` to darker gray `rgba(90, 90, 90, 1)`
+4. Updated dark mode `--muted-foreground` to brighter gray `rgba(204, 204, 204, 1)`
+5. Replaced sun/moon toggle icon with universal half-white/half-black circle
+6. Changed button variant from outline to ghost, removed focus ring
+7. Added matching hover state `hover:bg-black/5 dark:hover:bg-white/5`
+8. Left-aligned dropdown menu with `align="start"`
+9. Added icons to menu items: Sun (Light), Moon (Dark), Monitor (System)
+10. Styled dropdown to match research popups: rounded-lg, border-border/70, p-3, matching shadows and backgrounds
+11. Updated menu items with `hover:bg-muted/50 focus:bg-muted/50 rounded-md`
+
+**Files Modified:**
+- `src/app/globals.css` - Pure white/black foreground colors, adjusted muted grays
+- `src/components/theme-toggle.tsx` - Universal icon, ghost button, styled dropdown
+
+**Outcome:** All text colors are now pure neutral grays without any color tints, improving readability and maintaining visual consistency. The theme toggle has a universally recognizable icon and matches the styling of other popup elements throughout the site.
+
 ## 2025-11-19 - Add 2x2 forecast grid layout and custom eye cursor
 
 **Problem:** The Forecasts section needed a better layout for its 4 articles, and the hover triggers for popup panels needed a distinctive cursor to indicate interactivity.
