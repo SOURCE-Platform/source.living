@@ -1,3 +1,24 @@
+## 2025-11-20 - Implement responsive grid layouts with breakpoint-specific behavior
+
+**Problem:** The page needed responsive layouts for the 4-category grid and forecast sections that adapt gracefully across mobile, tablet, and desktop viewports. The layouts needed to display as stacked columns on mobile, 2x2 grids on tablets with decorative elements, and 4-column rows on desktop without borders.
+
+**Root Cause:** The original layouts had fixed grid structures without responsive breakpoints. The 2x2 grid had borders and a centered star that needed to only appear at specific breakpoints. Content sections lacked proper horizontal spacing on smaller screens, causing text to touch viewport edges.
+
+**Solution:**
+1. Updated category grid to use responsive breakpoints: `grid-cols-1 sm:grid-cols-2 lg:grid-cols-4`
+2. Moved grid outside constrained section into separate wrapper with responsive max-widths: `max-w-xl lg:max-w-6xl`
+3. Added conditional borders that only appear in 2x2 layout (sm-md breakpoints): `sm:border-b lg:border-b-0`
+4. Made center star visible only in 2x2 grid layout: `hidden sm:block lg:hidden`
+5. Removed all borders at lg+ breakpoint for clean 4-column presentation
+6. Added responsive padding to forecast header and grid: `px-6 sm:px-0`
+7. Implemented progressive negative margins for wider grids: `sm:-mx-12 md:-mx-24`
+8. Changed forecast grid from fixed 2-col to responsive: `grid-cols-1 sm:grid-cols-2`
+
+**Files Modified:**
+- `/src/app/page.tsx` - Updated grid layouts with responsive breakpoints and spacing
+
+**Outcome:** The site now has a fully responsive layout that adapts elegantly across all screen sizes. Below 640px, content stacks vertically with proper padding. At 640-1023px, the category grid displays as a 2x2 with borders and decorative star. At 1024px+, categories expand to a borderless 4-column row. The forecast section similarly adapts with appropriate spacing and width at each breakpoint, preventing content from touching viewport edges while maximizing use of available space on larger screens.
+
 ## 2025-11-20 - Enhance custom scrollbar with fade effects and spacing
 
 **Problem:** The custom scrollbar needed visual refinement to improve UX. It was too wide, lacked spacing from viewport edges, remained visible when not scrolling, and over-scroll behavior exposed unwanted background colors at page boundaries.

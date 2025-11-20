@@ -222,13 +222,15 @@ export default function Home() {
             To understand what comes next we must first understand the current systemic civilisational problem set.
           </p>
         </div>
+      </section>
 
-        {/* 2x2 Grid of Categories */}
-        <div className="grid grid-cols-2 gap-0">
+      {/* 2x2 Grid of Categories */}
+      <div className="mx-auto w-full max-w-xl lg:max-w-6xl">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0">
           {/* Economic */}
-          <div className="relative border-b border-r border-[#CCCCCC] dark:border-[#333333] p-6">
-            {/* Center Star - positioned at border intersection */}
-            <div className="absolute bottom-0 right-0 z-10 translate-x-1/2 translate-y-1/2">
+          <div className="relative sm:border-b sm:border-r lg:border-b-0 lg:border-r-0 border-[#CCCCCC] dark:border-[#333333] p-6">
+            {/* Center Star - positioned at border intersection (only visible on sm to md) */}
+            <div className="hidden sm:block lg:hidden absolute bottom-0 right-0 z-10 translate-x-1/2 translate-y-1/2">
               <svg
                 width="48"
                 height="48"
@@ -274,7 +276,7 @@ export default function Home() {
           </div>
 
           {/* Social */}
-          <div className="border-b border-[#CCCCCC] dark:border-[#333333] p-6">
+          <div className="sm:border-b lg:border-b-0 lg:border-r-0 border-[#CCCCCC] dark:border-[#333333] p-6">
             <h3 className="mb-4 text-lg font-semibold">Social</h3>
             <ul className="space-y-3 text-sm text-foreground">
               {socialIssues.map((issue) => (
@@ -305,7 +307,7 @@ export default function Home() {
           </div>
 
           {/* Political */}
-          <div className="border-r border-[#CCCCCC] dark:border-[#333333] p-6">
+          <div className="sm:border-r lg:border-r-0 border-[#CCCCCC] dark:border-[#333333] p-6">
             <h3 className="mb-4 text-lg font-semibold">Political</h3>
             <ul className="space-y-3 text-sm text-foreground">
               {politicalIssues.map((issue) => (
@@ -366,11 +368,11 @@ export default function Home() {
             </ul>
           </div>
         </div>
-      </section>
+      </div>
 
       {/* Forecasts Section */}
       <section className="mx-auto w-full max-w-xl space-y-16">
-        <div className="space-y-3">
+        <div className="space-y-3 px-6 sm:px-0">
           <h1 className="text-4xl font-semibold sm:text-5xl">Forecasts</h1>
           <h2 className="text-2xl font-semibold sm:text-3xl">A Dark Dystopian Future</h2>
           <p className="pt-2 text-base text-muted-foreground">
@@ -379,7 +381,7 @@ export default function Home() {
         </div>
 
         {/* Forecast Items - 2x2 Grid */}
-        <div className="grid grid-cols-2 gap-12 -mx-24">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 px-6 sm:px-0 sm:-mx-12 md:-mx-24">
           <article className="space-y-2">
             <h3 className="text-lg font-semibold">A New Global Populous Movement</h3>
             <p className="text-sm text-muted-foreground">
