@@ -13,39 +13,69 @@ type ScrollAreaProps = React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive
 const ScrollArea = React.forwardRef<
   React.ElementRef<typeof ScrollAreaPrimitive.Root>,
   ScrollAreaProps
->(({ className, children, showHorizontal = false, viewportId, ...props }, ref) => (
-  <ScrollAreaPrimitive.Root
-    ref={ref}
-    className={cn("relative overflow-hidden", className)}
-    {...props}
-  >
-    <ScrollAreaPrimitive.Viewport
-      data-scroll-viewport={viewportId ?? undefined}
-      className="h-full w-full rounded-[inherit]"
+>(({ className, children, showHorizontal = false, viewportId, ...props }, ref) => {
+  const [isScrolling, setIsScrolling] = React.useState(false)
+  const scrollTimeoutRef = React.useRef<NodeJS.Timeout>()
+
+  const handleScroll = () => {
+    setIsScrolling(true)
+
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current)
+    }
+
+    scrollTimeoutRef.current = setTimeout(() => {
+      setIsScrolling(false)
+    }, 1000)
+  }
+
+  React.useEffect(() => {
+    return () => {
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current)
+      }
+    }
+  }, [])
+
+  return (
+    <ScrollAreaPrimitive.Root
+      ref={ref}
+      className={cn("relative overflow-hidden", className)}
+      {...props}
     >
-      {children}
-    </ScrollAreaPrimitive.Viewport>
-    <ScrollBar orientation="vertical" />
-    {showHorizontal ? <ScrollBar orientation="horizontal" /> : null}
-    {showHorizontal ? <ScrollAreaPrimitive.Corner /> : null}
-  </ScrollAreaPrimitive.Root>
-))
+      <ScrollAreaPrimitive.Viewport
+        data-scroll-viewport={viewportId ?? undefined}
+        className="h-full w-full rounded-[inherit]"
+        onScroll={handleScroll}
+      >
+        {children}
+      </ScrollAreaPrimitive.Viewport>
+      <ScrollBar orientation="vertical" isScrolling={isScrolling} />
+      {showHorizontal ? <ScrollBar orientation="horizontal" isScrolling={isScrolling} /> : null}
+      {showHorizontal ? <ScrollAreaPrimitive.Corner /> : null}
+    </ScrollAreaPrimitive.Root>
+  )
+})
 ScrollArea.displayName = ScrollAreaPrimitive.Root.displayName
 
 const ScrollBar = React.forwardRef<
   React.ElementRef<typeof ScrollAreaPrimitive.ScrollAreaScrollbar>,
-  React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.ScrollAreaScrollbar>
->(({ className, orientation = "vertical", ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.ScrollAreaScrollbar> & {
+    isScrolling?: boolean
+  }
+>(({ className, orientation = "vertical", isScrolling = false, ...props }, ref) => (
   <ScrollAreaPrimitive.ScrollAreaScrollbar
     ref={ref}
     orientation={orientation}
     className={cn(
-      "flex touch-none select-none transition-colors",
+      "flex touch-none select-none transition-all duration-300 ease-in-out",
       orientation === "vertical"
-        ? "h-full w-3 border-l border-border/40"
-        : "h-3 w-full border-t border-border/40",
+        ? "w-1.5 border-l border-border/40 mr-2 my-2"
+        : "h-1.5 w-full border-t border-border/40 mb-2 mx-2",
+      isScrolling ? "opacity-100" : "opacity-0",
       className
     )}
+    style={orientation === "vertical" ? { height: "calc(100% - 1rem)" } : { width: "calc(100% - 1rem)" }}
     {...props}
   >
     <ScrollAreaPrimitive.ScrollAreaThumb className="relative flex-1 rounded-full bg-foreground/20 hover:bg-foreground/30 active:bg-foreground/40">

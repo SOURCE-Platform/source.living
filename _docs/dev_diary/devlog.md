@@ -1,3 +1,26 @@
+## 2025-11-20 - Enhance custom scrollbar with fade effects and spacing
+
+**Problem:** The custom scrollbar needed visual refinement to improve UX. It was too wide, lacked spacing from viewport edges, remained visible when not scrolling, and over-scroll behavior exposed unwanted background colors at page boundaries.
+
+**Root Cause:** The Radix UI ScrollArea component had default styling with full-width scrollbar (w-3), no margins, always-visible opacity, and the browser's native overscroll behavior was revealing the html element's background color when scrolling past content boundaries.
+
+**Solution:**
+1. Reduced scrollbar width from `w-3` to `w-1.5` (50% reduction)
+2. Added scroll event listener to detect scrolling activity
+3. Implemented fade-in/fade-out animation with 300ms transition
+4. Scrollbar appears on scroll start and fades out after 1 second of inactivity
+5. Added `mr-2` (right margin) for 2 units of spacing from right edge
+6. Added `my-2` (vertical margins) for 2 units of spacing from top and bottom
+7. Set scrollbar height to `calc(100% - 1rem)` to account for vertical margins
+8. Added `overscroll-behavior: none` to both html and body elements to prevent rubber-banding
+9. Applied gradient background to html element as fallback to ensure consistent appearance
+
+**Files Modified:**
+- `/src/components/ui/scroll-area.tsx` - Added scroll detection state, fade animations, and spacing
+- `/src/app/globals.css` - Added overscroll-behavior prevention and html background gradient
+
+**Outcome:** The scrollbar is now more subtle and polished. It's 50% narrower, only appears during scrolling activity with smooth fade transitions, maintains proper spacing from all viewport edges (2 units), and over-scroll behavior is disabled to prevent the background color inconsistency. The overall effect is a cleaner, more professional scrolling experience that doesn't distract from content.
+
 ## 2025-11-19 - Deploy site to GitHub Pages with custom domain source.living
 
 **Problem:** The site needed to be deployed to a live URL for public access. GitHub Pages was chosen as the hosting platform, and the custom domain `source.living` needed to be configured with proper HTTPS.
