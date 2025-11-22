@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 
-import { ThemeProvider } from "@/components/theme-provider";
-import { BackgroundAnimation } from "@/components/background-animation";
-import { MainHeader } from "@/components/main-header";
+import { ThemeProvider } from "@/components/molecules/theme-provider";
+import { BackgroundAnimation } from "@/components/organisms/background-animation";
+import { MainHeader } from "@/components/organisms/main-header";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 import "./globals.css";

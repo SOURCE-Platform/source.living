@@ -1,4 +1,4 @@
-import { SvgCircle } from "@/components/svg-circle";
+import { SvgCircle } from "@/components/atoms/svg-circle";
 
 export default function Home() {
   return (

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import { ThemeToggle } from "@/components/theme-toggle";
+import { ThemeToggle } from "@/components/molecules/theme-toggle";
 import { cn } from "@/lib/utils";
 
 const FLOAT_THRESHOLD = 120;

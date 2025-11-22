@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SourceLogo } from "@/components/source-logo";
+import { SourceLogo } from "@/components/atoms/icons/source-logo";
 
 function getDomain(url: string): string {
   try {
