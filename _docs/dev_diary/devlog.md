@@ -1,3 +1,30 @@
+## 2025-11-23 - Implement comprehensive problem set documentation with intelligent popup menus
+
+**Problem:** The homepage needed to document both macro-scale (civilizational) and micro-scale (individual) problem sets with extensive research links. The interface required hover-activated popup menus that would intelligently position themselves to remain fully visible within the viewport, preventing cutoff at the bottom of the screen.
+
+**Root Cause:** The page lacked structured documentation of the global and individual problem sets that SOURCE aims to address. Additionally, the initial popup menu implementation used fixed positioning that didn't account for viewport boundaries, causing menus to be cut off when hovering over items near the bottom of the screen. On subsequent hovers, the positioning logic failed because it measured the popup's position while it still had the previous hover's transform applied, creating inconsistent behavior.
+
+**Solution:**
+1. Restructured "Setting the Stage" section to move introductory text directly under h1
+2. Created "The Macro Problem Set" section with descriptive text explaining global-scale problems
+3. Built 4-category grid (Economic, Social, Political, Technological) with hoverable items containing research links
+4. Added "AI Alignment" category to Technological section with 8 research papers
+5. Consolidated "Data Privacy Concerns" and "Security Vulnerabilities" into single "Privacy & Security" category
+6. Moved deepfake-related articles from "Cross-Cutting Threats" to "Deepfakes" category
+7. Removed redundant "Cross-Cutting Threats" category
+8. Created "The Micro Problem Set" section with descriptive text explaining individual-scale problems
+9. Built second 4-category grid (Mental & Emo, Social, Physical, Computing UX) with 15 sub-categories total
+10. Implemented client-side positioning logic using React useEffect hook
+11. Added viewport overflow detection that resets transform before measuring on each hover
+12. Used requestAnimationFrame to ensure accurate measurements after transform reset
+13. Applied dynamic transform adjustments to shift popups upward when they would overflow bottom
+14. Added max-h-[90vh] and overflow-y-auto for scrollable menus exceeding 90% viewport height
+
+**Files Modified:**
+- `/src/app/page.tsx` - Added 'use client' directive, React useEffect import, restructured sections, added 4 new data arrays (mentalIssues, microSocialIssues, physicalIssues, computingIssues), implemented viewport-aware popup positioning logic, built micro problem set grid
+
+**Outcome:** The homepage now comprehensively documents both macro and micro problem sets with 27 total categories across two 4-section grids. Each category contains 3-9 research links accessible through hover menus. The intelligent positioning system ensures all popup menus remain fully visible within the viewport regardless of scroll position or screen size. On hover, the system resets the popup position, measures viewport constraints, and dynamically adjusts the vertical position to prevent cutoff. For very tall menus, a scrollbar appears while maintaining the menu within 90% of viewport height. The behavior is consistent across all hovers - first, second, or subsequent - providing a reliable user experience when exploring the extensive research documentation.
+
 ## 2025-11-22 - Depanelize design system documentation
 
 **Problem:** The design system page had all sections wrapped in panel containers with background styling (rounded-lg border border-border bg-muted/30 p-8), which created visual isolation and disrupted the flow of living documentation. The tabs felt like discrete demo cards rather than continuous documentation.

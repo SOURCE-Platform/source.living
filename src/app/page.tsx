@@ -1,5 +1,8 @@
+'use client';
+
 import Link from "next/link";
 import { SourceLogo } from "@/components/atoms/icons/source-logo";
+import { useEffect } from "react";
 
 function getDomain(url: string): string {
   try {
@@ -158,16 +161,11 @@ const socialIssues = [
 
 const techIssues = [
   {
-    label: "Data Privacy Concerns",
+    label: "Privacy & Security",
     links: [
       { url: "https://news.stanford.edu/stories/2025/10/study-exposes-privacy-risks-of-ai-chatbot-conversations", title: "Study exposes privacy risks of AI chatbot conversations" },
       { url: "https://independent.co.uk/tech/smart-devices-personal-data-privacy-b2645127.html", title: "Many smart devices gathering 'excessive' amounts of personal data" },
       { url: "https://statista.com/topics/3168/data-privacy-of-internet-users-worldwide/", title: "Data privacy of internet users worldwide" },
-    ],
-  },
-  {
-    label: "Security Vulnerabilities",
-    links: [
       { url: "https://blog.checkpoint.com/security/cyber-attacks-surge-in-oct-2025-ransomware-leads/", title: "Cyber Attacks Surge in Oct 2025: Ransomware Leads" },
       { url: "https://cybersecuritydive.com/news/cisco-zero-day-threat-actor/733956/", title: "Sophisticated threat actor targeting zero-day flaws in Cisco products" },
       { url: "https://malwarebytes.com/blog/news/2025/11/chrome-zero-day-under-active-attack-visiting-the-wrong-site-can-get-you-hacked", title: "Chrome zero-day under active attack: visiting the wrong site can get you hacked" },
@@ -183,6 +181,10 @@ const techIssues = [
       { url: "https://reuters.com/technology/artificial-intelligence/un-report-urges-stronger-measures-detect-ai-driven-election-interference-2025-07-11/", title: "UN report urges stronger measures to detect AI-driven election interference" },
       { url: "https://unesco.org/en/articles/deepfakes-and-crisis-knowing", title: "Deepfakes and the crisis of knowing" },
       { url: "https://cnn.com/2025/04/01/tech/tech-experts-warn-ai-worse-humans/index.html", title: "Tech industry experts warn AI will make us worse humans" },
+      { url: "https://mxdusa.org/warning-the-ai-deepfake-danger-intensifies/", title: "Warning: The AI Deepfake Danger Intensifies" },
+      { url: "https://cetas.turing.ac.uk/news/deepfake-scams-poisoned-chatbots-ai-and-election-interference", title: "From Deepfake Scams to Poisoned Chatbots: AI and Election Interference" },
+      { url: "https://weforum.org/stories/2025/06/cybercrime-deepfake-attack-cyber-security/", title: "Cybercrime: Lessons learned from a $25m deepfake attack" },
+      { url: "https://weforum.org/stories/2025/07/detecting-dangerous-ai-is-essential-in-the-deepfake-era/", title: "Detecting dangerous AI is essential in the deepfake era" },
     ],
   },
   {
@@ -199,17 +201,232 @@ const techIssues = [
     ],
   },
   {
-    label: "Cross-Cutting Threats",
+    label: "AI Alignment",
     links: [
-      { url: "https://mxdusa.org/warning-the-ai-deepfake-danger-intensifies/", title: "Warning: The AI Deepfake Danger Intensifies" },
-      { url: "https://cetas.turing.ac.uk/news/deepfake-scams-poisoned-chatbots-ai-and-election-interference", title: "From Deepfake Scams to Poisoned Chatbots: AI and Election Interference" },
-      { url: "https://weforum.org/stories/2025/06/cybercrime-deepfake-attack-cyber-security/", title: "Cybercrime: Lessons learned from a $25m deepfake attack" },
-      { url: "https://weforum.org/stories/2025/07/detecting-dangerous-ai-is-essential-in-the-deepfake-era/", title: "Detecting dangerous AI is essential in the deepfake era" },
+      { url: "https://roland-ewald.github.io/2025/04/05/ai-2027.html", title: "AI-2027: a month-by-month prediction for AI development" },
+      { url: "https://ai-2027.com/research", title: "AI 2027 – Research" },
+      { url: "https://www.sciencedirect.com/science/article/pii/S266638992400103X", title: "AI deception: A survey of examples, risks, and potential solutions" },
+      { url: "https://openai.com/index/detecting-and-reducing-scheming-in-ai-models/", title: "Detecting and reducing scheming in AI models" },
+      { url: "https://www.apolloresearch.ai/research/stress-testing-deliberative-alignment-for-anti-scheming-training/", title: "Stress Testing Deliberative Alignment for Anti-Scheming Training" },
+      { url: "https://www.anthropic.com/research/agentic-misalignment", title: "Agentic Misalignment: How LLMs could be insider threats" },
+      { url: "https://arxiv.org/abs/2510.08211", title: "LLMs Learn to Deceive Unintentionally: Emergent Misalignment in Language Models" },
+      { url: "https://www.arxiv.org/pdf/2506.21584.pdf", title: "Empirical Evidence for Alignment Faking in a Small LLM" },
+    ],
+  },
+];
+
+const mentalIssues = [
+  {
+    label: "Loneliness",
+    links: [
+      { url: "https://mcc.gse.harvard.edu/reports/loneliness-in-america-2024", title: "Loneliness in America: Just the Tip of the Iceberg?" },
+      { url: "https://www.who.int/news/item/30-06-2025-social-connection-linked-to-improved-heath-and-reduced-risk-of-early-death", title: "Social connection linked to improved health and reduced risk of early death" },
+      { url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC12245810/", title: "Combatting the Loneliness Epidemic Through Social Connection" },
+      { url: "https://www.tcd.ie/news_events/articles/2025/there-is-no-loneliness-epidemic/", title: "There is no loneliness epidemic" },
+      { url: "https://www.nature.com/articles/s41598-025-08842-1", title: "Long term patterns and risk factors of loneliness in young adults" },
+    ],
+  },
+  {
+    label: "Depression",
+    links: [
+      { url: "https://www.nimh.nih.gov/health/statistics/major-depression", title: "Major Depression - National Institute of Mental Health (NIMH)" },
+      { url: "https://sph.umich.edu/news/2025posts/college-student-mental-health-third-consecutive-year-improvement.html", title: "Healthy Minds Study: College student depression, anxiety decline for third consecutive year" },
+      { url: "https://www.cdc.gov/children-mental-health/data-research/index.html", title: "Data and Statistics on Children's Mental Health" },
+      { url: "https://www.nami.org/about-mental-illness/mental-health-by-the-numbers/", title: "Mental Health By the Numbers" },
+      { url: "https://ourworldindata.org/mental-health", title: "Mental Health" },
+    ],
+  },
+  {
+    label: "Personality disorders",
+    links: [
+      { url: "https://www.nimh.nih.gov/health/statistics/personality-disorders", title: "Personality Disorders - National Institute of Mental Health" },
+      { url: "https://pubmed.ncbi.nlm.nih.gov/31298170/", title: "The prevalence of personality disorders in the community" },
+      { url: "https://jamanetwork.com/journals/jamapsychiatry/fullarticle/481789", title: "The Prevalence of Personality Disorders in a Community Sample" },
+      { url: "https://cipp.ug.edu.pl/Cross-cultural-studies-on-the-prevalence-of-personality-disorders,95131,0,2.html", title: "Cross-cultural studies on the prevalence of personality disorders" },
+      { url: "https://www.nature.com/articles/s41598-025-08842-1", title: "The global epidemiology of personality disorder" },
+    ],
+  },
+  {
+    label: "Neurodivergency",
+    links: [
+      { url: "https://www.cdc.gov/autism/data-research/index.html", title: "Data and Statistics on Autism Spectrum Disorder" },
+      { url: "https://www.autismparentingmagazine.com/autism-statistics/", title: "Autism Statistics You Need To Know in 2024" },
+      { url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC12335152/", title: "Real-world evaluation of prevalence, cohort characteristics of neurodevelopmental disorders" },
+      { url: "https://www.frontiersin.org/journals/psychiatry/articles/10.3389/fpsyt.2024.1402312/full", title: "Co-occurring autism, ADHD, and gender dysphoria" },
+      { url: "https://www.thelancet.com/journals/lanchi/article/PIIS2352-4642(24)00261-X/abstract", title: "Addressing multiple neurodivergent identities in clinical practice" },
+    ],
+  },
+  {
+    label: "'One size fits all' education",
+    links: [
+      { url: "https://www.21kschool.com/in/blog/one-size-fits-all-education/", title: "One-Size-Fits-All Education: A Critical Examination" },
+      { url: "https://www.whitbyschool.org/passionforlearning/differentiated-learning-why-one-size-fits-all-doesnt-work-in-education", title: "Why \"One Size Fits All\" Doesn't Work In Education" },
+      { url: "https://thereader.mitpress.mit.edu/masters-of-none-the-flawed-logic-of-one-size-fits-all-education/", title: "Masters of None: The Flawed Logic of One-Size-Fits-All Education" },
+      { url: "https://www.youngfoundation.org/insights/news/one-size-fits-all-education-system-challenged-by-young-people/", title: "One-size-fits all education system challenged by young people" },
+      { url: "https://www.sciencedirect.com/science/article/pii/S0742051X23004171", title: "Personalized learning: The simple, the complicated, and the complex" },
+    ],
+  },
+];
+
+const microSocialIssues = [
+  {
+    label: "Relationship conflicts",
+    links: [
+      { url: "https://journals.sagepub.com/doi/10.1177/02654075241298165", title: "Mental contrasting and conflict management in satisfied relationships" },
+      { url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC10333975/", title: "The Role of Relationship Conflict for Momentary Emotional Well-being" },
+      { url: "https://journals.kmanpub.com/index.php/jprfc/article/view/521", title: "The Relationship between Emotional Intelligence and Marital Conflicts" },
+      { url: "https://web.mit.edu/curhan/www/docs/Articles/15341_Readings/Negotiation_and_Conflict_Management/De_Dreu_Weingart_Task-conflict_Meta-analysis_JAP_2003.pdf", title: "Task Versus Relationship Conflict, Team Performance, and Team Member Satisfaction" },
+      { url: "https://www.sciencedirect.com/science/article/abs/pii/S0092656625000303", title: "Intellectual humility in romantic relationships: Implications for conflict" },
+    ],
+  },
+  {
+    label: "Degradation of social bonds",
+    links: [
+      { url: "https://www.nature.com/articles/s41562-022-01453-0", title: "Social isolation and the brain in the pandemic era" },
+      { url: "https://www.neuroscienceresearchinstitute.com/social-isolation-leads-to-myelin-damage-in-the-brain/", title: "Social Isolation Leads to Myelin Damage in the Brain" },
+      { url: "https://seaburylife.org/the-negative-effects-of-social-isolation-for-seniors/", title: "The Negative Effects of Social Isolation for Seniors" },
+      { url: "https://pubmed.ncbi.nlm.nih.gov/40281851/", title: "Experiences of Social Isolation in Older Adults with Chronic Disease" },
+      { url: "https://journals.sagepub.com/doi/10.1177/13872877241284222", title: "Social isolation and social cognition: A cross-sectional study" },
+    ],
+  },
+  {
+    label: "Bullying and crime",
+    links: [
+      { url: "https://www.cgdev.org/blog/look-new-timss-data-bullying-and-learning", title: "A Look into the New TIMSS Data on Bullying and Learning" },
+      { url: "https://nces.ed.gov/whatsnew/press_releases/1_17_2024.asp", title: "New Schools Data Examine Violent Incidents, Bullying, Drug Use" },
+      { url: "https://pubmed.ncbi.nlm.nih.gov/40065986", title: "Trends in Indicators of Violence Among Adolescents" },
+      { url: "https://www.pacer.org/bullying/info/stats/", title: "Bullying Statistics" },
+      { url: "https://www.ons.gov.uk/peoplepopulationandcommunity/crimeandjustice/bulletins/bullyingandonlineexperiencesamongchildreninenglandandwales/yearendingmarch2024", title: "Bullying and online experiences among children in England and Wales" },
+    ],
+  },
+  {
+    label: "Covert emotional abuse",
+    links: [
+      { url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC11545147/", title: "Subtle or Covert Abuse Within Intimate Partner Relationships" },
+      { url: "https://www.counselling-directory.org.uk/articles/the-insidious-damage-caused-by-covert-emotional-abuse", title: "The insidious damage caused by covert emotional abuse" },
+      { url: "https://www.uea.ac.uk/about/news/article/new-research-highlights-the-overlooked-dangers-of-subtle-and-covert-abuse-in-intimate-relationships", title: "New research highlights the overlooked dangers of subtle and covert abuse" },
+      { url: "https://journals.sagepub.com/doi/abs/10.1177/15248380241268643", title: "Subtle or Covert Abuse Within Intimate Partner Relationships" },
+      { url: "https://www.mentalhealth.org.uk/explore-mental-health/blogs/toxic-shadow-emotional-abuse", title: "The toxic shadow of emotional abuse" },
+    ],
+  },
+];
+
+const physicalIssues = [
+  {
+    label: "Poor health management",
+    links: [
+      { url: "https://crownschool.uchicago.edu/student-life/advocates-forum/chronic-disease-management-improving-outcomes-reducing-costs", title: "Chronic Disease Management: Improving Outcomes, Reducing Costs" },
+      { url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC10830426/", title: "The Burden of Chronic Disease" },
+      { url: "https://advances.umw.edu.pl/en/article/2024/33/8/767/", title: "Self-care: An effective strategy to manage chronic diseases" },
+      { url: "https://www.cdc.gov/chronic-disease/data-research/facts-stats/index.html", title: "Fast Facts: Health and Economic Costs of Chronic Conditions" },
+      { url: "https://journals.sagepub.com/doi/10.1177/20552076241297064", title: "Research on disease management of chronic diseases" },
+    ],
+  },
+  {
+    label: "Late diagnosis of disease",
+    links: [
+      { url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC7485359/", title: "Interventions Addressing Barriers to Delayed Cancer Diagnosis" },
+      { url: "https://aacrjournals.org/cebp/article/34/7/1066/763025/A-Scoping-Review-on-Barriers-to-Cancer-Diagnosis", title: "A Scoping Review on Barriers to Cancer Diagnosis and Care" },
+      { url: "https://www.frontiersin.org/journals/medicine/articles/10.3389/fmed.2024.1438402/full", title: "Breaking barriers: enhancing cancer detection in younger patients" },
+      { url: "https://www.scielosp.org/pdf/rpsp/v5n3/a3.pdf", title: "Barriers to early detection of breast cancer among women" },
+      { url: "https://www.sciencedirect.com/science/article/pii/S0936655523002030", title: "A Narrative Synthesis of Literature on the Barriers to Timely Cancer Diagnosis" },
+    ],
+  },
+  {
+    label: "Lack of accident detection & prevention",
+    links: [
+      { url: "https://www.ijraset.com/research-paper/next-generation-vehicle-accident-prevention-and-detection", title: "Next-Generation Vehicle Accident Prevention and Detection" },
+      { url: "https://onlinelibrary.wiley.com/doi/10.1155/2022/6424835", title: "Accident Detection in Autonomous Vehicles Using Machine Learning" },
+      { url: "https://www.ijert.org/real-time-accident-detection-leveraging-deep-learning-for-enhanced-road-safety", title: "Real-Time Accident Detection Leveraging Deep Learning for Enhanced Road Safety" },
+      { url: "https://www.scirp.org/journal/paperinformation?paperid=121730", title: "A Review of Road Accidents Detection through Wireless Communication" },
+      { url: "https://www.techrxiv.org/users/720422/articles/1358928-machine-learning-based-framework-for-road-accident-detection-and-prevention", title: "Machine Learning-Based Framework for Road Accident Detection and Prevention" },
+    ],
+  },
+];
+
+const computingIssues = [
+  {
+    label: "The UX pain of GUI",
+    links: [
+      { url: "https://immune.institute/en/blog/pain-points/", title: "Pain Points, How to work them in UX Strategy?" },
+      { url: "https://www.nngroup.com/articles/pain-points/", title: "Three Levels of Pain Points in Customer Experience" },
+      { url: "https://www.uxpin.com/studio/blog/user-pain-points-in-ux-design/", title: "What Are User Pain Points?" },
+      { url: "https://www.codecademy.com/resources/docs/uiux/user-pain-points", title: "User Pain Points - UI and UX Design" },
+      { url: "https://www.ramotion.com/blog/user-pain-points/", title: "User Pain Points: Types of Issues and Their Significance" },
+    ],
+  },
+  {
+    label: "Fragmented ecosystem of OSs, apps, and data",
+    links: [
+      { url: "https://www.ibm.com/think/topics/data-silos", title: "What are Data Silos?" },
+      { url: "https://www.salesforce.com/ap/data/connectivity/data-silos/", title: "What Are Data Silos & Why is it a Problem?" },
+      { url: "https://dev.to/margaretjohn/from-data-silos-to-decentralized-networks-overcoming-data-fragmentation-with-blockchain-1hp7", title: "From Data Silos to Decentralized Networks" },
+      { url: "https://estuary.dev/blog/why-data-silos-problematic/", title: "8 Reasons Why Data Silos Are Problematic & How To Fix Them" },
+      { url: "https://dreamitcs.com/blogs/siloed-data-fragmented-strategy-the-hidden-barrier-to-digital-transformation/", title: "Siloed Data, Fragmented Strategy: The Hidden Barrier to Digital Transformation" },
+    ],
+  },
+  {
+    label: "IAM pain points",
+    links: [
+      { url: "https://arxiv.org/abs/2408.10634", title: "Industry Perception of Security Challenges with Identity Access Management Solutions" },
+      { url: "https://www.zazz.io/article/top-iam-challenges-for-enterprise-security", title: "Top 10 IAM Challenges Enterprises Must Solve In 2025" },
+      { url: "https://ponemonsullivanreport.com/2024/11/the-2024-study-on-the-state-of-identity-and-access-management-iam-security/", title: "The 2024 Study on the State of Identity and Access Management (IAM) Security" },
+      { url: "https://www.alef.com/hu/letoltesek/f5-the-challenges-and-benefits-of-identity-and-access-management-en.dm-717.pdf", title: "The Challenges and Benefits of Identity and Access Management" },
+      { url: "https://www.scworld.com/resource/not-ideal-each-stage-of-iam-implementation-has-its-pain-points", title: "Not IDeal: Each stage of IAM implementation has its pain points" },
     ],
   },
 ];
 
 export default function Home() {
+  useEffect(() => {
+    const adjustPopupPosition = (popup: HTMLElement, trigger: HTMLElement) => {
+      // Reset transform to default first to get accurate measurements
+      popup.style.transform = 'translateY(-19px)';
+
+      // Use requestAnimationFrame to ensure the reset is applied before measuring
+      requestAnimationFrame(() => {
+        const popupRect = popup.getBoundingClientRect();
+        const triggerRect = trigger.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+
+        // Calculate if popup would overflow bottom of viewport
+        const wouldOverflowBottom = popupRect.bottom > viewportHeight;
+
+        if (wouldOverflowBottom) {
+          // Calculate how much to shift up
+          const overflow = popupRect.bottom - viewportHeight + 20; // 20px padding from bottom
+          const maxShift = triggerRect.top - 20; // Don't go above viewport top (with 20px padding)
+          const shift = Math.min(overflow, maxShift);
+
+          // Apply the shift
+          popup.style.transform = `translateY(calc(-19px - ${shift}px))`;
+        }
+      });
+    };
+
+    const handleMouseEnter = (event: Event) => {
+      const trigger = event.currentTarget as HTMLElement;
+      const popup = trigger.querySelector('.absolute.left-full') as HTMLElement;
+
+      if (popup) {
+        adjustPopupPosition(popup, trigger);
+      }
+    };
+
+    // Find all hoverable items with popups
+    const items = document.querySelectorAll('.group');
+
+    items.forEach(item => {
+      item.addEventListener('mouseenter', handleMouseEnter);
+    });
+
+    return () => {
+      items.forEach(item => {
+        item.removeEventListener('mouseenter', handleMouseEnter);
+      });
+    };
+  }, []);
+
   return (
     <div className="flex min-h-screen flex-col gap-24 px-6 py-12 sm:px-12 lg:px-20 xl:px-32 2xl:px-48">
       {/* Setting the Stage Section */}
@@ -217,9 +434,18 @@ export default function Home() {
         <SourceLogo className="mb-24" />
         <div className="space-y-3">
           <h1 className="text-4xl font-semibold sm:text-5xl">Setting the Stage</h1>
-          <h2 className="text-2xl font-semibold sm:text-3xl">Current Systemic Conditions</h2>
           <p className="pt-2 text-base text-muted-foreground">
             To understand what comes next we must first understand the current systemic civilisational problem set.
+          </p>
+        </div>
+      </section>
+
+      {/* The Macro Problem Set Section */}
+      <section className="mx-auto w-full max-w-xl space-y-8">
+        <div className="space-y-3">
+          <h2 className="text-2xl font-semibold sm:text-3xl">The Macro Problem Set</h2>
+          <p className="pt-2 text-base text-muted-foreground">
+            Global scale problem set the entirety of humanity is currently facing. Most of these directly tie into the low-level anxiety the 99% are facing on a day-to-day basis and must always be kept in mind.
           </p>
         </div>
       </section>
@@ -252,7 +478,7 @@ export default function Home() {
                 <li key={issue.label} className="group">
                   <span className="relative inline-block cursor-eye rounded-md px-2 -mx-2 py-1 transition-colors group-hover:bg-black/5 dark:group-hover:bg-white/5">
                     {issue.label}
-                    <div className="pointer-events-none absolute left-full top-0 z-50 ml-4 w-80 -translate-y-[19px] rounded-lg border border-border/70 bg-background p-3 pl-5 opacity-0 shadow-lg dark:shadow-[0_10px_40px_rgba(255,255,255,0.1)] transition-opacity group-hover:pointer-events-auto group-hover:opacity-100 dark:bg-zinc-900">
+                    <div className="pointer-events-none absolute left-full top-0 z-50 ml-4 w-80 -translate-y-[19px] max-h-[90vh] overflow-y-auto rounded-lg border border-border/70 bg-background p-3 pl-5 opacity-0 shadow-lg dark:shadow-[0_10px_40px_rgba(255,255,255,0.1)] transition-opacity group-hover:pointer-events-auto group-hover:opacity-100 dark:bg-zinc-900">
                       <ul className="space-y-1">
                         {issue.links.map((link, i) => (
                           <li key={i}>
@@ -283,7 +509,7 @@ export default function Home() {
                 <li key={issue.label} className="group">
                   <span className="relative inline-block cursor-eye rounded-md px-2 -mx-2 py-1 transition-colors group-hover:bg-black/5 dark:group-hover:bg-white/5">
                     {issue.label}
-                    <div className="pointer-events-none absolute left-full top-0 z-50 ml-4 w-80 -translate-y-[19px] rounded-lg border border-border/70 bg-background p-3 pl-5 opacity-0 shadow-lg dark:shadow-[0_10px_40px_rgba(255,255,255,0.1)] transition-opacity group-hover:pointer-events-auto group-hover:opacity-100 dark:bg-zinc-900">
+                    <div className="pointer-events-none absolute left-full top-0 z-50 ml-4 w-80 -translate-y-[19px] max-h-[90vh] overflow-y-auto rounded-lg border border-border/70 bg-background p-3 pl-5 opacity-0 shadow-lg dark:shadow-[0_10px_40px_rgba(255,255,255,0.1)] transition-opacity group-hover:pointer-events-auto group-hover:opacity-100 dark:bg-zinc-900">
                     <ul className="space-y-1">
                       {issue.links.map((link, i) => (
                         <li key={i}>
@@ -314,7 +540,7 @@ export default function Home() {
                 <li key={issue.label} className="group">
                   <span className="relative inline-block cursor-eye rounded-md px-2 -mx-2 py-1 transition-colors group-hover:bg-black/5 dark:group-hover:bg-white/5">
                     {issue.label}
-                    <div className="pointer-events-none absolute left-full top-0 z-50 ml-4 w-80 -translate-y-[19px] rounded-lg border border-border/70 bg-background p-3 pl-5 opacity-0 shadow-lg dark:shadow-[0_10px_40px_rgba(255,255,255,0.1)] transition-opacity group-hover:pointer-events-auto group-hover:opacity-100 dark:bg-zinc-900">
+                    <div className="pointer-events-none absolute left-full top-0 z-50 ml-4 w-80 -translate-y-[19px] max-h-[90vh] overflow-y-auto rounded-lg border border-border/70 bg-background p-3 pl-5 opacity-0 shadow-lg dark:shadow-[0_10px_40px_rgba(255,255,255,0.1)] transition-opacity group-hover:pointer-events-auto group-hover:opacity-100 dark:bg-zinc-900">
                       <ul className="space-y-1">
                         {issue.links.map((link, i) => (
                           <li key={i}>
@@ -345,7 +571,163 @@ export default function Home() {
                 <li key={issue.label} className="group">
                   <span className="relative inline-block cursor-eye rounded-md px-2 -mx-2 py-1 transition-colors group-hover:bg-black/5 dark:group-hover:bg-white/5">
                     {issue.label}
-                    <div className="pointer-events-none absolute left-full top-0 z-50 ml-4 w-80 -translate-y-[19px] rounded-lg border border-border/70 bg-background p-3 pl-5 opacity-0 shadow-lg dark:shadow-[0_10px_40px_rgba(255,255,255,0.1)] transition-opacity group-hover:pointer-events-auto group-hover:opacity-100 dark:bg-zinc-900">
+                    <div className="pointer-events-none absolute left-full top-0 z-50 ml-4 w-80 -translate-y-[19px] max-h-[90vh] overflow-y-auto rounded-lg border border-border/70 bg-background p-3 pl-5 opacity-0 shadow-lg dark:shadow-[0_10px_40px_rgba(255,255,255,0.1)] transition-opacity group-hover:pointer-events-auto group-hover:opacity-100 dark:bg-zinc-900">
+                      <ul className="space-y-1">
+                        {issue.links.map((link, i) => (
+                          <li key={i}>
+                            <Link
+                              href={link.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block rounded-md px-2 py-2 text-xs text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground"
+                            >
+                              <span className="block text-foreground">{link.title}</span>
+                              <span className="block text-[10px] text-muted-foreground/60">{getDomain(link.url)}</span>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* The Micro Problem Set Section */}
+      <section className="mx-auto w-full max-w-xl space-y-8">
+        <div className="space-y-3">
+          <h2 className="text-2xl font-semibold sm:text-3xl">The Micro Problem Set</h2>
+          <p className="pt-2 text-base text-muted-foreground">
+            The individual scale problem set that many people face each day. There is obvious overlap with many of the problems outlined in The Macro Problem Set but it&apos;s important to understand how some of these overarching macro issues impact humans on a very specific personal level.
+          </p>
+        </div>
+      </section>
+
+      {/* 2x2 Grid of Micro Problem Categories */}
+      <div className="mx-auto w-full max-w-xl lg:max-w-6xl">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0">
+          {/* Mental & Emo */}
+          <div className="relative sm:border-b sm:border-r lg:border-b-0 lg:border-r-0 border-[#CCCCCC] dark:border-[#333333] p-6">
+            {/* Center Star - positioned at border intersection (only visible on sm to md) */}
+            <div className="hidden sm:block lg:hidden absolute bottom-0 right-0 z-10 translate-x-1/2 translate-y-1/2">
+              <svg
+                width="48"
+                height="48"
+                viewBox="0 0 55 55"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="size-12"
+                aria-hidden="true"
+              >
+                <path
+                  d="M27.5 0L28.8318 20.5684C29.0266 23.5767 31.4233 25.9734 34.4316 26.1682L55 27.5L34.4316 28.8318C31.4233 29.0266 29.0266 31.4233 28.8318 34.4316L27.5 55L26.1682 34.4316C25.9734 31.4233 23.5767 29.0266 20.5684 28.8318L0 27.5L20.5684 26.1682C23.5767 25.9734 25.9734 23.5767 26.1682 20.5684L27.5 0Z"
+                  className="fill-[#CCCCCC] dark:fill-[#333333]"
+                />
+              </svg>
+            </div>
+            <h3 className="mb-4 text-lg font-semibold">Mental & Emo</h3>
+            <ul className="space-y-3 text-sm text-foreground">
+              {mentalIssues.map((issue) => (
+                <li key={issue.label} className="group">
+                  <span className="relative inline-block cursor-eye rounded-md px-2 -mx-2 py-1 transition-colors group-hover:bg-black/5 dark:group-hover:bg-white/5">
+                    {issue.label}
+                    <div className="pointer-events-none absolute left-full top-0 z-50 ml-4 w-80 -translate-y-[19px] max-h-[90vh] overflow-y-auto rounded-lg border border-border/70 bg-background p-3 pl-5 opacity-0 shadow-lg dark:shadow-[0_10px_40px_rgba(255,255,255,0.1)] transition-opacity group-hover:pointer-events-auto group-hover:opacity-100 dark:bg-zinc-900">
+                      <ul className="space-y-1">
+                        {issue.links.map((link, i) => (
+                          <li key={i}>
+                            <Link
+                              href={link.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block rounded-md px-2 py-2 text-xs text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground"
+                            >
+                              <span className="block text-foreground">{link.title}</span>
+                              <span className="block text-[10px] text-muted-foreground/60">{getDomain(link.url)}</span>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Social */}
+          <div className="sm:border-b lg:border-b-0 lg:border-r-0 border-[#CCCCCC] dark:border-[#333333] p-6">
+            <h3 className="mb-4 text-lg font-semibold">Social</h3>
+            <ul className="space-y-3 text-sm text-foreground">
+              {microSocialIssues.map((issue) => (
+                <li key={issue.label} className="group">
+                  <span className="relative inline-block cursor-eye rounded-md px-2 -mx-2 py-1 transition-colors group-hover:bg-black/5 dark:group-hover:bg-white/5">
+                    {issue.label}
+                    <div className="pointer-events-none absolute left-full top-0 z-50 ml-4 w-80 -translate-y-[19px] max-h-[90vh] overflow-y-auto rounded-lg border border-border/70 bg-background p-3 pl-5 opacity-0 shadow-lg dark:shadow-[0_10px_40px_rgba(255,255,255,0.1)] transition-opacity group-hover:pointer-events-auto group-hover:opacity-100 dark:bg-zinc-900">
+                    <ul className="space-y-1">
+                      {issue.links.map((link, i) => (
+                        <li key={i}>
+                          <Link
+                            href={link.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block rounded-md px-2 py-2 text-xs text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground"
+                          >
+                            <span className="block text-foreground">{link.title}</span>
+                            <span className="block text-[10px] text-muted-foreground/60">{getDomain(link.url)}</span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                    </div>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Physical */}
+          <div className="sm:border-r lg:border-r-0 border-[#CCCCCC] dark:border-[#333333] p-6">
+            <h3 className="mb-4 text-lg font-semibold">Physical</h3>
+            <ul className="space-y-3 text-sm text-foreground">
+              {physicalIssues.map((issue) => (
+                <li key={issue.label} className="group">
+                  <span className="relative inline-block cursor-eye rounded-md px-2 -mx-2 py-1 transition-colors group-hover:bg-black/5 dark:group-hover:bg-white/5">
+                    {issue.label}
+                    <div className="pointer-events-none absolute left-full top-0 z-50 ml-4 w-80 -translate-y-[19px] max-h-[90vh] overflow-y-auto rounded-lg border border-border/70 bg-background p-3 pl-5 opacity-0 shadow-lg dark:shadow-[0_10px_40px_rgba(255,255,255,0.1)] transition-opacity group-hover:pointer-events-auto group-hover:opacity-100 dark:bg-zinc-900">
+                      <ul className="space-y-1">
+                        {issue.links.map((link, i) => (
+                          <li key={i}>
+                            <Link
+                              href={link.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block rounded-md px-2 py-2 text-xs text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground"
+                            >
+                              <span className="block text-foreground">{link.title}</span>
+                              <span className="block text-[10px] text-muted-foreground/60">{getDomain(link.url)}</span>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Computing UX */}
+          <div className="p-6">
+            <h3 className="mb-4 text-lg font-semibold">Computing UX</h3>
+            <ul className="space-y-3 text-sm text-foreground">
+              {computingIssues.map((issue) => (
+                <li key={issue.label} className="group">
+                  <span className="relative inline-block cursor-eye rounded-md px-2 -mx-2 py-1 transition-colors group-hover:bg-black/5 dark:group-hover:bg-white/5">
+                    {issue.label}
+                    <div className="pointer-events-none absolute left-full top-0 z-50 ml-4 w-80 -translate-y-[19px] max-h-[90vh] overflow-y-auto rounded-lg border border-border/70 bg-background p-3 pl-5 opacity-0 shadow-lg dark:shadow-[0_10px_40px_rgba(255,255,255,0.1)] transition-opacity group-hover:pointer-events-auto group-hover:opacity-100 dark:bg-zinc-900">
                       <ul className="space-y-1">
                         {issue.links.map((link, i) => (
                           <li key={i}>
@@ -422,6 +804,166 @@ export default function Home() {
           <h2 className="text-2xl font-semibold sm:text-3xl">A Novel Approach</h2>
           <p className="pt-2 text-base text-muted-foreground">
             A decentralised open-source trustless hardware + software AI platform to solve the entire problem stack from micro to macro
+          </p>
+        </div>
+
+        {/* What is SOURCE */}
+        <div className="space-y-6 pt-8">
+          <h3 className="text-2xl font-semibold">Civilizational-Scale Infrastructure</h3>
+          <p className="text-base text-muted-foreground leading-relaxed">
+            SOURCE represents an infrastructure buildout on the scale of humanity&apos;s greatest achievements. This is not merely a product or platform—it is a fundamental reimagining of how we build the physical and digital infrastructure that underpins human civilization.
+          </p>
+
+          {/* Historical Infrastructure Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 pt-6">
+            <div className="flex flex-col items-center space-y-3">
+              <div className="w-full aspect-square rounded-lg bg-muted/30 border border-border/50 overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=400&fit=crop"
+                  alt="Telegraph Network"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <span className="text-sm text-center text-muted-foreground">Telegraph Network</span>
+            </div>
+
+            <div className="flex flex-col items-center space-y-3">
+              <div className="w-full aspect-square rounded-lg bg-muted/30 border border-border/50 overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1577563908411-5077b6dc7624?w=400&h=400&fit=crop"
+                  alt="Telephone System"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <span className="text-sm text-center text-muted-foreground">Telephone System</span>
+            </div>
+
+            <div className="flex flex-col items-center space-y-3">
+              <div className="w-full aspect-square rounded-lg bg-muted/30 border border-border/50 overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=400&h=400&fit=crop"
+                  alt="Electrical Grid"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <span className="text-sm text-center text-muted-foreground">Electrical Grid</span>
+            </div>
+
+            <div className="flex flex-col items-center space-y-3">
+              <div className="w-full aspect-square rounded-lg bg-muted/30 border border-border/50 overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=400&fit=crop"
+                  alt="Water Distribution"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <span className="text-sm text-center text-muted-foreground">Water Distribution</span>
+            </div>
+
+            <div className="flex flex-col items-center space-y-3">
+              <div className="w-full aspect-square rounded-lg bg-muted/30 border border-border/50 overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1607400201889-565b1ee75f8e?w=400&h=400&fit=crop"
+                  alt="Plumbing Infrastructure"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <span className="text-sm text-center text-muted-foreground">Plumbing Infrastructure</span>
+            </div>
+
+            <div className="flex flex-col items-center space-y-3">
+              <div className="w-full aspect-square rounded-lg bg-muted/30 border border-border/50 overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=400&h=400&fit=crop"
+                  alt="Water Sanitization"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <span className="text-sm text-center text-muted-foreground">Water Sanitization</span>
+            </div>
+
+            <div className="flex flex-col items-center space-y-3">
+              <div className="w-full aspect-square rounded-lg bg-muted/30 border border-border/50 overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=400&fit=crop"
+                  alt="Telecommunications"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <span className="text-sm text-center text-muted-foreground">Telecommunications</span>
+            </div>
+
+            <div className="flex flex-col items-center space-y-3">
+              <div className="w-full aspect-square rounded-lg bg-muted/30 border border-border/50 overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&h=400&fit=crop"
+                  alt="Internet Infrastructure"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <span className="text-sm text-center text-muted-foreground">Internet Infrastructure</span>
+            </div>
+          </div>
+
+          <h3 className="text-xl font-semibold pt-4">Decentralized Physical Infrastructure (DePIN)</h3>
+          <p className="text-base text-muted-foreground leading-relaxed">
+            What differentiates SOURCE from previous infrastructure revolutions is its decentralized nature. Rather than centralized control by governments or corporations, SOURCE employs DePIN—Decentralized Physical Infrastructure Networks—where the physical infrastructure lives in every home through SOURCE monitor sensor units installed in each residence.
+          </p>
+
+          <h3 className="text-xl font-semibold pt-4">The SOURCE Monitor Sensor Unit</h3>
+          <p className="text-base text-muted-foreground leading-relaxed">
+            Each unit is a sophisticated multi-modal sensing and interaction device equipped with:
+          </p>
+          <ul className="list-disc list-inside space-y-2 text-base text-muted-foreground ml-4">
+            <li>LiDAR sensing for spatial awareness and 3D mapping</li>
+            <li>Video capture for visual understanding</li>
+            <li>Audio sensing for sound and voice recognition</li>
+            <li>Surround sound speakers for immersive interaction with your personal AI agent</li>
+          </ul>
+
+          <h3 className="text-xl font-semibold pt-4">The SOURCE Compute Unit</h3>
+          <p className="text-base text-muted-foreground leading-relaxed">
+            The computational backbone of SOURCE is distributed across two complementary infrastructure layers:
+          </p>
+
+          <div className="pl-4 space-y-4 pt-3">
+            <div>
+              <h4 className="text-base font-semibold text-foreground mb-2">Private Residence Compute</h4>
+              <p className="text-base text-muted-foreground leading-relaxed">
+                Each home hosts dedicated compute infrastructure built into unused wall space or closets. These private compute units process local data, run personal AI agents, and contribute to the distributed network—bringing enterprise-grade computational power into every household.
+              </p>
+            </div>
+
+            <div>
+              <h4 className="text-base font-semibold text-foreground mb-2">Public Space Compute</h4>
+              <p className="text-base text-muted-foreground leading-relaxed">
+                Neighborhoods deploy above-ground or below-ground physical compute server buildouts that are chained together to form a robust mesh network. These public compute nodes connect to SOURCE Sensors installed throughout public spaces—similar to traditional CCTV surveillance systems but fundamentally reimagined with LiDAR, video cameras, microphones, and speakers for comprehensive environmental awareness and interaction.
+              </p>
+            </div>
+          </div>
+
+          <h3 className="text-xl font-semibold pt-4">Community Ownership: Infrastructure by the People, for the People</h3>
+          <p className="text-base text-muted-foreground leading-relaxed">
+            Unlike traditional infrastructure controlled by corporations or centralized authorities, SOURCE belongs to the community. The entire neighborhood owns these systems—the sensors, the compute infrastructure, the network. This is infrastructure owned by the 99%, ensuring that the benefits, governance, and value creation remain with the people who use and maintain it.
+          </p>
+          <p className="text-base text-muted-foreground leading-relaxed pt-3">
+            While communities maintain ownership and control, SOURCE operates in partnership with existing government organizations and services, creating a collaborative model that respects established institutions while fundamentally democratizing access to advanced AI infrastructure.
+          </p>
+
+          <h3 className="text-xl font-semibold pt-4">Total Integration: Zero Blind Spots</h3>
+          <p className="text-base text-muted-foreground leading-relaxed">
+            The result is unprecedented coverage:
+          </p>
+          <ul className="list-disc list-inside space-y-2 text-base text-muted-foreground ml-4">
+            <li><strong>100% home integration</strong> — Zero blind spots, zero deaf spots. Complete awareness and interaction capability throughout your living space.</li>
+            <li><strong>100% neighborhood integration</strong> — Seamless coverage extends beyond individual homes to create neighborhood-wide networks.</li>
+            <li><strong>Universal compute access</strong> — No matter where you go within SOURCE territory, you have access to computational resources and your personal AI agent.</li>
+            <li><strong>Persistent AI companion</strong> — Your personal AI agent follows you wherever you go, maintaining continuity of service and understanding across all SOURCE-enabled locations.</li>
+          </ul>
+
+          <h3 className="text-xl font-semibold pt-4">A New Era of Infrastructure</h3>
+          <p className="text-base text-muted-foreground leading-relaxed">
+            Just as the electrical grid transformed civilization by bringing power to every home, and the telephone network revolutionized communication by connecting every household, SOURCE creates a new foundational layer for the AI age—one that is open, decentralized, and owned by the people who use it.
           </p>
         </div>
       </section>
