@@ -1,8 +1,8 @@
 ## 2025-11-24 - Refine custom audio player UI with responsive layout and detailed styling
 
-**Problem:** The custom audio player component needed comprehensive UI refinements including proper button sizing, consistent typography, responsive layouts, and visual polish. The speed selector button required better visibility with borders and proper padding to accommodate all speed options (1x, 1.5x, 2x).
+**Problem:** The custom audio player component needed comprehensive UI refinements including proper button sizing, consistent typography, responsive layouts, and visual polish. The speed selector button required better visibility with borders and proper padding to accommodate all speed options (1x, 1.5x, 2x). Additionally, the speed menu could only be closed by selecting an option, creating a frustrating UX when users wanted to dismiss it without making a selection.
 
-**Root Cause:** The audio player had inconsistent button dimensions, font styles that didn't use monospace for numerical displays (causing width changes), missing hover states, and a speed button with insufficient width that caused text to touch borders. The button width was tied to height (42.4px square) which was too narrow for "1.5x".
+**Root Cause:** The audio player had inconsistent button dimensions, font styles that didn't use monospace for numerical displays (causing width changes), missing hover states, and a speed button with insufficient width that caused text to touch borders. The button width was tied to height (42.4px square) which was too narrow for "1.5x". The speed menu lacked click-outside detection functionality.
 
 **Solution:**
 1. Standardized transport control buttons (skip back, play/pause, skip forward) with hover backgrounds
@@ -18,12 +18,14 @@
 11. Added 2px border to speed button (`border-2 border-black/5 dark:border-white/5`)
 12. Set fixed speed button width to 60px (height remains 42.4px) to accommodate all speed options
 13. Ensured consistent padding and centered content alignment with `justify-center`
+14. Implemented click-outside detection using useRef and useEffect
+15. Added mousedown event listener to close menu when clicking outside the speed menu container
+16. Properly cleaned up event listeners on component unmount to prevent memory leaks
 
 **Files Modified:**
-- `/src/components/custom-audio-player.tsx` - Complete UI refinement of audio player controls
-- `/src/components/audio-player/components/PlayerIcons.tsx` - Updated icon components (if applicable)
+- `/src/components/custom-audio-player.tsx` - Complete UI refinement of audio player controls and click-outside functionality
 
-**Outcome:** The audio player now has polished, professional controls with consistent sizing, proper hover feedback, and clear visual hierarchy. The speed selector button has a prominent 2px border making it obviously clickable, with sufficient width (60px) to prevent text from touching borders. All numerical displays use monospace fonts for stable character widths, and the typography is refined with proper weight differentiation between numbers and suffixes. The interface responds smoothly to user interactions with appropriate cursor changes and background transitions.
+**Outcome:** The audio player now has polished, professional controls with consistent sizing, proper hover feedback, and clear visual hierarchy. The speed selector button has a prominent 2px border making it obviously clickable, with sufficient width (60px) to prevent text from touching borders. All numerical displays use monospace fonts for stable character widths, and the typography is refined with proper weight differentiation between numbers and suffixes. The interface responds smoothly to user interactions with appropriate cursor changes and background transitions. Users can now dismiss the speed menu by clicking anywhere outside of it, providing a natural and expected interaction pattern.
 
 ## 2025-11-23 - Implement comprehensive problem set documentation with intelligent popup menus
 

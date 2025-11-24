@@ -7,7 +7,7 @@ import {
   SkipBackIcon,
   SkipForwardIcon,
 } from "@/components/audio-player/components/PlayerIcons";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const ICON_SCALE = 0.6;
 
@@ -47,6 +47,24 @@ export function CustomAudioPlayer() {
   } = useAudioExperience();
 
   const [isSpeedModalOpen, setIsSpeedModalOpen] = useState(false);
+  const speedMenuRef = useRef<HTMLDivElement>(null);
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (speedMenuRef.current && !speedMenuRef.current.contains(event.target as Node)) {
+        setIsSpeedModalOpen(false);
+      }
+    };
+
+    if (isSpeedModalOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isSpeedModalOpen]);
 
   const skipSeconds = config.skipIntervalSeconds;
   const disabled = !isReady;
@@ -206,7 +224,7 @@ export function CustomAudioPlayer() {
         </div>
 
         {/* Right: Speed */}
-        <div className="relative">
+        <div className="relative" ref={speedMenuRef}>
           <button
             type="button"
             onClick={() => setIsSpeedModalOpen(!isSpeedModalOpen)}
