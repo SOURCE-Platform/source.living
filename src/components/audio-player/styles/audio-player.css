@@ -1,0 +1,290 @@
+/**
+ * Audio Player Styles
+ *
+ * This stylesheet provides all the necessary styles for the audio player component.
+ * It uses CSS custom properties (variables) for easy theming.
+ *
+ * To customize the theme, override these CSS variables in your own stylesheet:
+ *
+ * ```css
+ * :root {
+ *   --audio-text: #000;
+ *   --audio-bg: #fff;
+ *   --audio-accent: #0066cc;
+ *   --audio-time-bg: rgba(255, 255, 255, 0.9);
+ *   --audio-muted: rgba(0, 0, 0, 0.5);
+ *   --audio-border: rgba(0, 0, 0, 0.1);
+ *   --audio-slider-track: rgba(0, 0, 0, 0.1);
+ *   --audio-button-hover-bg: rgba(0, 0, 0, 0.05);
+ *   --audio-caption-button-text: rgba(0, 0, 0, 0.5);
+ *   --audio-caption-button-text-active: rgba(0, 0, 0, 1);
+ *   --audio-caption-button-text-hover: rgba(0, 0, 0, 0.8);
+ * }
+ * ```
+ */
+
+/* ========================================
+   CSS Variables (Theme)
+   ======================================== */
+
+:root {
+  /* Light theme (default) */
+  --audio-text: #000;
+  --audio-bg: #fff;
+  --audio-accent: #000;
+  --audio-time-bg: rgba(255, 255, 255, 0.9);
+  --audio-muted: rgba(0, 0, 0, 0.5);
+  --audio-border: rgba(0, 0, 0, 0.1);
+  --audio-slider-track: rgba(0, 0, 0, 0.1);
+  --audio-button-hover-bg: rgba(0, 0, 0, 0.05);
+  --audio-caption-button-text: rgba(0, 0, 0, 0.5);
+  --audio-caption-button-text-active: rgba(0, 0, 0, 1);
+  --audio-caption-button-text-hover: rgba(0, 0, 0, 0.8);
+}
+
+/* Dark theme */
+.dark {
+  --audio-text: #fff;
+  --audio-bg: #000;
+  --audio-accent: #fff;
+  --audio-time-bg: rgba(0, 0, 0, 0.9);
+  --audio-muted: rgba(255, 255, 255, 0.5);
+  --audio-border: rgba(255, 255, 255, 0.1);
+  --audio-slider-track: rgba(255, 255, 255, 0.1);
+  --audio-button-hover-bg: rgba(255, 255, 255, 0.05);
+  --audio-caption-button-text: rgba(255, 255, 255, 0.5);
+  --audio-caption-button-text-active: rgba(255, 255, 255, 1);
+  --audio-caption-button-text-hover: rgba(255, 255, 255, 0.8);
+}
+
+/* ========================================
+   Speed Control Buttons
+   ======================================== */
+
+.audio-speed-option {
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--audio-border);
+  background: transparent;
+  color: var(--audio-text);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.audio-speed-option:hover {
+  background: var(--audio-button-hover-bg);
+}
+
+.audio-speed-option--active {
+  background: var(--audio-accent);
+  color: var(--audio-bg);
+  border-color: var(--audio-accent);
+}
+
+.audio-speed-option:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ========================================
+   Volume Slider
+   ======================================== */
+
+.audio-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.audio-slider::-webkit-slider-track {
+  background: var(--audio-slider-track);
+  border-radius: 999px;
+  height: 4px;
+}
+
+.audio-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background: var(--audio-text);
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  margin-top: -6px;
+  cursor: pointer;
+}
+
+.audio-slider::-moz-range-track {
+  background: var(--audio-slider-track);
+  border-radius: 999px;
+  height: 4px;
+}
+
+.audio-slider::-moz-range-thumb {
+  background: var(--audio-text);
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+}
+
+.audio-slider:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.audio-slider:disabled::-webkit-slider-thumb {
+  cursor: not-allowed;
+}
+
+.audio-slider:disabled::-moz-range-thumb {
+  cursor: not-allowed;
+}
+
+/* Volume slider with filled track */
+.audio-slider--volume::-webkit-slider-track {
+  background: linear-gradient(
+    to right,
+    var(--audio-text) 0%,
+    var(--audio-text) var(--volume-percent, 0%),
+    var(--audio-slider-track) var(--volume-percent, 0%),
+    var(--audio-slider-track) 100%
+  );
+}
+
+/* ========================================
+   Caption Mode Toggle Buttons
+   ======================================== */
+
+.audio-transcript-controls button {
+  padding: 2px 12px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  color: var(--audio-caption-button-text);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 40px;
+}
+
+.audio-transcript-controls button:hover {
+  color: var(--audio-caption-button-text-hover);
+}
+
+.audio-transcript-controls button[aria-pressed="true"] {
+  color: var(--audio-caption-button-text-active);
+}
+
+/* ========================================
+   Audio Player Shell
+   ======================================== */
+
+.audio-player-shell {
+  /* Utility classes will override positioning in AudioWaveform component */
+}
+
+/* ========================================
+   Responsive Utilities
+   ======================================== */
+
+/* Hide on mobile (show on sm and up) */
+.sm-flex-important {
+  display: none !important;
+}
+
+@media (min-width: 640px) {
+  .sm-flex-important {
+    display: flex !important;
+  }
+
+  .sm-hidden-important {
+    display: none !important;
+  }
+}
+
+/* Hide on desktop (show only below lg) */
+.lg-hidden {
+  display: block;
+}
+
+@media (min-width: 1024px) {
+  .lg-hidden {
+    display: none !important;
+  }
+
+  .lg-flex {
+    display: flex;
+  }
+}
+
+/* Utility: hide on all screens */
+.hidden-important {
+  display: none !important;
+}
+
+/* ========================================
+   Chapter List Styles
+   ======================================== */
+
+.chapter-time {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--audio-muted);
+}
+
+/* ========================================
+   Mobile Menu Animation
+   ======================================== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ========================================
+   Accessibility
+   ======================================== */
+
+/* Ensure focus outlines are visible */
+.audio-player-shell button:focus-visible,
+.audio-slider:focus-visible {
+  outline: 2px solid var(--audio-accent);
+  outline-offset: 2px;
+}
+
+/* Screen reader only text */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ========================================
+   Print Styles
+   ======================================== */
+
+@media print {
+  .audio-player-shell,
+  .audio-transcript-controls,
+  .chapters-captions-menu-open {
+    display: none !important;
+  }
+}

@@ -202,3 +202,28 @@
     }
   }
 }
+
+/* Override AudioWaveform positioning to place it in the sidebar */
+.audio-player-container .initial-play-button,
+.audio-player-container .audio-player-shell {
+  position: static !important;
+  transform: none !important;
+  left: auto !important;
+  bottom: auto !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.audio-player-container .audio-player-shell {
+  padding: 1.5rem !important;
+  background: var(--background) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 0.5rem !important;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1) !important;
+}
+
+/* Force all controls to be visible even when not expanded */
+.audio-player-container .audio-player-shell > div > div {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}

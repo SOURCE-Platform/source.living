@@ -1,0 +1,62 @@
+{
+  "speakers": ["Narrator"],
+  "utterances": [
+    {
+      "speaker": "Narrator",
+      "start": 0,
+      "end": 8000,
+      "text": "Welcome to SOURCE: Setting the Stage",
+      "words": [
+        { "text": "Welcome", "start": 0, "end": 800 },
+        { "text": "to", "start": 800, "end": 1200 },
+        { "text": "SOURCE:", "start": 1200, "end": 2500 },
+        { "text": "Setting", "start": 2500, "end": 3500 },
+        { "text": "the", "start": 3500, "end": 4000 },
+        { "text": "Stage", "start": 4000, "end": 8000 }
+      ]
+    },
+    {
+      "speaker": "Narrator",
+      "start": 8500,
+      "end": 18000,
+      "text": "To understand what comes next, we must first understand the current systemic civilizational problem set.",
+      "words": [
+        { "text": "To", "start": 8500, "end": 9000 },
+        { "text": "understand", "start": 9000, "end": 10200 },
+        { "text": "what", "start": 10200, "end": 10700 },
+        { "text": "comes", "start": 10700, "end": 11300 },
+        { "text": "next,", "start": 11300, "end": 12000 },
+        { "text": "we", "start": 12000, "end": 12300 },
+        { "text": "must", "start": 12300, "end": 12800 },
+        { "text": "first", "start": 12800, "end": 13400 },
+        { "text": "understand", "start": 13400, "end": 14600 },
+        { "text": "the", "start": 14600, "end": 14900 },
+        { "text": "current", "start": 14900, "end": 15600 },
+        { "text": "systemic", "start": 15600, "end": 16400 },
+        { "text": "civilizational", "start": 16400, "end": 17400 },
+        { "text": "problem", "start": 17400, "end": 17800 },
+        { "text": "set.", "start": 17800, "end": 18000 }
+      ]
+    },
+    {
+      "speaker": "Narrator",
+      "start": 19000,
+      "end": 30000,
+      "text": "This audio explores the macro and micro problem sets facing humanity today.",
+      "words": [
+        { "text": "This", "start": 19000, "end": 19500 },
+        { "text": "audio", "start": 19500, "end": 20200 },
+        { "text": "explores", "start": 20200, "end": 21400 },
+        { "text": "the", "start": 21400, "end": 21700 },
+        { "text": "macro", "start": 21700, "end": 22500 },
+        { "text": "and", "start": 22500, "end": 22900 },
+        { "text": "micro", "start": 22900, "end": 23700 },
+        { "text": "problem", "start": 23700, "end": 24400 },
+        { "text": "sets", "start": 24400, "end": 25000 },
+        { "text": "facing", "start": 25000, "end": 25800 },
+        { "text": "humanity", "start": 25800, "end": 26900 },
+        { "text": "today.", "start": 26900, "end": 30000 }
+      ]
+    }
+  ]
+}

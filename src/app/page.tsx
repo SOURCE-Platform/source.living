@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { SourceLogo } from "@/components/atoms/icons/source-logo";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
+import { AudioExperienceProvider } from "@/components/audio-player";
+import { CustomAudioPlayer } from "@/components/custom-audio-player";
 
 function getDomain(url: string): string {
   try {
@@ -427,18 +429,56 @@ export default function Home() {
     };
   }, []);
 
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [, forceUpdate] = useState(0);
+
+  // Force a re-render after mount to ensure audioRef.current is available
+  useEffect(() => {
+    forceUpdate(1);
+  }, []);
+
+  // Minimal data for the audio player (no transcript yet)
+  const emptyTranscript = { utterances: [] };
+  const emptyChapters: any[] = [];
+
   return (
-    <div className="flex min-h-screen flex-col gap-24 px-6 py-12 sm:px-12 lg:px-20 xl:px-32 2xl:px-48">
-      {/* Setting the Stage Section */}
-      <section className="mx-auto w-full max-w-xl space-y-8 pt-10">
-        <SourceLogo className="mb-24" />
-        <div className="space-y-3">
-          <h1 className="text-4xl font-semibold sm:text-5xl">Setting the Stage</h1>
-          <p className="pt-2 text-base text-muted-foreground">
-            To understand what comes next we must first understand the current systemic civilisational problem set.
-          </p>
+    <>
+      {/* Audio Player - Hidden audio element */}
+      <audio ref={audioRef} src="/audio/SOURCE Setting the Stage.mp3" preload="metadata" />
+
+      <AudioExperienceProvider
+        audioSrc="/audio/SOURCE Setting the Stage.mp3"
+        transcript={emptyTranscript}
+        chapters={emptyChapters}
+        audioElement={audioRef.current}
+      >
+        {/* Mobile: Fixed Footer Audio Player (hidden on lg+) */}
+        <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-background/95 backdrop-blur-sm p-4 lg:hidden">
+          <CustomAudioPlayer />
         </div>
-      </section>
+
+        {/* Main Layout */}
+        <div className="min-h-screen pb-32 lg:pb-12">
+          {/* Desktop: 3-Column Grid (lg+) */}
+          <div className="lg:grid lg:grid-cols-12 lg:gap-8 lg:px-8 xl:px-12 2xl:px-16">
+            {/* Column 1: Audio Player (Desktop only) */}
+            <aside className="hidden lg:block lg:col-span-3 xl:col-span-3 lg:sticky lg:top-6 lg:self-start lg:pt-12">
+              <CustomAudioPlayer />
+            </aside>
+
+            {/* Columns 2-3: Main Content */}
+            <div className="lg:col-span-9 xl:col-span-9 px-6 sm:px-12 lg:px-0">
+              <div className="flex flex-1 flex-col gap-24 py-12">
+        {/* Setting the Stage Section */}
+        <section className="mx-auto w-full max-w-xl space-y-8 pt-10">
+          <SourceLogo className="mb-24" />
+          <div className="space-y-3">
+            <h1 className="text-4xl font-semibold sm:text-5xl">Setting the Stage</h1>
+            <p className="pt-2 text-base text-muted-foreground">
+              To understand what comes next we must first understand the current systemic civilisational problem set.
+            </p>
+          </div>
+        </section>
 
       {/* The Macro Problem Set Section */}
       <section className="mx-auto w-full max-w-xl space-y-8">
@@ -967,6 +1007,11 @@ export default function Home() {
           </p>
         </div>
       </section>
-    </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </AudioExperienceProvider>
+    </>
   );
 }

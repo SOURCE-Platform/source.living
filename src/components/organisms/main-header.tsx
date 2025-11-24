@@ -68,7 +68,7 @@ export function MainHeader() {
     >
       <div
         className={cn(
-          "flex h-[75px] w-full items-center justify-between gap-6 px-4 transition-transform transition-opacity duration-300 ease-out sm:px-6 lg:px-8",
+          "flex h-[75px] w-full items-center justify-end gap-6 px-4 transition-transform transition-opacity duration-300 ease-out sm:px-6 lg:px-8",
           isFloating && "translate-y-4 opacity-0 pointer-events-none"
         )}
       >

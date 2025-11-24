@@ -7,6 +7,7 @@ import { MainHeader } from "@/components/organisms/main-header";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 import "./globals.css";
+import "@/components/audio-player/styles/audio-player.css";
 
 const ppMori = localFont({
   src: [
