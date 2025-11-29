@@ -23,33 +23,74 @@ export default function Home() {
   ];
 
   useEffect(() => {
+    console.log('[SCROLL-SPY] useEffect running');
+
     const handleScroll = () => {
-      const elementsWithId = document.querySelectorAll("[id]");
+      console.log('[SCROLL-SPY] handleScroll fired!');
+      const viewport = document.querySelector('[data-radix-scroll-area-viewport]');
+      if (!viewport) {
+        console.log('[SCROLL-SPY] Viewport not found');
+        return;
+      }
+
       const sectionIds = sections.map(s => s.id);
       let current = "overview";
 
-      elementsWithId.forEach((element) => {
-        const id = element.getAttribute("id");
-        if (!id || !sectionIds.includes(id)) return;
+      const viewportRect = viewport.getBoundingClientRect();
+      const viewportTop = viewportRect.top;
+      const scrollTop = (viewport as HTMLElement).scrollTop;
 
-        const elementTop = element.getBoundingClientRect().top;
+      console.log(`[SCROLL-SPY] scrollTop: ${scrollTop}, viewportTop: ${viewportTop}`);
 
-        // Use a threshold of 150px from top
-        if (elementTop <= 150 && elementTop > -200) {
-          current = id;
+      const threshold = 200; // How far past the top before we switch
+
+      for (const sectionId of sectionIds) {
+        const element = document.getElementById(sectionId);
+        if (!element) continue;
+
+        const rect = element.getBoundingClientRect();
+        const distanceFromViewportTop = rect.top - viewportTop;
+
+        console.log(`[SCROLL-SPY] "${sectionId}": distance=${distanceFromViewportTop.toFixed(0)}, height=${rect.height.toFixed(0)}`);
+
+        // A section is "active" if its top has passed the viewport top (distance <= threshold)
+        // We keep updating current, so the LAST section that matches will be the active one
+        if (distanceFromViewportTop <= threshold) {
+          current = sectionId;
+          console.log(`[SCROLL-SPY] ✓ "${sectionId}" is now current`);
         }
-      });
-
-      if (current !== activeSection) {
-        console.log('handleScroll: changing active section from', activeSection, 'to', current);
       }
+
+      console.log(`[SCROLL-SPY] Setting active to: "${current}"`);
       setActiveSection(current);
     };
 
-    window.addEventListener("scroll", handleScroll);
-    handleScroll();
+    let viewport: Element | null = null;
+    let timeoutId: NodeJS.Timeout | null = null;
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    const attachListener = () => {
+      viewport = document.querySelector('[data-radix-scroll-area-viewport]');
+      if (viewport) {
+        console.log('[SCROLL-SPY] Attaching listener');
+        viewport.addEventListener("scroll", handleScroll);
+        handleScroll();
+        return true;
+      }
+      return false;
+    };
+
+    if (!attachListener()) {
+      timeoutId = setTimeout(() => {
+        console.log('[SCROLL-SPY] Retrying attach');
+        attachListener();
+      }, 100);
+    }
+
+    return () => {
+      console.log('[SCROLL-SPY] Cleanup');
+      if (timeoutId) clearTimeout(timeoutId);
+      if (viewport) viewport.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   const scrollToSection = (id: string) => {
@@ -181,8 +222,8 @@ export default function Home() {
             >
               <span
                 className={`inline-block text-sm transition-all duration-300 border-b ${activeSection === section.id
-                    ? "border-foreground text-foreground font-medium"
-                    : "border-transparent text-muted-foreground group-hover:border-foreground/50 group-hover:text-foreground"
+                  ? "border-foreground text-foreground font-medium"
+                  : "border-transparent text-muted-foreground group-hover:border-foreground/50 group-hover:text-foreground"
                   }`}
               >
                 {section.label}
