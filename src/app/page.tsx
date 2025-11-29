@@ -267,15 +267,15 @@ export default function Home() {
           <section className="mb-24 space-y-6">
             <div className="space-y-3">
               <SectionHeading id="problem" className="text-2xl font-semibold sm:text-3xl">
-                The Core Problem: The Limit of &quot;Sculpted&quot; Data
+                The Core Problem
               </SectionHeading>
             </div>
             <div className="space-y-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
               <p>
-                We have thrown the entire internet at Transformers. While we have created &quot;pretty smart&quot; models, we have reached a fundamental limit. The data currently powering Large Language Models (LLMs) is not based in normal reality. It is <strong className="text-foreground">performative</strong>, <strong className="text-foreground">artificial</strong>, and <strong className="text-foreground">highly edited</strong>. It is &quot;sculpted&quot; artifice—scraped from a curated internet—devoid of the impromptu, natural human behavior that defines the actual human experience.
+                We have thrown the entire internet at Transformers. While we have created &quot;pretty smart&quot; models, we have reached a fundamental limit. The data currently powering Large Language Models (LLMs) is not based in normal reality. It is <strong className="text-foreground">performative</strong>, <strong className="text-foreground">artificial</strong>, and <strong className="text-foreground">highly edited</strong>. It is &quot;sculpted&quot; artifice :: scraped from a curated internet :: devoid of the impromptu, natural human behavior that defines the actual human experience.
               </p>
               <p>
-                To put it simply: We lack high-quality, <strong className="text-foreground">high-resolution behavioral data</strong>. Without this, there is no true insight into human lives. Current models remain generic &quot;one-size-fits-all&quot; engines, incapable of understanding the user inside and out.
+                To put it simply: We lack high-quality, <strong className="text-foreground">high-resolution behavioral data</strong>. Without this, there is no true insight into human lives. Current models remain generic &quot;one-size-fits-all&quot; engines, incapable of understanding the user inside and out and across the <strong className="text-foreground">physical</strong> and <strong className="text-foreground">digital</strong> domains.
               </p>
             </div>
           </section>
@@ -289,9 +289,9 @@ export default function Home() {
             </div>
             <div className="space-y-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
               <p>
-                Source is designed to solve the core problem of data resolution. It creates a system that is always listening and watching, capturing a <strong className="text-foreground">constant stream of data</strong> across both <strong className="text-foreground">digital</strong> and <strong className="text-foreground">physical</strong> spaces.
+                <strong className="text-foreground">SOURCE</strong> is designed to solve the core problem of data resolution. It creates a system that is always listening and watching, capturing a <strong className="text-foreground">constant stream of data</strong> across both <strong className="text-foreground">digital</strong> and <strong className="text-foreground">physical</strong> spaces.
               </p>
-              <ul className="space-y-3 pl-6">
+              {/* <ul className="space-y-3 pl-6">
                 <li className="relative">
                   <span className="absolute -left-6 text-foreground">•</span>
                   <strong className="text-foreground">Deep Insight:</strong> We capture workflows, real-time feedback, emotional intensity, and responses to stimuli.
@@ -304,7 +304,7 @@ export default function Home() {
                   <span className="absolute -left-6 text-foreground">•</span>
                   <strong className="text-foreground">Daily Granularity:</strong> We track habits and schedules that current AI remains blind to.
                 </li>
-              </ul>
+              </ul> */}
               <p>
                 By knowing the user on a holistic level, Source allows AI to detect problems faster—before they <strong className="text-foreground">metastasize</strong> into toxic issues regarding mental, physical, or relationship health—and craft fine-tuned solutions based on specific user specifications.
               </p>
@@ -315,16 +315,16 @@ export default function Home() {
           <section className="mb-24 space-y-8">
             <div className="space-y-3">
               <SectionHeading id="architecture" className="text-2xl font-semibold sm:text-3xl">
-                Technical Architecture: The Architecture of Reality
+                Technical Architecture
               </SectionHeading>
               <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
-                Source is a hardware and software platform designed to bring true intelligence and awareness to the physical home. By bridging the gap between physical behavior and digital activity, Source creates a &quot;True Record of Reality,&quot; enabling the next generation of Agentic Automation and immersive social connection.
+                Source is a <strong className="text-foreground">hardware</strong> and <strong className="text-foreground">software</strong> platform designed to bring true intelligence and awareness to our spaces. By bridging the gap between physical and digital activity, SOURCE creates a &quot;True Record of Reality,&quot; enabling the next generation of agentic automation and immersive social connection.
               </p>
             </div>
 
             {/* Hardware Architecture */}
             <div className="space-y-4">
-              <h3 className="text-xl font-semibold">I. The Hardware Architecture</h3>
+              <h3 className="text-xl font-semibold">I. Hardware</h3>
               <p className="text-base leading-relaxed text-muted-foreground">
                 Source functions on a decentralized, AI-native infrastructure installed directly within the user&apos;s environment.
               </p>
@@ -346,29 +346,29 @@ export default function Home() {
 
             {/* Software Layer */}
             <div className="space-y-4">
-              <h3 className="text-xl font-semibold">II. The Software Layer &amp; Behavioral Intelligence</h3>
+              <h3 className="text-xl font-semibold">II. Software</h3>
               <p className="text-base leading-relaxed text-muted-foreground">
                 Source operates an OS-level application that acts as a comprehensive surveillance and analysis tool for the user&apos;s digital life.
               </p>
               <ul className="space-y-3 pl-6 text-base leading-relaxed text-muted-foreground">
                 <li className="relative">
                   <span className="absolute -left-6 text-foreground">•</span>
-                  <strong className="text-foreground">Activity Capture:</strong> Logs all keystrokes, mouse movements, application usage, and complex workflows.
+                  <strong className="text-foreground">Device &amp; OS Level:</strong> The foundational software that observes what the user is doing to gain insights and full understanding of their persona and digital behavior, and how their digital reality (apps, socials, communications, etc) impact them.
                 </li>
                 <li className="relative">
                   <span className="absolute -left-6 text-foreground">•</span>
-                  <strong className="text-foreground">Sentiment Analysis:</strong> Utilizes webcam feeds to analyze facial expressions and body language in real-time, correlating user sentiment with the content they are consuming or creating.
+                  <strong className="text-foreground">Blockchain:</strong> The immutable recording of all their activities within physical and digital spaces. This proves whether or not a human was involved in the consumption or creation of content.
                 </li>
                 <li className="relative">
                   <span className="absolute -left-6 text-foreground">•</span>
-                  <strong className="text-foreground">Pose Estimation &amp; Metadata:</strong> We are building a proprietary dataset to decode human behavior, relationships, and outcomes based on body language and environmental interactions.
+                  <strong className="text-foreground">Personal AI:</strong> A multimodal modular AI architecture that understands a user across audio, video, text, biometrics, and more. Personal AI operates with modular specialization where multiple smaller highly specialized models assess different aspects of a user's experience and being.
                 </li>
               </ul>
             </div>
 
             {/* Privacy */}
             <div className="space-y-4">
-              <h3 className="text-xl font-semibold">III. Privacy &amp; The Immutable Record</h3>
+              <h3 className="text-xl font-semibold">III. Data</h3>
               <p className="text-base leading-relaxed text-muted-foreground">
                 To address the crisis of synthetic media, Source establishes an objective baseline of truth.
               </p>
