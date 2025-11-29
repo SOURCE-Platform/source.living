@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import { ThemeToggle } from "@/components/molecules/theme-toggle";
 import { cn } from "@/lib/utils";
 
 const FLOAT_THRESHOLD = 120;
@@ -59,8 +58,8 @@ export function MainHeader() {
     <header
       className={cn(
         "z-50 transition-all duration-300",
-        isFloating 
-          ? "fixed top-0 left-0 right-0 h-0 pointer-events-auto" 
+        isFloating
+          ? "fixed top-0 left-0 right-0 h-0 pointer-events-auto"
           : isHeaderHidden
             ? "fixed -top-full left-0 right-0 pointer-events-none"
             : "fixed top-0 left-0 right-0 pointer-events-auto"
@@ -72,9 +71,6 @@ export function MainHeader() {
           isFloating && "translate-y-4 opacity-0 pointer-events-none"
         )}
       >
-        <div className="flex flex-shrink-0 items-center gap-3">
-          <ThemeToggle />
-        </div>
       </div>
     </header>
   );

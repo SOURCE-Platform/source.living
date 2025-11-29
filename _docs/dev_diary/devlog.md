@@ -1,3 +1,25 @@
+## 2025-11-29 - Improve homepage readability and relocate theme toggle
+
+**Problem:** The homepage had excessively long line lengths that reduced readability, making it difficult for users to comfortably read the content. Additionally, the theme toggle button was positioned in the top-right corner of the page, isolated from the main navigation structure.
+
+**Root Cause:** The main content container used `max-w-4xl` (896px), which created text lines that were too long for optimal reading. Studies show that ideal line length for comfortable reading is 45-75 characters, but the wide container resulted in much longer lines. The theme toggle was positioned in the MainHeader component, separate from the sidebar navigation where other navigation controls resided.
+
+**Solution:**
+1. Reduced main content container width from `max-w-4xl` to `max-w-2xl` (672px)
+2. Imported ThemeToggle component into the home page
+3. Modified sidebar navigation to use flexbox column layout with `flex flex-col`
+4. Made navigation items section use `flex-1` to fill available space
+5. Added theme toggle at bottom of sidebar with `mt-auto` to anchor it to the bottom
+6. Added `pt-4` padding above theme toggle for proper spacing
+7. Removed ThemeToggle import and component from MainHeader component
+8. Cleaned up empty div in MainHeader component
+
+**Files Modified:**
+- `/src/app/page.tsx` - Added ThemeToggle import and component to sidebar navigation
+- `/src/components/organisms/main-header.tsx` - Removed ThemeToggle component and import
+
+**Outcome:** The homepage now has optimal line length for comfortable reading, reducing eye strain and improving content comprehension. The theme toggle is now logically positioned at the bottom left of the sidebar navigation on desktop, and at the bottom of the mobile menu on mobile devices, providing consistent access to theme switching within the main navigation structure. The text width reduction of approximately 25% brings line lengths into the optimal reading range.
+
 ## 2025-11-24 - Refine custom audio player UI with responsive layout and detailed styling
 
 **Problem:** The custom audio player component needed comprehensive UI refinements including proper button sizing, consistent typography, responsive layouts, and visual polish. The speed selector button required better visibility with borders and proper padding to accommodate all speed options (1x, 1.5x, 2x). Additionally, the speed menu could only be closed by selecting an option, creating a frustrating UX when users wanted to dismiss it without making a selection.

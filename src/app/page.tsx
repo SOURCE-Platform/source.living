@@ -2,6 +2,7 @@
 
 import { SourceLogo } from "@/components/atoms/icons/source-logo";
 import { SectionHeading } from "@/components/atoms/section-heading";
+import { ThemeToggle } from "@/components/molecules/theme-toggle";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 
@@ -202,7 +203,7 @@ export default function Home() {
 
       {/* Sidebar Navigation */}
       <nav
-        className={`fixed left-0 top-0 z-40 h-screen w-64 bg-background p-8 transition-transform lg:translate-x-0 ${mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+        className={`fixed left-0 top-0 z-40 h-screen w-64 bg-background p-8 transition-transform lg:translate-x-0 flex flex-col ${mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
           }`}
       >
         <button
@@ -213,7 +214,7 @@ export default function Home() {
         >
           <SourceLogo className="w-full h-auto" />
         </button>
-        <div className="space-y-1">
+        <div className="space-y-1 flex-1">
           {sections.map((section) => (
             <button
               key={section.id}
@@ -231,6 +232,9 @@ export default function Home() {
             </button>
           ))}
         </div>
+        <div className="mt-auto pt-4">
+          <ThemeToggle />
+        </div>
       </nav>
 
       {/* Mobile Menu Overlay */}
@@ -243,7 +247,7 @@ export default function Home() {
 
       {/* Main Content */}
       <main className="lg:ml-64">
-        <div className="mx-auto max-w-4xl px-6 sm:px-12 pt-32">
+        <div className="mx-auto max-w-2xl px-6 sm:px-12 pt-32">
           {/* Header */}
           <section className="mb-16">
             <button
