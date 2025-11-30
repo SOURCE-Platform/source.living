@@ -50,6 +50,7 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 }
+
 /* stylelint-enable at-rule-no-unknown */
 
 :root {
@@ -127,12 +128,14 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   html {
     overscroll-behavior: none;
     background-image: var(--gradient-background);
     background-size: cover;
     background-attachment: fixed;
   }
+
   body {
     @apply bg-background text-foreground antialiased font-sans;
     transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out,
@@ -223,7 +226,7 @@
 }
 
 /* Force all controls to be visible even when not expanded */
-.audio-player-container .audio-player-shell > div > div {
+.audio-player-container .audio-player-shell>div>div {
   opacity: 1 !important;
   pointer-events: auto !important;
 }

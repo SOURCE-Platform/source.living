@@ -27,7 +27,7 @@ const TimeDisplay = ({ current, total }: { current: string; total: string }) => 
   </>
 );
 
-export function CustomAudioPlayer() {
+export function CustomAudioPlayer({ title = "Setting the Stage" }: { title?: string }) {
   const {
     isReady,
     isPlaying,
@@ -84,7 +84,7 @@ export function CustomAudioPlayer() {
     <div className="flex flex-col gap-4">
       {/* Title and Time Display */}
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold">Setting the Stage</h3>
+        <h3 className="text-lg font-semibold">{title}</h3>
         <div className="text-sm tabular-nums font-mono">
           <TimeDisplay current={currentTime} total={totalTime} />
         </div>

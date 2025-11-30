@@ -1,3 +1,28 @@
+## 2025-11-30 - Add CAST section to homepage
+
+**Problem:** The homepage needed a new section documenting CAST (the social layer built on Source) positioned after the Source ID section, with comprehensive information about its architecture, features, and roadmap.
+
+**Root Cause:** CAST is a critical component of the Source platform that bridges the "old internet" with Source's authenticated reality, but it lacked dedicated documentation on the homepage explaining its role as both an outbound broadcasting tool and inbound curation agent.
+
+**Solution:**
+1. Added "CAST" to the navigation sections array between "Source ID" and "Technical Thesis"
+2. Created comprehensive CAST section with 7 subsections:
+   - What is CAST? (definition and purpose)
+   - Core Architecture & Timeline (launch timing and Source School use case)
+   - The Personal AI Agent (inbound data curation and anti-doom scroll features)
+   - Content Philosophy (authenticity vs performance, immutable reality verification)
+   - Permissions & Granularity (activity-based permissioning examples)
+   - Go-to-Market & Future Roadmap (Phase 2 with 4D Gaussian Splats)
+   - Conclusion (shift from Attention Economy to Context Economy)
+3. Updated all instances of "Cast" to "CAST" (all capitals) throughout the section
+4. Applied consistent styling matching existing homepage sections with proper spacing, typography hierarchy, and nested bullet lists
+5. Added highlighted conclusion box using muted background styling
+
+**Files Modified:**
+- `/src/app/page.tsx` - Added CAST navigation item and complete section content
+
+**Outcome:** The homepage now includes a comprehensive CAST section that explains how Source's social layer differs from traditional social media by emphasizing authentic, unedited reality verified through blockchain. Users can understand the granular permission system, the dual-purpose nature of CAST (inbound curation + outbound broadcasting), and how it enables next-generation volumetric media experiences. The section is properly positioned in the navigation flow and maintains visual consistency with the rest of the homepage.
+
 ## 2025-11-29 - Improve homepage readability and relocate theme toggle
 
 **Problem:** The homepage had excessively long line lengths that reduced readability, making it difficult for users to comfortably read the content. Additionally, the theme toggle button was positioned in the top-right corner of the page, isolated from the main navigation structure.

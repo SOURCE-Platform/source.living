@@ -3,6 +3,7 @@
 import { SourceLogo } from "@/components/atoms/icons/source-logo";
 import { SectionHeading } from "@/components/atoms/section-heading";
 import { ThemeToggle } from "@/components/molecules/theme-toggle";
+import { HardwareAudioPlayer } from "@/components/hardware-audio-player";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 
@@ -16,6 +17,7 @@ export default function Home() {
     { id: "solution", label: "The Solution" },
     { id: "architecture", label: "Technical Architecture" },
     { id: "source-id", label: "Source ID" },
+    { id: "cast", label: "CAST" },
     { id: "technical-thesis", label: "Technical Thesis" },
     { id: "trust", label: "Trust & Infrastructure" },
     { id: "roadmap-phase1", label: "Roadmap: Phase 1" },
@@ -329,6 +331,10 @@ export default function Home() {
             {/* Hardware Architecture */}
             <div className="space-y-4">
               <h3 className="text-xl font-semibold">I. Hardware</h3>
+
+              {/* Voice Note Audio Player */}
+              <HardwareAudioPlayer />
+
               <p className="text-base leading-relaxed text-muted-foreground">
                 Source functions on a decentralized, AI-native infrastructure installed directly within the user&apos;s environment.
               </p>
@@ -510,6 +516,185 @@ export default function Home() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </a>
+            </div>
+          </section>
+
+          {/* CAST - NEW SECTION */}
+          <section className="mb-24 space-y-8">
+            <div className="space-y-3">
+              <SectionHeading id="cast" className="text-2xl font-semibold sm:text-3xl">
+                CAST
+              </SectionHeading>
+              <p className="text-xl text-muted-foreground">
+                The Social Layer for Authentic Reality
+              </p>
+            </div>
+
+            {/* Definition */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold">1. What is CAST?</h3>
+              <p className="text-base leading-relaxed text-muted-foreground">
+                CAST is proposed as a specialized social layer and information bridge built on top of the Source hardware/software platform. Unlike traditional social media, CAST relies on continuous environmental monitoring (IoT, sensors, LIDAR) to generate &quot;authentic&quot; data streams. It functions as both an outbound broadcasting tool for users (sharing their lives with granular privacy controls) and an inbound curation agent (filtering the &quot;old internet&quot; based on high-context user data).
+              </p>
+            </div>
+
+            {/* Core Architecture & Timeline */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold">2. Core Architecture &amp; Timeline</h3>
+              <ul className="space-y-3 pl-6 text-base leading-relaxed text-muted-foreground">
+                <li className="relative">
+                  <span className="absolute -left-6 text-foreground">•</span>
+                  <strong className="text-foreground">Definition:</strong> A social network based on the Source platform where the environment constantly monitors the user to understand their context.
+                </li>
+                <li className="relative">
+                  <span className="absolute -left-6 text-foreground">•</span>
+                  <strong className="text-foreground">Launch Timeline:</strong> Projected for early release, specifically between Phase 1 and Phase 2.
+                </li>
+                <li className="relative">
+                  <span className="absolute -left-6 text-foreground">•</span>
+                  <strong className="text-foreground">Early Use Case (The &quot;Source School&quot; Model):</strong> Source monitors children in a learning environment. System automatically generates summaries of the child&apos;s day. Reports are sent to parents (an early prototype of the Cast architecture).
+                </li>
+              </ul>
+            </div>
+
+            {/* Personal AI Agent (Inbound Data) */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold">3. The Personal AI Agent (Inbound Data)</h3>
+              <p className="text-base leading-relaxed text-muted-foreground">
+                CAST is not just for sharing; it is for consuming the web more efficiently using &quot;Personal AI.&quot;
+              </p>
+              <ul className="space-y-3 pl-6 text-base leading-relaxed text-muted-foreground">
+                <li className="relative">
+                  <span className="absolute -left-6 text-foreground">•</span>
+                  <strong className="text-foreground">The Bridge:</strong> Connects the &quot;Old Internet&quot; (legacy social, articles, e-commerce) to the Source user.
+                </li>
+                <li className="relative">
+                  <span className="absolute -left-6 text-foreground">•</span>
+                  <strong className="text-foreground">Contextual Curation:</strong> Source knows the user&apos;s physical habits and digital interactions. The Agent scours the web (podcasts, research papers, current affairs) to find &quot;gems&quot; relevant to that specific context.
+                </li>
+                <li className="relative">
+                  <span className="absolute -left-6 text-foreground">•</span>
+                  <strong className="text-foreground">The &quot;Anti-Doom Scroll&quot;:</strong> Eliminates time wasted on ads, intros, and &quot;housekeeping&quot; filler. Condenses hours of research into short (e.g., 15-minute) summaries.
+                </li>
+                <li className="relative">
+                  <span className="absolute -left-6 text-foreground">•</span>
+                  <strong className="text-foreground">Modality Flexibility:</strong> Spoken/Audio summaries. Conversational Q&amp;A (user asks the AI to expand on topics). Generated Video (future roadmap dependent on real-time generation capabilities).
+                </li>
+              </ul>
+            </div>
+
+            {/* Content Philosophy (Outbound Data) */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold">4. Content Philosophy (Outbound Data)</h3>
+              <ul className="space-y-3 pl-6 text-base leading-relaxed text-muted-foreground">
+                <li className="relative">
+                  <span className="absolute -left-6 text-foreground">•</span>
+                  <strong className="text-foreground">Authenticity vs. Performance:</strong> Rejects the &quot;highly polished, contrived&quot; nature of current social media. Emphasizes raw, natural, and real-life moments, including mistakes.
+                </li>
+                <li className="relative">
+                  <span className="absolute -left-6 text-foreground">•</span>
+                  <strong className="text-foreground">The &quot;Posting Problem&quot;:</strong> Eliminates the need for meticulous editing of text/video. Source auto-assesses the day to create reports or capture &quot;cool moments&quot; automatically.
+                </li>
+                <li className="relative">
+                  <span className="absolute -left-6 text-foreground">•</span>
+                  <strong className="text-foreground">Immutable Reality (Verification):</strong>
+                  <ul className="space-y-2 pl-6 mt-2">
+                    <li className="relative">
+                      <span className="absolute -left-6">-</span>
+                      <strong className="text-foreground">Problem:</strong> Approaching AI realism (Deepfakes) makes it impossible to distinguish real humans from bots.
+                    </li>
+                    <li className="relative">
+                      <span className="absolute -left-6">-</span>
+                      <strong className="text-foreground">Solution:</strong> Source provides an immutable record of reality.
+                    </li>
+                    <li className="relative">
+                      <span className="absolute -left-6">-</span>
+                      <strong className="text-foreground">Assurance:</strong> Users know that CAST content (video/splats) is a verified record of physical events, not AI hallucinations.
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+
+            {/* Permissions & Granularity */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold">5. Permissions &amp; Granularity</h3>
+              <p className="text-base leading-relaxed text-muted-foreground">
+                The platform moves away from binary privacy settings toward highly specific activity-based permissioning.
+              </p>
+              <ul className="space-y-3 pl-6 text-base leading-relaxed text-muted-foreground">
+                <li className="relative">
+                  <span className="absolute -left-6 text-foreground">•</span>
+                  <strong className="text-foreground">Granular Access Control:</strong>
+                  <ul className="space-y-2 pl-6 mt-2">
+                    <li className="relative">
+                      <span className="absolute -left-6">-</span>
+                      <em>Example User:</em> A person who codes, exercises, makes music, and cooks.
+                    </li>
+                    <li className="relative">
+                      <span className="absolute -left-6">-</span>
+                      <em>Subscriber A:</em> Sees only music production.
+                    </li>
+                    <li className="relative">
+                      <span className="absolute -left-6">-</span>
+                      <em>Subscriber B:</em> Sees only coding.
+                    </li>
+                    <li className="relative">
+                      <span className="absolute -left-6">-</span>
+                      <em>Close Family:</em> Full access to all streams.
+                    </li>
+                    <li className="relative">
+                      <span className="absolute -left-6">-</span>
+                      <em>Friends:</em> Access to casual activities (reading, drawing).
+                    </li>
+                  </ul>
+                </li>
+                <li className="relative">
+                  <span className="absolute -left-6 text-foreground">•</span>
+                  <strong className="text-foreground">Sub-Activity Filtering:</strong> A subscriber can choose to see only the <em>creative</em> part of music making (melody) while filtering out the technical setup or commentary.
+                </li>
+              </ul>
+            </div>
+
+            {/* Go-to-Market & Future Roadmap */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold">6. Go-to-Market &amp; Future Roadmap (Phase 2)</h3>
+              <ul className="space-y-3 pl-6 text-base leading-relaxed text-muted-foreground">
+                <li className="relative">
+                  <span className="absolute -left-6 text-foreground">•</span>
+                  <strong className="text-foreground">Target Demographic:</strong> Influential streamers and influencers.
+                </li>
+                <li className="relative">
+                  <span className="absolute -left-6 text-foreground">•</span>
+                  <strong className="text-foreground">The &quot;Cast App&quot;:</strong> A dedicated application for viewing Source-generated content.
+                </li>
+                <li className="relative">
+                  <span className="absolute -left-6 text-foreground">•</span>
+                  <strong className="text-foreground">Next-Gen Media Format (4D Gaussian Splats):</strong>
+                  <ul className="space-y-2 pl-6 mt-2">
+                    <li className="relative">
+                      <span className="absolute -left-6">-</span>
+                      <strong className="text-foreground">Technology:</strong> Real-time volumetric video (VR/AR compatible).
+                    </li>
+                    <li className="relative">
+                      <span className="absolute -left-6">-</span>
+                      <strong className="text-foreground">User Experience:</strong> Viewers are not stuck in a &quot;fixed camera&quot; perspective. They can invoke virtual cameras to pan around the streamer&apos;s room (within authorized zones) to view the content from any angle.
+                    </li>
+                  </ul>
+                </li>
+                <li className="relative">
+                  <span className="absolute -left-6 text-foreground">•</span>
+                  <strong className="text-foreground">Infrastructure:</strong> Relies on Source-based cameras and LIDAR wired into local servers.
+                </li>
+              </ul>
+            </div>
+
+            {/* Conclusion */}
+            <div className="space-y-4 rounded-lg border border-border bg-muted/30 p-8">
+              <h3 className="text-xl font-semibold">7. Conclusion</h3>
+              <p className="text-base leading-relaxed text-muted-foreground">
+                CAST represents a shift from &quot;Attention Economy&quot; scrolling to &quot;Context Economy&quot; integration. By leveraging the deep data collected by Source, CAST reduces screen time, automates content creation, ensures human authenticity in an AI-crowded web, and enables a new form of immersive, volumetric media consumption.
+              </p>
             </div>
           </section>
 
