@@ -3,8 +3,6 @@ import localFont from "next/font/local";
 
 import { ThemeProvider } from "@/components/molecules/theme-provider";
 import { BackgroundAnimation } from "@/components/organisms/background-animation";
-import { MainHeader } from "@/components/organisms/main-header";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 import "./globals.css";
 import "@/components/audio-player/styles/audio-player.css";
@@ -67,13 +65,8 @@ export default function RootLayout({
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <BackgroundAnimation />
-          <div className="relative z-10 flex h-screen flex-col">
-            <MainHeader />
-            <ScrollArea className="flex-1" viewportId="main-content">
-              <main className="min-h-screen w-full">
-                {children}
-              </main>
-            </ScrollArea>
+          <div className="relative z-10">
+            {children}
           </div>
         </ThemeProvider>
       </body>
