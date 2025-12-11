@@ -1,5 +1,6 @@
 'use client';
 
+import Link from "next/link";
 import { SourceLogo } from "@/components/atoms/icons/source-logo";
 import { ThemeToggle } from "@/components/molecules/theme-toggle";
 
@@ -49,6 +50,23 @@ export default function Home() {
               <li><strong className="text-foreground">The Data is Flawed:</strong> LLMs are trained on the <em>internet</em>, which is performative, artificial, and highly edited. It is "sculpted" artifice, devoid of the natural human behavior that defines actual experience.</li>
               <li><strong className="text-foreground">The Context Gap:</strong> Current AI has zero insight into the physical world or the 99% of human experience that happens offline. It cannot predict needs because it cannot <em>see</em> the user.</li>
             </ul>
+
+            <div className="rounded-lg border border-border bg-muted/10 p-6 space-y-4">
+              <div>
+                <h3 className="font-bold text-lg text-foreground">The Convergence of Problems</h3>
+                <p className="text-sm">
+                  The "Data Wall" is just one component of a much larger, interconnected crisis. We are facing a simultaneous convergence of political, economic, social, and technological failures that are reshaping human civilization.
+                </p>
+              </div>
+
+              <Link
+                href="/convergence"
+                className="inline-flex items-center text-sm font-bold text-foreground hover:opacity-80 transition-opacity"
+              >
+                See the full Systemic Convergence Report <span aria-hidden="true" className="ml-1">→</span>
+              </Link>
+            </div>
+
             <p className="italic text-muted-foreground">
               <strong className="text-foreground">The Opportunity:</strong> The next breakthrough in AI won't come from more GPUs; it will come from a new <em>class</em> of data—continuous, multimodal, real-world behavioral data.
             </p>
@@ -90,6 +108,19 @@ export default function Home() {
                 <p className="text-sm text-muted-foreground">
                   A rigorous "Context Economy" network. Unlike scrolling feeds, CAST uses Source data to generate automated summaries of the user's life and curate the internet based on the user's specific real-world context.
                 </p>
+              </div>
+
+              <div className="rounded-lg border border-border bg-muted/10 p-4 space-y-3">
+                <h3 className="font-bold text-base text-foreground">Mapping the Solution</h3>
+                <p className="text-sm">
+                  How Source specifically targets and neutralizes the systemic threats outlined in the Convergence Report.
+                </p>
+                <Link
+                  href="/solutions"
+                  className="inline-flex items-center text-sm font-bold text-foreground hover:opacity-80 transition-opacity"
+                >
+                  View the Source Solution Map <span aria-hidden="true" className="ml-1">→</span>
+                </Link>
               </div>
             </div>
           </section>
