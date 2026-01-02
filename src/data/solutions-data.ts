@@ -182,7 +182,7 @@ export const computingSolutions: SolutionItem[] = [
         solutionDescription: "The ultimate interface is no interface. Source relies on voice, gaze, and gesture. You don't click 'lights on'; you just walk in. The computer recedes into the background, leaving only the utility.",
     },
     {
-        problem: "Fragmented ecosystem of apps",
+        problem: "Fragmented ecosystem of OSs, apps, and data",
         solutionTitle: "The Unified OS",
         solutionDescription: "Source is the 'Meta-OS'. It sits above the apps, aggregating data from your phone, laptop, and home into a single, coherent user profile, breaking down the silos between Apple, Google, and Amazon.",
     },

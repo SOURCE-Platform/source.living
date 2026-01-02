@@ -91,43 +91,50 @@ function ProblemCard({ issue }: { issue: ConvergingIssue }) {
 
     return (
         <div className="mb-4 last:mb-0">
-            <div ref={triggerRef} className="group/menu relative inline-block">
-                <span className="font-medium text-foreground cursor-help px-2 py-2 rounded-lg transition-colors hover:bg-muted whitespace-nowrap">
-                    {issue.label}
-                </span>
-                {/* Tooltip with invisible bridge */}
-                <div
-                    ref={menuRef}
-                    style={{ top: `${menuOffset}px` }}
-                    className="absolute left-full ml-2 z-50 w-72 rounded-lg border border-border bg-background p-3 opacity-0 shadow-2xl dark:shadow-[0_0_40px_rgba(255,255,255,0.2)] transition-opacity duration-200 pointer-events-none group-hover/menu:opacity-100 group-hover/menu:pointer-events-auto hover:opacity-100 hover:pointer-events-auto before:content-[''] before:absolute before:right-full before:inset-y-0 before:w-2 before:bg-transparent"
-                >
-                    <ul className="space-y-2">
-                        {issue.links.map((link, i) => (
-                            <li key={i}>
-                                <Link
-                                    href={link.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="block rounded-md p-2 text-xs transition-colors hover:bg-muted"
-                                >
-                                    <span className="block font-medium text-foreground mb-0.5">{link.title}</span>
-                                    <span className="block text-[10px] text-muted-foreground">{getDomain(link.url)}</span>
-                                </Link>
-                            </li>
-                        ))}
-                    </ul>
+            <div className="flex flex-col gap-1">
+                <div ref={triggerRef} className="group/menu relative w-fit">
+                    <span className="text-base font-semibold text-foreground cursor-help px-2 py-1 -ml-2 rounded-lg transition-colors hover:bg-muted whitespace-nowrap block">
+                        {issue.label}
+                    </span>
+                    {/* Tooltip with invisible bridge */}
+                    <div
+                        ref={menuRef}
+                        style={{ top: `${menuOffset}px` }}
+                        className="absolute left-full ml-2 z-50 w-72 rounded-lg border border-border bg-background p-3 opacity-0 shadow-2xl dark:shadow-[0_0_40px_rgba(255,255,255,0.2)] transition-opacity duration-200 pointer-events-none group-hover/menu:opacity-100 group-hover/menu:pointer-events-auto hover:opacity-100 hover:pointer-events-auto before:content-[''] before:absolute before:right-full before:inset-y-0 before:w-2 before:bg-transparent"
+                    >
+                        <ul className="space-y-2">
+                            {issue.links.map((link, i) => (
+                                <li key={i}>
+                                    <Link
+                                        href={link.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="block rounded-md p-2 text-xs transition-colors hover:bg-muted"
+                                    >
+                                        <span className="block font-medium text-foreground mb-0.5">{link.title}</span>
+                                        <span className="block text-[10px] text-muted-foreground">{getDomain(link.url)}</span>
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 </div>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                    {issue.description}
+                </p>
             </div>
         </div>
     );
 }
 
-function SolutionCard({ item }: { item: SolutionItem }) {
+function SolutionCard({ item, showProblem = true }: { item: SolutionItem; showProblem?: boolean }) {
     return (
         <div className="mb-6 last:mb-0">
-            <div className="mb-1 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
-                Problem: {item.problem}
-            </div>
+            {showProblem && (
+                <div className="mb-1 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                    Problem: {item.problem}
+                </div>
+            )}
             <div className="mb-1 text-base font-semibold text-foreground">
                 {item.solutionTitle}
             </div>
@@ -140,27 +147,37 @@ function SolutionCard({ item }: { item: SolutionItem }) {
 
 function ComparisonRow({ category }: { category: CategoryData }) {
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 border border-border rounded-lg overflow-hidden mb-6">
-            <div className="bg-card/50 p-6 border-b md:border-b-0 md:border-r border-border">
-                <h4 className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-4">{category.title} Problems</h4>
-                <div className="space-y-4">
-                    {category.problems.map((p, i) => (
-                        <div key={i} className="min-h-[100px] flex items-center">
-                            <ProblemCard issue={p} />
-                        </div>
-                    ))}
+        <div className="border border-border rounded-lg mb-8">
+            {/* Header Row */}
+            <div className="grid grid-cols-1 md:grid-cols-2 bg-muted/30 border-b border-border rounded-t-lg">
+                <div className="p-4 border-b md:border-b-0 md:border-r border-border">
+                    <h4 className="text-sm font-bold text-muted-foreground uppercase tracking-wider">{category.title} Problems</h4>
+                </div>
+                <div className="p-4">
+                    <h4 className="text-sm font-bold text-muted-foreground uppercase tracking-wider">{category.title} Solutions</h4>
                 </div>
             </div>
-            <div className="bg-muted/10 p-6">
-                <h4 className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-4">{category.title} Solutions</h4>
-                <div className="space-y-4">
-                    {category.solutions.map((s, i) => (
-                        <div key={i} className="min-h-[100px]">
-                            <SolutionCard item={s} />
+
+            {/* Content Rows */}
+            {category.problems.map((problem, i) => {
+                const solution = category.solutions.find(s => s.problem === problem.label);
+                return (
+                    <div key={i} className="grid grid-cols-1 md:grid-cols-2 border-b last:border-b-0 last:rounded-b-lg border-border hover:bg-muted/5 transition-colors">
+                        <div className="p-6 border-b md:border-b-0 md:border-r border-border">
+                            <ProblemCard issue={problem} />
                         </div>
-                    ))}
-                </div>
-            </div>
+                        <div className="p-6 bg-muted/5 md:bg-muted/10">
+                            {solution ? (
+                                <SolutionCard item={solution} showProblem={false} />
+                            ) : (
+                                <div className="h-full flex items-center justify-center p-4 border border-dashed border-border/50 rounded-lg text-muted-foreground/50 text-sm italic">
+                                    No direct solution mapped
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                );
+            })}
         </div>
     );
 }
@@ -236,7 +253,7 @@ export function ComparisonView({ defaultView }: ComparisonViewProps) {
                             {defaultView === 'problems' && (
                                 <>
                                     <section className="space-y-8">
-                                        <h2 className="text-2xl font-bold text-foreground">I. The Macro Problem Set</h2>
+                                        <h2 className="text-2xl font-bold text-foreground">The Macro Problem Set</h2>
                                         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 not-prose">
                                             {MACRO_CATEGORIES.map(cat => (
                                                 <div key={cat.title} className="border border-border p-6 rounded-lg bg-card/50">
@@ -250,7 +267,7 @@ export function ComparisonView({ defaultView }: ComparisonViewProps) {
                                     </section>
 
                                     <section className="space-y-8">
-                                        <h2 className="text-2xl font-bold text-foreground">II. The Micro Problem Set</h2>
+                                        <h2 className="text-2xl font-bold text-foreground">The Micro Problem Set</h2>
                                         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 not-prose">
                                             {MICRO_CATEGORIES.map(cat => (
                                                 <div key={cat.title} className="border border-border p-6 rounded-lg bg-card/50">
@@ -269,7 +286,7 @@ export function ComparisonView({ defaultView }: ComparisonViewProps) {
                             {defaultView === 'solutions' && (
                                 <>
                                     <section className="space-y-8">
-                                        <h2 className="text-2xl font-bold text-foreground">I. Macro-Systemic Solutions</h2>
+                                        <h2 className="text-2xl font-bold text-foreground">Macro-Systemic Solutions</h2>
                                         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 not-prose">
                                             {MACRO_CATEGORIES.map(cat => (
                                                 <div key={cat.title} className="border border-border p-6 rounded-lg bg-card/50">
@@ -282,7 +299,7 @@ export function ComparisonView({ defaultView }: ComparisonViewProps) {
                                         </div>
                                     </section>
                                     <section className="space-y-8">
-                                        <h2 className="text-2xl font-bold text-foreground">II. Micro-Personal Solutions</h2>
+                                        <h2 className="text-2xl font-bold text-foreground">Micro-Personal Solutions</h2>
                                         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 not-prose">
                                             {MICRO_CATEGORIES.map(cat => (
                                                 <div key={cat.title} className="border border-border p-6 rounded-lg bg-card/50">
@@ -303,14 +320,14 @@ export function ComparisonView({ defaultView }: ComparisonViewProps) {
                     {isCompareMode && (
                         <>
                             <section className="space-y-8">
-                                <h2 className="text-2xl font-bold text-foreground">I. Macro Analysis</h2>
+                                <h2 className="text-2xl font-bold text-foreground">Macro Analysis</h2>
                                 <div className="not-prose">
                                     {MACRO_CATEGORIES.map(cat => <ComparisonRow key={cat.title} category={cat} />)}
                                 </div>
                             </section>
 
                             <section className="space-y-8">
-                                <h2 className="text-2xl font-bold text-foreground">II. Micro Analysis</h2>
+                                <h2 className="text-2xl font-bold text-foreground">Micro Analysis</h2>
                                 <div className="not-prose">
                                     {MICRO_CATEGORIES.map(cat => <ComparisonRow key={cat.title} category={cat} />)}
                                 </div>
