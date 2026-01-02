@@ -54,7 +54,7 @@ export const metadata: Metadata = {
   },
 };
 
-import { FontSwitcher } from "@/components/tools/font-switcher";
+
 
 export default function RootLayout({
   children,
@@ -74,7 +74,6 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <BackgroundAnimation />
           <MobileNav />
-          <FontSwitcher />
           <div className="relative z-10">
             {children}
           </div>

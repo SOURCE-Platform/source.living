@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import Link from "next/link";
-import { SourceLogo } from "@/components/atoms/icons/source-logo";
+import { ArrowLeft } from 'lucide-react';
 
 import {
     politicalIssues, economicIssues, socialIssues, techIssues,
@@ -151,10 +151,10 @@ function ComparisonRow({ category }: { category: CategoryData }) {
             {/* Header Row */}
             <div className="grid grid-cols-1 md:grid-cols-2 bg-muted/30 border-b border-border rounded-t-lg">
                 <div className="p-4 border-b md:border-b-0 md:border-r border-border">
-                    <h4 className="text-sm font-bold text-muted-foreground uppercase tracking-wider">{category.title} Problems</h4>
+                    <h4 className="text-sm font-bold text-muted-foreground uppercase tracking-wider">Problems</h4>
                 </div>
                 <div className="p-4">
-                    <h4 className="text-sm font-bold text-muted-foreground uppercase tracking-wider">{category.title} Solutions</h4>
+                    <h4 className="text-sm font-bold text-muted-foreground uppercase tracking-wider">Solutions</h4>
                 </div>
             </div>
 
@@ -185,9 +185,75 @@ function ComparisonRow({ category }: { category: CategoryData }) {
 interface ComparisonViewProps {
     defaultView: 'problems' | 'solutions';
 }
+const ComparisonSection = ({ title, categories, isLastSection = false }: { title: string, categories: CategoryData[], isLastSection?: boolean }) => {
+    return (
+        <section className="relative">
+            {/* Mobile Main Title */}
+            <h2 className="lg:hidden text-2xl font-bold text-foreground mb-6">{title}</h2>
+
+            {/* Desktop Sticky Main Title Sidebar */}
+            <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-[200px] pointer-events-none">
+                <div className="sticky top-4 pt-2">
+                    <h2 className="text-2xl font-bold text-foreground mb-1">{title}</h2>
+                </div>
+            </div>
+
+            {/* Grid Content */}
+            <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-6 lg:gap-12">
+                {categories.map((cat, index) => {
+                    const isLastItem = index === categories.length - 1;
+                    return (
+                        <div key={cat.title} className="contents">
+                            {/* Desktop Sticky Sub-Title */}
+                            <div className="hidden lg:block lg:col-start-1 pt-2">
+                                <div className="sticky top-14 transition-all duration-300">
+                                    <h3 className="text-lg font-medium text-muted-foreground">
+                                        {cat.title}
+                                    </h3>
+                                </div>
+                            </div>
+
+                            {/* Content Column */}
+                            <div className={`lg:col-start-2 min-w-0 ${isLastSection && isLastItem ? 'min-h-[75vh] pb-0' : ''}`}>
+                                {/* Mobile Sub-Title */}
+                                <h3 className="lg:hidden text-lg font-medium text-muted-foreground mb-4">
+                                    {cat.title}
+                                </h3>
+                                <div className="scroll-mt-24">
+                                    <ComparisonRow category={cat} />
+                                </div>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+        </section>
+    );
+};
 
 export function ComparisonView({ defaultView }: ComparisonViewProps) {
     const [isCompareMode, setIsCompareMode] = useState(false);
+    const [isStuck, setIsStuck] = useState(false);
+    const observerRef = useRef<IntersectionObserver | null>(null);
+
+    useEffect(() => {
+        const sentinel = document.getElementById('header-sentinel');
+
+        if (sentinel) {
+            observerRef.current = new IntersectionObserver(
+                ([entry]) => {
+                    setIsStuck(!entry.isIntersecting);
+                },
+                { threshold: 1, rootMargin: '-10px 0px 0px 0px' }
+            );
+
+            observerRef.current.observe(sentinel);
+        }
+
+        return () => {
+            if (observerRef.current) observerRef.current.disconnect();
+        };
+    }, []);
 
     // Helper to sync toggle text based on what page we are originally on
     const toggleText = defaultView === 'problems'
@@ -197,14 +263,19 @@ export function ComparisonView({ defaultView }: ComparisonViewProps) {
     return (
         <div className="min-h-screen bg-background text-foreground">
             <main className="mx-auto max-w-7xl px-6 sm:px-12 py-12">
-                {/* Header */}
-                <div className="mb-12 flex items-center justify-between sticky top-0 z-40 bg-background/80 backdrop-blur-md py-4 border-b border-transparent transition-all">
-                    <Link href="/" className="hover:opacity-80 transition-opacity">
-                        <SourceLogo className="h-10 w-auto" />
-                    </Link>
+                {/* Sentinel for sticky detection */}
+                <div id="header-sentinel" className="absolute top-0 h-12 w-full pointer-events-none opacity-0" />
 
-                    <div className="flex items-center gap-4">
-                        <div className="flex items-center gap-3 bg-muted/20 px-4 py-2 rounded-full border border-border">
+                {/* Header */}
+                <div className="mb-12 flex items-center justify-end sticky top-0 z-40 bg-transparent py-4 transition-all pointer-events-none">
+                    <div className="flex items-center gap-4 pointer-events-auto">
+                        <div className={`
+                            flex items-center gap-3 px-4 py-2 rounded-full border transition-all duration-300
+                            ${isStuck
+                                ? 'bg-background/80 backdrop-blur-md border-border shadow-md dark:shadow-[0_0_20px_rgba(255,255,255,0.15)] transform translate-y-2'
+                                : 'bg-muted/20 border-transparent sm:border-border'
+                            }
+                        `}>
                             <span className="text-sm font-medium text-muted-foreground">
                                 {defaultView === 'problems' ? "Problems View" : "Solutions View"}
                             </span>
@@ -231,7 +302,7 @@ export function ComparisonView({ defaultView }: ComparisonViewProps) {
                     </div>
                 </div>
 
-                <article className="prose prose-invert max-w-none space-y-12">
+                <div className="space-y-20">
                     {/* Header Section */}
                     <section className="max-w-4xl">
                         <h1 className="text-4xl font-bold tracking-tight mb-4">
@@ -286,7 +357,7 @@ export function ComparisonView({ defaultView }: ComparisonViewProps) {
                             {defaultView === 'solutions' && (
                                 <>
                                     <section className="space-y-8">
-                                        <h2 className="text-2xl font-bold text-foreground">Macro-Systemic Solutions</h2>
+                                        <h2 className="text-2xl font-bold text-foreground">Macro Solutions</h2>
                                         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 not-prose">
                                             {MACRO_CATEGORIES.map(cat => (
                                                 <div key={cat.title} className="border border-border p-6 rounded-lg bg-card/50">
@@ -299,7 +370,7 @@ export function ComparisonView({ defaultView }: ComparisonViewProps) {
                                         </div>
                                     </section>
                                     <section className="space-y-8">
-                                        <h2 className="text-2xl font-bold text-foreground">Micro-Personal Solutions</h2>
+                                        <h2 className="text-2xl font-bold text-foreground">Micro Solutions</h2>
                                         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 not-prose">
                                             {MICRO_CATEGORIES.map(cat => (
                                                 <div key={cat.title} className="border border-border p-6 rounded-lg bg-card/50">
@@ -319,32 +390,27 @@ export function ComparisonView({ defaultView }: ComparisonViewProps) {
                     {/* COMPARE MODE */}
                     {isCompareMode && (
                         <>
-                            <section className="space-y-8">
-                                <h2 className="text-2xl font-bold text-foreground">Macro Analysis</h2>
-                                <div className="not-prose">
-                                    {MACRO_CATEGORIES.map(cat => <ComparisonRow key={cat.title} category={cat} />)}
-                                </div>
-                            </section>
+                            {/* Macro Analysis Section */}
+                            <ComparisonSection title="Macro Analysis" categories={MACRO_CATEGORIES} />
 
-                            <section className="space-y-8">
-                                <h2 className="text-2xl font-bold text-foreground">Micro Analysis</h2>
-                                <div className="not-prose">
-                                    {MICRO_CATEGORIES.map(cat => <ComparisonRow key={cat.title} category={cat} />)}
-                                </div>
-                            </section>
+                            {/* Micro Analysis Section */}
+                            <ComparisonSection title="Micro Analysis" categories={MICRO_CATEGORIES} isLastSection={true} />
                         </>
                     )}
 
                     {/* Footer */}
-                    <section className="mt-24 pt-8 border-t border-border flex flex-col gap-4 sm:flex-row sm:justify-center sm:items-center">
-                        <Link
-                            href="/"
-                            className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-                        >
-                            ← Back to Investment Memo
-                        </Link>
-                    </section>
-                </article>
+                    <div className={`pt-24 pb-12 ${isCompareMode ? 'grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-6 lg:gap-12' : 'flex justify-center'}`}>
+                        <div className={isCompareMode ? 'lg:col-start-2 flex justify-center' : ''}>
+                            <Link
+                                href="/"
+                                className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 text-sm font-medium"
+                            >
+                                <ArrowLeft className="w-4 h-4" />
+                                Back to Investment Memo
+                            </Link>
+                        </div>
+                    </div>
+                </div>
             </main>
         </div>
     );
