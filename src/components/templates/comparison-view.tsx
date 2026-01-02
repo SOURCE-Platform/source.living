@@ -224,7 +224,7 @@ export function ComparisonView({ defaultView }: ComparisonViewProps) {
                             {isCompareMode
                                 ? "Comparing the converging systemic failures with the architectural solutions provided by Source."
                                 : (defaultView === 'problems'
-                                    ? "We are witnessing the convergence of multiple systemic crises—political, economic, social, and technological."
+                                    ? "We are witnessing the convergence of multiple systemic crises, political, economic, social, and technological."
                                     : "How the Source Platform systematically addresses the converging crises through Ambient Computing and High-Resolution Data.")}
                         </p>
                     </section>

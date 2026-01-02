@@ -18,7 +18,7 @@ export const politicalSolutions: SolutionItem[] = [
     {
         problem: "Erosion of Trust",
         solutionTitle: "Architectural Transparency",
-        solutionDescription: "Trust cannot be restored by promises; it must be built into the code. Source's architecture—local processing, secure enclaves, and user ownership—restores trust by mathematically proving that the system is working for the user, not the state.",
+        solutionDescription: "Trust cannot be restored by promises; it must be built into the code. Source's architecture, local processing, secure enclaves, and user ownership, restores trust by mathematically proving that the system is working for the user, not the state.",
     },
 ];
 
@@ -31,7 +31,7 @@ export const economicSolutions: SolutionItem[] = [
     {
         problem: "AI Agentification of the Org",
         solutionTitle: "Sovereign Personal AI",
-        solutionDescription: "Corporations have AI agents; now, individuals do too. Source levels the playing field by giving every user a 'Chief of Staff'—a sophisticated AI that negotiates, manages, and executes tasks on their behalf against corporate bots.",
+        solutionDescription: "Corporations have AI agents; now, individuals do too. Source levels the playing field by giving every user a 'Chief of Staff', a sophisticated AI that negotiates, manages, and executes tasks on their behalf against corporate bots.",
     },
     {
         problem: "Supply Chain Disruptions",
@@ -64,7 +64,7 @@ export const socialSolutions: SolutionItem[] = [
     {
         problem: "Loneliness Epidemic",
         solutionTitle: "Telepresence 2.0",
-        solutionDescription: "Video calls are flat and exhausting. Source's 4D Gaussian Splatting enables 'Holoportation'—bringing loved ones into your living room as volumetrically accurate presence, making digital connection feel physically real.",
+        solutionDescription: "Video calls are flat and exhausting. Source's 4D Gaussian Splatting enables 'Holoportation', bringing loved ones into your living room as volumetrically accurate presence, making digital connection feel physically real.",
     },
     {
         problem: "Pair-bonding Crisis",
@@ -79,7 +79,7 @@ export const socialSolutions: SolutionItem[] = [
     {
         problem: "Classism",
         solutionTitle: "Democratized Luxury",
-        solutionDescription: "Ambient Computing was once the domain of billionaires (staff, assistants, security). Source brings the 'Iron Man' experience—a fully automated, responsive, secure home—to the mass market, flattening the lifestyle gap.",
+        solutionDescription: "Ambient Computing was once the domain of billionaires (staff, assistants, security). Source brings the 'Iron Man' experience, a fully automated, responsive, secure home, to the mass market, flattening the lifestyle gap.",
     },
 ];
 
@@ -115,7 +115,7 @@ export const mentalSolutions: SolutionItem[] = [
     {
         problem: "Depression",
         solutionTitle: "Behavioral Intervention",
-        solutionDescription: "Depression has physical signals (gait, sleep, voice). Source detects these biomarkers early—often before the user admits them—and gently nudges the user toward sunlight, activity, or connection.",
+        solutionDescription: "Depression has physical signals (gait, sleep, voice). Source detects these biomarkers early, often before the user admits them, and gently nudges the user toward sunlight, activity, or connection.",
     },
     {
         problem: "Personality disorders",
@@ -138,7 +138,7 @@ export const microSocialSolutions: SolutionItem[] = [
     {
         problem: "Relationship conflicts",
         solutionTitle: "Conflict De-escalation",
-        solutionDescription: "When voices raise, Source notices. It can subtly intervene—changing lighting, playing calming frequencies, or providing a 'timeout' prompt—acting as an automated mediator to prevent escalation.",
+        solutionDescription: "When voices raise, Source notices. It can subtly intervene, changing lighting, playing calming frequencies, or providing a 'timeout' prompt, acting as an automated mediator to prevent escalation.",
     },
     {
         problem: "Degradation of social bonds",
@@ -171,7 +171,7 @@ export const physicalSolutions: SolutionItem[] = [
     {
         problem: "Lack of accident detection & prevention",
         solutionTitle: "Instant Fall Response",
-        solutionDescription: "For the elderly, a fall is fatal if unnoticed. Source detects falls instantly via Lidar—no wearable button required—and automatically calls emergency services with the video feed and vitals.",
+        solutionDescription: "For the elderly, a fall is fatal if unnoticed. Source detects falls instantly via Lidar, no wearable button required, and automatically calls emergency services with the video feed and vitals.",
     },
 ];
 

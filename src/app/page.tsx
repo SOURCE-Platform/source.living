@@ -21,13 +21,26 @@ export default function Home() {
             <section className="space-y-4">
               <h2 className="text-2xl font-bold text-foreground">Executive Summary</h2>
               <p>
-                <strong className="text-foreground">Source</strong> is building the hardware and software infrastructure to capture what current AI fundamentally lacks: <strong className="text-foreground">High-Resolution Human Behavioral Data.</strong>
+                <strong className="text-foreground">SOURCE</strong> is building the hardware and software infrastructure to capture what current AI fundamentally lacks: <strong className="text-foreground">High-Resolution Human Behavioral Data.</strong>
               </p>
               <p>
-                Without this data, AI is limited. It can handle digital knowledge work, but only to a point—and it cannot even begin to address the vast array of problems that exist in the physical world: health, social dynamics, relationships, mental well-being, physical safety. Current AI models are trained on the "internet"—a performative, curated, text-based dataset that captures none of the rich context of human life.
+                Without this data, AI is limited. It can handle digital knowledge work, but only to a point. And it cannot even begin to address the vast array of problems that exist in the physical world:
+              </p>
+              <ul className="grid grid-cols-1 gap-x-4 gap-y-2 pl-6 list-disc sm:grid-cols-2">
+                <li>Physical health</li>
+                <li>Mental health</li>
+                <li>Social dynamics</li>
+                <li>Relationships</li>
+                <li>Physical safety</li>
+                <li>Zero-friction computing UX</li>
+                <li>Transparent government</li>
+                <li>Trustless voting</li>
+              </ul>
+              <p>
+                Current AI models are trained on the "internet", a performative, curated, text-based dataset that captures none of the rich and authentic context of human life.
               </p>
               <p>
-                Source solves this by installing a decentralized, privacy-first, highly-secure sensor grid into physical living spaces, creating a "True Record of Reality." This enables AI that truly understands human context, behavior, and physical interaction—making it both more effective at digital problems and capable of solving real-world challenges that today's AI cannot touch.
+                SOURCE solves this by installing a decentralized, privacy-first, highly-secure sensor grid into physical living spaces, creating a "True Record of Reality." This enables AI that truly understands human context, behavior, and physical interactions, making it both more effective at digital problems and capable of solving real-world challenges that today's AI cannot touch.
               </p>
             </section>
 
@@ -59,7 +72,7 @@ export default function Home() {
               </div>
 
               <p className="italic text-muted-foreground">
-                <strong className="text-foreground">The Opportunity:</strong> The next breakthrough in AI won't come from more GPUs; it will come from a new <em>class</em> of data—continuous, multimodal, real-world behavioral data.
+                <strong className="text-foreground">The Opportunity:</strong> The next breakthrough in AI won't come from more GPUs; it will come from a new <em>class</em> of data: continuous, multimodal, real-world behavioral data.
               </p>
             </section>
 
@@ -67,7 +80,7 @@ export default function Home() {
             <section className="space-y-4">
               <h2 className="text-2xl font-bold text-foreground">The Solution: The Source Platform</h2>
               <p>
-                Source is an "Ambient Computing" platform consisting of four layers:
+                SOURCE is an "Ambient Computing" platform consisting of three layers:
               </p>
 
               <div className="space-y-4 rounded-lg border border-border bg-muted/10 p-6">
@@ -101,30 +114,31 @@ export default function Home() {
                   </p>
                 </div>
 
-                <div>
-                  <h3 className="font-bold text-foreground">IV. Data Ownership (Redefining Surveillance)</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Source is obviously a surveillance platform—but the question is: <em>who controls the surveillance?</em>
-                  </p>
-                  <ul className="list-disc space-y-1 pl-6 text-sm">
-                    <li><strong className="text-foreground">Traditional Surveillance:</strong> States and corporations observe you. They own the data, they benefit from it, and you have no control or transparency.</li>
-                    <li><strong className="text-foreground">Source's Model:</strong> You own the observational data of your life—whether in your home, workplace, or public spaces you inhabit. All data is processed locally, cryptographically secured, and you control what gets shared.</li>
-                    <li><strong className="text-foreground">The Flip:</strong> In a world where observation is inevitable (cameras are already everywhere), we're not eliminating surveillance—we're <strong>democratizing who controls it.</strong> The data serves you: health insights, safety, AI that understands your context. Not corporations. Not governments. You.</li>
-                  </ul>
-                </div>
+              </div>
 
-                <div className="rounded-lg border border-border bg-muted/10 p-4 space-y-3">
-                  <h3 className="font-bold text-base text-foreground">Mapping the Solution</h3>
-                  <p className="text-sm">
-                    How Source specifically targets and neutralizes the systemic threats outlined in the Convergence Report.
-                  </p>
-                  <Link
-                    href="/solutions"
-                    className="inline-flex items-center text-sm font-bold text-foreground hover:opacity-80 transition-opacity"
-                  >
-                    View the Source Solution Map <span aria-hidden="true" className="ml-1">→</span>
-                  </Link>
-                </div>
+              <div className="rounded-lg border border-border bg-muted/10 p-6 space-y-4">
+                <h3 className="font-bold text-lg text-foreground">Data Ownership (Redefining Surveillance)</h3>
+                <p className="text-sm text-foreground">
+                  Source is obviously a surveillance platform, but the question is: <em>who controls the surveillance?</em>
+                </p>
+                <ul className="list-disc space-y-2 pl-6 text-sm">
+                  <li><strong className="text-foreground">Traditional Surveillance:</strong> States and corporations observe you. They own the data, they benefit from it, and you have no control or transparency.</li>
+                  <li><strong className="text-foreground">Source's Model:</strong> You own the observational data of your life, whether in your home, workplace, or public spaces you inhabit. All data is processed locally, cryptographically secured, and you control what gets shared.</li>
+                  <li><strong className="text-foreground">The Flip:</strong> In a world where observation is inevitable (cameras are already everywhere), we're not eliminating surveillance, we're <strong>democratizing who controls it.</strong> The data serves you: health insights, safety, AI that understands your context. Not corporations. Not governments. You.</li>
+                </ul>
+              </div>
+
+              <div className="rounded-lg border border-border bg-muted/10 p-4 space-y-3">
+                <h3 className="font-bold text-base text-foreground">Mapping the Solution</h3>
+                <p className="text-sm">
+                  How Source specifically targets and neutralizes the systemic threats outlined in the Convergence Report.
+                </p>
+                <Link
+                  href="/solutions"
+                  className="inline-flex items-center text-sm font-bold text-foreground hover:opacity-80 transition-opacity"
+                >
+                  View the Source Solution Map <span aria-hidden="true" className="ml-1">→</span>
+                </Link>
               </div>
             </section>
 
@@ -201,14 +215,14 @@ export default function Home() {
                 SuperIntelligence Requires SuperAwareness.
               </p>
               <p>
-                The global technology industry is currently racing toward <strong className="text-foreground">SuperIntelligence</strong>—massive raw compute and logic. However, a "brain in a jar" with high IQ but zero context is fundamentally limited and potentially dangerous.
+                The global technology industry is currently racing toward <strong className="text-foreground">SuperIntelligence</strong>: massive raw compute and logic. However, a "brain in a jar" with high IQ but zero context is fundamentally limited and potentially dangerous.
               </p>
               <p>
                 For SuperIntelligence to be truly effective, aligned, and safe, it requires <strong className="text-foreground">SuperAwareness</strong>.
               </p>
               <ul className="list-disc space-y-2 pl-6">
                 <li><strong className="text-foreground">The Missing Link:</strong> Intelligence is the ability to process information; Awareness is the ability to perceive the reality from which that information comes. You cannot solve human problems if you cannot perceive the human condition.</li>
-                <li><strong className="text-foreground">The Source Role:</strong> Source creates the sensory organs for the global AI brain. By capturing the "True Record of Reality," we provide the necessary context—the <strong className="text-foreground">SuperAwareness</strong>—that allows SuperIntelligence to function not just as a calculator, but as a benevolent, fully aligned agent of civilization.</li>
+                <li><strong className="text-foreground">The Source Role:</strong> Source creates the sensory organs for the global AI brain. By capturing the "True Record of Reality," we provide the necessary context, the <strong className="text-foreground">SuperAwareness</strong>, that allows SuperIntelligence to function not just as a calculator, but as a benevolent, fully aligned agent of civilization.</li>
               </ul>
               <p className="italic border-l-4 border-foreground/30 pl-4 text-foreground font-semibold">
                 Source: We guide AI, and AI guides us.
@@ -253,8 +267,8 @@ export default function Home() {
           <footer className="mt-12 border-t border-border pt-8 text-center text-xs text-muted-foreground">
             <p>© 2025 Source. Building the future of human-AI interaction.</p>
           </footer>
-        </article>
-      </main>
-    </div>
+        </article >
+      </main >
+    </div >
   );
 }
