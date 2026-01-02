@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import '@w3rk17/circular-menu-next/styles.css';
 
 /* Tailwind-specific directives below trigger stylelint's at-rule-no-unknown; disable around them */
 /* stylelint-disable at-rule-no-unknown */

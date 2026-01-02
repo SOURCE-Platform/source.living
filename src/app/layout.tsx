@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 
 import { ThemeProvider } from "@/components/molecules/theme-provider";
 import { BackgroundAnimation } from "@/components/organisms/background-animation";
+import { MobileNav } from "@/components/mobile-nav";
 
 import "./globals.css";
 import "@/components/audio-player/styles/audio-player.css";
@@ -72,6 +73,7 @@ export default function RootLayout({
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <BackgroundAnimation />
+          <MobileNav />
           <FontSwitcher />
           <div className="relative z-10">
             {children}

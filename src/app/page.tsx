@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { SourceLogo } from "@/components/atoms/icons/source-logo";
-import { ThemeToggle } from "@/components/molecules/theme-toggle";
 
 export default function Home() {
   return (
@@ -10,11 +9,8 @@ export default function Home() {
       {/* Main Content */}
       <main className="mx-auto max-w-3xl px-6 sm:px-12 py-12">
         {/* Header with Logo */}
-        <div className="mb-16 flex items-center justify-between">
-          <div className="flex-1">
-            <SourceLogo className="h-12 w-auto" />
-          </div>
-          <ThemeToggle />
+        <div className="mb-16">
+          <SourceLogo className="h-12 w-auto" />
         </div>
 
         {/* Memo Content */}
@@ -42,8 +38,8 @@ export default function Home() {
                 We have thrown the entire internet at Transformers. While effective, this approach has reached a fundamental limit.
               </p>
               <ul className="list-disc space-y-2 pl-6">
-                <li><strong className="text-foreground">The Data is Flawed:</strong> LLMs are trained on the <em>internet</em>, which is performative, artificial, and highly edited. It is "sculpted" artifice, devoid of the natural human behavior that defines actual experience.</li>
-                <li><strong className="text-foreground">The Context Gap:</strong> Current AI has zero insight into the physical world or the 99% of human experience that happens offline. It cannot predict needs because it cannot <em>see</em> the user.</li>
+                <li><strong className="text-foreground">The Data is Flawed:</strong> LLMs are trained on the <em>internet</em>, which is performative, artificial, and highly edited. It is "sculpted" artifice, devoid of the authentic, natural human behavior that defines actual experience.</li>
+                <li><strong className="text-foreground">The Context Gap:</strong> Current AI has zero insight into the physical world, digital user flows, or the 99% of human experience that happens beyond static text. It cannot predict a human user's needs or see their problems.</li>
               </ul>
 
               <div className="rounded-lg border border-border bg-muted/10 p-6 space-y-4">
