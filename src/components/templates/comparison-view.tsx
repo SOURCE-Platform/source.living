@@ -1,9 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Link from "next/link";
 import { SourceLogo } from "@/components/atoms/icons/source-logo";
-import { ThemeToggle } from "@/components/molecules/theme-toggle";
 
 import {
     politicalIssues, economicIssues, socialIssues, techIssues,
@@ -48,14 +47,60 @@ function getDomain(url: string): string {
 }
 
 function ProblemCard({ issue }: { issue: ConvergingIssue }) {
+    const [menuOffset, setMenuOffset] = useState(0);
+    const triggerRef = useRef<HTMLDivElement>(null);
+    const menuRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const checkPosition = () => {
+            if (triggerRef.current && menuRef.current) {
+                const triggerRect = triggerRef.current.getBoundingClientRect();
+                const menuHeight = menuRef.current.offsetHeight;
+                const viewportHeight = window.innerHeight;
+                const bottomBuffer = 32; // 32px from viewport bottom
+
+                // Calculate ideal position (aligned with trigger top)
+                const idealBottom = triggerRect.top + menuHeight;
+
+                // If menu would overflow, calculate how much to shift it up
+                if (idealBottom > viewportHeight - bottomBuffer) {
+                    const overflow = idealBottom - (viewportHeight - bottomBuffer);
+                    setMenuOffset(-overflow);
+                } else {
+                    setMenuOffset(0);
+                }
+            }
+        };
+
+        // Check on mount and when hovering
+        const trigger = triggerRef.current;
+        if (trigger) {
+            trigger.addEventListener('mouseenter', checkPosition);
+            window.addEventListener('resize', checkPosition);
+            window.addEventListener('scroll', checkPosition);
+        }
+
+        return () => {
+            if (trigger) {
+                trigger.removeEventListener('mouseenter', checkPosition);
+            }
+            window.removeEventListener('resize', checkPosition);
+            window.removeEventListener('scroll', checkPosition);
+        };
+    }, []);
+
     return (
         <div className="mb-4 last:mb-0">
-            <div className="group/menu relative inline-block">
+            <div ref={triggerRef} className="group/menu relative inline-block">
                 <span className="font-medium text-foreground cursor-help px-2 py-2 rounded-lg transition-colors hover:bg-muted whitespace-nowrap">
                     {issue.label}
                 </span>
                 {/* Tooltip with invisible bridge */}
-                <div className="absolute left-full ml-2 top-0 z-50 w-72 rounded-lg border border-border bg-background p-3 opacity-0 shadow-2xl dark:shadow-[0_0_40px_rgba(255,255,255,0.2)] transition-opacity duration-200 pointer-events-none group-hover/menu:opacity-100 group-hover/menu:pointer-events-auto hover:opacity-100 hover:pointer-events-auto before:content-[''] before:absolute before:right-full before:inset-y-0 before:w-2 before:bg-transparent">
+                <div
+                    ref={menuRef}
+                    style={{ top: `${menuOffset}px` }}
+                    className="absolute left-full ml-2 z-50 w-72 rounded-lg border border-border bg-background p-3 opacity-0 shadow-2xl dark:shadow-[0_0_40px_rgba(255,255,255,0.2)] transition-opacity duration-200 pointer-events-none group-hover/menu:opacity-100 group-hover/menu:pointer-events-auto hover:opacity-100 hover:pointer-events-auto before:content-[''] before:absolute before:right-full before:inset-y-0 before:w-2 before:bg-transparent"
+                >
                     <ul className="space-y-2">
                         {issue.links.map((link, i) => (
                             <li key={i}>
@@ -166,7 +211,6 @@ export function ComparisonView({ defaultView }: ComparisonViewProps) {
                                 Compare
                             </span>
                         </div>
-                        <ThemeToggle />
                     </div>
                 </div>
 
