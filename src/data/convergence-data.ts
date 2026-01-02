@@ -37,6 +37,12 @@ export const politicalIssues: ConvergingIssue[] = [
             { url: "https://www.frontlinebesci.com/p/is-trust-losing-its-grip-and-might", title: "Is trust in government now a relic of the past?" },
         ],
     },
+    {
+        label: "AI",
+        links: [
+            { url: "https://80000hours.org/problem-profiles/extreme-power-concentration/", title: "Extreme power concentration" },
+        ],
+    },
 ];
 
 export const economicIssues: ConvergingIssue[] = [

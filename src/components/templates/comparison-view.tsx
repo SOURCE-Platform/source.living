@@ -50,12 +50,12 @@ function getDomain(url: string): string {
 function ProblemCard({ issue }: { issue: ConvergingIssue }) {
     return (
         <div className="mb-4 last:mb-0">
-            <div className="group relative inline-block">
-                <span className="font-medium text-foreground cursor-help underline decoration-dotted decoration-muted-foreground/50 hover:decoration-foreground transition-all">
+            <div className="group/menu relative inline-block">
+                <span className="font-medium text-foreground cursor-help px-2 py-2 rounded-lg transition-colors hover:bg-muted whitespace-nowrap">
                     {issue.label}
                 </span>
-                {/* Tooltip */}
-                <div className="pointer-events-none absolute left-0 top-full z-50 mt-2 w-72 rounded-lg border border-border bg-popover p-3 opacity-0 shadow-lg transition-opacity group-hover:pointer-events-auto group-hover:opacity-100">
+                {/* Tooltip with invisible bridge */}
+                <div className="absolute left-full ml-2 top-0 z-50 w-72 rounded-lg border border-border bg-background p-3 opacity-0 shadow-2xl dark:shadow-[0_0_40px_rgba(255,255,255,0.2)] transition-opacity duration-200 pointer-events-none group-hover/menu:opacity-100 group-hover/menu:pointer-events-auto hover:opacity-100 hover:pointer-events-auto before:content-[''] before:absolute before:right-full before:inset-y-0 before:w-2 before:bg-transparent">
                     <ul className="space-y-2">
                         {issue.links.map((link, i) => (
                             <li key={i}>
@@ -192,7 +192,7 @@ export function ComparisonView({ defaultView }: ComparisonViewProps) {
                             {defaultView === 'problems' && (
                                 <>
                                     <section className="space-y-8">
-                                        <h2 className="text-2xl font-bold text-foreground border-b border-border pb-4">I. The Macro Problem Set</h2>
+                                        <h2 className="text-2xl font-bold text-foreground">I. The Macro Problem Set</h2>
                                         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 not-prose">
                                             {MACRO_CATEGORIES.map(cat => (
                                                 <div key={cat.title} className="border border-border p-6 rounded-lg bg-card/50">
@@ -206,7 +206,7 @@ export function ComparisonView({ defaultView }: ComparisonViewProps) {
                                     </section>
 
                                     <section className="space-y-8">
-                                        <h2 className="text-2xl font-bold text-foreground border-b border-border pb-4">II. The Micro Problem Set</h2>
+                                        <h2 className="text-2xl font-bold text-foreground">II. The Micro Problem Set</h2>
                                         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 not-prose">
                                             {MICRO_CATEGORIES.map(cat => (
                                                 <div key={cat.title} className="border border-border p-6 rounded-lg bg-card/50">
@@ -225,7 +225,7 @@ export function ComparisonView({ defaultView }: ComparisonViewProps) {
                             {defaultView === 'solutions' && (
                                 <>
                                     <section className="space-y-8">
-                                        <h2 className="text-2xl font-bold text-foreground border-b border-border pb-4">I. Macro-Systemic Solutions</h2>
+                                        <h2 className="text-2xl font-bold text-foreground">I. Macro-Systemic Solutions</h2>
                                         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 not-prose">
                                             {MACRO_CATEGORIES.map(cat => (
                                                 <div key={cat.title} className="border border-border p-6 rounded-lg bg-card/50">
@@ -238,7 +238,7 @@ export function ComparisonView({ defaultView }: ComparisonViewProps) {
                                         </div>
                                     </section>
                                     <section className="space-y-8">
-                                        <h2 className="text-2xl font-bold text-foreground border-b border-border pb-4">II. Micro-Personal Solutions</h2>
+                                        <h2 className="text-2xl font-bold text-foreground">II. Micro-Personal Solutions</h2>
                                         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 not-prose">
                                             {MICRO_CATEGORIES.map(cat => (
                                                 <div key={cat.title} className="border border-border p-6 rounded-lg bg-card/50">
@@ -259,14 +259,14 @@ export function ComparisonView({ defaultView }: ComparisonViewProps) {
                     {isCompareMode && (
                         <>
                             <section className="space-y-8">
-                                <h2 className="text-2xl font-bold text-foreground border-b border-border pb-4">I. Macro Analysis</h2>
+                                <h2 className="text-2xl font-bold text-foreground">I. Macro Analysis</h2>
                                 <div className="not-prose">
                                     {MACRO_CATEGORIES.map(cat => <ComparisonRow key={cat.title} category={cat} />)}
                                 </div>
                             </section>
 
                             <section className="space-y-8">
-                                <h2 className="text-2xl font-bold text-foreground border-b border-border pb-4">II. Micro Analysis</h2>
+                                <h2 className="text-2xl font-bold text-foreground">II. Micro Analysis</h2>
                                 <div className="not-prose">
                                     {MICRO_CATEGORIES.map(cat => <ComparisonRow key={cat.title} category={cat} />)}
                                 </div>
