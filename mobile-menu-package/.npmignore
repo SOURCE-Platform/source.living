@@ -1,0 +1,7 @@
+*.log
+.DS_Store
+src
+tsconfig.json
+tsup.config.ts
+react-shim.js
+.gitignore

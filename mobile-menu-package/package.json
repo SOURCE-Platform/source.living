@@ -1,0 +1,59 @@
+{
+    "name": "@w3rk17/circular-menu-next",
+    "version": "1.0.0",
+    "description": "A beautiful circular menu component for Next.js with animated Three.js background and dark mode support",
+    "main": "./dist/index.js",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.js"
+        },
+        "./styles.css": "./dist/circular-menu.css"
+    },
+    "files": [
+        "dist",
+        "README.md",
+        "LICENSE"
+    ],
+    "scripts": {
+        "build": "tsup && npm run postbuild",
+        "postbuild": "cp src/styles/circular-menu.css dist/circular-menu.css",
+        "dev": "tsup --watch",
+        "prepublishOnly": "npm run build"
+    },
+    "keywords": [
+        "nextjs",
+        "react",
+        "menu",
+        "circular-menu",
+        "navigation",
+        "mobile-menu",
+        "threejs",
+        "dark-mode",
+        "animated-menu"
+    ],
+    "author": "adam_janowitz",
+    "license": "MIT",
+    "peerDependencies": {
+        "next": ">=13.0.0",
+        "next-themes": ">=0.2.0",
+        "react": ">=18.0.0",
+        "react-dom": ">=18.0.0",
+        "three": ">=0.150.0"
+    },
+    "devDependencies": {
+        "@types/node": "^20.0.0",
+        "@types/react": "^18.0.0",
+        "@types/react-dom": "^18.0.0",
+        "@types/three": "^0.180.0",
+        "tsup": "^8.0.0",
+        "typescript": "^5.0.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/yourusername/circular-menu-next"
+    }
+}

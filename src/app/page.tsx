@@ -19,23 +19,23 @@ export default function Home() {
           <div className="flex flex-col gap-12">
             {/* Executive Summary */}
             <section className="space-y-4">
-              <h2 className="text-2xl font-bold text-foreground">Executive Summary</h2>
+              <h2 className="text-4xl font-bold text-foreground">Executive Summary</h2>
               <p>
                 <strong className="text-foreground">SOURCE</strong> is building the hardware and software infrastructure to capture what current AI fundamentally lacks: <strong className="text-foreground">High-Resolution Human Behavioral Data.</strong>
               </p>
               <p>
                 Without this data, AI is limited. It can handle digital knowledge work, but only to a point. And it cannot even begin to address the vast array of problems that exist in the physical world:
               </p>
-              <ul className="grid grid-cols-1 gap-x-4 gap-y-2 pl-6 list-disc sm:grid-cols-2">
-                <li>Physical health</li>
-                <li>Mental health</li>
-                <li>Social dynamics</li>
-                <li>Relationships</li>
-                <li>Physical safety</li>
-                <li>Zero-friction computing UX</li>
-                <li>Transparent government</li>
-                <li>Trustless voting</li>
-              </ul>
+              <div className="grid grid-cols-2 rounded-lg border border-border text-sm font-medium text-foreground">
+                <div className="border-b border-r border-border px-5 py-3">Physical health</div>
+                <div className="border-b border-border px-5 py-3">Mental health</div>
+                <div className="border-b border-r border-border px-5 py-3">Social dynamics</div>
+                <div className="border-b border-border px-5 py-3">Relationships</div>
+                <div className="border-b border-r border-border px-5 py-3">Physical safety</div>
+                <div className="border-b border-border px-5 py-3">Zero-friction computing UX</div>
+                <div className="border-r border-border px-5 py-3">Transparent government</div>
+                <div className="px-5 py-3">Trustless voting</div>
+              </div>
               <p>
                 Current AI models are trained on the "internet", a performative, curated, text-based dataset that captures none of the rich and authentic context of human life.
               </p>
@@ -44,48 +44,105 @@ export default function Home() {
               </p>
             </section>
 
-            {/* The Core Problem */}
-            <section className="space-y-4">
-              <h2 className="text-2xl font-bold text-foreground">The Core Problem: The Data Wall</h2>
-              <p>
-                We have thrown the entire internet at Transformers. While effective, this approach has reached a fundamental limit.
-              </p>
-              <ul className="list-disc space-y-2 pl-6">
-                <li><strong className="text-foreground">The Data is Flawed:</strong> LLMs are trained on the <em>internet</em>, which is performative, artificial, and highly edited. It is "sculpted" artifice, devoid of the authentic, natural human behavior that defines actual experience.</li>
-                <li><strong className="text-foreground">The Context Gap:</strong> Current AI has zero insight into the physical world, digital user flows, or the 99% of human experience that happens beyond static text. It cannot predict a human user's needs or see their problems.</li>
-              </ul>
-
-              <div className="rounded-lg border border-border bg-muted/10 p-6 space-y-4">
-                <div>
-                  <h3 className="font-bold text-lg text-foreground">The Convergence of Problems</h3>
-                  <p className="text-sm">
-                    The "Data Wall" is just one component of a much larger, interconnected crisis. We are facing a simultaneous convergence of political, economic, social, and technological failures that are reshaping human civilization.
-                  </p>
-                </div>
-
-                <Link
-                  href="/convergence"
-                  className="inline-flex items-center text-sm font-bold text-foreground hover:opacity-80 transition-opacity"
-                >
-                  See the full Systemic Convergence Report <span aria-hidden="true" className="ml-1">→</span>
-                </Link>
+            {/* The Problems */}
+            <section className="space-y-8">
+              <div className="space-y-4">
+                <h2 className="text-4xl font-bold text-foreground">The Problems</h2>
+                <p>
+                  We are facing a simultaneous convergence of systemic failures that are reshaping human civilization. The "Data Wall"—the limit of current AI—is just one component of this larger crisis.
+                </p>
               </div>
 
-              <p className="italic text-muted-foreground">
-                <strong className="text-foreground">The Opportunity:</strong> The next breakthrough in AI won't come from more GPUs; it will come from a new <em>class</em> of data: continuous, multimodal, real-world behavioral data.
+              {/* 1. The Data Wall */}
+              <div className="space-y-4">
+                <h3 className="text-3xl font-bold text-foreground">1. The Data Wall (The Context Gap)</h3>
+                <p>
+                  We have thrown the entire internet at Transformers. While effective, this approach has reached a fundamental limit.
+                </p>
+                <ul className="list-disc space-y-2 pl-6">
+                  <li><strong className="text-foreground">The Data is Limited:</strong> LLMs are trained on the <em>internet</em>, which is performative, artificial, and highly edited. It represents only a tiny slice of reality—"sculpted" artifice devoid of the authentic, natural human behavior that defines actual experience.</li>
+                  <li><strong className="text-foreground">The Context Gap:</strong> Current AI has zero insight into the physical world, digital user flows, or the 99% of human experience that happens beyond static text. It cannot predict a human user's needs or see their problems.</li>
+                </ul>
+              </div>
+
+              {/* 2. The Expanded Problem Set */}
+              <div className="space-y-4">
+                <h3 className="text-3xl font-bold text-foreground">2. The Convergence of Crises</h3>
+                <p>
+                  Beyond the AI data bottleneck, critical failures are cascading across every domain of life.
+                </p>
+
+                <div className="flex flex-col rounded-lg border border-border bg-muted/10 overflow-hidden mt-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-border">
+                    <div className="p-5 space-y-6">
+                      <h4 className="text-xl font-bold text-foreground">Macro-Systemic Failures</h4>
+                      <ul className="space-y-6 text-sm text-muted-foreground">
+                        <li>
+                          <strong className="text-foreground block mb-1">Political</strong>
+                          Inadequate Problem Solving, Polarization, Erosion of Trust
+                        </li>
+                        <li>
+                          <strong className="text-foreground block mb-1">Economic</strong>
+                          Layoffs, Supply Chain Disruptions, Inflation
+                        </li>
+                        <li>
+                          <strong className="text-foreground block mb-1">Social</strong>
+                          Social Media Algorithms, Division, Classism
+                        </li>
+                        <li>
+                          <strong className="text-foreground block mb-1">Technological</strong>
+                          Privacy, Deepfakes, AI Alignment
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div className="p-5 space-y-6">
+                      <h4 className="text-xl font-bold text-foreground">Human Experience Failures</h4>
+                      <ul className="space-y-6 text-sm text-muted-foreground">
+                        <li>
+                          <strong className="text-foreground block mb-1">Mental & Emotional</strong>
+                          Loneliness, Depression, Neurodivergency
+                        </li>
+                        <li>
+                          <strong className="text-foreground block mb-1">Physical Health</strong>
+                          Late Diagnosis, Poor Management, Accidents
+                        </li>
+                        <li>
+                          <strong className="text-foreground block mb-1">Micro-Social</strong>
+                          Relationship Conflicts, Degradation of Bonds
+                        </li>
+                        <li>
+                          <strong className="text-foreground block mb-1">Computing</strong>
+                          UX Pain, Fragmented Ecosystems, IAM
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <Link
+                    href="/convergence"
+                    className="flex w-full items-center border-t border-border bg-background/50 px-5 py-4 text-sm font-bold text-foreground transition-colors hover:bg-muted/20"
+                  >
+                    View the full Systemic Convergence Analysis <span aria-hidden="true" className="ml-1">→</span>
+                  </Link>
+                </div>
+              </div>
+
+              <p className="italic text-muted-foreground pt-4 border-t border-border">
+                <strong className="text-foreground">The Opportunity:</strong> The solution to these converging problems—and the next breakthrough in AI—won't come from more GPUs; it will come from a new <em>class</em> of data: continuous, multimodal, real-world behavioral data.
               </p>
             </section>
 
             {/* The Solution */}
             <section className="space-y-4">
-              <h2 className="text-2xl font-bold text-foreground">The Solution: The Source Platform</h2>
+              <h2 className="text-4xl font-bold text-foreground">The Solution: The Source Platform</h2>
               <p>
                 SOURCE is an "Ambient Computing" platform consisting of three layers:
               </p>
 
-              <div className="space-y-4 rounded-lg border border-border bg-muted/10 p-6">
-                <div>
-                  <h3 className="font-bold text-foreground">I. The Hardware (The Eyes & Ears)</h3>
+              <div className="flex flex-col md:flex-row gap-4 md:gap-6 rounded-lg border border-border bg-muted/10 p-6 md:-mx-[25%]">
+                <div className="md:flex-1">
+                  <h3 className="text-3xl font-bold text-foreground">The Hardware</h3>
                   <p className="text-sm text-muted-foreground">
                     A decentralized infrastructure installed directly into the built environment.
                   </p>
@@ -96,8 +153,8 @@ export default function Home() {
                   </ul>
                 </div>
 
-                <div>
-                  <h3 className="font-bold text-foreground">II. The Software (The Brain)</h3>
+                <div className="md:flex-1">
+                  <h3 className="text-3xl font-bold text-foreground">The Software</h3>
                   <p className="text-sm text-muted-foreground">
                   </p>
                   <ul className="list-disc space-y-1 pl-6 text-sm">
@@ -107,8 +164,8 @@ export default function Home() {
                   </ul>
                 </div>
 
-                <div>
-                  <h3 className="font-bold text-foreground">III. The Social Layer (CAST)</h3>
+                <div className="md:flex-1">
+                  <h3 className="text-3xl font-bold text-foreground">The Social Layer</h3>
                   <p className="text-sm text-muted-foreground">
                     A rigorous "Context Economy" network. Unlike scrolling feeds, CAST uses Source data to generate automated summaries of the user's life and curate the internet based on the user's specific real-world context.
                   </p>
@@ -117,7 +174,7 @@ export default function Home() {
               </div>
 
               <div className="rounded-lg border border-border bg-muted/10 p-6 space-y-4">
-                <h3 className="font-bold text-lg text-foreground">Data Ownership (Redefining Surveillance)</h3>
+                <h3 className="text-3xl font-bold text-foreground">Data Ownership</h3>
                 <p className="text-sm text-foreground">
                   Source is obviously a surveillance platform, but the question is: <em>who controls the surveillance?</em>
                 </p>
@@ -128,14 +185,16 @@ export default function Home() {
                 </ul>
               </div>
 
-              <div className="rounded-lg border border-border bg-muted/10 p-4 space-y-3">
-                <h3 className="font-bold text-base text-foreground">Mapping the Solution</h3>
-                <p className="text-sm">
-                  How Source specifically targets and neutralizes the systemic threats outlined in the Convergence Report.
-                </p>
+              <div className="flex flex-col rounded-lg border border-border bg-muted/10 overflow-hidden">
+                <div className="p-5 space-y-3">
+                  <h3 className="text-3xl font-bold text-foreground">Mapping the Solution</h3>
+                  <p className="text-sm">
+                    How Source specifically targets and neutralizes the systemic threats outlined in the Convergence Report.
+                  </p>
+                </div>
                 <Link
                   href="/solutions"
-                  className="inline-flex items-center text-sm font-bold text-foreground hover:opacity-80 transition-opacity"
+                  className="flex w-full items-center border-t border-border bg-background/50 px-5 py-4 text-sm font-bold text-foreground transition-colors hover:bg-muted/20"
                 >
                   View the Source Solution Map <span aria-hidden="true" className="ml-1">→</span>
                 </Link>
@@ -144,7 +203,7 @@ export default function Home() {
 
             {/* Go-to-Market Strategy */}
             <section className="space-y-4">
-              <h2 className="text-2xl font-bold text-foreground">Go-to-Market Strategy</h2>
+              <h2 className="text-4xl font-bold text-foreground">GTM</h2>
               <p>
                 We are deploying a strategy that targets high-utility niche markets to fund mass adoption.
               </p>
@@ -156,18 +215,18 @@ export default function Home() {
                   <strong className="text-foreground">Early Adopters & Tech (Revenue Driver):</strong> Selling the "Smart Home 2.0" experience to the tech-forward demographic who want total home automation and "Jarvis-like" AI.
                 </li>
                 <li>
-                  <strong className="text-foreground">Influencers & Streamers (Marketing Engine):</strong> We provide free/subsidized installations to top creators. In exchange, they showcase the <strong>4D Gaussian Splatting</strong> capabilities (holographic video) to their millions of followers, driving the cultural hype cycle.
+                  <strong className="text-foreground">Influencers & Streamers (Marketing Engine):</strong> We provide free/subsidized installations to top creators. They use Source as a full in-house studio system—no longer tied to their computers—while showcasing the <strong>4D Gaussian Splatting</strong> capabilities (holographic video) to their millions of followers, driving the cultural hype cycle.
                 </li>
               </ol>
             </section>
 
             {/* The Master Plan */}
             <section className="space-y-4">
-              <h2 className="text-2xl font-bold text-foreground">The Master Plan (Roadmap)</h2>
+              <h2 className="text-4xl font-bold text-foreground">Roadmap</h2>
 
-              <div className="space-y-4">
-                <div className="rounded-lg border border-border bg-muted/10 p-4">
-                  <h3 className="font-bold text-foreground">PHASE 1: The "Source School" & HQ (18 Months)</h3>
+              <div className="flex flex-col md:flex-row gap-4 md:gap-6 md:-mx-[25%]">
+                <div className="md:flex-1 rounded-lg border border-border bg-muted/10 p-4">
+                  <h3 className="text-lg font-bold text-foreground">PHASE 1: The "Source School" & HQ (18 Months)</h3>
                   <ul className="list-disc space-y-1 pl-6 text-sm">
                     <li><strong className="text-foreground">Objective:</strong> Build the first <strong>Human Behavioral Model</strong>.</li>
                     <li><strong className="text-foreground">Strategy:</strong> Construct a mixed-use R&D campus (School + HQ).</li>
@@ -176,8 +235,8 @@ export default function Home() {
                   </ul>
                 </div>
 
-                <div className="rounded-lg border border-border bg-muted/10 p-4">
-                  <h3 className="font-bold text-foreground">PHASE 2: Residential Beta (Concurrent with Phase 1)</h3>
+                <div className="md:flex-1 rounded-lg border border-border bg-muted/10 p-4">
+                  <h3 className="text-lg font-bold text-foreground">PHASE 2: Residential Beta (Concurrent with Phase 1)</h3>
                   <ul className="list-disc space-y-1 pl-6 text-sm">
                     <li><strong className="text-foreground">Objective:</strong> Commercial validation and dataset expansion.</li>
                     <li><strong className="text-foreground">Execution:</strong> While the School builds the "Baseline Model," we will simultaneously deploy Source into ~100 residential units.</li>
@@ -186,8 +245,8 @@ export default function Home() {
                   </ul>
                 </div>
 
-                <div className="rounded-lg border border-border bg-muted/10 p-4">
-                  <h3 className="font-bold text-foreground">PHASE 3: Civilizational Scale</h3>
+                <div className="md:flex-1 rounded-lg border border-border bg-muted/10 p-4">
+                  <h3 className="text-lg font-bold text-foreground">PHASE 3: Civilizational Scale</h3>
                   <ul className="list-disc space-y-1 pl-6 text-sm">
                     <li><strong className="text-foreground">Objective:</strong> Expansion into the Public Domain.</li>
                     <li><strong className="text-foreground">Smart Cities & Government:</strong> Partnering with municipalities to install Source in public squares and neighborhoods.</li>
@@ -200,7 +259,7 @@ export default function Home() {
 
             {/* Competitive Advantage */}
             <section className="space-y-4">
-              <h2 className="text-2xl font-bold text-foreground">Competitive Advantage</h2>
+              <h2 className="text-4xl font-bold text-foreground">Competitive Advantage</h2>
               <ul className="list-disc space-y-2 pl-6">
                 <li><strong className="text-foreground">The Data Moat:</strong> OpenAI and Google have the internet. We have the <em>living room</em>. This high-resolution behavioral dataset does not currently exist anywhere else.</li>
                 <li><strong className="text-foreground">Privacy Architecture:</strong> By processing locally and tokenizing via blockchain, we solve the "Big Brother" fear. Users own their data; we just provide the architecture.</li>
@@ -210,7 +269,7 @@ export default function Home() {
 
             {/* The Long-Term Vision */}
             <section className="space-y-4">
-              <h2 className="text-2xl font-bold text-foreground">The Long-Term Vision</h2>
+              <h2 className="text-4xl font-bold text-foreground">The Long-Term Vision</h2>
               <p className="font-semibold text-foreground">
                 SuperIntelligence Requires SuperAwareness.
               </p>
@@ -231,7 +290,7 @@ export default function Home() {
 
             {/* The Deal */}
             <section className="space-y-4 rounded-lg border border-border bg-muted/10 p-6">
-              <h2 className="text-2xl font-bold text-foreground">The Deal</h2>
+              <h2 className="text-4xl font-bold text-foreground">The Deal</h2>
               <p>
                 <strong className="text-foreground">We are raising $10M Seed</strong> to execute Phase 1 and the Phase 2 Beta.
               </p>
