@@ -325,6 +325,7 @@ export default function Home() {
           {/* Footer */}
           <footer className="mt-12 border-t border-border pt-8 text-center text-xs text-muted-foreground">
             <p>© 2025 Source. Building the future of human-AI interaction.</p>
+            <p className="mt-2 text-[10px] opacity-50">v2.0.1 - Build: {new Date().toISOString()}</p>
           </footer>
         </article >
       </main >
