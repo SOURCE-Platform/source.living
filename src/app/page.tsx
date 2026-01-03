@@ -40,6 +40,7 @@ export default function Home() {
                 This infrastructure will capture what current AI fundamentally lacks: <strong className="text-foreground">Human Behavioral and Environmental Data</strong> of such high quality and near-infinite quantity that it will enable the creation of the <strong className="text-foreground">Most Accurate Global World Model</strong> ever built.
               </p>
 
+
               <div className="mt-8 rounded-xl border border-border bg-muted/10 p-4">
                 <AudioExperienceProvider
                   audioSrc="/audio/SOURCE%20Setting%20the%20Stage.mp3"
@@ -67,6 +68,7 @@ export default function Home() {
                 <p>
                   We have thrown the entire internet at Transformers. While effective, this approach is constrained by the <strong className="text-foreground">qualitative</strong> and <strong className="text-foreground">quantitative</strong> limitations of the data source itself.
                 </p>
+
                 <div className="space-y-6 py-6 px-10">
                   <div>
                     <div className="mb-2 w-fit rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-semibold text-foreground uppercase tracking-wider">Qualitative</div>
@@ -82,6 +84,17 @@ export default function Home() {
                       Current AI misses 99.99% of human experience—the physical world and the real-time living that happens beyond static text and curated uploads. After all, we humans are constantly producing data that's getting lost to the void.
                     </p>
                   </div>
+                </div>
+
+                <div className="rounded-xl border border-border bg-muted/10 p-4 mb-18">
+                  <AudioExperienceProvider
+                    audioSrc="/audio/The%20Data%20Wall.mp3"
+                    transcript={TRANSCRIPT_DATA}
+                    chapters={CHAPTERS_DATA}
+                    config={{ autoPlay: false }}
+                  >
+                    <CustomAudioPlayer title="The Data Wall" />
+                  </AudioExperienceProvider>
                 </div>
               </div>
 
@@ -178,6 +191,18 @@ export default function Home() {
                     <span aria-hidden="true" className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
                   </Link>
                 </div>
+
+                <div className="rounded-xl border border-border bg-muted/10 p-4 mt-24">
+                  <AudioExperienceProvider
+                    audioSrc="/audio/Systemic%20Convergence.mp3"
+                    transcript={TRANSCRIPT_DATA}
+                    chapters={CHAPTERS_DATA}
+                    config={{ autoPlay: false }}
+                  >
+                    <CustomAudioPlayer title="The Systemic Convergence" />
+                  </AudioExperienceProvider>
+                </div>
+
               </div>
 
               <div className="p-10 rounded-2xl bg-muted/20 mt-24">
@@ -196,54 +221,69 @@ export default function Home() {
 
             {/* The Solution */}
             <section className="space-y-4">
-              <h2 className="text-4xl font-bold text-foreground">The Solution: The Source Platform</h2>
+              <h2 className="text-4xl font-bold text-foreground">The Solution</h2>
               <p>
-                SOURCE is an "Ambient Computing" platform consisting of three layers:
+                To solve an expansive problem set outlined above requires a holisitic data collecting and processing system. A proactive, always-on system that can detect and solve problems before they become crises.
+              </p>
+              <p>To solve this massive multi-dimensional problem set we need <strong className="text-foreground">SOURCE</strong>.</p>
+              <p>
+                But what exactly is it?
               </p>
 
               <div className="flex flex-col md:flex-row gap-4 md:gap-6 rounded-lg border border-border bg-muted/10 p-6 md:-mx-[25%]">
                 <div className="md:flex-1">
-                  <h3 className="text-3xl font-bold text-foreground">The Hardware</h3>
-                  <p className="text-sm text-muted-foreground">
-                    A decentralized infrastructure installed directly into the built environment.
-                  </p>
+                  <h3 className="text-3xl font-bold text-foreground">Hardware</h3>
                   <ul className="list-disc space-y-1 pl-6 text-sm">
-                    <li><strong className="text-foreground">Multi-Sensor Units (MSUs):</strong> We have engineered a proprietary "all-in-one" hardware unit that combines <strong>Lidar, Video, Microphones, and Speakers</strong>.</li>
-                    <li><strong className="text-foreground">Installation:</strong> These MSUs are embedded directly into the walls of every room, creating a seamless, invisible grid.</li>
-                    <li><strong className="text-foreground">Compute:</strong> A dedicated, AI-first server (2+ GPUs) installed locally (closet/wall mount) to process the raw feed from the MSUs.</li>
+                    <li><strong className="text-foreground">MSUs:</strong> Proprietary hardware combining Lidar, Video, Mics, and Speakers.</li>
+                    <li><strong className="text-foreground">Grid:</strong> Embedded directly into walls for seamless, invisible coverage.</li>
+                    <li><strong className="text-foreground">Compute:</strong> Local AI-first servers processing all raw data on-site.</li>
                   </ul>
                 </div>
 
                 <div className="md:flex-1">
-                  <h3 className="text-3xl font-bold text-foreground">The Software</h3>
-                  <p className="text-sm text-muted-foreground">
-                  </p>
+                  <h3 className="text-3xl font-bold text-foreground">Software</h3>
                   <ul className="list-disc space-y-1 pl-6 text-sm">
-                    <li><strong className="text-foreground">Source ID:</strong> This is the core operating layer of the stack. It eliminates passwords and keys. By analyzing gait, voice, biometrics, and behavior, the system validates identity simply by the user's presence.</li>
-                    <li><strong className="text-foreground">Personal AI:</strong> A continuous-learning model that observes the user to automate tasks, detect health issues, and provide "Total Context Awareness."</li>
-                    <li><strong className="text-foreground">Blockchain Verification:</strong> Every frame of video is tokenized. This creates an immutable <strong>"True Record of Reality,"</strong> verifying human authenticity in an era of deepfakes.</li>
+                    <li><strong className="text-foreground">Source ID:</strong> Biometric identity validation (gait, voice, behavior) eliminating passwords.</li>
+                    <li><strong className="text-foreground">Personal AI:</strong> Model-driven automation with "Total Context Awareness."</li>
+                    <li><strong className="text-foreground">Truth Layer:</strong> Blockchain-tokenized video creating an immutable record of reality.</li>
                   </ul>
                 </div>
 
                 <div className="md:flex-1">
-                  <h3 className="text-3xl font-bold text-foreground">The Social Layer</h3>
+                  <h3 className="text-3xl font-bold text-foreground">Social</h3>
                   <p className="text-sm text-muted-foreground">
-                    A rigorous "Context Economy" network. Unlike scrolling feeds, CAST uses Source data to generate automated summaries of the user's life and curate the internet based on the user's specific real-world context.
+                    A "Context Economy" network. CAST uses real-world data to curate the internet and automate life summaries based on your actual environment.
                   </p>
                 </div>
+              </div>
 
+              <div className="rounded-xl border border-border bg-muted/10 p-4">
+                <AudioExperienceProvider
+                  audioSrc="/audio/The%20Three%20Layers.mp3"
+                  transcript={TRANSCRIPT_DATA}
+                  chapters={CHAPTERS_DATA}
+                  config={{ autoPlay: false }}
+                >
+                  <CustomAudioPlayer title="The Three Layers" />
+                </AudioExperienceProvider>
               </div>
 
               <div className="rounded-lg border border-border bg-muted/10 p-6 space-y-4">
                 <h3 className="text-3xl font-bold text-foreground">Data Ownership</h3>
                 <p className="text-sm text-foreground">
-                  Source is obviously a surveillance platform, but the question is: <em>who controls the surveillance?</em>
+                  Source democratizes surveillance. Instead of states and corporations owning your data, you own it. All data is processed locally and cryptographically secured—serving your health, safety, and personal AI, not external entities.
                 </p>
-                <ul className="list-disc space-y-2 pl-6 text-sm">
-                  <li><strong className="text-foreground">Traditional Surveillance:</strong> States and corporations observe you. They own the data, they benefit from it, and you have no control or transparency.</li>
-                  <li><strong className="text-foreground">Source's Model:</strong> You own the observational data of your life, whether in your home, workplace, or public spaces you inhabit. All data is processed locally, cryptographically secured, and you control what gets shared.</li>
-                  <li><strong className="text-foreground">The Flip:</strong> In a world where observation is inevitable (cameras are already everywhere), we're not eliminating surveillance, we're <strong>democratizing who controls it.</strong> The data serves you: health insights, safety, AI that understands your context. Not corporations. Not governments. You.</li>
-                </ul>
+              </div>
+
+              <div className="rounded-xl border border-border bg-muted/10 p-4">
+                <AudioExperienceProvider
+                  audioSrc="/audio/Data%20Ownership.mp3"
+                  transcript={TRANSCRIPT_DATA}
+                  chapters={CHAPTERS_DATA}
+                  config={{ autoPlay: false }}
+                >
+                  <CustomAudioPlayer title="Data Ownership & Sovereignty" />
+                </AudioExperienceProvider>
               </div>
 
               <div className="flex flex-col rounded-lg border border-border bg-muted/10 overflow-hidden">
@@ -260,14 +300,12 @@ export default function Home() {
                   View the Source Solution Map <span aria-hidden="true" className="ml-1">→</span>
                 </Link>
               </div>
+
             </section>
 
             {/* Go-to-Market Strategy */}
             <section className="space-y-4">
               <h2 className="text-4xl font-bold text-foreground">GTM</h2>
-              <p>
-                We are deploying a strategy that targets high-utility niche markets to fund mass adoption.
-              </p>
               <ol className="list-decimal space-y-3 pl-6">
                 <li>
                   <strong className="text-foreground">Elderly Care (Revenue Driver):</strong> A passive safety layer that tracks cognitive decline, memory, and physical safety without wearable devices. Families pay for peace of mind.
@@ -279,6 +317,17 @@ export default function Home() {
                   <strong className="text-foreground">Influencers & Streamers (Marketing Engine):</strong> We provide free/subsidized installations to top creators. They use Source as a full in-house studio system—no longer tied to their computers—while showcasing the <strong>4D Gaussian Splatting</strong> capabilities (holographic video) to their millions of followers, driving the cultural hype cycle.
                 </li>
               </ol>
+
+              <div className="rounded-xl border border-border bg-muted/10 p-4">
+                <AudioExperienceProvider
+                  audioSrc="/audio/GTM.mp3"
+                  transcript={TRANSCRIPT_DATA}
+                  chapters={CHAPTERS_DATA}
+                  config={{ autoPlay: false }}
+                >
+                  <CustomAudioPlayer title="Go-to-Market Strategy" />
+                </AudioExperienceProvider>
+              </div>
             </section>
 
             {/* The Master Plan */}
@@ -316,6 +365,17 @@ export default function Home() {
                   </ul>
                 </div>
               </div>
+
+              <div className="rounded-xl border border-border bg-muted/10 p-4">
+                <AudioExperienceProvider
+                  audioSrc="/audio/Roadmap.mp3"
+                  transcript={TRANSCRIPT_DATA}
+                  chapters={CHAPTERS_DATA}
+                  config={{ autoPlay: false }}
+                >
+                  <CustomAudioPlayer title="The Roadmap" />
+                </AudioExperienceProvider>
+              </div>
             </section>
 
             {/* Competitive Advantage */}
@@ -347,6 +407,17 @@ export default function Home() {
               <p className="italic border-l-4 border-foreground/30 pl-4 text-foreground font-semibold">
                 Source: We guide AI, and AI guides us.
               </p>
+
+              <div className="rounded-xl border border-border bg-muted/10 p-4">
+                <AudioExperienceProvider
+                  audioSrc="/audio/Long%20Term%20Vision.mp3"
+                  transcript={TRANSCRIPT_DATA}
+                  chapters={CHAPTERS_DATA}
+                  config={{ autoPlay: false }}
+                >
+                  <CustomAudioPlayer title="The Long-Term Vision" />
+                </AudioExperienceProvider>
+              </div>
             </section>
 
             {/* The Deal */}
@@ -359,6 +430,17 @@ export default function Home() {
                 <li><strong className="text-foreground">Use of Funds:</strong> Land acquisition (Location TBD), Construction of HQ/Lab, Hardware BOM for School + 100 Homes, and 18 months of runway for 36 FTEs.</li>
                 <li><strong className="text-foreground">Why Now:</strong> The AI hardware race is heating up, but everyone is focused on chips. The winner will be the company that owns the <em>environment</em> and the <em>behavioral data</em>.</li>
               </ul>
+
+              <div className="rounded-xl border border-border bg-muted/10 p-4">
+                <AudioExperienceProvider
+                  audioSrc="/audio/The%20Deal.mp3"
+                  transcript={TRANSCRIPT_DATA}
+                  chapters={CHAPTERS_DATA}
+                  config={{ autoPlay: false }}
+                >
+                  <CustomAudioPlayer title="The Deal" />
+                </AudioExperienceProvider>
+              </div>
             </section>
           </div>
 
