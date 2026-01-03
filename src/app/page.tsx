@@ -26,7 +26,7 @@ export default function Home() {
         {/* Memo Content */}
         <article className="prose prose-invert max-w-none space-y-6 text-base leading-relaxed text-muted-foreground">
           {/* Sections Container */}
-          <div className="flex flex-col gap-12">
+          <div className="flex flex-col gap-24">
             {/* SOURCE's Vision */}
             <section className="space-y-4">
               <h2 className="text-4xl font-bold text-foreground">Vision</h2>
@@ -69,14 +69,14 @@ export default function Home() {
                 </p>
                 <div className="space-y-6 py-6 px-10">
                   <div>
-                    <div className="mb-2 w-fit rounded-md bg-muted px-2 py-0.5 text-xs font-semibold text-foreground uppercase tracking-wider">Qualitative</div>
+                    <div className="mb-2 w-fit rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-semibold text-foreground uppercase tracking-wider">Qualitative</div>
                     <h4 className="text-xl font-bold text-foreground mb-2">The Data is Limited</h4>
                     <p className="text-muted-foreground">
                       LLMs are trained on the <em>internet</em>, which is performative, artificial, and highly edited. It lacks the authentic, natural behavior that defines actual human experience.
                     </p>
                   </div>
                   <div>
-                    <div className="mb-2 w-fit rounded-md bg-muted px-2 py-0.5 text-xs font-semibold text-foreground uppercase tracking-wider">Quantitative</div>
+                    <div className="mb-2 w-fit rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-semibold text-foreground uppercase tracking-wider">Quantitative</div>
                     <h4 className="text-xl font-bold text-foreground mb-2">The Context Gap</h4>
                     <p className="text-muted-foreground">
                       Current AI misses 99.99% of human experience—the physical world and the real-time living that happens beyond static text and curated uploads. After all, we humans are constantly producing data that's getting lost to the void.
@@ -92,26 +92,42 @@ export default function Home() {
                   Beyond the AI data bottleneck, critical failures are cascading across every domain of life.
                 </p>
 
-                <div className="flex flex-col rounded-lg border border-border bg-muted/10 overflow-hidden mt-2">
+                <div className="flex flex-col rounded-lg border border-border bg-muted/10 mt-2">
                   <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-border">
                     <div className="p-5 space-y-6">
                       <h4 className="text-xl font-bold text-foreground">Macro-Systemic Failures</h4>
                       <ul className="space-y-6 text-sm text-muted-foreground">
                         <li>
                           <strong className="text-foreground block mb-1">Political</strong>
-                          Inadequate Problem Solving, Polarization, Erosion of Trust
+                          <div className="flex flex-wrap gap-2">
+                            <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Inadequate Problem Solving</span>
+                            <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Polarization</span>
+                            <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Erosion of Trust</span>
+                          </div>
                         </li>
                         <li>
                           <strong className="text-foreground block mb-1">Economic</strong>
-                          Layoffs, Supply Chain Disruptions, Inflation
+                          <div className="flex flex-wrap gap-2">
+                            <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Layoffs</span>
+                            <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Supply Chain Disruptions</span>
+                            <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Inflation</span>
+                          </div>
                         </li>
                         <li>
                           <strong className="text-foreground block mb-1">Social</strong>
-                          Social Media Algorithms, Division, Classism
+                          <div className="flex flex-wrap gap-2">
+                            <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Social Media Algorithms</span>
+                            <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Division</span>
+                            <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Classism</span>
+                          </div>
                         </li>
                         <li>
                           <strong className="text-foreground block mb-1">Technological</strong>
-                          Privacy, Deepfakes, AI Alignment
+                          <div className="flex flex-wrap gap-2">
+                            <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Privacy</span>
+                            <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Deepfakes</span>
+                            <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">AI Alignment</span>
+                          </div>
                         </li>
                       </ul>
                     </div>
@@ -121,19 +137,34 @@ export default function Home() {
                       <ul className="space-y-6 text-sm text-muted-foreground">
                         <li>
                           <strong className="text-foreground block mb-1">Mental & Emotional</strong>
-                          Loneliness, Depression, Neurodivergency
+                          <div className="flex flex-wrap gap-2">
+                            <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Loneliness</span>
+                            <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Depression</span>
+                            <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Neurodivergency</span>
+                          </div>
                         </li>
                         <li>
                           <strong className="text-foreground block mb-1">Physical Health</strong>
-                          Late Diagnosis, Poor Management, Accidents
+                          <div className="flex flex-wrap gap-2">
+                            <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Late Diagnosis</span>
+                            <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Poor Management</span>
+                            <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Accidents</span>
+                          </div>
                         </li>
                         <li>
                           <strong className="text-foreground block mb-1">Micro-Social</strong>
-                          Relationship Conflicts, Degradation of Bonds
+                          <div className="flex flex-wrap gap-2">
+                            <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Relationship Conflicts</span>
+                            <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Degradation of Bonds</span>
+                          </div>
                         </li>
                         <li>
                           <strong className="text-foreground block mb-1">Computing</strong>
-                          UX Pain, Fragmented Ecosystems, IAM
+                          <div className="flex flex-wrap gap-2">
+                            <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">UX Pain</span>
+                            <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Fragmented Ecosystems</span>
+                            <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">IAM</span>
+                          </div>
                         </li>
                       </ul>
                     </div>
@@ -141,16 +172,26 @@ export default function Home() {
 
                   <Link
                     href="/convergence"
-                    className="flex w-full items-center border-t border-border bg-background/50 px-5 py-4 text-sm font-bold text-foreground transition-colors hover:bg-muted/20"
+                    className="flex w-[calc(100%+32px)] -mx-4 -mb-6 items-center rounded-xl border border-border bg-white dark:bg-[#171720] px-8 py-4 text-sm font-bold text-foreground shadow-2xl transition-all hover:bg-[#f2f3fa] dark:hover:bg-[#1c1c27] hover:border-blue-500/50 hover:shadow-[0_0_25px_-5px_rgba(59,130,246,0.4)] hover:scale-[1.01] active:scale-[0.99] -mt-px group relative z-10"
                   >
-                    View the full Systemic Convergence Analysis <span aria-hidden="true" className="ml-1">→</span>
+                    <span className="flex-1 text-center font-bold">View the full Systemic Convergence Analysis</span>
+                    <span aria-hidden="true" className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
                   </Link>
                 </div>
               </div>
 
-              <p className="italic text-muted-foreground pt-4 border-t border-border">
-                <strong className="text-foreground">The Opportunity:</strong> The solution to these converging problems—and the next breakthrough in AI—won't come from more GPUs; it will come from a new <em>class</em> of data: continuous, multimodal, real-world behavioral data.
-              </p>
+              <div className="p-10 rounded-2xl bg-muted/20 mt-24">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="md:col-span-1">
+                    <strong className="text-foreground text-lg leading-tight block">The Opportunity</strong>
+                  </div>
+                  <div className="md:col-span-2">
+                    <p className="italic text-muted-foreground leading-relaxed">
+                      The solution to these converging problems—and the next breakthrough in AI—won't come from more GPUs; it will come from a new <em>class</em> of data: continuous, multimodal, real-world behavioral data.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </section>
 
             {/* The Solution */}
