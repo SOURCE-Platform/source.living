@@ -27,11 +27,14 @@ export default function Home() {
         <article className="prose prose-invert max-w-none space-y-6 text-base leading-relaxed text-muted-foreground">
           {/* Sections Container */}
           <div className="flex flex-col gap-12">
-            {/* The Source Vision */}
+            {/* SOURCE's Vision */}
             <section className="space-y-4">
-              <h2 className="text-4xl font-bold text-foreground">The Source Vision</h2>
+              <h2 className="text-4xl font-bold text-foreground">Vision</h2>
               <p>
-                <strong className="text-foreground">SOURCE</strong> will be an open-source decentralized AI platform designed to achieve <strong className="text-foreground">Super Awareness</strong>, the prerequisite for <strong className="text-foreground">Super Intelligence</strong>. By deploying smart sensors and heavy local compute in both public and private spaces, we are building <strong className="text-foreground">the new holistic computing paradigm for civilization</strong> that functions as a proactive problem detector and solver.
+                <strong className="text-foreground">SOURCE</strong> will be an open-source decentralized AI platform designed to achieve <strong className="text-foreground">Super Awareness</strong>, the prerequisite for <strong className="text-foreground">Super Intelligence</strong>.
+              </p>
+              <p>
+                By deploying smart sensors and heavy local compute in both public and private spaces, we are building <strong className="text-foreground">the new holistic computing paradigm for civilization</strong> that functions as a proactive problem detector and solver.
               </p>
               <p>
                 This infrastructure will capture what current AI fundamentally lacks: <strong className="text-foreground">Human Behavioral and Environmental Data</strong> of such high quality and near-infinite quantity that it will enable the creation of the <strong className="text-foreground">Most Accurate Global World Model</strong> ever built.
@@ -60,14 +63,26 @@ export default function Home() {
 
               {/* 1. The Data Wall */}
               <div className="space-y-4">
-                <h3 className="text-3xl font-bold text-foreground">1. The Data Wall (The Context Gap)</h3>
+                <h3 className="text-3xl font-bold text-foreground">1. The Data Wall</h3>
                 <p>
-                  We have thrown the entire internet at Transformers. While effective, this approach has reached a fundamental limit.
+                  We have thrown the entire internet at Transformers. While effective, this approach is constrained by the <strong className="text-foreground">qualitative</strong> and <strong className="text-foreground">quantitative</strong> limitations of the data source itself.
                 </p>
-                <ul className="list-disc space-y-2 pl-6">
-                  <li><strong className="text-foreground">The Data is Limited:</strong> LLMs are trained on the <em>internet</em>, which is performative, artificial, and highly edited. It represents only a tiny slice of reality—"sculpted" artifice devoid of the authentic, natural human behavior that defines actual experience.</li>
-                  <li><strong className="text-foreground">The Context Gap:</strong> Current AI has zero insight into the physical world, digital user flows, or the 99% of human experience that happens beyond static text. It cannot predict a human user's needs or see their problems.</li>
-                </ul>
+                <div className="space-y-6 py-6 px-10">
+                  <div>
+                    <div className="mb-2 w-fit rounded-md bg-muted px-2 py-0.5 text-xs font-semibold text-foreground uppercase tracking-wider">Qualitative</div>
+                    <h4 className="text-xl font-bold text-foreground mb-2">The Data is Limited</h4>
+                    <p className="text-muted-foreground">
+                      LLMs are trained on the <em>internet</em>, which is performative, artificial, and highly edited. It lacks the authentic, natural behavior that defines actual human experience.
+                    </p>
+                  </div>
+                  <div>
+                    <div className="mb-2 w-fit rounded-md bg-muted px-2 py-0.5 text-xs font-semibold text-foreground uppercase tracking-wider">Quantitative</div>
+                    <h4 className="text-xl font-bold text-foreground mb-2">The Context Gap</h4>
+                    <p className="text-muted-foreground">
+                      Current AI misses 99.99% of human experience—the physical world and the real-time living that happens beyond static text and curated uploads. After all, we humans are constantly producing data that's getting lost to the void.
+                    </p>
+                  </div>
+                </div>
               </div>
 
               {/* 2. The Expanded Problem Set */}
