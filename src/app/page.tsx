@@ -2,6 +2,16 @@
 
 import Link from "next/link";
 import { SourceLogo } from "@/components/atoms/icons/source-logo";
+import { CustomAudioPlayer } from "@/components/custom-audio-player";
+import { AudioExperienceProvider } from "@/components/audio-player";
+import type { TranscriptData, ChapterSummary } from "@/components/audio-player/context/types";
+
+
+const TRANSCRIPT_DATA: TranscriptData = {
+  utterances: []
+};
+
+const CHAPTERS_DATA: ChapterSummary[] = [];
 
 export default function Home() {
   return (
@@ -17,31 +27,26 @@ export default function Home() {
         <article className="prose prose-invert max-w-none space-y-6 text-base leading-relaxed text-muted-foreground">
           {/* Sections Container */}
           <div className="flex flex-col gap-12">
-            {/* Executive Summary */}
+            {/* The Source Vision */}
             <section className="space-y-4">
-              <h2 className="text-4xl font-bold text-foreground">Executive Summary</h2>
+              <h2 className="text-4xl font-bold text-foreground">The Source Vision</h2>
               <p>
-                <strong className="text-foreground">SOURCE</strong> is building the hardware and software infrastructure to capture what current AI fundamentally lacks: <strong className="text-foreground">High-Resolution Human Behavioral Data.</strong>
+                <strong className="text-foreground">SOURCE</strong> will be an open-source decentralized AI platform designed to achieve <strong className="text-foreground">Super Awareness</strong>, the prerequisite for <strong className="text-foreground">Super Intelligence</strong>. By deploying smart sensors and heavy local compute in both public and private spaces, we are building <strong className="text-foreground">the new holistic computing paradigm for civilization</strong> that functions as a proactive problem detector and solver.
               </p>
               <p>
-                Without this data, AI is limited. It can handle digital knowledge work, but only to a point. And it cannot even begin to address the vast array of problems that exist in the physical world:
+                This infrastructure will capture what current AI fundamentally lacks: <strong className="text-foreground">Human Behavioral and Environmental Data</strong> of such high quality and near-infinite quantity that it will enable the creation of the <strong className="text-foreground">Most Accurate Global World Model</strong> ever built.
               </p>
-              <div className="grid grid-cols-2 rounded-lg border border-border text-sm font-medium text-foreground">
-                <div className="border-b border-r border-border px-5 py-3">Physical health</div>
-                <div className="border-b border-border px-5 py-3">Mental health</div>
-                <div className="border-b border-r border-border px-5 py-3">Social dynamics</div>
-                <div className="border-b border-border px-5 py-3">Relationships</div>
-                <div className="border-b border-r border-border px-5 py-3">Physical safety</div>
-                <div className="border-b border-border px-5 py-3">Zero-friction computing UX</div>
-                <div className="border-r border-border px-5 py-3">Transparent government</div>
-                <div className="px-5 py-3">Trustless voting</div>
+
+              <div className="mt-8 rounded-xl border border-border bg-muted/10 p-4">
+                <AudioExperienceProvider
+                  audioSrc="/audio/SOURCE%20Setting%20the%20Stage.mp3"
+                  transcript={TRANSCRIPT_DATA}
+                  chapters={CHAPTERS_DATA}
+                  config={{ autoPlay: false }}
+                >
+                  <CustomAudioPlayer title="Setting the Stage" />
+                </AudioExperienceProvider>
               </div>
-              <p>
-                Current AI models are trained on the "internet", a performative, curated, text-based dataset that captures none of the rich and authentic context of human life.
-              </p>
-              <p>
-                SOURCE solves this by installing a decentralized, privacy-first, highly-secure sensor grid into physical living spaces, creating a "True Record of Reality." This enables AI that truly understands human context, behavior, and physical interactions, making it both more effective at digital problems and capable of solving real-world challenges that today's AI cannot touch.
-              </p>
             </section>
 
             {/* The Problems */}
@@ -325,7 +330,7 @@ export default function Home() {
           {/* Footer */}
           <footer className="mt-12 border-t border-border pt-8 text-center text-xs text-muted-foreground">
             <p>© 2025 Source. Building the future of human-AI interaction.</p>
-            <p className="mt-2 text-[10px] opacity-50">v2.0.1 - Build: {new Date().toISOString()}</p>
+            <p className="mt-2 text-[10px] opacity-50">v2.0.1</p>
           </footer>
         </article >
       </main >
