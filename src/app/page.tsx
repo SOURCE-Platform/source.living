@@ -230,30 +230,65 @@ export default function Home() {
                 But what exactly is it?
               </p>
 
-              <div className="flex flex-col md:flex-row gap-4 md:gap-6 rounded-lg border border-border bg-muted/10 p-6 md:-mx-[25%]">
+              <div className="flex flex-col md:flex-row gap-8 md:gap-12 rounded-lg border border-border bg-muted/10 p-10 md:-mx-[25%] items-start">
                 <div className="md:flex-1">
-                  <h3 className="text-3xl font-bold text-foreground">Hardware</h3>
-                  <ul className="list-disc space-y-1 pl-6 text-sm">
-                    <li><strong className="text-foreground">MSUs:</strong> Proprietary hardware combining Lidar, Video, Mics, and Speakers.</li>
-                    <li><strong className="text-foreground">Grid:</strong> Embedded directly into walls for seamless, invisible coverage.</li>
-                    <li><strong className="text-foreground">Compute:</strong> Local AI-first servers processing all raw data on-site.</li>
-                  </ul>
+                  <h3 className="text-3xl font-bold text-foreground mb-6">Hardware</h3>
+                  <div className="space-y-6">
+                    <div>
+                      <h4 className="text-lg font-bold text-foreground mb-1">Sensor Grid</h4>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        A unified system combining LiDAR, Video, Microphones, and Speakers embedded into every wall and room, wired directly to local compute.
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-bold text-foreground mb-1">Local Edge Compute</h4>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        High-performance AI servers (housing GPUs or AI chips) located inside the walls or closets, processing all raw sensor data on-site.
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
                 <div className="md:flex-1">
-                  <h3 className="text-3xl font-bold text-foreground">Software</h3>
-                  <ul className="list-disc space-y-1 pl-6 text-sm">
-                    <li><strong className="text-foreground">Source ID:</strong> Biometric identity validation (gait, voice, behavior) eliminating passwords.</li>
-                    <li><strong className="text-foreground">Personal AI:</strong> Model-driven automation with "Total Context Awareness."</li>
-                    <li><strong className="text-foreground">Truth Layer:</strong> Blockchain-tokenized video creating an immutable record of reality.</li>
-                  </ul>
+                  <h3 className="text-3xl font-bold text-foreground mb-6">Software</h3>
+                  <div className="space-y-6">
+                    <div>
+                      <h4 className="text-lg font-bold text-foreground mb-1">SOURCE ID</h4>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        Multi-modal identity verification (gait, voice, behavior) eliminating traditional authentication (passwords, 2FA, passkeys).
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-bold text-foreground mb-1">Personal AI</h4>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        Open-source, SOTA multi-modal models with long-term memory. An agentic system that continuously learns and thinks through a recursive feedback loop, processing all data from your devices, relationships, and environment.
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-bold text-foreground mb-1">Truth Layer</h4>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        Blockchain-tokenized video creating an immutable record of reality. The solution to deepfakes: content without SOURCE verification is assumed fake.
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
                 <div className="md:flex-1">
-                  <h3 className="text-3xl font-bold text-foreground">Social</h3>
-                  <p className="text-sm text-muted-foreground">
-                    A "Context Economy" network. CAST uses real-world data to curate the internet and automate life summaries based on your actual environment.
-                  </p>
+                  <h3 className="text-3xl font-bold text-foreground mb-6">Social</h3>
+                  <div className="space-y-6">
+                    <div>
+                      <h4 className="text-lg font-bold text-foreground mb-1">CAST</h4>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        A "Context Economy" engine that leverages real-world data from the Sensor Grid, combined with SOURCE ID and Personal AI, to matchmake across the human population. This high-resolution understanding of reality generates deep behavioral insights previously impossible to detect.
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-bold text-foreground mb-1">Content Modal</h4>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        The Sensor Grid enables a new medium: <strong>Real-time 4D Gaussian Splatting</strong>. Live streams on CAST where viewers control their own virtual cameras, exploring the environment from any angle—a perfect, immutable representation of reality.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -306,17 +341,37 @@ export default function Home() {
             {/* Go-to-Market Strategy */}
             <section className="space-y-4">
               <h2 className="text-4xl font-bold text-foreground">GTM</h2>
-              <ol className="list-decimal space-y-3 pl-6">
-                <li>
-                  <strong className="text-foreground">Elderly Care (Revenue Driver):</strong> A passive safety layer that tracks cognitive decline, memory, and physical safety without wearable devices. Families pay for peace of mind.
-                </li>
-                <li>
-                  <strong className="text-foreground">Early Adopters & Tech (Revenue Driver):</strong> Selling the "Smart Home 2.0" experience to the tech-forward demographic who want total home automation and "Jarvis-like" AI.
-                </li>
-                <li>
-                  <strong className="text-foreground">Influencers & Streamers (Marketing Engine):</strong> We provide free/subsidized installations to top creators. They use Source as a full in-house studio system—no longer tied to their computers—while showcasing the <strong>4D Gaussian Splatting</strong> capabilities (holographic video) to their millions of followers, driving the cultural hype cycle.
-                </li>
-              </ol>
+              <div className="flex flex-col md:flex-row gap-8 md:gap-12 rounded-lg border border-border bg-muted/10 p-10 md:-mx-[25%] items-start">
+                <div className="md:flex-1 space-y-6">
+                  <div>
+                    <h4 className="text-lg font-bold text-foreground mb-1">Elderly Care</h4>
+                    <span className="inline-block rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider mb-2">Revenue Driver</span>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      A passive safety layer that tracks cognitive decline, memory, and physical safety without wearable devices. Families pay for peace of mind.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="md:flex-1 space-y-6">
+                  <div>
+                    <h4 className="text-lg font-bold text-foreground mb-1">Early Adopters & Tech</h4>
+                    <span className="inline-block rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider mb-2">Revenue Driver</span>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Selling the "Smart Home 2.0" experience to the tech-forward demographic who want total home automation and "Jarvis-like" AI.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="md:flex-1 space-y-6">
+                  <div>
+                    <h4 className="text-lg font-bold text-foreground mb-1">Influencers & Streamers</h4>
+                    <span className="inline-block rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider mb-2">Marketing Engine</span>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      We provide free/subsidized installations to top creators. They use Source as a full in-house studio system—no longer tied to their computers—while showcasing the <strong>4D Gaussian Splatting</strong> capabilities (holographic video) to their millions of followers, driving the cultural hype cycle.
+                    </p>
+                  </div>
+                </div>
+              </div>
 
               <div className="rounded-xl border border-border bg-muted/10 p-4">
                 <AudioExperienceProvider
@@ -334,35 +389,128 @@ export default function Home() {
             <section className="space-y-4">
               <h2 className="text-4xl font-bold text-foreground">Roadmap</h2>
 
-              <div className="flex flex-col md:flex-row gap-4 md:gap-6 md:-mx-[25%]">
-                <div className="md:flex-1 rounded-lg border border-border bg-muted/10 p-4">
-                  <h3 className="text-lg font-bold text-foreground">PHASE 1: The "Source School" & HQ (18 Months)</h3>
-                  <ul className="list-disc space-y-1 pl-6 text-sm">
-                    <li><strong className="text-foreground">Objective:</strong> Build the first <strong>Human Behavioral Model</strong>.</li>
-                    <li><strong className="text-foreground">Strategy:</strong> Construct a mixed-use R&D campus (School + HQ).</li>
-                    <li><strong className="text-foreground">Execution:</strong> We will monitor a controlled environment (a school) to train the Video Language Model (VLM) on complex human interactions, conflict resolution, and childhood development.</li>
-                    <li><strong className="text-foreground">Operations:</strong> By locating in a cost-efficient region (TBD), we can deploy a team of <strong>36 FTEs</strong> (Eng, Ops, AI) for a fraction of Silicon Valley costs.</li>
-                  </ul>
-                </div>
+              <div className="relative mt-12 md:-mx-[25%] px-4 md:px-0">
+                {/* Horizontal Line (Desktop) */}
+                <div className="absolute top-0 left-0 w-full h-px bg-border hidden md:block" />
 
-                <div className="md:flex-1 rounded-lg border border-border bg-muted/10 p-4">
-                  <h3 className="text-lg font-bold text-foreground">PHASE 2: Residential Beta (Concurrent with Phase 1)</h3>
-                  <ul className="list-disc space-y-1 pl-6 text-sm">
-                    <li><strong className="text-foreground">Objective:</strong> Commercial validation and dataset expansion.</li>
-                    <li><strong className="text-foreground">Execution:</strong> While the School builds the "Baseline Model," we will simultaneously deploy Source into ~100 residential units.</li>
-                    <li><strong className="text-foreground">The Mix:</strong> Paid installations for the Elderly/Tech demographics, and marketing installations for Influencers.</li>
-                    <li><strong className="text-foreground">Outcome:</strong> A diverse, proprietary dataset of private human behavior across different demographics.</li>
-                  </ul>
-                </div>
+                <div className="flex flex-col md:flex-row gap-8 md:gap-6">
+                  {/* PHASE 1 */}
+                  <div className="md:flex-1 relative pt-6 md:pt-8">
+                    {/* Circle Node */}
+                    <div className="absolute top-[-4px] left-0 w-2 h-2 rounded-full bg-foreground hidden md:block" />
 
-                <div className="md:flex-1 rounded-lg border border-border bg-muted/10 p-4">
-                  <h3 className="text-lg font-bold text-foreground">PHASE 3: Civilizational Scale</h3>
-                  <ul className="list-disc space-y-1 pl-6 text-sm">
-                    <li><strong className="text-foreground">Objective:</strong> Expansion into the Public Domain.</li>
-                    <li><strong className="text-foreground">Smart Cities & Government:</strong> Partnering with municipalities to install Source in public squares and neighborhoods.</li>
-                    <li><strong className="text-foreground">The Incentive:</strong> Offering "Crime Prevention by Design." The system provides total awareness of public spaces, deterring crime and providing immutable evidence for disputes.</li>
-                    <li><strong className="text-foreground">Commercial:</strong> Expansion into retail and institutions for automated logistics and security.</li>
-                  </ul>
+                    <div className="mb-6">
+                      <span className="text-xs font-bold tracking-widest text-muted-foreground uppercase block mb-2">Phase 1</span>
+                      <h3 className="text-2xl font-bold text-foreground block mb-1">The "Source School" & HQ</h3>
+                      <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">18 Months</span>
+                    </div>
+
+                    <div className="rounded-lg border border-border bg-muted/10 p-5 space-y-6">
+                      <div>
+                        <h4 className="text-sm font-bold text-foreground mb-1">Objective</h4>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          Build the first <strong>Human Behavioral Model</strong>.
+                        </p>
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-bold text-foreground mb-1">Strategy</h4>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          Construct a mixed-use R&D campus (School + HQ).
+                        </p>
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-bold text-foreground mb-1">Execution</h4>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          We will monitor a controlled environment (a school) to train the Video Language Model (VLM) on complex human interactions, conflict resolution, and childhood development.
+                        </p>
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-bold text-foreground mb-1">Operations</h4>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          By locating in a cost-efficient region (TBD), we can deploy a team of <strong>36 FTEs</strong> (Eng, Ops, AI) for a fraction of Silicon Valley costs.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* PHASE 2 */}
+                  <div className="md:flex-1 relative pt-6 md:pt-8">
+                    {/* Circle Node */}
+                    <div className="absolute top-[-4px] left-0 w-2 h-2 rounded-full bg-foreground hidden md:block" />
+
+                    <div className="mb-6">
+                      <span className="text-xs font-bold tracking-widest text-muted-foreground uppercase block mb-2">Phase 2</span>
+                      <h3 className="text-2xl font-bold text-foreground block mb-1">Residential Beta</h3>
+                      <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Concurrent with Phase 1</span>
+                    </div>
+
+                    <div className="rounded-lg border border-border bg-muted/10 p-5 space-y-6">
+                      <div>
+                        <h4 className="text-sm font-bold text-foreground mb-1">Objective</h4>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          Commercial validation and dataset expansion.
+                        </p>
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-bold text-foreground mb-1">Execution</h4>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          While the School builds the "Baseline Model," we will simultaneously deploy Source into ~100 residential units.
+                        </p>
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-bold text-foreground mb-1">The Mix</h4>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          Paid installations for the Elderly/Tech demographics, and marketing installations for Influencers.
+                        </p>
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-bold text-foreground mb-1">Outcome</h4>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          A diverse, proprietary dataset of private human behavior across different demographics.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* PHASE 3 */}
+                  <div className="md:flex-1 relative pt-6 md:pt-8">
+                    {/* Circle Node */}
+                    <div className="absolute top-[-4px] left-0 w-2 h-2 rounded-full bg-foreground hidden md:block" />
+
+                    <div className="mb-6">
+                      <span className="text-xs font-bold tracking-widest text-muted-foreground uppercase block mb-2">Phase 3</span>
+                      <h3 className="text-2xl font-bold text-foreground block mb-1">Civilizational Scale</h3>
+                      {/* Spacer for alignment */}
+                      <div className="h-[22px]"></div>
+                    </div>
+
+                    <div className="rounded-lg border border-border bg-muted/10 p-5 space-y-6">
+                      <div>
+                        <h4 className="text-sm font-bold text-foreground mb-1">Objective</h4>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          Expansion into the Public Domain.
+                        </p>
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-bold text-foreground mb-1">Smart Cities & Government</h4>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          Partnering with municipalities to install Source in public squares and neighborhoods.
+                        </p>
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-bold text-foreground mb-1">The Incentive</h4>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          Offering "Crime Prevention by Design." The system provides total awareness of public spaces, deterring crime and providing immutable evidence for disputes.
+                        </p>
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-bold text-foreground mb-1">Commercial</h4>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          Expansion into retail and institutions for automated logistics and security.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -381,11 +529,34 @@ export default function Home() {
             {/* Competitive Advantage */}
             <section className="space-y-4">
               <h2 className="text-4xl font-bold text-foreground">Competitive Advantage</h2>
-              <ul className="list-disc space-y-2 pl-6">
-                <li><strong className="text-foreground">The Data Moat:</strong> OpenAI and Google have the internet. We have the <em>living room</em>. This high-resolution behavioral dataset does not currently exist anywhere else.</li>
-                <li><strong className="text-foreground">Privacy Architecture:</strong> By processing locally and tokenizing via blockchain, we solve the "Big Brother" fear. Users own their data; we just provide the architecture.</li>
-                <li><strong className="text-foreground">Vertical Integration:</strong> We own the full stack—from the sensor in the wall to the AI model in the cloud.</li>
-              </ul>
+              <div className="flex flex-col md:flex-row gap-8 md:gap-12 rounded-lg border border-border bg-muted/10 p-10 md:-mx-[25%] items-start">
+                <div className="md:flex-1 space-y-6">
+                  <div>
+                    <h4 className="text-lg font-bold text-foreground mb-1">The Data Moat</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      OpenAI and Google have the internet. We have the <em>living room</em>. This high-resolution behavioral dataset does not currently exist anywhere else.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="md:flex-1 space-y-6">
+                  <div>
+                    <h4 className="text-lg font-bold text-foreground mb-1">Privacy Architecture</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      By processing locally and tokenizing via blockchain, we solve the "Big Brother" fear. Users own their data; we just provide the architecture.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="md:flex-1 space-y-6">
+                  <div>
+                    <h4 className="text-lg font-bold text-foreground mb-1">Vertical Integration</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      We own the full stack—from the sensor in the wall to the AI model in the cloud.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </section>
 
             {/* The Long-Term Vision */}
@@ -400,10 +571,25 @@ export default function Home() {
               <p>
                 For SuperIntelligence to be truly effective, aligned, and safe, it requires <strong className="text-foreground">SuperAwareness</strong>.
               </p>
-              <ul className="list-disc space-y-2 pl-6">
-                <li><strong className="text-foreground">The Missing Link:</strong> Intelligence is the ability to process information; Awareness is the ability to perceive the reality from which that information comes. You cannot solve human problems if you cannot perceive the human condition.</li>
-                <li><strong className="text-foreground">The Source Role:</strong> Source creates the sensory organs for the global AI brain. By capturing the "True Record of Reality," we provide the necessary context, the <strong className="text-foreground">SuperAwareness</strong>, that allows SuperIntelligence to function not just as a calculator, but as a benevolent, fully aligned agent of civilization.</li>
-              </ul>
+              <div className="flex flex-col md:flex-row gap-8 md:gap-12 rounded-lg border border-border bg-muted/10 p-10 md:-mx-[25%] items-start">
+                <div className="md:flex-1 space-y-6">
+                  <div>
+                    <h4 className="text-lg font-bold text-foreground mb-1">The Missing Link</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Intelligence is the ability to process information; Awareness is the ability to perceive the reality from which that information comes. You cannot solve human problems if you cannot perceive the human condition.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="md:flex-1 space-y-6">
+                  <div>
+                    <h4 className="text-lg font-bold text-foreground mb-1">The Source Role</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Source creates the sensory organs for the global AI brain. By capturing the "True Record of Reality," we provide the necessary context, the <strong className="text-foreground">SuperAwareness</strong>, that allows SuperIntelligence to function not just as a calculator, but as a benevolent, fully aligned agent of civilization.
+                    </p>
+                  </div>
+                </div>
+              </div>
               <p className="italic border-l-4 border-foreground/30 pl-4 text-foreground font-semibold">
                 Source: We guide AI, and AI guides us.
               </p>
@@ -426,10 +612,25 @@ export default function Home() {
               <p>
                 <strong className="text-foreground">We are raising $10M Seed</strong> to execute Phase 1 and the Phase 2 Beta.
               </p>
-              <ul className="list-disc space-y-2 pl-6">
-                <li><strong className="text-foreground">Use of Funds:</strong> Land acquisition (Location TBD), Construction of HQ/Lab, Hardware BOM for School + 100 Homes, and 18 months of runway for 36 FTEs.</li>
-                <li><strong className="text-foreground">Why Now:</strong> The AI hardware race is heating up, but everyone is focused on chips. The winner will be the company that owns the <em>environment</em> and the <em>behavioral data</em>.</li>
-              </ul>
+              <div className="flex flex-col md:flex-row gap-8 md:gap-12 rounded-lg items-start">
+                <div className="md:flex-1 space-y-6">
+                  <div>
+                    <h4 className="text-lg font-bold text-foreground mb-1">Use of Funds</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Land acquisition (Location TBD), Construction of HQ/Lab, Hardware BOM for School + 100 Homes, and 18 months of runway for 36 FTEs.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="md:flex-1 space-y-6">
+                  <div>
+                    <h4 className="text-lg font-bold text-foreground mb-1">Why Now</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      The AI hardware race is heating up, but everyone is focused on chips. The winner will be the company that owns the <em>environment</em> and the <em>behavioral data</em>.
+                    </p>
+                  </div>
+                </div>
+              </div>
 
               <div className="rounded-xl border border-border bg-muted/10 p-4">
                 <AudioExperienceProvider
