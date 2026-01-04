@@ -111,9 +111,11 @@ function ProblemCard({ issue }: { issue: ConvergingIssue }) {
         <div className="mb-4 last:mb-0">
             <div className="flex flex-col gap-1">
                 <div ref={triggerRef} className="group/menu relative w-fit">
-                    <span className="text-base font-semibold text-foreground cursor-help px-2 py-1 -ml-2 rounded-lg transition-colors hover:bg-muted whitespace-nowrap flex items-center gap-2">
+                    <span className="text-base font-semibold text-foreground cursor-help px-2 py-1 -ml-2 rounded-lg transition-colors hover:bg-muted whitespace-normal inline decoration-clone leading-snug">
                         {issue.label}
-                        <HoverEyeIcon className="w-4 h-4 text-muted-foreground/60 transition-transform group-hover/menu:scale-110 group-hover/menu:text-primary/80" />
+                        <span className="inline-flex align-middle ml-2">
+                            <HoverEyeIcon className="w-4 h-4 text-muted-foreground/60 transition-transform group-hover/menu:scale-110 group-hover/menu:text-primary/80" />
+                        </span>
                     </span>
                     {/* Tooltip with invisible bridge */}
                     <div
@@ -142,7 +144,7 @@ function ProblemCard({ issue }: { issue: ConvergingIssue }) {
                     {issue.description}
                 </p>
             </div>
-        </div>
+        </div >
     );
 }
 
@@ -211,31 +213,31 @@ const ComparisonSection = ({ title, categories, isLastSection = false }: { title
             <h2 className="lg:hidden text-2xl font-bold text-foreground mb-6">{title}</h2>
 
             {/* Desktop Sticky Main Title Sidebar */}
-            <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-[200px] pointer-events-none">
-                <div className="sticky top-4 pt-2">
+            <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-[200px] pointer-events-none pt-20">
+                <div className="sticky top-8 pt-2">
                     <h2 className="text-2xl font-bold text-foreground mb-1">{title}</h2>
                 </div>
             </div>
 
             {/* Grid Content */}
-            <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-6 lg:gap-12">
+            <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-6 lg:gap-12 lg:pt-48">
                 {categories.map((cat, index) => {
                     const isLastItem = index === categories.length - 1;
                     return (
                         <div key={cat.title} className="contents">
                             {/* Desktop Sticky Sub-Title */}
                             <div className="hidden lg:block lg:col-start-1 pt-2">
-                                <div className="sticky top-14 transition-all duration-300">
-                                    <h3 className="text-lg font-medium text-muted-foreground">
+                                <div className="sticky top-32 transition-all duration-300">
+                                    <h3 className="text-lg font-bold text-muted-foreground">
                                         {cat.title}
                                     </h3>
                                 </div>
                             </div>
 
-                            {/* Content Column */}
+                            {/* Mobile Sub-Title */}
                             <div className={`lg:col-start-2 min-w-0 ${isLastSection && isLastItem ? 'min-h-[75vh] pb-0' : ''}`}>
                                 {/* Mobile Sub-Title */}
-                                <h3 className="lg:hidden text-lg font-medium text-muted-foreground mb-4">
+                                <h3 className="lg:hidden text-lg font-bold text-muted-foreground mb-4">
                                     {cat.title}
                                 </h3>
                                 <div className="scroll-mt-24">
@@ -281,12 +283,12 @@ export function ComparisonView({ defaultView }: ComparisonViewProps) {
 
     return (
         <div className="min-h-screen bg-background text-foreground">
-            <main className="mx-auto max-w-7xl px-6 sm:px-12 py-12">
+            <main className="mx-auto max-w-7xl px-6 sm:px-12 pt-0 pb-12">
                 {/* Sentinel for sticky detection */}
                 <div id="header-sentinel" className="absolute top-0 h-12 w-full pointer-events-none opacity-0" />
 
                 {/* Header */}
-                <div className="mb-12 flex items-center justify-end sticky top-0 z-40 bg-transparent py-4 transition-all pointer-events-none">
+                <div className="mb-6 flex items-center justify-end sticky top-0 z-40 bg-transparent py-4 transition-all pointer-events-none">
                     <div className="flex items-center gap-4 pointer-events-auto">
                         <div className={`
                             flex items-center gap-3 px-4 py-2 rounded-full border transition-all duration-300
@@ -327,9 +329,9 @@ export function ComparisonView({ defaultView }: ComparisonViewProps) {
                         <h1 className="text-4xl font-bold tracking-tight mb-4">
                             {isCompareMode ? "Systemic Analysis" : (defaultView === 'problems' ? "The Systemic Convergence" : "The Source Solution")}
                         </h1>
-                        <p className="text-xl text-muted-foreground">
+                        <p className="text-xl text-muted-foreground max-w-lg">
                             {isCompareMode
-                                ? "Comparing the converging systemic failures with the architectural solutions provided by Source."
+                                ? "Comparing the converging systemic failures with the architectural solutions provided by SOURCE."
                                 : (defaultView === 'problems'
                                     ? "We are witnessing the convergence of multiple systemic crises, political, economic, social, and technological."
                                     : "How the Source Platform systematically addresses the converging crises through Ambient Computing and High-Resolution Data.")}
