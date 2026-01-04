@@ -46,6 +46,25 @@ function getDomain(url: string): string {
     }
 }
 
+// Wait, the user uploaded an image of a hand. I should try to replicate that.
+// It's a "Link Select" hand cursor.
+const HoverHandIcon = ({ className }: { className?: string }) => (
+    <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className={className}
+    >
+        <path d="M8 3v13L12 22h8a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 11.93 3H8z" />
+        <path d="M8 9H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h4" />
+    </svg>
+);
+
 function ProblemCard({ issue }: { issue: ConvergingIssue }) {
     const [menuOffset, setMenuOffset] = useState(0);
     const triggerRef = useRef<HTMLDivElement>(null);
@@ -93,8 +112,9 @@ function ProblemCard({ issue }: { issue: ConvergingIssue }) {
         <div className="mb-4 last:mb-0">
             <div className="flex flex-col gap-1">
                 <div ref={triggerRef} className="group/menu relative w-fit">
-                    <span className="text-base font-semibold text-foreground cursor-help px-2 py-1 -ml-2 rounded-lg transition-colors hover:bg-muted whitespace-nowrap block">
+                    <span className="text-base font-semibold text-foreground cursor-help px-2 py-1 -ml-2 rounded-lg transition-colors hover:bg-muted whitespace-nowrap flex items-center gap-2">
                         {issue.label}
+                        <HoverHandIcon className="w-4 h-4 text-muted-foreground/60 transition-transform group-hover/menu:scale-110 group-hover/menu:text-primary/80" />
                     </span>
                     {/* Tooltip with invisible bridge */}
                     <div
@@ -283,7 +303,7 @@ export function ComparisonView({ defaultView }: ComparisonViewProps) {
                             <button
                                 onClick={() => setIsCompareMode(!isCompareMode)}
                                 className={`
-                    relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2
+                    relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none cursor-pointer
                     ${isCompareMode ? 'bg-primary' : 'bg-muted'}
                   `}
                             >
