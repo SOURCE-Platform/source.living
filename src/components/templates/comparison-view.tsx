@@ -46,22 +46,21 @@ function getDomain(url: string): string {
     }
 }
 
-// Wait, the user uploaded an image of a hand. I should try to replicate that.
-// It's a "Link Select" hand cursor.
-const HoverHandIcon = ({ className }: { className?: string }) => (
+// Eye icon for hover hint
+const HoverEyeIcon = ({ className }: { className?: string }) => (
     <svg
         width="24"
         height="24"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        strokeWidth="2"
+        strokeWidth="1"
         strokeLinecap="round"
         strokeLinejoin="round"
         className={className}
     >
-        <path d="M8 3v13L12 22h8a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 11.93 3H8z" />
-        <path d="M8 9H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h4" />
+        <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
+        <circle cx="12" cy="12" r="3" />
     </svg>
 );
 
@@ -114,7 +113,7 @@ function ProblemCard({ issue }: { issue: ConvergingIssue }) {
                 <div ref={triggerRef} className="group/menu relative w-fit">
                     <span className="text-base font-semibold text-foreground cursor-help px-2 py-1 -ml-2 rounded-lg transition-colors hover:bg-muted whitespace-nowrap flex items-center gap-2">
                         {issue.label}
-                        <HoverHandIcon className="w-4 h-4 text-muted-foreground/60 transition-transform group-hover/menu:scale-110 group-hover/menu:text-primary/80" />
+                        <HoverEyeIcon className="w-4 h-4 text-muted-foreground/60 transition-transform group-hover/menu:scale-110 group-hover/menu:text-primary/80" />
                     </span>
                     {/* Tooltip with invisible bridge */}
                     <div
