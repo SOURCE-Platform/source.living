@@ -100,15 +100,15 @@ export default function Home() {
 
               {/* 2. The Expanded Problem Set */}
               <div className="space-y-4">
-                <h3 className="text-3xl font-bold text-foreground">2. The Convergence of Crises</h3>
+                <h3 className="text-3xl font-bold text-foreground">2. The Systemic Convergence</h3>
                 <p>
-                  Beyond the AI data bottleneck, critical failures are cascading across every domain of life.
+                  Beyond the AI data bottleneck, failure modes are converging across the entire stack. From macro-institutional decay to micro-biological strain, the friction of existence is rising uniformly.
                 </p>
 
                 <div className="flex flex-col rounded-lg border border-border bg-muted/10 mt-2">
                   <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-border">
                     <div className="p-5 space-y-6">
-                      <h4 className="text-xl font-bold text-foreground">Macro-Systemic Failures</h4>
+                      <h4 className="text-xl font-bold text-foreground">The Macro Problem Set</h4>
                       <ul className="space-y-6 text-sm text-muted-foreground">
                         <li>
                           <strong className="text-foreground block mb-1">Political</strong>
@@ -146,7 +146,7 @@ export default function Home() {
                     </div>
 
                     <div className="p-5 space-y-6">
-                      <h4 className="text-xl font-bold text-foreground">Human Experience Failures</h4>
+                      <h4 className="text-xl font-bold text-foreground">The Micro Problem Set</h4>
                       <ul className="space-y-6 text-sm text-muted-foreground">
                         <li>
                           <strong className="text-foreground block mb-1">Mental & Emotional</strong>

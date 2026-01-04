@@ -391,10 +391,10 @@ export function ComparisonView({ defaultView }: ComparisonViewProps) {
                     {isCompareMode && (
                         <>
                             {/* Macro Analysis Section */}
-                            <ComparisonSection title="Macro Analysis" categories={MACRO_CATEGORIES} />
+                            <ComparisonSection title="The Macro Problem Set" categories={MACRO_CATEGORIES} />
 
                             {/* Micro Analysis Section */}
-                            <ComparisonSection title="Micro Analysis" categories={MICRO_CATEGORIES} isLastSection={true} />
+                            <ComparisonSection title="The Micro Problem Set" categories={MICRO_CATEGORIES} isLastSection={true} />
                         </>
                     )}
 
