@@ -205,6 +205,7 @@ function ComparisonRow({ category }: { category: CategoryData }) {
 
 interface ComparisonViewProps {
     defaultView: 'problems' | 'solutions';
+    initialCompareMode?: boolean;
 }
 const ComparisonSection = ({ title, categories, isLastSection = false }: { title: string, categories: CategoryData[], isLastSection?: boolean }) => {
     return (
@@ -252,10 +253,32 @@ const ComparisonSection = ({ title, categories, isLastSection = false }: { title
     );
 };
 
-export function ComparisonView({ defaultView }: ComparisonViewProps) {
-    const [isCompareMode, setIsCompareMode] = useState(false);
+export function ComparisonView({ defaultView, initialCompareMode = false }: ComparisonViewProps) {
+    const [isCompareMode, setIsCompareMode] = useState(initialCompareMode);
     const [isStuck, setIsStuck] = useState(false);
+    const [isVisible, setIsVisible] = useState(true);
+    const lastScrollY = useRef(0);
     const observerRef = useRef<IntersectionObserver | null>(null);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+
+            // Show when scrolling up or at the top
+            if (currentScrollY < lastScrollY.current || currentScrollY < 100) {
+                setIsVisible(true);
+            }
+            // Hide when scrolling down and not at the top
+            else if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+                setIsVisible(false);
+            }
+
+            lastScrollY.current = currentScrollY;
+        };
+
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
     useEffect(() => {
         const sentinel = document.getElementById('header-sentinel');
@@ -288,7 +311,7 @@ export function ComparisonView({ defaultView }: ComparisonViewProps) {
                 <div id="header-sentinel" className="absolute top-0 h-12 w-full pointer-events-none opacity-0" />
 
                 {/* Header */}
-                <div className="mb-6 flex items-center justify-end sticky top-0 z-40 bg-transparent py-4 transition-all pointer-events-none">
+                <div className={`mb-6 flex items-center justify-end sticky top-0 z-40 bg-transparent py-4 transition-all duration-300 pointer-events-none ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
                     <div className="flex items-center gap-4 pointer-events-auto">
                         <div className={`
                             flex items-center gap-3 px-4 py-2 rounded-full border transition-all duration-300
@@ -304,8 +327,10 @@ export function ComparisonView({ defaultView }: ComparisonViewProps) {
                             <button
                                 onClick={() => setIsCompareMode(!isCompareMode)}
                                 className={`
-                    relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none cursor-pointer
-                    ${isCompareMode ? 'bg-primary' : 'bg-muted'}
+                    relative inline-flex h-6 w-11 items-center rounded-full transition-all focus:outline-none cursor-pointer border border-transparent
+                    ${isCompareMode
+                                        ? 'bg-gradient-to-r from-blue-500 to-cyan-500 dark:bg-none dark:bg-[image:var(--background-image-playgrade)]'
+                                        : 'bg-muted'}
                   `}
                             >
                                 <span

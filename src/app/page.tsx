@@ -74,20 +74,26 @@ export default function Home() {
                     We have thrown the entire internet at Transformers. While effective, this approach is constrained by the <strong className="text-foreground">qualitative</strong> and <strong className="text-foreground">quantitative</strong> limitations of the data source itself.
                   </p>
 
-                  <div className="space-y-6 py-6 px-10">
-                    <div>
-                      <div className="mb-2 w-fit rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-semibold text-foreground uppercase tracking-wider">Qualitative</div>
-                      <h4 className="text-xl font-bold text-foreground mb-2">The Data is Limited</h4>
-                      <p className="text-muted-foreground">
-                        LLMs are trained on the <em>internet</em>, which is performative, artificial, and highly edited. It lacks the authentic, natural behavior that defines actual human experience.
-                      </p>
+                  <div className="space-y-8 py-6 px-0 md:px-10">
+                    <div className="flex flex-col md:flex-row gap-6 items-start">
+                      <div className="w-full md:w-32 h-32 shrink-0 bg-muted/20 border border-border rounded-lg" />
+                      <div>
+                        <div className="mb-2 w-fit rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-semibold text-foreground uppercase tracking-wider">Qualitative</div>
+                        <h4 className="text-xl font-bold text-foreground mb-2">Low Quality Data</h4>
+                        <p className="text-muted-foreground">
+                          LLMs are trained on the <em>internet</em>, which is performative, artificial, and highly edited. It lacks the authentic, natural behavior that defines actual human experience.
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <div className="mb-2 w-fit rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-semibold text-foreground uppercase tracking-wider">Quantitative</div>
-                      <h4 className="text-xl font-bold text-foreground mb-2">The Context Gap</h4>
-                      <p className="text-muted-foreground">
-                        Current AI misses 99.99% of human experience—the physical world and the real-time living that happens beyond static text and curated uploads. After all, we humans are constantly producing data that's getting lost to the void.
-                      </p>
+                    <div className="flex flex-col md:flex-row gap-6 items-start">
+                      <div className="w-full md:w-32 h-32 shrink-0 bg-muted/20 border border-border rounded-lg" />
+                      <div>
+                        <div className="mb-2 w-fit rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-semibold text-foreground uppercase tracking-wider">Quantitative</div>
+                        <h4 className="text-xl font-bold text-foreground mb-2">Low Quantity Data</h4>
+                        <p className="text-muted-foreground">
+                          Current AI misses 99.99% of human experience—the physical world and the real-time living that happens beyond static text and curated uploads. After all, we humans are constantly producing data that's getting lost to the void.
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -129,7 +135,7 @@ export default function Home() {
                             </div>
                           </li>
                           <li>
-                            <strong className="text-foreground block mb-1">Social</strong>
+                            <strong className="text-foreground block mb-1">Macro-Social</strong>
                             <div className="flex flex-wrap gap-2">
                               <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Social Media Algorithms</span>
                               <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Division</span>
@@ -187,9 +193,9 @@ export default function Home() {
 
                     <Link
                       href="/convergence"
-                      className="flex w-[calc(100%+32px)] -mx-4 -mb-6 items-center rounded-xl border border-border bg-white dark:bg-[#171720] px-8 py-4 text-sm font-bold text-foreground shadow-2xl transition-all hover:bg-[#f2f3fa] dark:hover:bg-[#1c1c27] hover:border-blue-500/50 hover:shadow-[0_0_25px_-5px_rgba(59,130,246,0.4)] hover:scale-[1.01] active:scale-[0.99] -mt-px group relative z-10"
+                      className="flex w-[calc(100%+32px)] -mx-4 -mb-6 items-center rounded-xl border border-border bg-white dark:bg-[#171720] px-8 py-4 text-sm font-bold text-foreground shadow-2xl transition-all hover:bg-[#f2f3fa] dark:hover:bg-[#1c1c27] hover-playgrade-border hover:scale-[1.01] active:scale-[0.99] -mt-px group relative z-10"
                     >
-                      <span className="flex-1 text-center font-bold">View the full Systemic Convergence Analysis</span>
+                      <span className="flex-1 text-center font-bold">Systemic Convergence Analysis</span>
                       <span aria-hidden="true" className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
                     </Link>
                   </div>
@@ -305,7 +311,7 @@ export default function Home() {
                   </p>
                 </div>
 
-                <div className="flex flex-col rounded-lg border border-border bg-muted/10 overflow-hidden">
+                <div className="flex flex-col rounded-lg border border-border bg-muted/10">
                   <div className="p-5 space-y-3">
                     <h3 className="text-3xl font-bold text-foreground">Mapping the Solution</h3>
                     <p className="text-sm">
@@ -314,9 +320,10 @@ export default function Home() {
                   </div>
                   <Link
                     href="/solutions"
-                    className="flex w-full items-center border-t border-border bg-background/50 px-5 py-4 text-sm font-bold text-foreground transition-colors hover:bg-muted/20"
+                    className="flex w-[calc(100%+32px)] -mx-4 -mb-6 items-center rounded-xl border border-border bg-white dark:bg-[#171720] px-8 py-4 text-sm font-bold text-foreground shadow-2xl transition-all hover:bg-[#f2f3fa] dark:hover:bg-[#1c1c27] hover-playgrade-border hover:scale-[1.01] active:scale-[0.99] -mt-px group relative z-10"
                   >
-                    View the Source Solution Map <span aria-hidden="true" className="ml-1">→</span>
+                    <span className="flex-1 text-center font-bold">SOURCE Solution Map</span>
+                    <span aria-hidden="true" className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
                   </Link>
                 </div>
 
@@ -390,7 +397,7 @@ export default function Home() {
 
                       <div className="mb-6">
                         <span className="text-xs font-bold tracking-widest text-muted-foreground uppercase block mb-2">Phase 1</span>
-                        <h3 className="text-2xl font-bold text-foreground block mb-1">The "Source School" & HQ</h3>
+                        <h3 className="text-2xl font-bold text-foreground block mb-1">SOURCE School & HQ</h3>
                         <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">18 Months</span>
                       </div>
 

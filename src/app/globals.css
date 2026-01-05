@@ -209,6 +209,35 @@
       width: 66%;
     }
   }
+
+  .hover-playgrade-border {
+    position: relative;
+  }
+
+  .hover-playgrade-border::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: var(--background-image-playgrade);
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 20;
+  }
+
+  .hover-playgrade-border:hover::before {
+    opacity: 1;
+  }
 }
 
 /* Override AudioWaveform positioning to place it in the sidebar */
