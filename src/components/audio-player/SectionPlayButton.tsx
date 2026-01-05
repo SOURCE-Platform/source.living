@@ -2,6 +2,7 @@
 
 import { useGlobalAudio } from "@/contexts/GlobalAudioContext";
 import { PlayIcon, PauseIcon } from "@/components/audio-player/components/PlayerIcons";
+import { WaveformAnimation } from "@/components/audio-player/components/WaveformAnimation";
 import { cn } from "@/lib/utils"; // Assuming cn is available, or I'll just use template literals
 
 export const SectionPlayButton = ({
@@ -109,6 +110,7 @@ export const SectionPlayButton = ({
                         <PauseIcon className="absolute inset-0 w-full h-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-in-out [&_path]:fill-[url(#playgrade-light-hover)] dark:[&_path]:fill-[url(#playgrade-hover)]" />
                     </div>
                 </div>
+                <WaveformAnimation className="ml-4" isActive={!!isActive} />
             </button>
         </>
     );
