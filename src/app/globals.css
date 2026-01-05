@@ -50,6 +50,10 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --background-image-playgrade: linear-gradient(var(--gradient-angle, -12deg), #FFC1D5 0%, #FFC1D5 29.69%, #FEFFE3 61.98%, #97A1FB 100%);
+  --background-image-playgrade-light: radial-gradient(circle at 30% 30%, #ABAB88 0%, #9B4460 20%, #1F1F1C 50%, #141B5C 100%);
+  --background-image-playgrade-reverse: linear-gradient(var(--gradient-angle, 168deg), #97A1FB 0%, #FEFFE3 38%, #FFC1D5 70%, #FFC1D5 100%);
+  --background-image-playgrade-light-reverse: radial-gradient(circle at 70% 70%, #141B5C 0%, #1F1F1C 30%, #9B4460 60%, #ABAB88 100%);
 }
 
 /* stylelint-enable at-rule-no-unknown */

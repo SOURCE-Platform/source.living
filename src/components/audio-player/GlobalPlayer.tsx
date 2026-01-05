@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useGlobalAudio } from "@/contexts/GlobalAudioContext";
 import { AudioExperienceProvider, useAudioExperience } from "@/components/audio-player";
 import {
@@ -21,7 +21,17 @@ const formatTime = (milliseconds: number) => {
     return `${minutes}:${seconds.toString().padStart(2, "0")}`;
 };
 
-const GlobalPlayerContent = ({ title, onClose }: { title: string; onClose: () => void }) => {
+const GlobalPlayerContent = ({
+    title,
+    onClose,
+    globalIsPlaying,
+    onGlobalPlayPause
+}: {
+    title: string;
+    onClose: () => void;
+    globalIsPlaying: boolean;
+    onGlobalPlayPause: (playing: boolean) => void;
+}) => {
     const {
         isReady,
         isPlaying,
@@ -35,6 +45,30 @@ const GlobalPlayerContent = ({ title, onClose }: { title: string; onClose: () =>
         isMuted,
         toggleMute
     } = useAudioExperience();
+
+    // Bidirectional Sync Logic
+    const prevGlobalRef = useRef(globalIsPlaying);
+    const prevInternalRef = useRef(isPlaying);
+
+    // 1. External (Context) -> Internal (Audio)
+    useEffect(() => {
+        if (globalIsPlaying !== prevGlobalRef.current) {
+            prevGlobalRef.current = globalIsPlaying;
+            if (globalIsPlaying !== isPlaying) {
+                togglePlayback();
+            }
+        }
+    }, [globalIsPlaying, isPlaying, togglePlayback]);
+
+    // 2. Internal (Audio) -> External (Context)
+    useEffect(() => {
+        if (isPlaying !== prevInternalRef.current) {
+            prevInternalRef.current = isPlaying;
+            if (isPlaying !== globalIsPlaying) {
+                onGlobalPlayPause(isPlaying);
+            }
+        }
+    }, [isPlaying, globalIsPlaying, onGlobalPlayPause]);
 
     const disabled = !isReady;
     const progress = durationMs > 0 ? (currentTimeMs / durationMs) * 100 : 0;
@@ -68,6 +102,9 @@ const GlobalPlayerContent = ({ title, onClose }: { title: string; onClose: () =>
                 if (!disabled) {
                     togglePlayback();
                 }
+            } else if (e.code === 'Escape') {
+                e.preventDefault();
+                onClose();
             }
         };
 
@@ -77,7 +114,7 @@ const GlobalPlayerContent = ({ title, onClose }: { title: string; onClose: () =>
         return () => {
             document.removeEventListener('keydown', handleKeyDown, true);
         };
-    }, [disabled, togglePlayback]);
+    }, [disabled, togglePlayback, onClose]);
 
     return (
         <div className="w-full max-w-[1600px] mx-auto flex items-center justify-between h-20 px-4 sm:px-6 lg:px-8">
@@ -204,15 +241,24 @@ const GlobalPlayerContent = ({ title, onClose }: { title: string; onClose: () =>
 };
 
 export const GlobalPlayer = () => {
-    const { currentTrack, closePlayer } = useGlobalAudio();
+    const { currentTrack, closePlayer, isPlaying, setIsPlaying } = useGlobalAudio();
     const [audioEl, setAudioEl] = useState<HTMLAudioElement | null>(null);
+    const [isClosing, setIsClosing] = useState(false);
 
     // If no track is active, don't render anything
     if (!currentTrack) return null;
 
+    const handleClose = () => {
+        setIsClosing(true); // Start exit animation
+        setTimeout(() => {
+            closePlayer(); // Actually close (unmount) after animation
+            setIsClosing(false); // Reset state (though component unmounts)
+        }, 300);
+    };
+
     return (
         <div
-            className="fixed bottom-0 left-0 right-0 z-[100] bg-background/95 backdrop-blur-xl border-t border-border shadow-[0_-8px_30px_rgba(0,0,0,0.12)] animate-in slide-in-from-bottom-full duration-300"
+            className={`fixed bottom-0 left-0 right-0 z-[100] bg-background/95 backdrop-blur-xl border-t border-border shadow-[0_-8px_30px_rgba(0,0,0,0.12)] transition-transform duration-300 ease-in-out ${isClosing ? 'translate-y-full' : 'animate-in slide-in-from-bottom-full'}`}
             style={{ fontFamily: 'Outfit, sans-serif' }}
         >
             <audio
@@ -229,7 +275,12 @@ export const GlobalPlayer = () => {
                     audioElement={audioEl}
                     config={{ autoPlay: true, skipIntervalSeconds: 15 }}
                 >
-                    <GlobalPlayerContent title={currentTrack.title} onClose={closePlayer} />
+                    <GlobalPlayerContent
+                        title={currentTrack.title}
+                        onClose={handleClose}
+                        globalIsPlaying={isPlaying}
+                        onGlobalPlayPause={setIsPlaying}
+                    />
                 </AudioExperienceProvider>
             )}
         </div>

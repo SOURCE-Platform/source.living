@@ -14,6 +14,8 @@ type GlobalAudioContextType = {
     currentTrack: Track | null;
     isPlaying: boolean;
     playTrack: (track: Track) => void;
+    toggleTrack: (track: Track) => void;
+    setIsPlaying: (isPlaying: boolean) => void;
     closePlayer: () => void;
 };
 
@@ -28,13 +30,21 @@ export const GlobalAudioProvider = ({ children }: { children: ReactNode }) => {
         setIsPlaying(true);
     }, []);
 
+    const toggleTrack = useCallback((track: Track) => {
+        if (currentTrack?.src === track.src) {
+            setIsPlaying((prev) => !prev);
+        } else {
+            playTrack(track);
+        }
+    }, [currentTrack, playTrack]);
+
     const closePlayer = useCallback(() => {
         setIsPlaying(false);
         setCurrentTrack(null);
     }, []);
 
     return (
-        <GlobalAudioContext.Provider value={{ currentTrack, isPlaying, playTrack, closePlayer }}>
+        <GlobalAudioContext.Provider value={{ currentTrack, isPlaying, playTrack, toggleTrack, setIsPlaying, closePlayer }}>
             {children}
         </GlobalAudioContext.Provider>
     );

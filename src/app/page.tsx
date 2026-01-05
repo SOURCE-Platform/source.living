@@ -30,7 +30,7 @@ export default function Home() {
             <div className="flex flex-col gap-24">
               {/* SOURCE's Vision */}
               <section className="space-y-4">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-5">
                   <h2 className="text-4xl font-bold text-foreground">Vision</h2>
                   <SectionPlayButton
                     title="Setting the Stage"
@@ -61,7 +61,7 @@ export default function Home() {
 
                 {/* 1. The Data Wall */}
                 <div className="space-y-4">
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-5">
                     <h3 className="text-3xl font-bold text-foreground">1. The Data Wall</h3>
                     <SectionPlayButton
                       title="The Data Wall"
@@ -94,7 +94,7 @@ export default function Home() {
 
                 {/* 2. The Expanded Problem Set */}
                 <div className="space-y-4">
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-5">
                     <h3 className="text-3xl font-bold text-foreground">2. The Systemic Convergence</h3>
                     <SectionPlayButton
                       title="The Systemic Convergence"
@@ -211,7 +211,7 @@ export default function Home() {
 
               {/* The Solution */}
               <section className="space-y-4">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-5">
                   <h2 className="text-4xl font-bold text-foreground">The Solution</h2>
                   <SectionPlayButton
                     title="The Three Layers"
@@ -291,7 +291,7 @@ export default function Home() {
                 </div>
 
                 <div className="rounded-lg border border-border bg-muted/10 p-6 space-y-4">
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-5">
                     <h3 className="text-3xl font-bold text-foreground">Data Ownership</h3>
                     <SectionPlayButton
                       title="Data Ownership & Sovereignty"
@@ -324,7 +324,7 @@ export default function Home() {
 
               {/* Go-to-Market Strategy */}
               <section className="space-y-4">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-5">
                   <h2 className="text-4xl font-bold text-foreground">GTM</h2>
                   <SectionPlayButton
                     title="Go-to-Market Strategy"
@@ -368,7 +368,7 @@ export default function Home() {
 
               {/* The Master Plan */}
               <section className="space-y-4">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-5">
                   <h2 className="text-4xl font-bold text-foreground">Roadmap</h2>
                   <SectionPlayButton
                     title="The Roadmap"
@@ -539,7 +539,7 @@ export default function Home() {
 
               {/* The Long-Term Vision */}
               <section className="space-y-4">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-5">
                   <h2 className="text-4xl font-bold text-foreground">The Long-Term Vision</h2>
                   <SectionPlayButton
                     title="The Long-Term Vision"
@@ -583,7 +583,7 @@ export default function Home() {
 
               {/* The Deal */}
               <section className="space-y-4 rounded-lg border border-border bg-muted/10 p-6">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-5">
                   <h2 className="text-4xl font-bold text-foreground">The Deal</h2>
                   <SectionPlayButton
                     title="The Deal"
