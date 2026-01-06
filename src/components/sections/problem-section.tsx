@@ -6,16 +6,16 @@ export function ProblemSection() {
     return (
         <section className="space-y-8">
             <div className="space-y-4">
-                <div className="w-full h-64 bg-muted/20 border border-border rounded-lg mb-8" />
-                <h2 className="text-4xl font-bold text-foreground">The Problems</h2>
-                <p>
+                <div className="w-full h-64 bg-muted/20 rounded-lg mb-8" />
+                <h2 className="text-4xl font-bold text-foreground max-w-[70%] mx-auto">The Problems</h2>
+                <p className="max-w-[70%] mx-auto">
                     We are facing a simultaneous convergence of systemic failures that are reshaping human civilization. The "Data Wall"—the limit of current AI—is just one component of this larger crisis.
                 </p>
             </div>
 
             {/* 1. The Data Wall */}
             <div className="space-y-4">
-                <div className="flex items-center gap-5">
+                <div className="flex items-center gap-5 max-w-[70%] mx-auto">
                     <h3 className="text-3xl font-bold text-foreground">1. The Data Wall</h3>
                     <SectionPlayButton
                         title="The Data Wall"
@@ -24,13 +24,13 @@ export function ProblemSection() {
                         chapters={CHAPTERS_DATA}
                     />
                 </div>
-                <p>
+                <p className="max-w-[70%] mx-auto">
                     We have thrown the entire internet at Transformers. While effective, this approach is constrained by the <strong className="text-foreground">qualitative</strong> and <strong className="text-foreground">quantitative</strong> limitations of the data source itself.
                 </p>
 
                 <div className="space-y-8 py-6">
                     <div className="flex flex-col md:flex-row gap-8 items-start">
-                        <div className="w-full md:w-48 h-48 shrink-0 bg-muted/20 border border-border rounded-lg" />
+                        <div className="w-full md:w-48 h-48 shrink-0 bg-muted/20 rounded-lg" />
                         <div>
                             <div className="mb-2 w-fit rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-semibold text-foreground uppercase tracking-wider">Qualitative</div>
                             <h4 className="text-xl font-bold text-foreground mb-2">Low Quality Data</h4>
@@ -40,7 +40,7 @@ export function ProblemSection() {
                         </div>
                     </div>
                     <div className="flex flex-col md:flex-row gap-8 items-start">
-                        <div className="w-full md:w-48 h-48 shrink-0 bg-muted/20 border border-border rounded-lg" />
+                        <div className="w-full md:w-48 h-48 shrink-0 bg-muted/20 rounded-lg" />
                         <div>
                             <div className="mb-2 w-fit rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-semibold text-foreground uppercase tracking-wider">Quantitative</div>
                             <h4 className="text-xl font-bold text-foreground mb-2">Low Quantity Data</h4>
@@ -54,8 +54,8 @@ export function ProblemSection() {
 
             {/* 2. The Expanded Problem Set */}
             <div className="space-y-4 mt-24">
-                <div className="w-full h-64 bg-muted/20 border border-border rounded-lg mb-8" />
-                <div className="flex items-center gap-5">
+                <div className="w-full h-64 bg-muted/20 rounded-lg mb-8" />
+                <div className="flex items-center gap-5 max-w-[70%] mx-auto">
                     <h3 className="text-3xl font-bold text-foreground">2. The Systemic Convergence</h3>
                     <SectionPlayButton
                         title="The Systemic Convergence"
@@ -64,7 +64,7 @@ export function ProblemSection() {
                         chapters={CHAPTERS_DATA}
                     />
                 </div>
-                <p>
+                <p className="max-w-[70%] mx-auto">
                     Beyond the AI data bottleneck, failure modes are converging across the entire stack. From macro-institutional decay to micro-biological strain, the friction of existence is rising uniformly.
                 </p>
 

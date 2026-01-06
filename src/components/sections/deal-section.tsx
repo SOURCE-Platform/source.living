@@ -19,7 +19,7 @@ export function DealSection() {
 
             {/* The Opportunity */}
             <div className="flex flex-col md:flex-row gap-6 items-start">
-                <div className="w-full md:w-32 h-32 shrink-0 bg-muted/20 border border-border rounded-lg" />
+                <div className="w-full md:w-32 h-32 shrink-0 bg-muted/20 rounded-lg" />
                 <div>
                     <h4 className="text-xl font-bold text-foreground mb-2">The Opportunity</h4>
                     <p className="text-muted-foreground leading-relaxed">
@@ -30,7 +30,7 @@ export function DealSection() {
 
             {/* Use of Funds */}
             <div className="flex flex-col md:flex-row gap-6 items-start">
-                <div className="w-full md:w-32 h-32 shrink-0 bg-muted/20 border border-border rounded-lg" />
+                <div className="w-full md:w-32 h-32 shrink-0 bg-muted/20 rounded-lg" />
                 <div>
                     <h4 className="text-xl font-bold text-foreground mb-2">Use of Funds</h4>
                     <p className="text-muted-foreground leading-relaxed">
@@ -41,7 +41,7 @@ export function DealSection() {
 
             {/* Why Now */}
             <div className="flex flex-col md:flex-row gap-6 items-start">
-                <div className="w-full md:w-32 h-32 shrink-0 bg-muted/20 border border-border rounded-lg" />
+                <div className="w-full md:w-32 h-32 shrink-0 bg-muted/20 rounded-lg" />
                 <div>
                     <h4 className="text-xl font-bold text-foreground mb-2">Why Now</h4>
                     <p className="text-muted-foreground leading-relaxed">
@@ -52,7 +52,7 @@ export function DealSection() {
 
             {/* The Founder */}
             <div className="flex flex-col md:flex-row gap-6 items-start">
-                <div className="w-full md:w-32 h-32 shrink-0 bg-muted/20 border border-border rounded-lg" />
+                <div className="w-full md:w-32 h-32 shrink-0 bg-muted/20 rounded-lg" />
                 <div>
                     <div className="flex items-center gap-5 mb-2">
                         <h4 className="text-xl font-bold text-foreground">The Founder</h4>

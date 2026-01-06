@@ -14,7 +14,7 @@ export function SolutionSection() {
                     <circle cx="50" cy="50" r="50" />
                 </svg>
             </div>
-            <div className="flex items-center gap-5">
+            <div className="flex items-center gap-5 max-w-[70%] mx-auto">
                 <h2 className="text-4xl font-bold text-foreground">The Solution</h2>
                 <SectionPlayButton
                     title="The Solution"
@@ -23,17 +23,19 @@ export function SolutionSection() {
                     chapters={CHAPTERS_DATA}
                 />
             </div>
-            <p>
-                To solve an expansive problem set outlined above requires a holisitic data collecting and processing system. A proactive, always-on system that can detect and solve problems before they become crises.
-            </p>
-            <p>To solve this massive multi-dimensional problem set we need <strong className="text-foreground">SOURCE</strong>.</p>
-            <p>
-                But what exactly is it?
-            </p>
+            <div className="max-w-[70%] space-y-4 mx-auto">
+                <p>
+                    To solve an expansive problem set outlined above requires a holisitic data collecting and processing system. A proactive, always-on system that can detect and solve problems before they become crises.
+                </p>
+                <p>To solve this massive multi-dimensional problem set we need <strong className="text-foreground">SOURCE</strong>.</p>
+                <p>
+                    But what exactly is it?
+                </p>
+            </div>
 
             <div className="mt-24 flex flex-col md:flex-row gap-8 md:gap-12 md:-mx-[25%] items-start">
                 <div className="md:flex-1">
-                    <div className="w-full h-32 bg-muted/20 border border-border rounded-lg mb-6" />
+                    <div className="w-full h-32 bg-muted/20 rounded-lg mb-6" />
                     <h3 className="text-3xl font-bold text-foreground mb-6">Hardware</h3>
                     <div className="space-y-6">
                         <div>
@@ -52,7 +54,7 @@ export function SolutionSection() {
                 </div>
 
                 <div className="md:flex-1">
-                    <div className="w-full h-32 bg-muted/20 border border-border rounded-lg mb-6" />
+                    <div className="w-full h-32 bg-muted/20 rounded-lg mb-6" />
                     <h3 className="text-3xl font-bold text-foreground mb-6">Software</h3>
                     <div className="space-y-6">
                         <div>
@@ -77,7 +79,7 @@ export function SolutionSection() {
                 </div>
 
                 <div className="md:flex-1">
-                    <div className="w-full h-32 bg-muted/20 border border-border rounded-lg mb-6" />
+                    <div className="w-full h-32 bg-muted/20 rounded-lg mb-6" />
                     <h3 className="text-3xl font-bold text-foreground mb-6">Social</h3>
                     <div className="space-y-6">
                         <div>
@@ -97,7 +99,7 @@ export function SolutionSection() {
             </div>
 
             <div className="mt-24 rounded-lg border border-border bg-muted/10 p-6 space-y-4">
-                <div className="flex items-center gap-5">
+                <div className="flex items-center gap-5 max-w-[70%] mx-auto">
                     <h3 className="text-3xl font-bold text-foreground">Data Ownership</h3>
                     <SectionPlayButton
                         title="Data Ownership"
@@ -106,7 +108,7 @@ export function SolutionSection() {
                         chapters={CHAPTERS_DATA}
                     />
                 </div>
-                <div>
+                <div className="max-w-[70%] mx-auto">
                     <p className="text-lg font-bold text-foreground mb-1">
                         Source democratizes surveillance.
                     </p>

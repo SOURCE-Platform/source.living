@@ -15,7 +15,7 @@ export function GTMSection() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 md:-mx-[25%] items-start">
                 <div className="space-y-6">
-                    <div className="w-full h-32 bg-muted/20 border border-border rounded-lg" />
+                    <div className="w-full h-32 bg-muted/20 rounded-lg" />
                     <div>
                         <h4 className="text-lg font-bold text-foreground mb-1">Elderly Care</h4>
                         <span className="inline-block rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider mb-2">Revenue Driver</span>
@@ -26,7 +26,7 @@ export function GTMSection() {
                 </div>
 
                 <div className="space-y-6">
-                    <div className="w-full h-32 bg-muted/20 border border-border rounded-lg" />
+                    <div className="w-full h-32 bg-muted/20 rounded-lg" />
                     <div>
                         <h4 className="text-lg font-bold text-foreground mb-1">Early Adopters & Tech</h4>
                         <span className="inline-block rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider mb-2">Revenue Driver</span>
@@ -37,7 +37,7 @@ export function GTMSection() {
                 </div>
 
                 <div className="space-y-6">
-                    <div className="w-full h-32 bg-muted/20 border border-border rounded-lg" />
+                    <div className="w-full h-32 bg-muted/20 rounded-lg" />
                     <div>
                         <h4 className="text-lg font-bold text-foreground mb-1">Influencers & Streamers</h4>
                         <span className="inline-block rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider mb-2">Marketing Engine</span>
@@ -48,7 +48,7 @@ export function GTMSection() {
                 </div>
 
                 <div className="space-y-6">
-                    <div className="w-full h-32 bg-muted/20 border border-border rounded-lg" />
+                    <div className="w-full h-32 bg-muted/20 rounded-lg" />
                     <div>
                         <h4 className="text-lg font-bold text-foreground mb-1">Government Contracts</h4>
                         <span className="inline-block rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider mb-2">Market Expansion</span>

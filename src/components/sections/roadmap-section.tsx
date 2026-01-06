@@ -31,7 +31,7 @@ export function RoadmapSection() {
                         </div>
 
                         <div className="space-y-6">
-                            <div className="w-full h-32 bg-muted/20 border border-border rounded-lg" />
+                            <div className="w-full h-32 bg-muted/20 rounded-lg" />
                             <div>
                                 <h4 className="text-sm font-bold text-foreground mb-1">Objective</h4>
                                 <p className="text-sm text-muted-foreground leading-relaxed">
@@ -71,7 +71,7 @@ export function RoadmapSection() {
                         </div>
 
                         <div className="space-y-6">
-                            <div className="w-full h-32 bg-muted/20 border border-border rounded-lg" />
+                            <div className="w-full h-32 bg-muted/20 rounded-lg" />
                             <div>
                                 <h4 className="text-sm font-bold text-foreground mb-1">Objective</h4>
                                 <p className="text-sm text-muted-foreground leading-relaxed">
@@ -112,7 +112,7 @@ export function RoadmapSection() {
                         </div>
 
                         <div className="space-y-6">
-                            <div className="w-full h-32 bg-muted/20 border border-border rounded-lg" />
+                            <div className="w-full h-32 bg-muted/20 rounded-lg" />
                             <div>
                                 <h4 className="text-sm font-bold text-foreground mb-1">Objective</h4>
                                 <p className="text-sm text-muted-foreground leading-relaxed">

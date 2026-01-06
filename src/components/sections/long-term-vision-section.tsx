@@ -4,8 +4,8 @@ import { TRANSCRIPT_DATA, CHAPTERS_DATA } from "@/lib/constants";
 export function LongTermVisionSection() {
     return (
         <section className="space-y-4">
-            <div className="w-full h-64 bg-muted/20 border border-border rounded-lg mb-8" />
-            <div className="flex items-center gap-5">
+            <div className="w-full h-64 bg-muted/20 rounded-lg mb-8" />
+            <div className="flex items-center gap-5 max-w-[70%] mx-auto">
                 <h2 className="text-4xl font-bold text-foreground">The Long-Term Vision</h2>
                 <SectionPlayButton
                     title="The Long-Term Vision"
@@ -14,18 +14,20 @@ export function LongTermVisionSection() {
                     chapters={CHAPTERS_DATA}
                 />
             </div>
-            <p className="font-semibold text-foreground">
-                SuperIntelligence Requires SuperAwareness.
-            </p>
-            <p>
-                The global technology industry is currently racing toward <strong className="text-foreground">SuperIntelligence</strong>: massive raw compute and logic. However, a "brain in a jar" with high IQ but zero context is fundamentally limited and potentially dangerous.
-            </p>
-            <p>
-                For SuperIntelligence to be truly effective, aligned, and safe, it requires <strong className="text-foreground">SuperAwareness</strong>.
-            </p>
+            <div className="max-w-[70%] space-y-4 mx-auto">
+                <p className="font-semibold text-foreground">
+                    SuperIntelligence Requires SuperAwareness.
+                </p>
+                <p>
+                    The global technology industry is currently racing toward <strong className="text-foreground">SuperIntelligence</strong>: massive raw compute and logic. However, a "brain in a jar" with high IQ but zero context is fundamentally limited and potentially dangerous.
+                </p>
+                <p>
+                    For SuperIntelligence to be truly effective, aligned, and safe, it requires <strong className="text-foreground">SuperAwareness</strong>.
+                </p>
+            </div>
             <div className="mt-24 flex flex-col md:flex-row gap-8 md:gap-12 md:-mx-[25%] items-start">
                 <div className="md:flex-1 space-y-6">
-                    <div className="w-full h-32 bg-muted/20 border border-border rounded-lg" />
+                    <div className="w-full h-32 bg-muted/20 rounded-lg" />
                     <div>
                         <h4 className="text-lg font-bold text-foreground mb-1">The Missing Link</h4>
                         <p className="text-sm text-muted-foreground leading-relaxed">
@@ -35,7 +37,7 @@ export function LongTermVisionSection() {
                 </div>
 
                 <div className="md:flex-1 space-y-6">
-                    <div className="w-full h-32 bg-muted/20 border border-border rounded-lg" />
+                    <div className="w-full h-32 bg-muted/20 rounded-lg" />
                     <div>
                         <h4 className="text-lg font-bold text-foreground mb-1">The Source Role</h4>
                         <p className="text-sm text-muted-foreground leading-relaxed">

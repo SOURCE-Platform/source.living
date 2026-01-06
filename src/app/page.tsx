@@ -1,6 +1,6 @@
 'use client';
 
-import { SourceLogo } from "@/components/atoms/icons/source-logo";
+import { StickyLogo } from "@/components/molecules/sticky-logo";
 import { GlobalAudioProvider } from "@/contexts/GlobalAudioContext";
 import { GlobalPlayer } from "@/components/audio-player/GlobalPlayer";
 import { VisionSection } from "@/components/sections/vision-section";
@@ -17,12 +17,11 @@ export default function Home() {
   return (
     <GlobalAudioProvider>
       <div className="min-h-screen bg-background pb-32">
+        <StickyLogo />
         {/* Main Content */}
         <main className="mx-auto max-w-3xl px-6 sm:px-12 py-12">
-          {/* Header with Logo */}
-          <div className="mb-16">
-            <SourceLogo className="h-12 w-auto" />
-          </div>
+          {/* Header with Logo Removed (using sticky) */}
+          <div className="mb-16" />
 
           {/* Memo Content */}
           <article className="prose prose-invert max-w-none space-y-6 text-base leading-relaxed text-muted-foreground">

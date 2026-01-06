@@ -4,7 +4,7 @@ export function CompetitiveAdvantageSection() {
             <h2 className="text-4xl font-bold text-foreground">Competitive Advantage</h2>
             <div className="space-y-8 mt-12">
                 <div className="flex flex-col md:flex-row gap-6 items-start">
-                    <div className="w-full md:w-32 h-32 shrink-0 bg-muted/20 border border-border rounded-lg" />
+                    <div className="w-full md:w-32 h-32 shrink-0 bg-muted/20 rounded-lg" />
                     <div>
                         <h4 className="text-xl font-bold text-foreground mb-2">The Data Moat</h4>
                         <p className="text-muted-foreground leading-relaxed">
@@ -14,7 +14,7 @@ export function CompetitiveAdvantageSection() {
                 </div>
 
                 <div className="flex flex-col md:flex-row gap-6 items-start">
-                    <div className="w-full md:w-32 h-32 shrink-0 bg-muted/20 border border-border rounded-lg" />
+                    <div className="w-full md:w-32 h-32 shrink-0 bg-muted/20 rounded-lg" />
                     <div>
                         <h4 className="text-xl font-bold text-foreground mb-2">Privacy Architecture</h4>
                         <p className="text-muted-foreground leading-relaxed">
@@ -24,7 +24,7 @@ export function CompetitiveAdvantageSection() {
                 </div>
 
                 <div className="flex flex-col md:flex-row gap-6 items-start">
-                    <div className="w-full md:w-32 h-32 shrink-0 bg-muted/20 border border-border rounded-lg" />
+                    <div className="w-full md:w-32 h-32 shrink-0 bg-muted/20 rounded-lg" />
                     <div>
                         <h4 className="text-xl font-bold text-foreground mb-2">Vertical Integration</h4>
                         <p className="text-muted-foreground leading-relaxed">
