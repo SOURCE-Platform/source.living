@@ -118,6 +118,46 @@ const GlobalPlayerContent = ({
 
     return (
         <div className="w-full max-w-[1600px] mx-auto flex items-center justify-between h-20 px-4 sm:px-6 lg:px-8">
+            <svg width="0" height="0" className="absolute block w-0 h-0 overflow-hidden" aria-hidden="true">
+                <defs>
+                    <linearGradient id="playgrade" gradientTransform="rotate(22, 0.2, 0.5) translate(0.2, 0.5) scale(2.5) translate(-0.5, -0.5)">
+                        <stop offset="0%" stopColor="#FFC1D5" />
+                        <stop offset="29.69%" stopColor="#FFC1D5" />
+                        <stop offset="61.98%" stopColor="#FEFFE3" />
+                        <stop offset="100%" stopColor="#97A1FB" />
+                    </linearGradient>
+                    <linearGradient id="playgrade-hover" gradientTransform="rotate(22, 0.2, 0.5) translate(0.3, 0.5) scale(1.0) translate(-0.5, -0.5)">
+                        <stop offset="0%" stopColor="#FFC1D5" />
+                        <stop offset="29.69%" stopColor="#FFC1D5" />
+                        <stop offset="61.98%" stopColor="#FEFFE3" />
+                        <stop offset="100%" stopColor="#97A1FB" />
+                    </linearGradient>
+                    <radialGradient id="playgrade-light" cx="0.3" cy="0.3" r="0.8">
+                        <stop offset="0%" stopColor="#ABAB88" />
+                        <stop offset="20%" stopColor="#9B4460" />
+                        <stop offset="50%" stopColor="#1F1F1C" />
+                        <stop offset="100%" stopColor="#141B5C" />
+                    </radialGradient>
+                    <radialGradient id="playgrade-light-hover" cx="0.3" cy="0.3" r="0.8" gradientTransform="scale(1.2)">
+                        <stop offset="0%" stopColor="#ABAB88" />
+                        <stop offset="20%" stopColor="#9B4460" />
+                        <stop offset="50%" stopColor="#1F1F1C" />
+                        <stop offset="100%" stopColor="#141B5C" />
+                    </radialGradient>
+                    <linearGradient id="playgrade-reverse" gradientTransform="rotate(168)">
+                        <stop offset="0%" stopColor="#97A1FB" />
+                        <stop offset="38%" stopColor="#FEFFE3" />
+                        <stop offset="70%" stopColor="#FFC1D5" />
+                        <stop offset="100%" stopColor="#FFC1D5" />
+                    </linearGradient>
+                    <radialGradient id="playgrade-light-reverse" cx="0.7" cy="0.7" r="0.8">
+                        <stop offset="0%" stopColor="#141B5C" />
+                        <stop offset="30%" stopColor="#1F1F1C" />
+                        <stop offset="60%" stopColor="#9B4460" />
+                        <stop offset="100%" stopColor="#ABAB88" />
+                    </radialGradient>
+                </defs>
+            </svg>
 
             {/* LEFT: Title & Controls */}
             <div className="flex items-center gap-6 flex-shrink-0">
@@ -140,14 +180,34 @@ const GlobalPlayerContent = ({
                     <button
                         onClick={togglePlayback}
                         disabled={disabled}
-                        className="bg-foreground text-background rounded-full p-2.5 hover:scale-105 active:scale-95 transition-all disabled:opacity-50 cursor-pointer"
+                        className="inline-flex items-center justify-center rounded-lg transition-colors group cursor-pointer overflow-visible disabled:opacity-50"
                         aria-label={isPlaying ? "Pause" : "Play"}
                     >
-                        {isPlaying ? (
-                            <PauseIcon style={{ width: 16, height: 16 }} />
-                        ) : (
-                            <PlayIcon style={{ width: 16, height: 16 }} className="ml-0.5" />
-                        )}
+                        <div className="relative w-[30px] h-[30px] transition-transform duration-200 group-hover:scale-110">
+                            {/* --- PLAY ICON GROUP --- */}
+                            <div className={`absolute inset-0 w-full h-full transition-opacity duration-200 ${isPlaying ? "opacity-0" : "opacity-100"}`}>
+                                {/* Glow Effect - Blurred Icon */}
+                                <PlayIcon className="absolute inset-0 w-full h-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 [&_path]:fill-[url(#playgrade-light-reverse)] dark:[&_path]:fill-[url(#playgrade-reverse)] scale-90" />
+
+                                {/* Base Icon (Default State) */}
+                                <PlayIcon className="relative z-10 w-full h-full opacity-60 group-hover:opacity-100 transition-opacity duration-200 [&_path]:fill-[url(#playgrade-light)] dark:[&_path]:fill-[url(#playgrade)]" />
+
+                                {/* Hover Icon (Hover State) - Fades in */}
+                                <PlayIcon className="absolute inset-0 w-full h-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-in-out [&_path]:fill-[url(#playgrade-light-hover)] dark:[&_path]:fill-[url(#playgrade-hover)]" />
+                            </div>
+
+                            {/* --- PAUSE ICON GROUP --- */}
+                            <div className={`absolute inset-0 w-full h-full transition-opacity duration-200 ${isPlaying ? "opacity-100" : "opacity-0"}`}>
+                                {/* Glow Effect - Blurred Icon */}
+                                <PauseIcon className="absolute inset-0 w-full h-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 [&_path]:fill-[url(#playgrade-light-reverse)] dark:[&_path]:fill-[url(#playgrade-reverse)] scale-90" />
+
+                                {/* Base Icon (Default State) */}
+                                <PauseIcon className="relative z-10 w-full h-full opacity-100 group-hover:opacity-100 transition-opacity duration-200 [&_path]:fill-[url(#playgrade-light)] dark:[&_path]:fill-[url(#playgrade)]" />
+
+                                {/* Hover Icon (Hover State) - Fades in */}
+                                <PauseIcon className="absolute inset-0 w-full h-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-in-out [&_path]:fill-[url(#playgrade-light-hover)] dark:[&_path]:fill-[url(#playgrade-hover)]" />
+                            </div>
+                        </div>
                     </button>
 
                     <button
@@ -193,7 +253,7 @@ const GlobalPlayerContent = ({
             {/* RIGHT: Volume & Close */}
             <div className="flex items-center gap-6 flex-shrink-0">
                 {/* Volume Control */}
-                <div className="flex items-center gap-2 group w-28 justify-end hidden sm:flex">
+                <div className="items-center gap-2 group w-28 justify-end hidden sm:flex">
                     <button
                         onClick={toggleMute}
                         className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer"

@@ -34,7 +34,7 @@ export default function Home() {
                 <div className="flex items-center gap-5">
                   <h2 className="text-4xl font-bold text-foreground">Vision</h2>
                   <SectionPlayButton
-                    title="Setting the Stage"
+                    title="Vision"
                     audioSrc="/audio/SOURCE%20Setting%20the%20Stage.mp3"
                     transcript={TRANSCRIPT_DATA}
                     chapters={CHAPTERS_DATA}
@@ -224,7 +224,7 @@ export default function Home() {
                 <div className="flex items-center gap-5">
                   <h2 className="text-4xl font-bold text-foreground">The Solution</h2>
                   <SectionPlayButton
-                    title="The Three Layers"
+                    title="The Solution"
                     audioSrc="/audio/The%20Three%20Layers.mp3"
                     transcript={TRANSCRIPT_DATA}
                     chapters={CHAPTERS_DATA}
@@ -307,7 +307,7 @@ export default function Home() {
                   <div className="flex items-center gap-5">
                     <h3 className="text-3xl font-bold text-foreground">Data Ownership</h3>
                     <SectionPlayButton
-                      title="Data Ownership & Sovereignty"
+                      title="Data Ownership"
                       audioSrc="/audio/Data%20Ownership.mp3"
                       transcript={TRANSCRIPT_DATA}
                       chapters={CHAPTERS_DATA}
@@ -341,7 +341,7 @@ export default function Home() {
                 <div className="flex items-center gap-5 md:-mx-[25%]">
                   <h2 className="text-4xl font-bold text-foreground">GTM</h2>
                   <SectionPlayButton
-                    title="Go-to-Market Strategy"
+                    title="GTM"
                     audioSrc="/audio/GTM.mp3"
                     transcript={TRANSCRIPT_DATA}
                     chapters={CHAPTERS_DATA}
@@ -399,7 +399,7 @@ export default function Home() {
                 <div className="flex items-center gap-5 md:-mx-[25%]">
                   <h2 className="text-4xl font-bold text-foreground">Roadmap</h2>
                   <SectionPlayButton
-                    title="The Roadmap"
+                    title="Roadmap"
                     audioSrc="/audio/Roadmap.mp3"
                     transcript={TRANSCRIPT_DATA}
                     chapters={CHAPTERS_DATA}
