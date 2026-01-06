@@ -85,7 +85,7 @@ export const SectionPlayButton = ({
                 title="Play audio for this section"
             >
                 {/* Visual improvement: show play icon. If active, maybe show a playing indicator or just the play icon styled differently */}
-                <div className="relative w-[30px] h-[30px]">
+                <div className="relative w-[30px] h-[30px] transition-transform duration-200 group-hover:scale-110">
                     {/* --- PLAY ICON GROUP --- */}
                     <div className={`absolute inset-0 w-full h-full transition-opacity duration-200 ${isActive ? "opacity-0" : "opacity-100"}`}>
                         {/* Glow Effect - Blurred Icon */}

@@ -30,6 +30,7 @@ export default function Home() {
             <div className="flex flex-col gap-24">
               {/* SOURCE's Vision */}
               <section className="space-y-4">
+                <div className="w-full h-64 bg-muted/20 border border-border rounded-lg mb-8" />
                 <div className="flex items-center gap-5">
                   <h2 className="text-4xl font-bold text-foreground">Vision</h2>
                   <SectionPlayButton
@@ -53,6 +54,7 @@ export default function Home() {
               {/* The Problems */}
               <section className="space-y-8">
                 <div className="space-y-4">
+                  <div className="w-full h-64 bg-muted/20 border border-border rounded-lg mb-8" />
                   <h2 className="text-4xl font-bold text-foreground">The Problems</h2>
                   <p>
                     We are facing a simultaneous convergence of systemic failures that are reshaping human civilization. The "Data Wall"—the limit of current AI—is just one component of this larger crisis.
@@ -74,8 +76,8 @@ export default function Home() {
                     We have thrown the entire internet at Transformers. While effective, this approach is constrained by the <strong className="text-foreground">qualitative</strong> and <strong className="text-foreground">quantitative</strong> limitations of the data source itself.
                   </p>
 
-                  <div className="space-y-8 py-6 px-0 md:px-10">
-                    <div className="flex flex-col md:flex-row gap-6 items-start">
+                  <div className="space-y-8 py-6">
+                    <div className="flex flex-col md:flex-row gap-8 items-start">
                       <div className="w-full md:w-32 h-32 shrink-0 bg-muted/20 border border-border rounded-lg" />
                       <div>
                         <div className="mb-2 w-fit rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-semibold text-foreground uppercase tracking-wider">Qualitative</div>
@@ -85,7 +87,7 @@ export default function Home() {
                         </p>
                       </div>
                     </div>
-                    <div className="flex flex-col md:flex-row gap-6 items-start">
+                    <div className="flex flex-col md:flex-row gap-8 items-start">
                       <div className="w-full md:w-32 h-32 shrink-0 bg-muted/20 border border-border rounded-lg" />
                       <div>
                         <div className="mb-2 w-fit rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-semibold text-foreground uppercase tracking-wider">Quantitative</div>
@@ -100,6 +102,7 @@ export default function Home() {
 
                 {/* 2. The Expanded Problem Set */}
                 <div className="space-y-4">
+                  <div className="w-full h-64 bg-muted/20 border border-border rounded-lg mb-8" />
                   <div className="flex items-center gap-5">
                     <h3 className="text-3xl font-bold text-foreground">2. The Systemic Convergence</h3>
                     <SectionPlayButton
@@ -217,6 +220,7 @@ export default function Home() {
 
               {/* The Solution */}
               <section className="space-y-4">
+                <div className="w-full h-64 bg-muted/20 border border-border rounded-lg mb-8" />
                 <div className="flex items-center gap-5">
                   <h2 className="text-4xl font-bold text-foreground">The Solution</h2>
                   <SectionPlayButton
@@ -236,6 +240,7 @@ export default function Home() {
 
                 <div className="flex flex-col md:flex-row gap-8 md:gap-12 rounded-lg border border-border bg-muted/10 p-10 md:-mx-[25%] items-start">
                   <div className="md:flex-1">
+                    <div className="w-full h-32 bg-muted/20 border border-border rounded-lg mb-6" />
                     <h3 className="text-3xl font-bold text-foreground mb-6">Hardware</h3>
                     <div className="space-y-6">
                       <div>
@@ -254,6 +259,7 @@ export default function Home() {
                   </div>
 
                   <div className="md:flex-1">
+                    <div className="w-full h-32 bg-muted/20 border border-border rounded-lg mb-6" />
                     <h3 className="text-3xl font-bold text-foreground mb-6">Software</h3>
                     <div className="space-y-6">
                       <div>
@@ -278,6 +284,7 @@ export default function Home() {
                   </div>
 
                   <div className="md:flex-1">
+                    <div className="w-full h-32 bg-muted/20 border border-border rounded-lg mb-6" />
                     <h3 className="text-3xl font-bold text-foreground mb-6">Social</h3>
                     <div className="space-y-6">
                       <div>
@@ -340,8 +347,9 @@ export default function Home() {
                     chapters={CHAPTERS_DATA}
                   />
                 </div>
-                <div className="flex flex-col md:flex-row gap-8 md:gap-12 rounded-lg border border-border bg-muted/10 p-10 md:-mx-[25%] items-start">
-                  <div className="md:flex-1 space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 rounded-lg border border-border bg-muted/10 p-10 md:-mx-[25%] items-start">
+                  <div className="space-y-6">
+                    <div className="w-full h-32 bg-muted/20 border border-border rounded-lg" />
                     <div>
                       <h4 className="text-lg font-bold text-foreground mb-1">Elderly Care</h4>
                       <span className="inline-block rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider mb-2">Revenue Driver</span>
@@ -351,7 +359,8 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <div className="md:flex-1 space-y-6">
+                  <div className="space-y-6">
+                    <div className="w-full h-32 bg-muted/20 border border-border rounded-lg" />
                     <div>
                       <h4 className="text-lg font-bold text-foreground mb-1">Early Adopters & Tech</h4>
                       <span className="inline-block rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider mb-2">Revenue Driver</span>
@@ -361,12 +370,24 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <div className="md:flex-1 space-y-6">
+                  <div className="space-y-6">
+                    <div className="w-full h-32 bg-muted/20 border border-border rounded-lg" />
                     <div>
                       <h4 className="text-lg font-bold text-foreground mb-1">Influencers & Streamers</h4>
                       <span className="inline-block rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider mb-2">Marketing Engine</span>
                       <p className="text-sm text-muted-foreground leading-relaxed">
                         We provide free/subsidized installations to top creators. They use Source as a full in-house studio system—no longer tied to their computers—while showcasing the <strong>4D Gaussian Splatting</strong> capabilities (holographic video) to their millions of followers, driving the cultural hype cycle.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-6">
+                    <div className="w-full h-32 bg-muted/20 border border-border rounded-lg" />
+                    <div>
+                      <h4 className="text-lg font-bold text-foreground mb-1">Government Contracts</h4>
+                      <span className="inline-block rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider mb-2">Market Expansion</span>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        Partnering with municipalities to install complete surveillance in public downtowns and high-crime neighborhoods. This "crime prevention by design" strategy solves public safety issues while simultaneously onboarding entire districts of users into the Source ecosystem.
                       </p>
                     </div>
                   </div>
@@ -402,6 +423,7 @@ export default function Home() {
                       </div>
 
                       <div className="rounded-lg border border-border bg-muted/10 p-5 space-y-6">
+                        <div className="w-full h-32 bg-muted/20 border border-border rounded-lg" />
                         <div>
                           <h4 className="text-sm font-bold text-foreground mb-1">Objective</h4>
                           <p className="text-sm text-muted-foreground leading-relaxed">
@@ -441,6 +463,7 @@ export default function Home() {
                       </div>
 
                       <div className="rounded-lg border border-border bg-muted/10 p-5 space-y-6">
+                        <div className="w-full h-32 bg-muted/20 border border-border rounded-lg" />
                         <div>
                           <h4 className="text-sm font-bold text-foreground mb-1">Objective</h4>
                           <p className="text-sm text-muted-foreground leading-relaxed">
@@ -481,6 +504,7 @@ export default function Home() {
                       </div>
 
                       <div className="rounded-lg border border-border bg-muted/10 p-5 space-y-6">
+                        <div className="w-full h-32 bg-muted/20 border border-border rounded-lg" />
                         <div>
                           <h4 className="text-sm font-bold text-foreground mb-1">Objective</h4>
                           <p className="text-sm text-muted-foreground leading-relaxed">
@@ -516,6 +540,7 @@ export default function Home() {
                 <h2 className="text-4xl font-bold text-foreground">Competitive Advantage</h2>
                 <div className="flex flex-col md:flex-row gap-8 md:gap-12 rounded-lg border border-border bg-muted/10 p-10 md:-mx-[25%] items-start">
                   <div className="md:flex-1 space-y-6">
+                    <div className="w-full h-32 bg-muted/20 border border-border rounded-lg" />
                     <div>
                       <h4 className="text-lg font-bold text-foreground mb-1">The Data Moat</h4>
                       <p className="text-sm text-muted-foreground leading-relaxed">
@@ -525,6 +550,7 @@ export default function Home() {
                   </div>
 
                   <div className="md:flex-1 space-y-6">
+                    <div className="w-full h-32 bg-muted/20 border border-border rounded-lg" />
                     <div>
                       <h4 className="text-lg font-bold text-foreground mb-1">Privacy Architecture</h4>
                       <p className="text-sm text-muted-foreground leading-relaxed">
@@ -534,6 +560,7 @@ export default function Home() {
                   </div>
 
                   <div className="md:flex-1 space-y-6">
+                    <div className="w-full h-32 bg-muted/20 border border-border rounded-lg" />
                     <div>
                       <h4 className="text-lg font-bold text-foreground mb-1">Vertical Integration</h4>
                       <p className="text-sm text-muted-foreground leading-relaxed">
@@ -546,6 +573,7 @@ export default function Home() {
 
               {/* The Long-Term Vision */}
               <section className="space-y-4">
+                <div className="w-full h-64 bg-muted/20 border border-border rounded-lg mb-8" />
                 <div className="flex items-center gap-5">
                   <h2 className="text-4xl font-bold text-foreground">The Long-Term Vision</h2>
                   <SectionPlayButton
@@ -566,6 +594,7 @@ export default function Home() {
                 </p>
                 <div className="flex flex-col md:flex-row gap-8 md:gap-12 rounded-lg border border-border bg-muted/10 p-10 md:-mx-[25%] items-start">
                   <div className="md:flex-1 space-y-6">
+                    <div className="w-full h-32 bg-muted/20 border border-border rounded-lg" />
                     <div>
                       <h4 className="text-lg font-bold text-foreground mb-1">The Missing Link</h4>
                       <p className="text-sm text-muted-foreground leading-relaxed">
@@ -575,6 +604,7 @@ export default function Home() {
                   </div>
 
                   <div className="md:flex-1 space-y-6">
+                    <div className="w-full h-32 bg-muted/20 border border-border rounded-lg" />
                     <div>
                       <h4 className="text-lg font-bold text-foreground mb-1">The Source Role</h4>
                       <p className="text-sm text-muted-foreground leading-relaxed">
@@ -589,7 +619,7 @@ export default function Home() {
               </section>
 
               {/* The Deal */}
-              <section className="space-y-4 rounded-lg border border-border bg-muted/10 p-6">
+              <section className="space-y-8">
                 <div className="flex items-center gap-5">
                   <h2 className="text-4xl font-bold text-foreground">The Deal</h2>
                   <SectionPlayButton
@@ -602,23 +632,45 @@ export default function Home() {
                 <p>
                   <strong className="text-foreground">We are raising $10M Seed</strong> to execute Phase 1 and the Phase 2 Beta.
                 </p>
-                <div className="flex flex-col md:flex-row gap-8 md:gap-12 rounded-lg items-start">
-                  <div className="md:flex-1 space-y-6">
-                    <div>
-                      <h4 className="text-lg font-bold text-foreground mb-1">Use of Funds</h4>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        Land acquisition (Location TBD), Construction of HQ/Lab, Hardware BOM for School + 100 Homes, and 18 months of runway for 36 FTEs.
-                      </p>
-                    </div>
-                  </div>
 
-                  <div className="md:flex-1 space-y-6">
-                    <div>
-                      <h4 className="text-lg font-bold text-foreground mb-1">Why Now</h4>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        The AI hardware race is heating up, but everyone is focused on chips. The winner will be the company that owns the <em>environment</em> and the <em>behavioral data</em>.
-                      </p>
+                {/* Use of Funds */}
+                <div className="flex flex-col md:flex-row gap-6 items-start">
+                  <div className="w-full md:w-32 h-32 shrink-0 bg-muted/20 border border-border rounded-lg" />
+                  <div>
+                    <h4 className="text-xl font-bold text-foreground mb-2">Use of Funds</h4>
+                    <p className="text-muted-foreground leading-relaxed">
+                      Land acquisition (Location TBD), Construction of HQ/Lab, Hardware BOM for School + 100 Homes, and 18 months of runway for 36 FTEs.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Why Now */}
+                <div className="flex flex-col md:flex-row gap-6 items-start">
+                  <div className="w-full md:w-32 h-32 shrink-0 bg-muted/20 border border-border rounded-lg" />
+                  <div>
+                    <h4 className="text-xl font-bold text-foreground mb-2">Why Now</h4>
+                    <p className="text-muted-foreground leading-relaxed">
+                      The AI hardware race is heating up, but everyone is focused on chips. The winner will be the company that owns the <em>environment</em> and the <em>behavioral data</em>.
+                    </p>
+                  </div>
+                </div>
+
+                {/* The Founder */}
+                <div className="flex flex-col md:flex-row gap-6 items-start">
+                  <div className="w-full md:w-32 h-32 shrink-0 bg-muted/20 border border-border rounded-lg" />
+                  <div>
+                    <div className="flex items-center gap-5 mb-2">
+                      <h4 className="text-xl font-bold text-foreground">The Founder</h4>
+                      <SectionPlayButton
+                        title="The Founder"
+                        audioSrc="/audio/Founder.mp3"
+                        transcript={TRANSCRIPT_DATA}
+                        chapters={CHAPTERS_DATA}
+                      />
                     </div>
+                    <p className="text-muted-foreground leading-relaxed">
+                      Justin is building the infrastructure for a new era of human-AI symbiosis. With a background spanning AI research and systems architecture, he is committed to creating technology that serves humanity—not the other way around.
+                    </p>
                   </div>
                 </div>
               </section>

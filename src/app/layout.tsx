@@ -74,7 +74,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <BackgroundAnimation />
           <MobileNav />
-          <div className="relative z-10">
+          <div id="scroll-container" className="h-dvh overflow-y-auto relative z-10">
             {children}
           </div>
         </ThemeProvider>
