@@ -3,9 +3,10 @@
 import { CircularMenu, MenuItem } from '@w3rk17/circular-menu-next'
 import { useTheme } from 'next-themes'
 import { useRouter } from 'next/navigation'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Mail, Monitor, Moon, Sun, Palette, FileText, Type } from 'lucide-react'
 import Image from 'next/image'
+import { cn } from '@/lib/utils'
 
 const FONTS = [
     { name: 'Default (PP Mori)', value: 'var(--font-pp-mori)' },
@@ -30,6 +31,30 @@ export function MobileNav() {
     useEffect(() => {
         document.body.style.fontFamily = activeFont;
     }, [activeFont]);
+
+    const [isVisible, setIsVisible] = useState(true);
+    const lastScrollTop = useRef(0);
+
+    useEffect(() => {
+        const scrollContainer = document.getElementById('scroll-container');
+        if (!scrollContainer) return;
+
+        // Initialize lastScrollTop to current position to avoid false direction detection
+        lastScrollTop.current = scrollContainer.scrollTop;
+
+        const handleScroll = () => {
+            const currentScrollTop = scrollContainer.scrollTop;
+            if (currentScrollTop > lastScrollTop.current && currentScrollTop > 10) {
+                setIsVisible(false);
+            } else if (currentScrollTop < lastScrollTop.current) {
+                setIsVisible(true);
+            }
+            lastScrollTop.current = currentScrollTop <= 0 ? 0 : currentScrollTop;
+        };
+
+        scrollContainer.addEventListener('scroll', handleScroll);
+        return () => scrollContainer.removeEventListener('scroll', handleScroll);
+    }, []);
 
     const menuItems: MenuItem[] = [
         {
@@ -109,14 +134,21 @@ export function MobileNav() {
 
     return (
         <>
-            <CircularMenu
-                items={menuItems}
-                position="top-right"
-                hideOnScroll={true}
-                darkMode={resolvedTheme === 'dark'}
-                dotSize={12}
-                expandedSize={42.5}
-            />
+            <div
+                className={cn(
+                    "fixed top-0 right-0 z-50 transition-opacity duration-300",
+                    isVisible ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+                )}
+            >
+                <CircularMenu
+                    items={menuItems}
+                    position="top-right"
+                    hideOnScroll={false}
+                    darkMode={resolvedTheme === 'dark'}
+                    dotSize={12}
+                    expandedSize={42.5}
+                />
+            </div>
 
             {showThemes && (
                 <div className="fixed top-24 right-6 z-[100] bg-card/90 backdrop-blur-md border border-border rounded-lg shadow-xl p-4 w-48">
