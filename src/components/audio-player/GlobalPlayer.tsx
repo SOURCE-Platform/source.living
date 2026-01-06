@@ -132,30 +132,18 @@ const GlobalPlayerContent = ({
                         <stop offset="61.98%" stopColor="#FEFFE3" />
                         <stop offset="100%" stopColor="#97A1FB" />
                     </linearGradient>
-                    <radialGradient id="playgrade-light" cx="0.3" cy="0.3" r="0.8">
-                        <stop offset="0%" stopColor="#ABAB88" />
-                        <stop offset="20%" stopColor="#9B4460" />
-                        <stop offset="50%" stopColor="#1F1F1C" />
-                        <stop offset="100%" stopColor="#141B5C" />
-                    </radialGradient>
-                    <radialGradient id="playgrade-light-hover" cx="0.3" cy="0.3" r="0.8" gradientTransform="scale(1.2)">
-                        <stop offset="0%" stopColor="#ABAB88" />
-                        <stop offset="20%" stopColor="#9B4460" />
-                        <stop offset="50%" stopColor="#1F1F1C" />
-                        <stop offset="100%" stopColor="#141B5C" />
-                    </radialGradient>
-                    <linearGradient id="playgrade-reverse" gradientTransform="rotate(168)">
-                        <stop offset="0%" stopColor="#97A1FB" />
-                        <stop offset="38%" stopColor="#FEFFE3" />
-                        <stop offset="70%" stopColor="#FFC1D5" />
-                        <stop offset="100%" stopColor="#FFC1D5" />
+                    <linearGradient id="playgrade-light" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#02ABFF" />
+                        <stop offset="100%" stopColor="#001AFF" />
                     </linearGradient>
-                    <radialGradient id="playgrade-light-reverse" cx="0.7" cy="0.7" r="0.8">
-                        <stop offset="0%" stopColor="#141B5C" />
-                        <stop offset="30%" stopColor="#1F1F1C" />
-                        <stop offset="60%" stopColor="#9B4460" />
-                        <stop offset="100%" stopColor="#ABAB88" />
-                    </radialGradient>
+                    <linearGradient id="playgrade-light-hover" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#02ABFF" />
+                        <stop offset="100%" stopColor="#001AFF" />
+                    </linearGradient>
+                    <linearGradient id="playgrade-light-reverse" x1="100%" y1="100%" x2="0%" y2="0%">
+                        <stop offset="0%" stopColor="#001AFF" />
+                        <stop offset="100%" stopColor="#02ABFF" />
+                    </linearGradient>
                 </defs>
             </svg>
 
@@ -227,7 +215,7 @@ const GlobalPlayerContent = ({
                     {formatTime(currentTimeMs)}
                 </span>
 
-                <div className="relative h-1 flex-1 bg-muted/50 rounded-full group cursor-pointer hover:h-1.5 transition-all">
+                <div className="relative h-1 flex-1 bg-black/15 dark:bg-muted/50 rounded-full group cursor-pointer hover:h-1.5 transition-all">
                     <div
                         className="absolute inset-y-0 left-0 rounded-full group-hover:bg-opacity-80 transition-all"
                         style={{
@@ -237,7 +225,7 @@ const GlobalPlayerContent = ({
                     >
                         <div
                             className="dark:hidden absolute inset-0 rounded-full"
-                            style={{ background: "var(--background-image-playgrade-reverse)" }}
+                            style={{ background: "var(--blue-button)" }}
                         />
                     </div>
                     <input
@@ -273,11 +261,16 @@ const GlobalPlayerContent = ({
                             <VolumeSpeakerIcon style={{ width: 18, height: 18 }} />
                         )}
                     </button>
-                    <div className="flex-1 h-1 bg-muted/50 rounded-full relative group-hover:bg-muted transition-colors">
+                    <div className="flex-1 h-1 bg-black/15 dark:bg-muted/50 rounded-full relative transition-colors">
                         <div
-                            className="absolute inset-y-0 left-0 bg-foreground rounded-full"
+                            className="absolute inset-y-0 left-0 bg-foreground dark:bg-foreground rounded-full"
                             style={{ width: `${volume * 100}%` }}
-                        />
+                        >
+                            <div
+                                className="dark:hidden absolute inset-0 rounded-full"
+                                style={{ background: "var(--background-image-playgrade-light)" }}
+                            />
+                        </div>
                         <input
                             type="range"
                             min="0"
@@ -327,7 +320,7 @@ export const GlobalPlayer = () => {
     return (
         <div
             className={`fixed bottom-0 md:bottom-6 left-4 right-4 md:left-8 md:right-8 max-w-[1400px] mx-auto z-[100] rounded-3xl md:rounded-full border border-black/5 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.24)] transition-all duration-500 cubic-bezier(0.32, 0.72, 0, 1) ${isClosing ? 'translate-y-[150%] opacity-0' : 'animate-in slide-in-from-bottom-[150%] opacity-100'
-                } bg-[#F4F4F5] dark:bg-[#1F1F28]`}
+                } bg-[#E4E4E7] dark:bg-[#1F1F28]`}
             style={{ fontFamily: 'Outfit, sans-serif' }}
         >
             <audio

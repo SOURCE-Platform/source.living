@@ -16,7 +16,7 @@ import { FooterSection } from "@/components/sections/footer-section";
 export default function Home() {
   return (
     <GlobalAudioProvider>
-      <div className="min-h-screen bg-background pb-32">
+      <div className="min-h-screen pb-32">
         <StickyLogo />
         {/* Main Content */}
         <main className="mx-auto max-w-3xl px-6 sm:px-12 py-12">
