@@ -70,7 +70,7 @@ export function ProblemSection() {
 
                 <div className="flex flex-col rounded-lg border border-border bg-muted/10 mt-2">
                     <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-border">
-                        <div className="p-5 space-y-6">
+                        <div className="p-5 pb-16 space-y-6">
                             <h4 className="text-xl font-bold text-foreground">The Macro Problem Set</h4>
                             <ul className="space-y-6 text-sm text-muted-foreground">
                                 <li>
@@ -108,7 +108,7 @@ export function ProblemSection() {
                             </ul>
                         </div>
 
-                        <div className="p-5 space-y-6">
+                        <div className="p-5 pb-16 space-y-6">
                             <h4 className="text-xl font-bold text-foreground">The Micro Problem Set</h4>
                             <ul className="space-y-6 text-sm text-muted-foreground">
                                 <li>

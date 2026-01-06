@@ -98,7 +98,7 @@ export function SolutionSection() {
                 </div>
             </div>
 
-            <div className="mt-24 rounded-lg border border-border bg-muted/10 p-6 space-y-4">
+            <div className="mt-24 rounded-lg border border-border bg-muted/10 py-20 px-6 space-y-4">
                 <div className="flex items-center gap-5 max-w-[70%] mx-auto">
                     <h3 className="text-3xl font-bold text-foreground">Data Ownership</h3>
                     <SectionPlayButton
@@ -118,7 +118,7 @@ export function SolutionSection() {
                 </div>
             </div>
 
-            <div className="flex flex-col rounded-lg border border-border bg-muted/10">
+            <div className="flex flex-col rounded-lg border border-border bg-muted/10 max-w-[70%] mx-auto">
                 <div className="p-5 space-y-3">
                     <h3 className="text-3xl font-bold text-foreground">Mapping the Solution</h3>
                     <p className="text-sm">
