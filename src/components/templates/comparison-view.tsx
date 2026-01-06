@@ -326,16 +326,14 @@ export function ComparisonView({ defaultView, initialCompareMode = false }: Comp
 
                             <button
                                 onClick={() => setIsCompareMode(!isCompareMode)}
-                                className={`
-                    relative inline-flex h-6 w-11 items-center rounded-full transition-all focus:outline-none cursor-pointer border border-transparent
-                    ${isCompareMode
-                                        ? 'bg-gradient-to-r from-blue-500 to-cyan-500 dark:bg-none dark:bg-[image:var(--background-image-playgrade)]'
-                                        : 'bg-muted'}
-                  `}
+                                className="relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 focus:outline-none cursor-pointer bg-muted overflow-hidden"
                             >
+                                <div
+                                    className={`absolute inset-0 transition-opacity duration-200 ${isCompareMode ? 'opacity-100' : 'opacity-0'} bg-[image:var(--blue-button)] dark:bg-[image:var(--background-image-playgrade)]`}
+                                />
                                 <span
                                     className={`
-                      inline-block h-4 w-4 transform rounded-full bg-background transition-transform
+                      relative z-10 inline-block h-4 w-4 transform rounded-full bg-background shadow-sm transition-transform duration-200
                       ${isCompareMode ? 'translate-x-6' : 'translate-x-1'}
                     `}
                                 />

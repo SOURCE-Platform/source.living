@@ -265,7 +265,7 @@
     inset: -1px;
     border-radius: inherit;
     padding: 1px;
-    background: var(--background-image-playgrade);
+    background: linear-gradient(135deg, #02ABFF 0%, #001AFF 100%);
     -webkit-mask:
       linear-gradient(#fff 0 0) content-box,
       linear-gradient(#fff 0 0);
@@ -278,6 +278,10 @@
     transition: opacity 0.3s ease;
     pointer-events: none;
     z-index: 20;
+  }
+
+  .dark .playgrade-border::before {
+    background: var(--background-image-playgrade);
   }
 
   .playgrade-border:hover::before {
