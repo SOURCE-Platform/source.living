@@ -238,7 +238,7 @@ export default function Home() {
                   But what exactly is it?
                 </p>
 
-                <div className="flex flex-col md:flex-row gap-8 md:gap-12 rounded-lg border border-border bg-muted/10 p-10 md:-mx-[25%] items-start">
+                <div className="mt-24 flex flex-col md:flex-row gap-8 md:gap-12 md:-mx-[25%] items-start">
                   <div className="md:flex-1">
                     <div className="w-full h-32 bg-muted/20 border border-border rounded-lg mb-6" />
                     <h3 className="text-3xl font-bold text-foreground mb-6">Hardware</h3>
@@ -303,7 +303,7 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="rounded-lg border border-border bg-muted/10 p-6 space-y-4">
+                <div className="mt-24 rounded-lg border border-border bg-muted/10 p-6 space-y-4">
                   <div className="flex items-center gap-5">
                     <h3 className="text-3xl font-bold text-foreground">Data Ownership</h3>
                     <SectionPlayButton
@@ -337,8 +337,8 @@ export default function Home() {
               </section>
 
               {/* Go-to-Market Strategy */}
-              <section className="space-y-4">
-                <div className="flex items-center gap-5">
+              <section className="space-y-4 mt-40">
+                <div className="flex items-center gap-5 md:-mx-[25%]">
                   <h2 className="text-4xl font-bold text-foreground">GTM</h2>
                   <SectionPlayButton
                     title="Go-to-Market Strategy"
@@ -347,7 +347,7 @@ export default function Home() {
                     chapters={CHAPTERS_DATA}
                   />
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 rounded-lg border border-border bg-muted/10 p-10 md:-mx-[25%] items-start">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 md:-mx-[25%] items-start">
                   <div className="space-y-6">
                     <div className="w-full h-32 bg-muted/20 border border-border rounded-lg" />
                     <div>
@@ -395,8 +395,8 @@ export default function Home() {
               </section>
 
               {/* The Master Plan */}
-              <section className="space-y-4">
-                <div className="flex items-center gap-5">
+              <section className="space-y-4 mt-40">
+                <div className="flex items-center gap-5 md:-mx-[25%]">
                   <h2 className="text-4xl font-bold text-foreground">Roadmap</h2>
                   <SectionPlayButton
                     title="The Roadmap"
@@ -418,11 +418,11 @@ export default function Home() {
 
                       <div className="mb-6">
                         <span className="text-xs font-bold tracking-widest text-muted-foreground uppercase block mb-2">Phase 1</span>
-                        <h3 className="text-2xl font-bold text-foreground block mb-1">SOURCE School & HQ</h3>
+                        <h3 className="text-2xl font-bold text-foreground block mb-1">R&D</h3>
                         <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">18 Months</span>
                       </div>
 
-                      <div className="rounded-lg border border-border bg-muted/10 p-5 space-y-6">
+                      <div className="space-y-6">
                         <div className="w-full h-32 bg-muted/20 border border-border rounded-lg" />
                         <div>
                           <h4 className="text-sm font-bold text-foreground mb-1">Objective</h4>
@@ -458,11 +458,11 @@ export default function Home() {
 
                       <div className="mb-6">
                         <span className="text-xs font-bold tracking-widest text-muted-foreground uppercase block mb-2">Phase 2</span>
-                        <h3 className="text-2xl font-bold text-foreground block mb-1">Residential Beta</h3>
-                        <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Concurrent with Phase 1</span>
+                        <h3 className="text-2xl font-bold text-foreground block mb-1">GTM</h3>
+                        <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">18 Months</span>
                       </div>
 
-                      <div className="rounded-lg border border-border bg-muted/10 p-5 space-y-6">
+                      <div className="space-y-6">
                         <div className="w-full h-32 bg-muted/20 border border-border rounded-lg" />
                         <div>
                           <h4 className="text-sm font-bold text-foreground mb-1">Objective</h4>
@@ -503,7 +503,7 @@ export default function Home() {
                         <div className="h-[22px]"></div>
                       </div>
 
-                      <div className="rounded-lg border border-border bg-muted/10 p-5 space-y-6">
+                      <div className="space-y-6">
                         <div className="w-full h-32 bg-muted/20 border border-border rounded-lg" />
                         <div>
                           <h4 className="text-sm font-bold text-foreground mb-1">Objective</h4>
@@ -538,32 +538,32 @@ export default function Home() {
               {/* Competitive Advantage */}
               <section className="space-y-4">
                 <h2 className="text-4xl font-bold text-foreground">Competitive Advantage</h2>
-                <div className="flex flex-col md:flex-row gap-8 md:gap-12 rounded-lg border border-border bg-muted/10 p-10 md:-mx-[25%] items-start">
-                  <div className="md:flex-1 space-y-6">
-                    <div className="w-full h-32 bg-muted/20 border border-border rounded-lg" />
+                <div className="space-y-8 mt-12">
+                  <div className="flex flex-col md:flex-row gap-6 items-start">
+                    <div className="w-full md:w-32 h-32 shrink-0 bg-muted/20 border border-border rounded-lg" />
                     <div>
-                      <h4 className="text-lg font-bold text-foreground mb-1">The Data Moat</h4>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
+                      <h4 className="text-xl font-bold text-foreground mb-2">The Data Moat</h4>
+                      <p className="text-muted-foreground leading-relaxed">
                         OpenAI and Google have the internet. We have the <em>living room</em>. This high-resolution behavioral dataset does not currently exist anywhere else.
                       </p>
                     </div>
                   </div>
 
-                  <div className="md:flex-1 space-y-6">
-                    <div className="w-full h-32 bg-muted/20 border border-border rounded-lg" />
+                  <div className="flex flex-col md:flex-row gap-6 items-start">
+                    <div className="w-full md:w-32 h-32 shrink-0 bg-muted/20 border border-border rounded-lg" />
                     <div>
-                      <h4 className="text-lg font-bold text-foreground mb-1">Privacy Architecture</h4>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
+                      <h4 className="text-xl font-bold text-foreground mb-2">Privacy Architecture</h4>
+                      <p className="text-muted-foreground leading-relaxed">
                         By processing locally and tokenizing via blockchain, we solve the "Big Brother" fear. Users own their data; we just provide the architecture.
                       </p>
                     </div>
                   </div>
 
-                  <div className="md:flex-1 space-y-6">
-                    <div className="w-full h-32 bg-muted/20 border border-border rounded-lg" />
+                  <div className="flex flex-col md:flex-row gap-6 items-start">
+                    <div className="w-full md:w-32 h-32 shrink-0 bg-muted/20 border border-border rounded-lg" />
                     <div>
-                      <h4 className="text-lg font-bold text-foreground mb-1">Vertical Integration</h4>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
+                      <h4 className="text-xl font-bold text-foreground mb-2">Vertical Integration</h4>
+                      <p className="text-muted-foreground leading-relaxed">
                         We own the full stack—from the sensor in the wall to the AI model in the cloud.
                       </p>
                     </div>
@@ -592,7 +592,7 @@ export default function Home() {
                 <p>
                   For SuperIntelligence to be truly effective, aligned, and safe, it requires <strong className="text-foreground">SuperAwareness</strong>.
                 </p>
-                <div className="flex flex-col md:flex-row gap-8 md:gap-12 rounded-lg border border-border bg-muted/10 p-10 md:-mx-[25%] items-start">
+                <div className="mt-24 flex flex-col md:flex-row gap-8 md:gap-12 md:-mx-[25%] items-start">
                   <div className="md:flex-1 space-y-6">
                     <div className="w-full h-32 bg-muted/20 border border-border rounded-lg" />
                     <div>
@@ -698,10 +698,7 @@ export default function Home() {
             </section>
 
             {/* Footer */}
-            <footer className="mt-12 border-t border-border pt-8 text-center text-xs text-muted-foreground">
-              <p>© 2025 Source. Building the future of human-AI interaction.</p>
-              <p className="mt-2 text-[10px] opacity-50">v2.0.1</p>
-            </footer>
+
           </article >
         </main >
 
