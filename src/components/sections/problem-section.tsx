@@ -148,10 +148,24 @@ export function ProblemSection() {
 
                     <Link
                         href="/convergence"
-                        className="flex w-[calc(100%+32px)] -mx-4 -mb-6 items-center rounded-xl border border-border bg-white dark:bg-[#171720] px-8 py-4 text-sm font-bold text-foreground shadow-2xl transition-all hover:bg-[#f2f3fa] dark:hover:bg-[#1c1c27] hover-playgrade-border hover:scale-[1.01] active:scale-[0.99] -mt-px group relative z-10"
+                        className="flex w-[calc(100%+32px)] -mx-4 -mb-6 items-center rounded-xl border border-transparent bg-white dark:bg-[#171720] px-8 py-4 text-sm font-bold text-foreground shadow-lg hover:shadow-xl dark:shadow-[0_0_20px_rgba(151,161,251,0.5)] dark:hover:shadow-[0_0_30px_rgba(151,161,251,0.8)] transition-all hover:bg-[#f2f3fa] dark:hover:bg-[#1c1c27] playgrade-border hover:scale-[1.01] active:scale-[0.99] -mt-px group relative z-10"
                     >
                         <span className="flex-1 text-center font-bold">Systemic Convergence Analysis</span>
-                        <span aria-hidden="true" className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+                        <svg width="50" height="12" viewBox="0 0 50 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-4 group-hover:translate-x-1 transition-all duration-300 opacity-75 group-hover:opacity-100">
+                            <defs>
+                                <linearGradient id="pg-gradient-converge-normal" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stopColor="#FFC1D5" />
+                                    <stop offset="50%" stopColor="#FEFFE3" />
+                                    <stop offset="100%" stopColor="#97A1FB" />
+                                </linearGradient>
+                                <linearGradient id="pg-gradient-converge-hover" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stopColor="#FFC1D5" />
+                                    <stop offset="100%" stopColor="#FEFFE3" />
+                                </linearGradient>
+                            </defs>
+                            <path d="M0 6L49 6M49 6L44 1M49 6L44 11" stroke="url(#pg-gradient-converge-normal)" strokeWidth="1" />
+                            <path d="M0 6L49 6M49 6L44 1M49 6L44 11" stroke="url(#pg-gradient-converge-hover)" strokeWidth="1" className="opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                        </svg>
                     </Link>
                 </div>
             </div>

@@ -255,11 +255,11 @@
     }
   }
 
-  .hover-playgrade-border {
+  .playgrade-border {
     position: relative;
   }
 
-  .hover-playgrade-border::before {
+  .playgrade-border::before {
     content: "";
     position: absolute;
     inset: -1px;
@@ -274,13 +274,13 @@
       linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
-    opacity: 0;
+    opacity: 0.5;
     transition: opacity 0.3s ease;
     pointer-events: none;
     z-index: 20;
   }
 
-  .hover-playgrade-border:hover::before {
+  .playgrade-border:hover::before {
     opacity: 1;
   }
 }

@@ -17,6 +17,17 @@ export function DealSection() {
                 <strong className="text-foreground">We are raising $10M Seed</strong> to execute Phase 1 and the Phase 2 Beta.
             </p>
 
+            {/* The Opportunity */}
+            <div className="flex flex-col md:flex-row gap-6 items-start">
+                <div className="w-full md:w-32 h-32 shrink-0 bg-muted/20 border border-border rounded-lg" />
+                <div>
+                    <h4 className="text-xl font-bold text-foreground mb-2">The Opportunity</h4>
+                    <p className="text-muted-foreground leading-relaxed">
+                        The solution to these converging problems—and the next breakthrough in AI—won't come from more GPUs; it will come from a new <em>class</em> of data: continuous, multimodal, real-world behavioral data.
+                    </p>
+                </div>
+            </div>
+
             {/* Use of Funds */}
             <div className="flex flex-col md:flex-row gap-6 items-start">
                 <div className="w-full md:w-32 h-32 shrink-0 bg-muted/20 border border-border rounded-lg" />
@@ -54,17 +65,6 @@ export function DealSection() {
                     </div>
                     <p className="text-muted-foreground leading-relaxed">
                         Justin is building the infrastructure for a new era of human-AI symbiosis. With a background spanning AI research and systems architecture, he is committed to creating technology that serves humanity—not the other way around.
-                    </p>
-                </div>
-            </div>
-
-            {/* The Opportunity */}
-            <div className="flex flex-col md:flex-row gap-6 items-start">
-                <div className="w-full md:w-32 h-32 shrink-0 bg-muted/20 border border-border rounded-lg" />
-                <div>
-                    <h4 className="text-xl font-bold text-foreground mb-2">The Opportunity</h4>
-                    <p className="text-muted-foreground leading-relaxed">
-                        The solution to these converging problems—and the next breakthrough in AI—won't come from more GPUs; it will come from a new <em>class</em> of data: continuous, multimodal, real-world behavioral data.
                     </p>
                 </div>
             </div>

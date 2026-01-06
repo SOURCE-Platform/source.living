@@ -106,9 +106,14 @@ export function SolutionSection() {
                         chapters={CHAPTERS_DATA}
                     />
                 </div>
-                <p className="text-sm text-foreground">
-                    Source democratizes surveillance. Instead of states and corporations owning your data, you own it. All data is processed locally and cryptographically secured—serving your health, safety, and personal AI, not external entities.
-                </p>
+                <div>
+                    <p className="text-lg font-bold text-foreground mb-1">
+                        Source democratizes surveillance.
+                    </p>
+                    <p className="text-sm text-foreground">
+                        Instead of states and corporations owning your data, you own it. All data is processed locally and cryptographically secured—serving your health, safety, and personal AI, not external entities.
+                    </p>
+                </div>
             </div>
 
             <div className="flex flex-col rounded-lg border border-border bg-muted/10">
@@ -120,10 +125,24 @@ export function SolutionSection() {
                 </div>
                 <Link
                     href="/solutions"
-                    className="flex w-[calc(100%+32px)] -mx-4 -mb-6 items-center rounded-xl border border-border bg-white dark:bg-[#171720] px-8 py-4 text-sm font-bold text-foreground shadow-2xl transition-all hover:bg-[#f2f3fa] dark:hover:bg-[#1c1c27] hover-playgrade-border hover:scale-[1.01] active:scale-[0.99] -mt-px group relative z-10"
+                    className="flex w-[calc(100%+32px)] -mx-4 -mb-6 items-center rounded-xl border border-transparent bg-white dark:bg-[#171720] px-8 py-4 text-sm font-bold text-foreground shadow-lg hover:shadow-xl dark:shadow-[0_0_20px_rgba(151,161,251,0.5)] dark:hover:shadow-[0_0_30px_rgba(151,161,251,0.8)] transition-all hover:bg-[#f2f3fa] dark:hover:bg-[#1c1c27] playgrade-border hover:scale-[1.01] active:scale-[0.99] -mt-px group relative z-10"
                 >
                     <span className="flex-1 text-center font-bold">SOURCE Solution Map</span>
-                    <span aria-hidden="true" className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+                    <svg width="50" height="12" viewBox="0 0 50 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-4 group-hover:translate-x-1 transition-all duration-300 opacity-75 group-hover:opacity-100">
+                        <defs>
+                            <linearGradient id="pg-gradient-solution-normal" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stopColor="#FFC1D5" />
+                                <stop offset="50%" stopColor="#FEFFE3" />
+                                <stop offset="100%" stopColor="#97A1FB" />
+                            </linearGradient>
+                            <linearGradient id="pg-gradient-solution-hover" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stopColor="#FFC1D5" />
+                                <stop offset="100%" stopColor="#FEFFE3" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M0 6L49 6M49 6L44 1M49 6L44 11" stroke="url(#pg-gradient-solution-normal)" strokeWidth="1" />
+                        <path d="M0 6L49 6M49 6L44 1M49 6L44 11" stroke="url(#pg-gradient-solution-hover)" strokeWidth="1" className="opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                    </svg>
                 </Link>
             </div>
         </section>
