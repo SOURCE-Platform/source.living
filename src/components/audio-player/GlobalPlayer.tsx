@@ -117,7 +117,7 @@ const GlobalPlayerContent = ({
     }, [disabled, togglePlayback, onClose]);
 
     return (
-        <div className="w-full max-w-[1600px] mx-auto flex items-center justify-between h-20 px-4 sm:px-6 lg:px-8">
+        <div className="w-full mx-auto flex items-center justify-between h-20 px-6 sm:px-8 lg:px-12">
             <svg width="0" height="0" className="absolute block w-0 h-0 overflow-hidden" aria-hidden="true">
                 <defs>
                     <linearGradient id="playgrade" gradientTransform="rotate(22, 0.2, 0.5) translate(0.2, 0.5) scale(2.5) translate(-0.5, -0.5)">
@@ -229,9 +229,17 @@ const GlobalPlayerContent = ({
 
                 <div className="relative h-1 flex-1 bg-muted/50 rounded-full group cursor-pointer hover:h-1.5 transition-all">
                     <div
-                        className="absolute inset-y-0 left-0 bg-foreground rounded-full group-hover:bg-green-500 transition-colors"
-                        style={{ width: `${progress}%` }}
-                    />
+                        className="absolute inset-y-0 left-0 rounded-full group-hover:bg-opacity-80 transition-all"
+                        style={{
+                            width: `${progress}%`,
+                            background: "var(--background-image-playgrade)"
+                        }}
+                    >
+                        <div
+                            className="dark:hidden absolute inset-0 rounded-full"
+                            style={{ background: "var(--background-image-playgrade-reverse)" }}
+                        />
+                    </div>
                     <input
                         type="range"
                         min="0"
@@ -318,7 +326,8 @@ export const GlobalPlayer = () => {
 
     return (
         <div
-            className={`fixed bottom-0 left-0 right-0 z-[100] bg-background/95 backdrop-blur-xl border-t border-border shadow-[0_-8px_30px_rgba(0,0,0,0.12)] transition-transform duration-300 ease-in-out ${isClosing ? 'translate-y-full' : 'animate-in slide-in-from-bottom-full'}`}
+            className={`fixed bottom-0 md:bottom-6 left-4 right-4 md:left-8 md:right-8 max-w-[1400px] mx-auto z-[100] rounded-3xl md:rounded-full border border-black/5 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.24)] transition-all duration-500 cubic-bezier(0.32, 0.72, 0, 1) ${isClosing ? 'translate-y-[150%] opacity-0' : 'animate-in slide-in-from-bottom-[150%] opacity-100'
+                } bg-[#F4F4F5] dark:bg-[#1F1F28]`}
             style={{ fontFamily: 'Outfit, sans-serif' }}
         >
             <audio
