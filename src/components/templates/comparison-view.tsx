@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import Link from "next/link";
+import { TransitionLink } from "../atoms/transition-link";
 import { ArrowLeft } from 'lucide-react';
 
 import {
@@ -324,55 +325,80 @@ export function ComparisonView({ defaultView, initialCompareMode = false }: Comp
                 <div id="header-sentinel" className="absolute top-0 h-12 w-full pointer-events-none opacity-0" />
 
                 {/* Header */}
-                <div className={`mb-6 flex items-center justify-end sticky top-0 z-40 bg-transparent py-4 transition-all duration-300 pointer-events-none ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
-                    <div className="flex items-center gap-4 pointer-events-auto">
-                        <div className={`
+                <div className="mb-6 flex items-center justify-end sticky top-0 z-40 bg-transparent py-4 transition-all duration-300 pointer-events-none">
+                    <div className={`transition-all duration-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
+                        <div className="flex items-center gap-4 pointer-events-auto">
+                            <div className={`
                             flex items-center gap-3 px-4 py-2 rounded-full border transition-all duration-300
                             ${isStuck
-                                ? 'bg-background/80 backdrop-blur-md border-border shadow-md dark:shadow-[0_0_20px_rgba(255,255,255,0.15)] transform translate-y-2'
-                                : 'bg-muted/20 border-transparent sm:border-border'
-                            }
+                                    ? 'bg-background/80 backdrop-blur-md border-border shadow-md dark:shadow-[0_0_20px_rgba(255,255,255,0.15)] transform translate-y-2'
+                                    : 'bg-muted/20 border-transparent sm:border-border'
+                                }
                         `}>
-                            <span className="text-sm font-medium text-muted-foreground">
-                                {defaultView === 'problems' ? "Problems View" : "Solutions View"}
-                            </span>
+                                <span className="text-sm font-medium text-muted-foreground">
+                                    {defaultView === 'problems' ? "Problems View" : "Solutions View"}
+                                </span>
 
-                            <button
-                                onClick={() => setIsCompareMode(!isCompareMode)}
-                                className="relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 focus:outline-none cursor-pointer bg-muted overflow-hidden"
-                            >
-                                <div
-                                    className={`absolute inset-0 transition-opacity duration-200 ${isCompareMode ? 'opacity-100' : 'opacity-0'} bg-[image:var(--blue-button)] dark:bg-[image:var(--background-image-playgrade)]`}
-                                />
-                                <span
-                                    className={`
+                                <button
+                                    onClick={() => setIsCompareMode(!isCompareMode)}
+                                    className="relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 focus:outline-none cursor-pointer bg-muted overflow-hidden"
+                                >
+                                    <div
+                                        className={`absolute inset-0 transition-opacity duration-200 ${isCompareMode ? 'opacity-100' : 'opacity-0'} bg-[image:var(--blue-button)] dark:bg-[image:var(--background-image-playgrade)]`}
+                                    />
+                                    <span
+                                        className={`
                       relative z-10 inline-block h-4 w-4 transform rounded-full bg-background shadow-sm transition-transform duration-200
                       ${isCompareMode ? 'translate-x-6' : 'translate-x-1'}
                     `}
-                                />
-                            </button>
+                                    />
+                                </button>
 
-                            <span className={`text-sm font-medium ${isCompareMode ? 'text-foreground' : 'text-muted-foreground'}`}>
-                                Compare
-                            </span>
+                                <span className={`text-sm font-medium ${isCompareMode ? 'text-foreground' : 'text-muted-foreground'}`}>
+                                    Compare
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div className={`space-y-20 transition-opacity duration-200 ${isContentVisible ? 'opacity-100' : 'opacity-0'}`}>
-                    {/* Header Section */}
-                    <section className="max-w-4xl">
-                        <h1 className="text-4xl font-bold tracking-tight mb-4">
+                <section className="max-w-4xl mb-20">
+                    <div className="flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-12 mb-8 -ml-0 lg:-ml-[248px]">
+                        <div className="w-[200px] flex-shrink-0 flex lg:justify-end">
+                            <TransitionLink
+                                href="/"
+                                className="group flex items-center gap-3 text-muted-foreground hover:text-foreground transition-all duration-300 pointer-events-auto"
+                            >
+                                <div className="relative flex items-center">
+                                    <svg width="45" height="12" viewBox="0 0 45 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="overflow-visible">
+                                        <path
+                                            d="M45 6H1M1 6L6 1M1 6L6 11"
+                                            stroke="currentColor"
+                                            strokeWidth="1.5"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            className="transition-all duration-300 group-hover:translate-x-[-4px]"
+                                        />
+                                    </svg>
+                                </div>
+                                <span className="text-sm font-medium">Back</span>
+                            </TransitionLink>
+                        </div>
+
+                        <h1 className={`text-4xl font-bold tracking-tight transition-opacity duration-200 ${isContentVisible ? 'opacity-100' : 'opacity-0'}`}>
                             {activeCompareMode ? "Systemic Analysis" : (defaultView === 'problems' ? "The Systemic Convergence" : "The Source Solution")}
                         </h1>
-                        <p className="text-xl text-muted-foreground max-w-lg">
-                            {activeCompareMode
-                                ? "Comparing the converging systemic failures with the architectural solutions provided by SOURCE."
-                                : (defaultView === 'problems'
-                                    ? "We are witnessing the convergence of multiple systemic crises, political, economic, social, and technological."
-                                    : "How the Source Platform systematically addresses the converging crises through Ambient Computing and High-Resolution Data.")}
-                        </p>
-                    </section>
+                    </div>
+                    <p className={`text-xl text-muted-foreground max-w-lg transition-opacity duration-200 ${isContentVisible ? 'opacity-100' : 'opacity-0'}`}>
+                        {activeCompareMode
+                            ? "Comparing the converging systemic failures with the architectural solutions provided by SOURCE."
+                            : (defaultView === 'problems'
+                                ? "We are witnessing the convergence of multiple systemic crises, political, economic, social, and technological."
+                                : "How the Source Platform systematically addresses the converging crises through Ambient Computing and High-Resolution Data.")}
+                    </p>
+                </section>
+
+                <div className={`space-y-20 transition-opacity duration-200 ${isContentVisible ? 'opacity-100' : 'opacity-0'}`}>
 
                     {/* SINGLE VIEW MODE */}
                     {!activeCompareMode && (
@@ -458,13 +484,13 @@ export function ComparisonView({ defaultView, initialCompareMode = false }: Comp
                     {/* Footer */}
                     <div className={`pt-24 pb-12 ${activeCompareMode ? 'grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-6 lg:gap-12' : 'flex justify-center'}`}>
                         <div className={activeCompareMode ? 'lg:col-start-2 flex justify-center' : ''}>
-                            <Link
+                            <TransitionLink
                                 href="/"
                                 className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 text-sm font-medium"
                             >
                                 <ArrowLeft className="w-4 h-4" />
                                 Back to Investment Memo
-                            </Link>
+                            </TransitionLink>
                         </div>
                     </div>
                 </div>

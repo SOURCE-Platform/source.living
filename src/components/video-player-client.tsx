@@ -3,6 +3,7 @@
 import React, { useRef, useState, use } from 'react'
 import { ArrowLeft, Play, Pause, Volume2, VolumeX, Maximize } from 'lucide-react'
 import Link from 'next/link'
+import { TransitionLink } from './atoms/transition-link'
 import { useRouter } from 'next/navigation'
 import { VIDEOS } from '@/data/videos'
 
@@ -20,7 +21,7 @@ export function VideoPlayerClient({ slug }: { slug: string }) {
             <div className="flex h-screen items-center justify-center">
                 <div className="text-center">
                     <h1 className="text-2xl font-bold mb-4">Video not found</h1>
-                    <Link href="/wordz" className="text-primary hover:underline">Return to Gallery</Link>
+                    <TransitionLink href="/wordz" className="text-primary hover:underline">Return to Gallery</TransitionLink>
                 </div>
             </div>
         )
@@ -68,13 +69,13 @@ export function VideoPlayerClient({ slug }: { slug: string }) {
             {/* Sidebar Navigation */}
             <aside className="w-full md:w-80 bg-background flex flex-col h-auto md:h-screen sticky top-0 md:overflow-y-auto z-10">
                 <div className="p-6">
-                    <Link
+                    <TransitionLink
                         href="/wordz"
                         className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-4 group font-medium"
                     >
                         <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
                         <span>Back to Gallery</span>
-                    </Link>
+                    </TransitionLink>
                     <h1 className="text-xl font-bold tracking-tight">{video.title}</h1>
                     <div className="flex items-center gap-2 mt-2 text-xs text-muted-foreground font-medium">
                         <span className="px-2 py-0.5 rounded-full bg-secondary text-secondary-foreground">{video.topic}</span>

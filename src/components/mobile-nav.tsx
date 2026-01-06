@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import { useState, useEffect, useRef } from 'react'
 import { Mail, Monitor, Moon, Sun, Palette, FileText, Type } from 'lucide-react'
 import Image from 'next/image'
+import { useTransitionTo } from '@/components/providers/transition-context'
 import { cn } from '@/lib/utils'
 
 const FONTS = [
@@ -23,6 +24,7 @@ const FONTS = [
 
 export function MobileNav() {
     const { theme: currentTheme, resolvedTheme, setTheme } = useTheme()
+    const { transitionTo } = useTransitionTo()
     const router = useRouter()
     const [activeFont, setActiveFont] = useState(FONTS[0].value);
     const [showFonts, setShowFonts] = useState(false);
@@ -78,7 +80,7 @@ export function MobileNav() {
                     />
                 </div>
             ),
-            onClick: () => router.push('/')
+            onClick: () => transitionTo('/')
         },
         {
             id: 'wordz',
@@ -89,7 +91,7 @@ export function MobileNav() {
                     <span className="text-sm font-medium">WORDz</span>
                 </div>
             ),
-            onClick: () => router.push('/wordz')
+            onClick: () => transitionTo('/wordz')
         },
         {
             id: 'contact',

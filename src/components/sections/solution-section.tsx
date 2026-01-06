@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { TransitionLink } from "../atoms/transition-link";
 import { SectionPlayButton } from "@/components/audio-player/SectionPlayButton";
 import { TRANSCRIPT_DATA, CHAPTERS_DATA } from "@/lib/constants";
 
@@ -125,7 +126,7 @@ export function SolutionSection() {
                         How Source specifically targets and neutralizes the systemic threats outlined in the Convergence Report.
                     </p>
                 </div>
-                <Link
+                <TransitionLink
                     href="/solutions"
                     className="flex w-[calc(100%+32px)] -mx-4 -mb-6 items-center rounded-xl border border-transparent bg-white dark:bg-[#171720] px-8 py-4 text-sm font-bold text-foreground shadow-lg hover:shadow-xl dark:shadow-[0_0_20px_rgba(151,161,251,0.5)] dark:hover:shadow-[0_0_30px_rgba(151,161,251,0.8)] transition-all hover:bg-[#f2f3fa] dark:hover:bg-[#1c1c27] playgrade-border hover:scale-[1.01] active:scale-[0.99] -mt-px group relative z-10"
                 >
@@ -145,7 +146,7 @@ export function SolutionSection() {
                         <path d="M0 6L49 6M49 6L44 1M49 6L44 11" stroke="url(#pg-gradient-solution-normal)" strokeWidth="1" />
                         <path d="M0 6L49 6M49 6L44 1M49 6L44 11" stroke="url(#pg-gradient-solution-hover)" strokeWidth="1" className="opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                     </svg>
-                </Link>
+                </TransitionLink>
             </div>
         </section>
     );

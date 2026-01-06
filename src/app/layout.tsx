@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import { ThemeProvider } from "@/components/molecules/theme-provider";
 import { BackgroundAnimation } from "@/components/organisms/background-animation";
 import { MobileNav } from "@/components/mobile-nav";
+import { TransitionProvider, TransitionEffect } from "@/components/providers/transition-context";
 
 import "./globals.css";
 import "@/components/audio-player/styles/audio-player.css";
@@ -54,8 +55,6 @@ export const metadata: Metadata = {
   },
 };
 
-
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -72,11 +71,15 @@ export default function RootLayout({
         className={`${ppMori.variable} antialiased bg-background text-foreground transition-colors duration-300`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <BackgroundAnimation />
-          <MobileNav />
-          <div id="scroll-container" className="h-dvh overflow-y-auto relative z-10">
-            {children}
-          </div>
+          <TransitionProvider>
+            <BackgroundAnimation />
+            <MobileNav />
+            <TransitionEffect>
+              <div id="scroll-container" className="h-dvh overflow-y-auto relative z-10">
+                {children}
+              </div>
+            </TransitionEffect>
+          </TransitionProvider>
         </ThemeProvider>
       </body>
     </html>

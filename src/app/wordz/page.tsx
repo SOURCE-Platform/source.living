@@ -2,6 +2,8 @@
 
 import { ArrowLeft, Calendar, Filter, X } from 'lucide-react'
 import Link from 'next/link'
+import { TransitionLink } from '@/components/atoms/transition-link'
+import { useTransitionTo } from '@/components/providers/transition-context'
 import { useState, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import { VIDEOS } from '@/data/videos'
@@ -10,7 +12,7 @@ import { VIDEOS } from '@/data/videos'
 const TOPICS = ['All', 'System', 'Hardware', 'Software', 'Social', 'Updates']
 
 export default function BlogPage() {
-    const router = useRouter()
+    const { transitionTo } = useTransitionTo()
     const [selectedTopic, setSelectedTopic] = useState('All')
     const [dateRange, setDateRange] = useState({ start: '', end: '' })
     const [isSidebarOpen, setIsSidebarOpen] = useState(false)
@@ -31,13 +33,13 @@ export default function BlogPage() {
         <main className="min-h-screen bg-background text-foreground flex flex-col">
             {/* Mobile Header for Sidebar Toggle */}
             <div className="md:hidden p-4 border-b border-border flex justify-between items-center bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
-                <Link
+                <TransitionLink
                     href="/"
                     className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm"
                 >
                     <ArrowLeft className="h-4 w-4" />
                     <span>Home</span>
-                </Link>
+                </TransitionLink>
                 <button
                     onClick={() => setIsSidebarOpen(!isSidebarOpen)}
                     className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-secondary text-secondary-foreground text-sm font-medium"
@@ -57,13 +59,13 @@ export default function BlogPage() {
                 >
                     <div className="h-full overflow-y-auto p-6 flex flex-col gap-8">
                         <div className="hidden md:block">
-                            <Link
+                            <TransitionLink
                                 href="/"
                                 className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-6"
                             >
                                 <ArrowLeft className="h-4 w-4" />
                                 <span>Back to Home</span>
-                            </Link>
+                            </TransitionLink>
                             <h1 className="text-2xl font-bold tracking-tight mb-1">WORDz</h1>
                         </div>
 
@@ -148,7 +150,7 @@ export default function BlogPage() {
                             <div
                                 key={video.id}
                                 className="group flex flex-col gap-3 cursor-pointer"
-                                onClick={() => router.push(`/wordz/${video.slug}`)}
+                                onClick={() => transitionTo(`/wordz/${video.slug}`)}
                             >
                                 <div className="relative aspect-video bg-muted rounded-lg overflow-hidden border border-border/50 group-hover:border-foreground/30 transition-all shadow-sm group-hover:shadow-md">
                                     {/* Video Placeholder */}
