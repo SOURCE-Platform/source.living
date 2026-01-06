@@ -255,10 +255,23 @@ const ComparisonSection = ({ title, categories, isLastSection = false }: { title
 
 export function ComparisonView({ defaultView, initialCompareMode = false }: ComparisonViewProps) {
     const [isCompareMode, setIsCompareMode] = useState(initialCompareMode);
+    const [activeCompareMode, setActiveCompareMode] = useState(initialCompareMode);
+    const [isContentVisible, setIsContentVisible] = useState(true);
     const [isStuck, setIsStuck] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
     const lastScrollY = useRef(0);
     const observerRef = useRef<IntersectionObserver | null>(null);
+
+    useEffect(() => {
+        if (isCompareMode === activeCompareMode) return;
+
+        setIsContentVisible(false);
+        const timer = setTimeout(() => {
+            setActiveCompareMode(isCompareMode);
+            setIsContentVisible(true);
+        }, 200);
+        return () => clearTimeout(timer);
+    }, [isCompareMode, activeCompareMode]);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -346,14 +359,14 @@ export function ComparisonView({ defaultView, initialCompareMode = false }: Comp
                     </div>
                 </div>
 
-                <div className="space-y-20">
+                <div className={`space-y-20 transition-opacity duration-200 ${isContentVisible ? 'opacity-100' : 'opacity-0'}`}>
                     {/* Header Section */}
                     <section className="max-w-4xl">
                         <h1 className="text-4xl font-bold tracking-tight mb-4">
-                            {isCompareMode ? "Systemic Analysis" : (defaultView === 'problems' ? "The Systemic Convergence" : "The Source Solution")}
+                            {activeCompareMode ? "Systemic Analysis" : (defaultView === 'problems' ? "The Systemic Convergence" : "The Source Solution")}
                         </h1>
                         <p className="text-xl text-muted-foreground max-w-lg">
-                            {isCompareMode
+                            {activeCompareMode
                                 ? "Comparing the converging systemic failures with the architectural solutions provided by SOURCE."
                                 : (defaultView === 'problems'
                                     ? "We are witnessing the convergence of multiple systemic crises, political, economic, social, and technological."
@@ -362,7 +375,7 @@ export function ComparisonView({ defaultView, initialCompareMode = false }: Comp
                     </section>
 
                     {/* SINGLE VIEW MODE */}
-                    {!isCompareMode && (
+                    {!activeCompareMode && (
                         <>
                             {/* Problems View */}
                             {defaultView === 'problems' && (
@@ -432,7 +445,7 @@ export function ComparisonView({ defaultView, initialCompareMode = false }: Comp
                     )}
 
                     {/* COMPARE MODE */}
-                    {isCompareMode && (
+                    {activeCompareMode && (
                         <>
                             {/* Macro Analysis Section */}
                             <ComparisonSection title="The Macro Problem Set" categories={MACRO_CATEGORIES} />
@@ -443,8 +456,8 @@ export function ComparisonView({ defaultView, initialCompareMode = false }: Comp
                     )}
 
                     {/* Footer */}
-                    <div className={`pt-24 pb-12 ${isCompareMode ? 'grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-6 lg:gap-12' : 'flex justify-center'}`}>
-                        <div className={isCompareMode ? 'lg:col-start-2 flex justify-center' : ''}>
+                    <div className={`pt-24 pb-12 ${activeCompareMode ? 'grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-6 lg:gap-12' : 'flex justify-center'}`}>
+                        <div className={activeCompareMode ? 'lg:col-start-2 flex justify-center' : ''}>
                             <Link
                                 href="/"
                                 className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 text-sm font-medium"
