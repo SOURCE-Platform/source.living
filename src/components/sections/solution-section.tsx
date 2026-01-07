@@ -9,7 +9,7 @@ export function SolutionSection() {
             <div className="w-full h-64 flex items-center justify-center mb-24 mt-32">
                 <svg
                     viewBox="0 0 100 100"
-                    className="h-full w-auto fill-black dark:fill-white"
+                    className="h-full w-auto fill-white"
                     xmlns="http://www.w3.org/2000/svg"
                 >
                     <circle cx="50" cy="50" r="50" />
