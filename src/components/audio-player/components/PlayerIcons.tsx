@@ -19,84 +19,71 @@ export const PauseIcon: React.FC<PlayerIconProps> = (props) => (
 );
 
 export const SkipBackIcon: React.FC<PlayerIconProps> = (props) => (
-  <svg width={44} height={44} viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <svg width={86} height={68} viewBox="0 0 86 68" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <path
-      d="M29.3291 33L16.9142 25.4131C14.3619 23.8534 14.3619 20.1466 16.9142 18.5869L29.3291 11"
+      d="M74.8887 3.4541C78.8885 1.14493 83.8883 4.032 83.8887 8.65039V59.4023C83.8885 64.0212 78.8884 66.9069 74.8887 64.5977L45.9521 47.8916C44.2017 46.8811 42.0137 48.1449 42.0137 50.166C42.0135 54.7849 37.0134 57.6706 33.0137 55.3613L5.06152 39.2236C1.06171 36.9142 1.06159 31.1404 5.06152 28.8311L33.0137 12.6934L33.3916 12.4922C37.3213 10.5665 42.0136 13.4151 42.0137 17.8896L42.0195 18.0762C42.1491 19.9858 44.2545 21.1402 45.9492 20.1621L74.8887 3.4541Z"
       stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
+      strokeWidth={4}
     />
   </svg>
 );
 
 export const SkipForwardIcon: React.FC<PlayerIconProps> = (props) => (
-  <svg width={44} height={44} viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <svg width={87} height={68} viewBox="0 0 87 68" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <path
-      d="M14.6709 33L27.0858 25.4131C29.6381 23.8534 29.6381 20.1466 27.0858 18.5869L14.6709 11"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-    />
-  </svg>
-);
-
-export const VolumeSpeakerIcon: React.FC<PlayerIconProps> = (props) => (
-  <svg width={60} height={62} viewBox="0 0 60 62" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-    <path
-      d="M48.4648 3.4541C52.4648 1.14482 57.4648 4.03169 57.4648 8.65039V53.5596C57.4648 58.1784 52.4648 61.0652 48.4648 58.7559L29.082 47.5654C28.7781 47.39 28.433 47.2979 28.082 47.2979H8.57227C5.25869 47.2979 2.57248 44.6114 2.57227 41.2979V20.9121L2.58008 20.6025C2.74098 17.4325 5.36225 14.9121 8.57227 14.9121H28.084C28.435 14.9121 28.78 14.819 29.084 14.6436L48.4648 3.4541Z"
+      d="M2.55762 8.22363C2.8544 3.85751 7.66755 1.21693 11.543 3.4541L40.4824 20.1621C42.2315 21.1715 44.4177 19.9092 44.418 17.8896V17.8887C44.4187 13.2706 49.4182 10.3841 53.418 12.6934L81.3701 28.832C85.3699 31.1414 85.3699 36.9142 81.3701 39.2236L53.418 55.3623C49.418 57.6717 44.4186 54.7852 44.418 50.167C44.418 48.1454 42.2292 46.8818 40.4785 47.8926L11.543 64.5986C7.54264 66.9081 2.54322 64.0204 2.54297 59.4023V8.65137L2.55762 8.22363Z"
       stroke="currentColor"
       strokeWidth={4}
     />
   </svg>
 );
 
-export const VolumeSpeakerMutedIcon: React.FC<PlayerIconProps> = (props) => (
-  <svg width={60} height={62} viewBox="0 0 60 62" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-    <path
-      d="M48.4648 3.4541C52.4648 1.14482 57.4648 4.03169 57.4648 8.65039V53.5596C57.4648 58.1784 52.4648 61.0652 48.4648 58.7559L29.082 47.5654C28.7781 47.39 28.433 47.2979 28.082 47.2979H8.57227C5.25869 47.2979 2.57248 44.6114 2.57227 41.2979V20.9121L2.58008 20.6025C2.74098 17.4325 5.36225 14.9121 8.57227 14.9121H28.084C28.435 14.9121 28.78 14.819 29.084 14.6436L48.4648 3.4541Z"
-      stroke="currentColor"
-      strokeWidth={4}
-    />
-    {/* Diagonal slash from top-left to bottom-right */}
-    <line
-      x1="5"
-      y1="5"
-      x2="55"
-      y2="57"
-      stroke="currentColor"
-      strokeWidth={4}
-      strokeLinecap="round"
-    />
-  </svg>
-);
-
+// Volume Waves Icon
 export const VolumeWavesIcon: React.FC<PlayerIconProps> = (props) => (
-  <svg width={31} height={56} viewBox="0 0 31 56" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <svg width={100} height={62} viewBox="0 0 100 62" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    {/* Speaker */}
     <path
-      d="M15.8076 2.64453C23.5059 8.5208 28.473 17.7931 28.473 28.2256C28.473 38.6581 23.5059 47.9304 15.8076 53.8067"
+      d="M48.4648 3.4541C52.4648 1.14482 57.4648 4.03169 57.4648 8.65039V53.5596C57.4648 58.1784 52.4648 61.0652 48.4648 58.7559L29.082 47.5654C28.7781 47.39 28.433 47.2979 28.082 47.2979H8.57227C5.25869 47.2979 2.57248 44.6114 2.57227 41.2979V20.9121L2.58008 20.6025C2.74098 17.4325 5.36225 14.9121 8.57227 14.9121H28.084C28.435 14.9121 28.78 14.819 29.084 14.6436L48.4648 3.4541Z"
       stroke="currentColor"
-      strokeWidth={4}
-      strokeLinecap="round"
+      strokeWidth={2.5}
     />
-    <path
-      d="M8.27637 8.05859C14.3454 12.6912 18.2612 20.0011 18.2612 28.2256C18.2612 36.4501 14.3454 43.76 8.27637 48.3926"
-      stroke="currentColor"
-      strokeWidth={4}
-      strokeLinecap="round"
-    />
-    <path
-      d="M2.66992 16.9023C6.0775 19.5034 8.27615 23.6078 8.27615 28.2256C8.27615 32.8434 6.0775 36.9478 2.66992 39.5488"
-      stroke="currentColor"
-      strokeWidth={4}
-      strokeLinecap="round"
-    />
+    {/* Waves */}
+    <g transform="translate(68, 3)">
+      <path
+        d="M15.8076 2.64453C23.5059 8.5208 28.473 17.7931 28.473 28.2256C28.473 38.6581 23.5059 47.9304 15.8076 53.8067"
+        stroke="currentColor"
+        strokeWidth={2.5}
+        strokeLinecap="round"
+      />
+      <path
+        d="M8.27637 8.05859C14.3454 12.6912 18.2612 20.0011 18.2612 28.2256C18.2612 36.4501 14.3454 43.76 8.27637 48.3926"
+        stroke="currentColor"
+        strokeWidth={2.5}
+        strokeLinecap="round"
+      />
+      <path
+        d="M2.66992 16.9023C6.0775 19.5034 8.27615 23.6078 8.27615 28.2256C8.27615 32.8434 6.0775 36.9478 2.66992 39.5488"
+        stroke="currentColor"
+        strokeWidth={2.5}
+        strokeLinecap="round"
+      />
+    </g>
   </svg>
 );
 
 export const VolumeMuteIcon: React.FC<PlayerIconProps> = (props) => (
-  <svg width={27} height={52} viewBox="0 0 27 52" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-    <path d="M3.79883 16.7188L22.8105 35.7286" stroke="currentColor" strokeWidth={4} strokeLinecap="round" />
-    <path d="M22.8105 16.7188L3.79885 35.7286" stroke="currentColor" strokeWidth={4} strokeLinecap="round" />
+  <svg width={100} height={62} viewBox="0 0 100 62" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    {/* Speaker */}
+    <path
+      d="M48.4648 3.4541C52.4648 1.14482 57.4648 4.03169 57.4648 8.65039V53.5596C57.4648 58.1784 52.4648 61.0652 48.4648 58.7559L29.082 47.5654C28.7781 47.39 28.433 47.2979 28.082 47.2979H8.57227C5.25869 47.2979 2.57248 44.6114 2.57227 41.2979V20.9121L2.58008 20.6025C2.74098 17.4325 5.36225 14.9121 8.57227 14.9121H28.084C28.435 14.9121 28.78 14.819 29.084 14.6436L48.4648 3.4541Z"
+      stroke="currentColor"
+      strokeWidth={2.5}
+    />
+    {/* X Icon */}
+    <g transform="translate(68, 5)">
+      <path d="M3.79883 16.7188L22.8105 35.7286" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" />
+      <path d="M22.8105 16.7188L3.79885 35.7286" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" />
+    </g>
   </svg>
 );
 

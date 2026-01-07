@@ -7,9 +7,8 @@ import {
     PlayIcon,
     SkipBackIcon,
     SkipForwardIcon,
-    VolumeSpeakerIcon,
-    VolumeSpeakerMutedIcon,
     VolumeWavesIcon,
+    VolumeMuteIcon,
 } from "./PlayerIcons";
 import { SegmentedTimeline } from "./SegmentedTimeline";
 
@@ -87,8 +86,8 @@ const ICON_SCALE = 0.35;
 
 const iconDimensions = {
     volumeSpeaker: { width: 60, height: 62 },
-    volumeMute: { width: 27, height: 52 },
-    volumeWaves: { width: 31, height: 56 },
+    volumeMute: { width: 100, height: 62 },
+    volumeWaves: { width: 100, height: 62 },
     skipBack: { width: 86, height: 68 },
     skipForward: { width: 87, height: 68 },
     play: { width: 102, height: 112 },
@@ -143,7 +142,7 @@ export const AudioWaveform: React.FC<AudioWaveformProps> = ({
     const skipSeconds = config.skipIntervalSeconds;
     const disabled = !isReady;
 
-    const volumeIconStyle = scaledStyle(iconDimensions.volumeSpeaker.width, iconDimensions.volumeSpeaker.height);
+    const volumeIconStyle = scaledStyle(iconDimensions.volumeWaves.width, iconDimensions.volumeWaves.height);
     const VolumeLevelIcon = VolumeWavesIcon;
     const volumeLevelStyle = scaledStyle(iconDimensions.volumeWaves.width, iconDimensions.volumeWaves.height);
     const skipBackStyle = scaledStyle(iconDimensions.skipBack.width, iconDimensions.skipBack.height);
@@ -228,7 +227,7 @@ export const AudioWaveform: React.FC<AudioWaveformProps> = ({
         ...controlsRowStyle,
         justifyItems: "center",
         gridTemplateColumns: isExpanded ? "auto 1fr auto" : "1fr",
-      };
+    };
 
     const expandableGroupStyle = (base: React.CSSProperties): React.CSSProperties => ({
         ...base,
@@ -336,23 +335,23 @@ export const AudioWaveform: React.FC<AudioWaveformProps> = ({
             )}
 
             <div className="audio-player-shell__controls" style={{ ...controlsRowDynamicStyle, background: "transparent" }}>
-               <div
-                 className="!hidden sm:!flex"
-                 onMouseEnter={() => setIsVolumeHovered(true)}
-                 onMouseLeave={() => setIsVolumeHovered(false)}
-                 style={{
-                   ...flexGroupStyle,
-                   justifySelf: "start",
-                   gap: 12,
-                   minWidth: "205px",
-                   opacity: isExpanded ? 1 : 0,
-                   pointerEvents: isExpanded ? "auto" : "none",
-                   transition: "opacity 0.5s ease",
-                   cursor: "pointer",
-                   position: "relative",
-                   zIndex: 50
-                 }}
-               >
+                <div
+                    className="!hidden sm:!flex"
+                    onMouseEnter={() => setIsVolumeHovered(true)}
+                    onMouseLeave={() => setIsVolumeHovered(false)}
+                    style={{
+                        ...flexGroupStyle,
+                        justifySelf: "start",
+                        gap: 12,
+                        minWidth: "205px",
+                        opacity: isExpanded ? 1 : 0,
+                        pointerEvents: isExpanded ? "auto" : "none",
+                        transition: "opacity 0.5s ease",
+                        cursor: "pointer",
+                        position: "relative",
+                        zIndex: 50
+                    }}
+                >
                     {/* Volume controls */}
                     <div
                         style={{
@@ -369,9 +368,9 @@ export const AudioWaveform: React.FC<AudioWaveformProps> = ({
                             aria-label={isMuted ? "Unmute" : "Mute"}
                         >
                             {isMuted ? (
-                                <VolumeSpeakerMutedIcon style={volumeIconStyle} aria-hidden="true" focusable="false" />
+                                <VolumeMuteIcon style={volumeIconStyle} aria-hidden="true" focusable="false" />
                             ) : (
-                                <VolumeSpeakerIcon style={volumeIconStyle} aria-hidden="true" focusable="false" />
+                                <VolumeWavesIcon style={volumeIconStyle} aria-hidden="true" focusable="false" />
                             )}
                         </button>
                         <input
@@ -427,16 +426,16 @@ export const AudioWaveform: React.FC<AudioWaveformProps> = ({
 
                 {/* Speed controls - full width version (hidden on mobile) */}
                 <div
-                  className="audio-player-shell__speed-group !hidden sm:!flex"
-                  style={{
-                    justifySelf: "end",
-                    justifyContent: "flex-end",
-                    gap: "8px",
-                    minWidth: "205px",
-                    transition: "opacity 0.5s ease",
-                    opacity: isExpanded ? 1 : 0,
-                    pointerEvents: isExpanded ? "auto" : "none",
-                  }}
+                    className="audio-player-shell__speed-group !hidden sm:!flex"
+                    style={{
+                        justifySelf: "end",
+                        justifyContent: "flex-end",
+                        gap: "8px",
+                        minWidth: "205px",
+                        transition: "opacity 0.5s ease",
+                        opacity: isExpanded ? 1 : 0,
+                        pointerEvents: isExpanded ? "auto" : "none",
+                    }}
                 >
                     {playbackRates.map((rate, index) => {
                         const isActive = index === playbackRateIndex;
@@ -461,14 +460,14 @@ export const AudioWaveform: React.FC<AudioWaveformProps> = ({
 
                 {/* Speed icon button (visible only on mobile) */}
                 <div
-                  className="!flex sm:!hidden"
-                  style={{
-                    justifySelf: "end",
-                    justifyContent: "flex-end",
-                    transition: "opacity 0.5s ease",
-                    opacity: isExpanded ? 1 : 0,
-                    pointerEvents: isExpanded ? "auto" : "none",
-                  }}
+                    className="!flex sm:!hidden"
+                    style={{
+                        justifySelf: "end",
+                        justifyContent: "flex-end",
+                        transition: "opacity 0.5s ease",
+                        opacity: isExpanded ? 1 : 0,
+                        pointerEvents: isExpanded ? "auto" : "none",
+                    }}
                 >
                     <button
                         type="button"
@@ -534,26 +533,26 @@ export const AudioWaveform: React.FC<AudioWaveformProps> = ({
                                         }}
                                         disabled={disabled}
                                         style={{
-                                          padding: "16px 24px",
-                                          fontSize: "18px",
-                                          fontWeight: 500,
-                                          border: "1px solid var(--audio-border)",
-                                          borderRadius: "8px",
-                                          backgroundColor: isActive ? "var(--audio-accent)" : "transparent",
-                                          color: isActive ? "#ffffff" : "var(--audio-text)",
-                                          cursor: disabled ? "not-allowed" : "pointer",
-                                          opacity: disabled ? 0.5 : 1,
-                                          transition: "all 0.2s ease",
+                                            padding: "16px 24px",
+                                            fontSize: "18px",
+                                            fontWeight: 500,
+                                            border: "1px solid var(--audio-border)",
+                                            borderRadius: "8px",
+                                            backgroundColor: isActive ? "var(--audio-accent)" : "transparent",
+                                            color: isActive ? "#ffffff" : "var(--audio-text)",
+                                            cursor: disabled ? "not-allowed" : "pointer",
+                                            opacity: disabled ? 0.5 : 1,
+                                            transition: "all 0.2s ease",
                                         }}
                                         onMouseEnter={(e) => {
-                                          if (!disabled && !isActive) {
-                                            e.currentTarget.style.backgroundColor = "var(--audio-button-hover-bg)";
-                                          }
+                                            if (!disabled && !isActive) {
+                                                e.currentTarget.style.backgroundColor = "var(--audio-button-hover-bg)";
+                                            }
                                         }}
                                         onMouseLeave={(e) => {
-                                          if (!disabled && !isActive) {
-                                            e.currentTarget.style.backgroundColor = "transparent";
-                                          }
+                                            if (!disabled && !isActive) {
+                                                e.currentTarget.style.backgroundColor = "transparent";
+                                            }
                                         }}
                                     >
                                         {rate.toFixed(rate % 1 === 0 ? 0 : 2)}x

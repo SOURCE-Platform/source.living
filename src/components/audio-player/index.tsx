@@ -93,8 +93,6 @@ export {
   PauseIcon,
   SkipBackIcon,
   SkipForwardIcon,
-  VolumeSpeakerIcon,
-  VolumeSpeakerMutedIcon,
   VolumeWavesIcon,
   VolumeMuteIcon,
   CloseIcon,

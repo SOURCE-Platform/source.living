@@ -9,7 +9,7 @@ import {
     SkipBackIcon,
     SkipForwardIcon,
     CloseIcon,
-    VolumeSpeakerIcon,
+    VolumeWavesIcon,
     VolumeMuteIcon
 } from "@/components/audio-player/components/PlayerIcons";
 
@@ -249,39 +249,18 @@ const GlobalPlayerContent = ({
             {/* RIGHT: Volume & Close */}
             <div className="flex items-center gap-6 flex-shrink-0">
                 {/* Volume Control */}
-                <div className="items-center gap-2 group w-28 justify-end hidden sm:flex">
+                <div className="items-center group flex justify-end hidden sm:flex">
                     <button
                         onClick={toggleMute}
                         className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
                         aria-label={isMuted ? "Unmute" : "Mute"}
                     >
                         {isMuted || volume === 0 ? (
-                            <VolumeMuteIcon style={{ width: 18, height: 18 }} />
+                            <VolumeMuteIcon style={{ width: 36, height: 22 }} />
                         ) : (
-                            <VolumeSpeakerIcon style={{ width: 18, height: 18 }} />
+                            <VolumeWavesIcon style={{ width: 36, height: 22 }} />
                         )}
                     </button>
-                    <div className="flex-1 h-1 bg-black/15 dark:bg-muted/50 rounded-full relative transition-colors">
-                        <div
-                            className="absolute inset-y-0 left-0 bg-foreground dark:bg-foreground rounded-full"
-                            style={{ width: `${volume * 100}%` }}
-                        >
-                            <div
-                                className="dark:hidden absolute inset-0 rounded-full"
-                                style={{ background: "var(--background-image-playgrade-light)" }}
-                            />
-                        </div>
-                        <input
-                            type="range"
-                            min="0"
-                            max="1"
-                            step="0.01"
-                            value={volume}
-                            onChange={handleVolumeChange}
-                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                            aria-label="Volume"
-                        />
-                    </div>
                 </div>
 
                 {/* Separator */}
