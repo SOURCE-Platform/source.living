@@ -329,7 +329,7 @@ export const GlobalPlayer = () => {
 
     return (
         <div
-            className={`fixed bottom-4 md:bottom-6 left-4 right-4 md:left-8 md:right-8 max-w-[1400px] mx-auto z-[100] rounded-full border border-black/5 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.24)] transition-all duration-500 cubic-bezier(0.32, 0.72, 0, 1) ${isClosing ? 'translate-y-[150%] opacity-0' : 'animate-in slide-in-from-bottom-[150%] opacity-100'
+            className={`fixed bottom-4 md:bottom-6 left-4 right-4 md:left-8 md:right-8 max-w-[1400px] mx-auto z-[100] rounded-full border border-black/5 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_48px_rgba(255,255,255,0.12)] transition-all duration-500 cubic-bezier(0.32, 0.72, 0, 1) ${isClosing ? 'translate-y-[150%] opacity-0' : 'animate-in slide-in-from-bottom-[150%] opacity-100'
                 } bg-[#F4F4F5] dark:bg-[#1F1F28]`}
             style={{ fontFamily: 'Outfit, sans-serif' }}
         >
