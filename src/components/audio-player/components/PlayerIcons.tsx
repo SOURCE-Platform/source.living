@@ -89,7 +89,7 @@ export const VolumeMuteIcon: React.FC<PlayerIconProps> = (props) => (
 
 export const CloseIcon: React.FC<PlayerIconProps> = (props) => (
   <svg width={101} height={102} viewBox="0 0 101 102" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-    <path d="M98.9678 2.56641L2.17236 99.3618M2.17236 2.56641L98.9678 99.3618" stroke="currentColor" strokeWidth={4} strokeLinecap="round" />
+    <path d="M98.9678 2.56641L2.17236 99.3618M2.17236 2.56641L98.9678 99.3618" stroke="currentColor" strokeWidth={3} strokeLinecap="round" />
   </svg>
 );
 
@@ -104,3 +104,15 @@ export const WordCaptionsIcon: React.FC<PlayerIconProps> = (props) => (
     <path d="M65.1922 6.67415L59.0987 1.25777C57.9621 0.247409 56.2492 0.24741 55.1126 1.25777L51.0122 4.90252C49.8756 5.91288 48.1627 5.91288 47.026 4.90252L42.9257 1.25777C41.789 0.247409 40.0762 0.24741 38.9395 1.25777L34.8392 4.90252C33.7025 5.91288 31.9897 5.91288 30.853 4.90252L26.7527 1.25777C25.616 0.247409 23.9031 0.24741 22.7665 1.25777L18.6661 4.90252C17.5295 5.91288 15.8166 5.91288 14.68 4.90252L10.5796 1.25777C9.44296 0.247409 7.73009 0.24741 6.59343 1.25777L0.5 6.67415" stroke="currentColor" strokeWidth={1} strokeLinecap="round" />
   </svg>
 );
+
+export const ChaptersListIcon: React.FC<PlayerIconProps> = (props) => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <g stroke="currentColor" strokeWidth="1" strokeLinecap="round">
+      <path d="M3 6h18" />
+      <path d="M3 10h12" />
+      <path d="M3 14h18" />
+      <path d="M3 18h8" />
+    </g>
+  </svg>
+);
+

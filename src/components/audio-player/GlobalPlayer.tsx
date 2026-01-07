@@ -10,8 +10,10 @@ import {
     SkipForwardIcon,
     CloseIcon,
     VolumeWavesIcon,
-    VolumeMuteIcon
+    VolumeMuteIcon,
+    ChaptersListIcon
 } from "@/components/audio-player/components/PlayerIcons";
+import { ChapterPopup } from "@/components/audio-player/components/ChapterPopup";
 
 const formatTime = (milliseconds: number) => {
     if (!Number.isFinite(milliseconds) || milliseconds < 0) return "0:00";
@@ -43,8 +45,11 @@ const GlobalPlayerContent = ({
         volume,
         setVolume,
         isMuted,
-        toggleMute
+        toggleMute,
+        chapters
     } = useAudioExperience();
+
+    const [showChapters, setShowChapters] = useState(false);
 
     // Bidirectional Sync Logic
     const prevGlobalRef = useRef(globalIsPlaying);
@@ -120,7 +125,7 @@ const GlobalPlayerContent = ({
     }, [disabled, togglePlayback, onClose, toggleMute]);
 
     return (
-        <div className="w-full mx-auto flex items-center justify-between h-20 px-6 sm:px-8 lg:px-12">
+        <div className="w-full mx-auto flex items-center justify-between h-16 md:h-20 px-3 sm:px-4 lg:px-6">
             <svg width="0" height="0" className="absolute block w-0 h-0 overflow-hidden" aria-hidden="true">
                 <defs>
                     <linearGradient id="playgrade" gradientTransform="rotate(22, 0.2, 0.5) translate(0.2, 0.5) scale(2.5) translate(-0.5, -0.5)">
@@ -152,9 +157,33 @@ const GlobalPlayerContent = ({
 
             {/* LEFT: Title & Controls */}
             <div className="flex items-center gap-6 flex-shrink-0">
-                {/* Title */}
-                <div className="flex flex-col min-w-0 max-w-[200px] md:max-w-[300px]">
-                    <span className="font-semibold text-sm truncate">{title}</span>
+                {/* Chapters & Title */}
+                <div className="relative flex items-center gap-3 min-w-0 max-w-[200px] md:max-w-[300px]">
+                    {chapters && chapters.length > 0 && (
+                        <div className="relative flex-shrink-0">
+                            {showChapters && (
+                                <ChapterPopup
+                                    title={title}
+                                    chapters={chapters}
+                                    onChapterClick={seekToMs}
+                                    onClose={() => setShowChapters(false)}
+                                />
+                            )}
+                            <button
+                                onClick={() => setShowChapters(!showChapters)}
+                                className="flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors p-1.5 rounded-md hover:bg-black/5 dark:hover:bg-white/5 data-[state=open]:text-foreground data-[state=open]:bg-black/5 dark:data-[state=open]:bg-white/5 cursor-pointer"
+                                aria-label="View Chapters"
+                                aria-expanded={showChapters}
+                                data-state={showChapters ? 'open' : 'closed'}
+                            >
+                                <ChaptersListIcon width={20} height={20} />
+                            </button>
+                        </div>
+                    )}
+
+                    <div className="hidden md:flex flex-col min-w-0 flex-1">
+                        <span className="font-semibold text-sm truncate" title={title}>{title}</span>
+                    </div>
                 </div>
 
                 {/* Controls */}
@@ -213,7 +242,7 @@ const GlobalPlayerContent = ({
             </div>
 
             {/* CENTER: Timeline */}
-            <div className="flex items-center gap-3 flex-1 px-8 lg:px-12 min-w-0">
+            <div className="flex items-center gap-3 flex-1 px-4 lg:px-6 min-w-0">
                 <span className="text-xs font-mono tabular-nums text-muted-foreground min-w-[35px] text-right">
                     {formatTime(currentTimeMs)}
                 </span>
@@ -266,16 +295,15 @@ const GlobalPlayerContent = ({
                     </button>
                 </div>
 
-                {/* Separator */}
-                <div className="w-px h-6 bg-border/50 hidden sm:block" />
+                {/* Separator - REMOVED */}
 
                 {/* Close Button */}
                 <button
                     onClick={onClose}
-                    className="p-1.5 -mr-1.5 text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                    className="flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors p-1.5 rounded-md hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer"
                     aria-label="Close Player"
                 >
-                    <CloseIcon style={{ width: 22, height: 22 }} />
+                    <CloseIcon style={{ width: 20, height: 20 }} />
                 </button>
             </div>
 
@@ -301,8 +329,8 @@ export const GlobalPlayer = () => {
 
     return (
         <div
-            className={`fixed bottom-0 md:bottom-6 left-4 right-4 md:left-8 md:right-8 max-w-[1400px] mx-auto z-[100] rounded-3xl md:rounded-full border border-black/5 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.24)] transition-all duration-500 cubic-bezier(0.32, 0.72, 0, 1) ${isClosing ? 'translate-y-[150%] opacity-0' : 'animate-in slide-in-from-bottom-[150%] opacity-100'
-                } bg-[#E4E4E7] dark:bg-[#1F1F28]`}
+            className={`fixed bottom-4 md:bottom-6 left-4 right-4 md:left-8 md:right-8 max-w-[1400px] mx-auto z-[100] rounded-full border border-black/5 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.24)] transition-all duration-500 cubic-bezier(0.32, 0.72, 0, 1) ${isClosing ? 'translate-y-[150%] opacity-0' : 'animate-in slide-in-from-bottom-[150%] opacity-100'
+                } bg-[#F4F4F5] dark:bg-[#1F1F28]`}
             style={{ fontFamily: 'Outfit, sans-serif' }}
         >
             <audio

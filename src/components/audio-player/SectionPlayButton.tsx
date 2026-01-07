@@ -1,38 +1,46 @@
-"use client";
-
+import { audioManifest } from "@/data/audio-manifest";
 import { useGlobalAudio } from "@/contexts/GlobalAudioContext";
 import { PlayIcon, PauseIcon } from "@/components/audio-player/components/PlayerIcons";
 import { WaveformAnimation } from "@/components/audio-player/components/WaveformAnimation";
-import { cn } from "@/lib/utils"; // Assuming cn is available, or I'll just use template literals
+import { cn } from "@/lib/utils";
 
 export const SectionPlayButton = ({
     title,
     audioSrc,
+    trackId,
     transcript,
     chapters,
     className
 }: {
-    title: string;
-    audioSrc: string;
+    title?: string;
+    audioSrc?: string;
+    trackId?: string;
     transcript?: any;
     chapters?: any;
     className?: string;
 }) => {
-    const { toggleTrack, currentTrack, isPlaying } = useGlobalAudio();
+    const { toggleTrack, toggleTrackById, currentTrack, isPlaying } = useGlobalAudio();
 
-    const isCurrentTrack = currentTrack?.src === audioSrc;
+    const manifestItem = trackId ? audioManifest.find(t => t.id === trackId) : null;
+    const effectiveSrc = manifestItem?.audioSrc || audioSrc;
+    const effectiveTitle = manifestItem?.title || title || "Audio";
+
+    const isCurrentTrack = currentTrack?.src === effectiveSrc;
     const isActive = isCurrentTrack && isPlaying;
 
     const handlePlay = (e: React.MouseEvent<HTMLButtonElement>) => {
-        // Blur the button immediately to prevent focus retention
         e.currentTarget.blur();
 
-        toggleTrack({
-            title,
-            src: audioSrc,
-            transcript: transcript || { utterances: [] },
-            chapters: chapters || []
-        });
+        if (trackId && toggleTrackById) {
+            toggleTrackById(trackId);
+        } else if (effectiveSrc && effectiveTitle) { // Fallback for legacy
+            toggleTrack({
+                title: effectiveTitle,
+                src: effectiveSrc,
+                transcript: transcript || { utterances: [] },
+                chapters: chapters || []
+            });
+        }
     };
 
     return (
@@ -68,7 +76,7 @@ export const SectionPlayButton = ({
             <button
                 onClick={handlePlay}
                 className={`inline-flex items-center justify-center rounded-lg pb-2 pt-1 transition-colors group cursor-pointer overflow-visible ${className}`}
-                aria-label={`Play section: ${title}`}
+                aria-label={`Play section: ${effectiveTitle}`}
                 title="Play audio for this section"
             >
                 {/* Visual improvement: show play icon. If active, maybe show a playing indicator or just the play icon styled differently */}

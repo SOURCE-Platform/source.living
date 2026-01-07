@@ -8,10 +8,7 @@ export function VisionSection() {
             <div className="flex items-center gap-5 w-full xs:max-w-[70%] mx-auto">
                 <h2 className="text-4xl font-bold text-foreground">Vision</h2>
                 <SectionPlayButton
-                    title="Vision"
-                    audioSrc="/audio/SOURCE%20Setting%20the%20Stage.mp3"
-                    transcript={TRANSCRIPT_DATA}
-                    chapters={CHAPTERS_DATA}
+                    trackId="source-setting-the-stage"
                 />
             </div>
             <div className="w-full xs:max-w-[70%] space-y-4 mx-auto">
