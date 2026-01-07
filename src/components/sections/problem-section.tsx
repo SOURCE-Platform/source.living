@@ -8,15 +8,15 @@ export function ProblemSection() {
         <section className="space-y-8">
             <div className="space-y-4">
                 <div className="w-full h-64 bg-muted/20 rounded-lg mb-8" />
-                <h2 className="text-4xl font-bold text-foreground max-w-[70%] mx-auto">The Problems</h2>
-                <p className="max-w-[70%] mx-auto">
+                <h2 className="text-4xl font-bold text-foreground w-full xs:max-w-[70%] mx-auto">The Problems</h2>
+                <p className="w-full xs:max-w-[70%] mx-auto">
                     We are facing a simultaneous convergence of systemic failures that are reshaping human civilization. The "Data Wall"—the limit of current AI—is just one component of this larger crisis.
                 </p>
             </div>
 
             {/* 1. The Data Wall */}
             <div className="space-y-4">
-                <div className="flex items-center gap-5 max-w-[70%] mx-auto">
+                <div className="flex items-center gap-5 w-full xs:max-w-[70%] mx-auto">
                     <h3 className="text-3xl font-bold text-foreground">1. The Data Wall</h3>
                     <SectionPlayButton
                         title="The Data Wall"
@@ -25,13 +25,13 @@ export function ProblemSection() {
                         chapters={CHAPTERS_DATA}
                     />
                 </div>
-                <p className="max-w-[70%] mx-auto">
+                <p className="w-full xs:max-w-[70%] mx-auto">
                     We have thrown the entire internet at Transformers. While effective, this approach is constrained by the <strong className="text-foreground">qualitative</strong> and <strong className="text-foreground">quantitative</strong> limitations of the data source itself.
                 </p>
 
                 <div className="space-y-8 py-6">
-                    <div className="flex flex-col md:flex-row gap-8 items-start">
-                        <div className="w-full md:w-48 h-48 shrink-0 bg-muted/20 rounded-lg" />
+                    <div className="flex flex-col xs:flex-row gap-8 items-start">
+                        <div className="w-full xs:w-24 xs:h-24 md:w-48 md:h-48 h-48 shrink-0 bg-muted/20 rounded-lg" />
                         <div>
                             <div className="mb-2 w-fit rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-semibold text-foreground uppercase tracking-wider">Qualitative</div>
                             <h4 className="text-xl font-bold text-foreground mb-2">Low Quality Data</h4>
@@ -40,8 +40,8 @@ export function ProblemSection() {
                             </p>
                         </div>
                     </div>
-                    <div className="flex flex-col md:flex-row gap-8 items-start">
-                        <div className="w-full md:w-48 h-48 shrink-0 bg-muted/20 rounded-lg" />
+                    <div className="flex flex-col xs:flex-row gap-8 items-start">
+                        <div className="w-full xs:w-24 xs:h-24 md:w-48 md:h-48 h-48 shrink-0 bg-muted/20 rounded-lg" />
                         <div>
                             <div className="mb-2 w-fit rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-semibold text-foreground uppercase tracking-wider">Quantitative</div>
                             <h4 className="text-xl font-bold text-foreground mb-2">Low Quantity Data</h4>
@@ -56,7 +56,7 @@ export function ProblemSection() {
             {/* 2. The Expanded Problem Set */}
             <div className="space-y-4 mt-24">
                 <div className="w-full h-64 bg-muted/20 rounded-lg mb-8" />
-                <div className="flex items-center gap-5 max-w-[70%] mx-auto">
+                <div className="flex items-center gap-5 w-full xs:max-w-[70%] mx-auto">
                     <h3 className="text-3xl font-bold text-foreground">2. The Systemic Convergence</h3>
                     <SectionPlayButton
                         title="The Systemic Convergence"
@@ -65,7 +65,7 @@ export function ProblemSection() {
                         chapters={CHAPTERS_DATA}
                     />
                 </div>
-                <p className="max-w-[70%] mx-auto">
+                <p className="w-full xs:max-w-[70%] mx-auto">
                     Beyond the AI data bottleneck, failure modes are converging across the entire stack. From macro-institutional decay to micro-biological strain, the friction of existence is rising uniformly.
                 </p>
 
@@ -149,7 +149,7 @@ export function ProblemSection() {
 
                     <TransitionLink
                         href="/convergence"
-                        className="flex w-[calc(100%+32px)] -mx-4 -mb-6 items-center rounded-xl border border-transparent bg-white dark:bg-[#171720] px-8 py-4 text-sm font-bold text-foreground shadow-lg hover:shadow-xl dark:shadow-[0_0_20px_rgba(151,161,251,0.5)] dark:hover:shadow-[0_0_30px_rgba(151,161,251,0.8)] transition-all hover:bg-[#f2f3fa] dark:hover:bg-[#1c1c27] playgrade-border hover:scale-[1.01] active:scale-[0.99] -mt-px group relative z-10"
+                        className="flex w-full items-center rounded-xl border border-transparent bg-white dark:bg-[#171720] px-8 py-4 text-sm font-bold text-foreground shadow-lg hover:shadow-xl dark:shadow-[0_0_20px_rgba(151,161,251,0.5)] dark:hover:shadow-[0_0_30px_rgba(151,161,251,0.8)] transition-all hover:bg-[#f2f3fa] dark:hover:bg-[#1c1c27] playgrade-border hover:scale-[1.01] active:scale-[0.99] group relative z-10"
                     >
                         <span className="flex-1 text-center font-bold">Systemic Convergence Analysis</span>
                         <svg width="50" height="12" viewBox="0 0 50 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-4 group-hover:translate-x-1 transition-all duration-300 opacity-75 group-hover:opacity-100 [--pg-stop-1:#02ABFF] [--pg-stop-2:#02ABFF] [--pg-stop-3:#001AFF] dark:[--pg-stop-1:#FFC1D5] dark:[--pg-stop-2:#FEFFE3] dark:[--pg-stop-3:#97A1FB] [--pg-h-stop-1:#02ABFF] [--pg-h-stop-2:#001AFF] dark:[--pg-h-stop-1:#FFC1D5] dark:[--pg-h-stop-2:#FEFFE3]">

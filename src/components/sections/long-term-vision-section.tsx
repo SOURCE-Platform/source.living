@@ -5,7 +5,7 @@ export function LongTermVisionSection() {
     return (
         <section className="space-y-4">
             <div className="w-full h-64 bg-muted/20 rounded-lg mb-8" />
-            <div className="flex items-center gap-5 max-w-[70%] mx-auto">
+            <div className="flex items-center gap-5 w-full xs:max-w-[70%] mx-auto">
                 <h2 className="text-4xl font-bold text-foreground">The Long-Term Vision</h2>
                 <SectionPlayButton
                     title="The Long-Term Vision"
@@ -14,7 +14,7 @@ export function LongTermVisionSection() {
                     chapters={CHAPTERS_DATA}
                 />
             </div>
-            <div className="max-w-[70%] space-y-4 mx-auto">
+            <div className="w-full xs:max-w-[70%] space-y-4 mx-auto">
                 <p className="font-semibold text-foreground">
                     SuperIntelligence Requires SuperAwareness.
                 </p>
