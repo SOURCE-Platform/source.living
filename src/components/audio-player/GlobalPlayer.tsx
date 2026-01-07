@@ -84,7 +84,7 @@ const GlobalPlayerContent = ({
         setVolume(Number(e.target.value));
     };
 
-    // Global Space Key Listener for Play/Pause
+    // Global Keyboard Listeners
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             // Ignore if user is typing in an input
@@ -102,6 +102,9 @@ const GlobalPlayerContent = ({
                 if (!disabled) {
                     togglePlayback();
                 }
+            } else if (e.code === 'KeyM') {
+                e.preventDefault();
+                toggleMute();
             } else if (e.code === 'Escape') {
                 e.preventDefault();
                 onClose();
@@ -114,7 +117,7 @@ const GlobalPlayerContent = ({
         return () => {
             document.removeEventListener('keydown', handleKeyDown, true);
         };
-    }, [disabled, togglePlayback, onClose]);
+    }, [disabled, togglePlayback, onClose, toggleMute]);
 
     return (
         <div className="w-full mx-auto flex items-center justify-between h-20 px-6 sm:px-8 lg:px-12">
