@@ -25,6 +25,16 @@
   --color-sidebar-primary: var(--sidebar-primary);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar: var(--sidebar);
+
+  /* Dynamic Font Variables */
+  --font-paragraph: var(--font-pp-mori);
+  --font-header: var(--font-pp-mori);
+  --paragraph-scale: 1;
+  --paragraph-scale: 1;
+  --header-scale: 1;
+  --paragraph-spacing: 0em;
+  --header-spacing: 0em;
+
   --color-chart-5: var(--chart-5);
   --color-chart-4: var(--chart-4);
   --color-chart-3: var(--chart-3);
@@ -135,6 +145,37 @@
     @apply border-border outline-ring/50;
   }
 
+  h1,
+  h2,
+  h3,
+  h5,
+  h6 {
+    font-family: var(--font-header);
+    letter-spacing: var(--header-spacing) !important;
+  }
+
+  h1 {
+    font-size: calc(2.5rem * var(--header-scale)) !important;
+  }
+
+  h2 {
+    font-size: calc(2.0rem * var(--header-scale)) !important;
+  }
+
+  h3 {
+    font-size: calc(1.75rem * var(--header-scale)) !important;
+  }
+
+
+
+  h5 {
+    font-size: calc(1.25rem * var(--header-scale)) !important;
+  }
+
+  h6 {
+    font-size: calc(1.0rem * var(--header-scale)) !important;
+  }
+
   html {
     overscroll-behavior: none;
     background-image: var(--gradient-background);
@@ -143,7 +184,10 @@
   }
 
   body {
-    @apply bg-background text-foreground antialiased font-sans;
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-paragraph);
+    font-size: calc(1rem * var(--paragraph-scale)) !important;
+    letter-spacing: var(--paragraph-spacing) !important;
     transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out,
       background-image 0.5s ease-in-out;
     background-image: var(--gradient-background);

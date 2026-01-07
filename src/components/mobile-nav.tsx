@@ -1,15 +1,17 @@
+/* eslint-disable @next/next/no-img-element */
 'use client'
 
 import { CircularMenu, MenuItem } from '@w3rk17/circular-menu-next'
 import { useTheme } from 'next-themes'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect, useRef } from 'react'
-import { Mail, Monitor, Moon, Sun, Palette, FileText, Type } from 'lucide-react'
+import { Mail, FileText, Type, X } from 'lucide-react'
+import { SystemIcon, DarkIcon, LightIcon } from '@/components/icons/theme-icons'
 import Image from 'next/image'
 import { useTransitionTo } from '@/components/providers/transition-context'
 import { cn } from '@/lib/utils'
 
-const FONTS = [
+const PARAGRAPH_FONTS = [
     { name: 'Default (PP Mori)', value: 'var(--font-pp-mori)' },
     { name: 'Cabin', value: '"Cabin", sans-serif' },
     { name: 'Figtree', value: '"Figtree", sans-serif' },
@@ -22,17 +24,46 @@ const FONTS = [
     { name: 'Urbanist', value: '"Urbanist", sans-serif' },
 ];
 
+const HEADER_FONTS = [
+    { name: 'Default (PP Mori)', value: 'var(--font-pp-mori)' },
+    { name: 'Atkinson Hyperlegible Mono', value: '"Atkinson Hyperlegible Mono", monospace' },
+    { name: 'Inconsolata', value: '"Inconsolata", monospace' },
+    { name: 'Source Code Pro', value: '"Source Code Pro", monospace' },
+    { name: 'Space Mono', value: '"Space Mono", monospace' },
+    { name: 'Forum', value: '"Forum", serif' },
+    { name: 'Antic Didone', value: '"Antic Didone", serif' },
+    { name: 'Paprika', value: '"Paprika", serif' },
+    { name: 'Montaga', value: '"Montaga", serif' },
+    { name: 'Aref Ruqaa Ink', value: '"Aref Ruqaa Ink", serif' },
+    { name: 'Public Sans', value: '"Public Sans", sans-serif' },
+    { name: 'Funnel Display', value: '"Funnel Display", sans-serif' },
+];
+
 export function MobileNav() {
     const { theme: currentTheme, resolvedTheme, setTheme } = useTheme()
     const { transitionTo } = useTransitionTo()
     const router = useRouter()
-    const [activeFont, setActiveFont] = useState(FONTS[0].value);
+
+    // Independent font states
+    const [activeParagraphFont, setActiveParagraphFont] = useState(PARAGRAPH_FONTS[0].value);
+    const [activeHeaderFont, setActiveHeaderFont] = useState(HEADER_FONTS[5].value); // Default to Forum
+    const [activeParagraphScale, setActiveParagraphScale] = useState(1);
+    const [activeHeaderScale, setActiveHeaderScale] = useState(1.4);
+    const [activeParagraphSpacing, setActiveParagraphSpacing] = useState(0);
+    const [activeHeaderSpacing, setActiveHeaderSpacing] = useState(-0.03);
+
+    // UI states
     const [showFonts, setShowFonts] = useState(false);
-    const [showThemes, setShowThemes] = useState(false);
+    const [activeTab, setActiveTab] = useState<'paragraph' | 'header'>('paragraph');
 
     useEffect(() => {
-        document.body.style.fontFamily = activeFont;
-    }, [activeFont]);
+        document.documentElement.style.setProperty('--font-paragraph', activeParagraphFont);
+        document.documentElement.style.setProperty('--font-header', activeHeaderFont);
+        document.documentElement.style.setProperty('--paragraph-scale', activeParagraphScale.toString());
+        document.documentElement.style.setProperty('--header-scale', activeHeaderScale.toString());
+        document.documentElement.style.setProperty('--paragraph-spacing', `${activeParagraphSpacing}em`);
+        document.documentElement.style.setProperty('--header-spacing', `${activeHeaderSpacing}em`);
+    }, [activeParagraphFont, activeHeaderFont, activeParagraphScale, activeHeaderScale, activeParagraphSpacing, activeHeaderSpacing]);
 
     const [isVisible, setIsVisible] = useState(true);
     const lastScrollTop = useRef(0);
@@ -63,20 +94,20 @@ export function MobileNav() {
             id: 'home',
             label: 'Home',
             icon: (
-                <div className="flex items-center gap-2">
-                    <Image
+                <div className="flex items-center gap-[18px]">
+                    <img
                         src="/logo/SOURCE-pictogram.svg"
                         alt=""
-                        width={32}
-                        height={32}
-                        className="rounded-full flex-shrink-0 invert dark:invert-0"
+                        width={44}
+                        height={44}
+                        className="h-11 w-11 min-w-[2.75rem] rounded-full flex-shrink-0 invert dark:invert-0"
                     />
-                    <Image
+                    <img
                         src="/logo/SOURCE-wordmark.svg"
                         alt="SOURCE"
-                        width={80}
-                        height={24}
-                        className="flex-shrink-0 invert dark:invert-0"
+                        width={184}
+                        height={34}
+                        className="h-8 w-auto flex-shrink-0 invert dark:invert-0"
                     />
                 </div>
             ),
@@ -105,20 +136,6 @@ export function MobileNav() {
             onClick: () => router.push('/#contact')
         },
         {
-            id: 'theme',
-            label: 'Theme',
-            icon: (
-                <div className="flex items-center gap-2 pr-2">
-                    <Palette className="h-5 w-5" />
-                    <span className="text-sm font-medium">Theme</span>
-                </div>
-            ),
-            onClick: () => {
-                setShowFonts(false)
-                setShowThemes(!showThemes)
-            }
-        },
-        {
             id: 'font-switcher',
             label: 'Typography',
             icon: (
@@ -128,17 +145,66 @@ export function MobileNav() {
                 </div>
             ),
             onClick: () => {
-                setShowThemes(false)
                 setShowFonts(!showFonts)
             }
+        },
+        {
+            id: 'theme-header',
+            label: 'THEME',
+            icon: (
+                <div className="flex items-center gap-2 pr-2 opacity-50">
+                    <span className="text-[10px] font-bold tracking-[0.2em] uppercase translate-y-1">THEME</span>
+                </div>
+            ),
+            onClick: () => { }
+        },
+        {
+            id: 'theme-system',
+            label: 'System',
+            icon: (
+                <div className="flex items-center gap-2 pr-2">
+                    <SystemIcon className="h-5 w-5" theme={resolvedTheme} />
+                    <span className="text-sm font-medium">System</span>
+                </div>
+            ),
+            onClick: () => setTheme('system')
+        },
+        {
+            id: 'theme-dark',
+            label: 'Dark',
+            icon: (
+                <div className="flex items-center gap-2 pr-2">
+                    <DarkIcon className="h-5 w-5" theme={resolvedTheme} />
+                    <span className="text-sm font-medium">Dark</span>
+                </div>
+            ),
+            onClick: () => setTheme('dark')
+        },
+        {
+            id: 'theme-light',
+            label: 'Light',
+            icon: (
+                <div className="flex items-center gap-2 pr-2">
+                    <LightIcon className="h-5 w-5" theme={resolvedTheme} />
+                    <span className="text-sm font-medium">Light</span>
+                </div>
+            ),
+            onClick: () => setTheme('light')
         }
     ]
+
+    const currentFonts = activeTab === 'paragraph' ? PARAGRAPH_FONTS : HEADER_FONTS;
+    const currentActiveFont = activeTab === 'paragraph' ? activeParagraphFont : activeHeaderFont;
+    const currentScale = activeTab === 'paragraph' ? activeParagraphScale : activeHeaderScale;
+    const setScale = activeTab === 'paragraph' ? setActiveParagraphScale : setActiveHeaderScale;
+    const currentSpacing = activeTab === 'paragraph' ? activeParagraphSpacing : activeHeaderSpacing;
+    const setSpacing = activeTab === 'paragraph' ? setActiveParagraphSpacing : setActiveHeaderSpacing;
 
     return (
         <>
             <div
                 className={cn(
-                    "fixed top-0 right-0 z-50 transition-opacity duration-300",
+                    "fixed top-[-24px] right-0 z-50 transition-opacity duration-300",
                     isVisible ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
                 )}
             >
@@ -152,56 +218,88 @@ export function MobileNav() {
                 />
             </div>
 
-            {showThemes && (
-                <div className="fixed top-24 right-6 z-[100] bg-card/90 backdrop-blur-md border border-border rounded-lg shadow-xl p-4 w-48">
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3 border-b border-border/50 pb-2">
-                        Select Theme
-                    </h3>
-                    <ul className="space-y-1">
-                        {[
-                            { name: 'Light', value: 'light', icon: Sun },
-                            { name: 'Dark', value: 'dark', icon: Moon },
-                            { name: 'System', value: 'system', icon: Monitor },
-                        ].map((theme) => (
-                            <li key={theme.name}>
-                                <button
-                                    onClick={() => {
-                                        setTheme(theme.value);
-                                        setShowThemes(false);
-                                    }}
-                                    className={`
-                                        w-full text-left text-sm px-2 py-1.5 rounded-md transition-all flex items-center gap-2
-                                        ${currentTheme === theme.value
-                                            ? 'bg-primary text-primary-foreground font-medium'
-                                            : 'text-foreground hover:bg-muted font-normal text-muted-foreground hover:text-foreground'
-                                        }
-                                    `}
-                                >
-                                    <theme.icon className="h-4 w-4" />
-                                    {theme.name}
-                                </button>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            )}
-
             {showFonts && (
                 <div className="fixed top-24 right-6 z-[100] bg-card/90 backdrop-blur-md border border-border rounded-lg shadow-xl p-4 w-48 max-h-[80vh] overflow-y-auto">
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3 border-b border-border/50 pb-2">
-                        Select Typeface
-                    </h3>
+                    <button
+                        onClick={() => setShowFonts(false)}
+                        className="absolute top-2 right-2 text-muted-foreground hover:text-foreground transition-colors"
+                        aria-label="Close typography menu"
+                    >
+                        <X className="h-4 w-4" />
+                    </button>
+                    <div className="flex items-center justify-between mb-3 border-b border-border/50 pb-2 mt-4">
+                        <button
+                            onClick={() => setActiveTab('paragraph')}
+                            className={cn(
+                                "text-xs font-bold uppercase tracking-wider transition-colors",
+                                activeTab === 'paragraph' ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                            )}
+                        >
+                            Paragraph
+                        </button>
+                        <button
+                            onClick={() => setActiveTab('header')}
+                            className={cn(
+                                "text-xs font-bold uppercase tracking-wider transition-colors",
+                                activeTab === 'header' ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                            )}
+                        >
+                            Header
+                        </button>
+                    </div>
+
+                    <div className="mb-4 px-1 space-y-3">
+                        {/* Font Size Slider */}
+                        <div>
+                            <div className="flex justify-between items-center mb-1">
+                                <span className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Scale</span>
+                                <span className="text-[10px] text-muted-foreground font-mono">{currentScale.toFixed(1)}x</span>
+                            </div>
+                            <input
+                                type="range"
+                                min="0.5"
+                                max="2"
+                                step="0.1"
+                                value={currentScale}
+                                onChange={(e) => setScale(parseFloat(e.target.value))}
+                                className="w-full h-1.5 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
+                            />
+                        </div>
+
+                        {/* Letter Spacing Slider */}
+                        <div>
+                            <div className="flex justify-between items-center mb-1">
+                                <span className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Spacing</span>
+                                <span className="text-[10px] text-muted-foreground font-mono">{currentSpacing.toFixed(2)}em</span>
+                            </div>
+                            <input
+                                type="range"
+                                min="-0.1"
+                                max="0.5"
+                                step="0.01"
+                                value={currentSpacing}
+                                onChange={(e) => setSpacing(parseFloat(e.target.value))}
+                                className="w-full h-1.5 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
+                            />
+                        </div>
+                    </div>
+
                     <ul className="space-y-1">
-                        {FONTS.map((font) => (
+                        {currentFonts.map((font) => (
                             <li key={font.name}>
                                 <button
                                     onClick={() => {
-                                        setActiveFont(font.value);
-                                        setShowFonts(false);
+                                        if (activeTab === 'paragraph') {
+                                            setActiveParagraphFont(font.value);
+                                        } else {
+                                            setActiveHeaderFont(font.value);
+                                        }
+                                        // Don't close logic so user can experiment
+                                        // setShowFonts(false); 
                                     }}
                                     className={`
                       w-full text-left text-sm px-2 py-1.5 rounded-md transition-all
-                      ${activeFont === font.value
+                      ${currentActiveFont === font.value
                                             ? 'bg-primary text-primary-foreground font-medium'
                                             : 'text-foreground hover:bg-muted font-normal text-muted-foreground hover:text-foreground'
                                         }
