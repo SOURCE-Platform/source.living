@@ -405,25 +405,28 @@ export function ComparisonView({ defaultView, initialCompareMode = false }: Comp
                 {/* Sentinel for sticky detection */}
                 <div id="header-sentinel" className="absolute top-0 h-12 w-full pointer-events-none opacity-0" />
 
-                <div className="mb-6 flex items-center justify-center sm:justify-end sticky top-0 z-40 bg-transparent py-4 mt-32 sm:mt-0 transition-all duration-300 pointer-events-none">
+                <div className="mb-6 flex items-center justify-center sm:justify-end sticky top-0 z-40 bg-transparent py-4 mt-32 sm:mt-0 transition-all duration-300 pointer-events-none sm:pr-4">
                     <div className={`transition-all duration-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
                         <div className={`
-                            flex items-center gap-3 px-4 py-2 rounded-full border transition-all duration-300
+                            flex items-center gap-5 px-6 py-2 rounded-full border transition-all duration-300 pointer-events-auto
                             ${isStuck
                                 ? 'bg-background/80 backdrop-blur-md border-border shadow-md dark:shadow-[0_0_20px_rgba(255,255,255,0.15)] transform translate-y-2'
                                 : 'bg-muted/20 border-transparent sm:border-border'
                             }
                         `}>
-                            <span className="text-sm font-medium text-muted-foreground">
-                                {defaultView === 'problems' ? "Problems View" : "Solutions View"}
-                            </span>
+                            <button
+                                onClick={() => setIsCompareMode(false)}
+                                className={`text-sm font-medium transition-colors hover:text-foreground cursor-pointer ${!isCompareMode ? 'text-foreground' : 'text-muted-foreground'}`}
+                            >
+                                {defaultView === 'problems' ? "Problems" : "Solutions"}
+                            </button>
 
                             <button
                                 onClick={() => setIsCompareMode(!isCompareMode)}
                                 className="relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 focus:outline-none cursor-pointer bg-muted overflow-hidden"
                             >
                                 <div
-                                    className={`absolute inset-0 transition-opacity duration-200 ${isCompareMode ? 'opacity-100' : 'opacity-0'} bg-[image:var(--blue-button)] dark:bg-[image:var(--background-image-playgrade)]`}
+                                    className={`absolute inset-0 transition-opacity duration-200 opacity-100 bg-[image:var(--blue-button)] dark:bg-[image:var(--background-image-playgrade)]`}
                                 />
                                 <span
                                     className={`
@@ -433,9 +436,12 @@ export function ComparisonView({ defaultView, initialCompareMode = false }: Comp
                                 />
                             </button>
 
-                            <span className={`text-sm font-medium ${isCompareMode ? 'text-foreground' : 'text-muted-foreground'}`}>
+                            <button
+                                onClick={() => setIsCompareMode(true)}
+                                className={`text-sm font-medium transition-colors hover:text-foreground cursor-pointer ${isCompareMode ? 'text-foreground' : 'text-muted-foreground'}`}
+                            >
                                 Compare
-                            </span>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -451,7 +457,7 @@ export function ComparisonView({ defaultView, initialCompareMode = false }: Comp
                         </div>
 
                         <h1 className={`text-4xl font-bold tracking-tight transition-opacity duration-200 ${isContentVisible ? 'opacity-100' : 'opacity-0'}`}>
-                            {activeCompareMode ? "Systemic Analysis" : (defaultView === 'problems' ? "The Systemic Convergence" : "The Source Solution")}
+                            {activeCompareMode ? "Systemic Analysis" : (defaultView === 'problems' ? "The Systemic Convergence" : "The SOURCE Solution")}
                         </h1>
                     </div>
                     <p className={`text-xl text-muted-foreground max-w-lg transition-opacity duration-200 ${isContentVisible ? 'opacity-100' : 'opacity-0'}`}>
@@ -459,7 +465,7 @@ export function ComparisonView({ defaultView, initialCompareMode = false }: Comp
                             ? "Comparing the converging systemic failures with the architectural solutions provided by SOURCE."
                             : (defaultView === 'problems'
                                 ? "We are witnessing the convergence of multiple systemic crises, political, economic, social, and technological."
-                                : "How the Source Platform systematically addresses the converging crises through Ambient Computing and High-Resolution Data.")}
+                                : "How the SOURCE Platform systematically addresses the converging crises through Ambient Computing and High-Resolution Data.")}
                     </p>
                 </section>
 

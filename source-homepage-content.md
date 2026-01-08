@@ -1,4 +1,4 @@
-# The Source Platform
+# The SOURCE Platform
 
 ## A New Computing Architecture for Civilization
 
@@ -14,7 +14,7 @@ To put it simply: We lack high-quality, **high-resolution behavioral data**. Wit
 
 ## The Solution: Total Context Awareness
 
-Source is designed to solve the core problem of data resolution. It creates a system that is always listening and watching, capturing a **constant stream of data** across both **digital** and **physical** spaces.
+SOURCE is designed to solve the core problem of data resolution. It creates a system that is always listening and watching, capturing a **constant stream of data** across both **digital** and **physical** spaces.
 
 - **Deep Insight:** We capture workflows, real-time feedback, emotional intensity, and responses to stimuli.
 
@@ -22,27 +22,27 @@ Source is designed to solve the core problem of data resolution. It creates a sy
 
 - **Daily Granularity:** We track habits and schedules that current AI remains blind to.
 
-By knowing the user on a holistic level, Source allows AI to detect problems faster—before they **metastasize** into toxic issues regarding mental, physical, or relationship health—and craft fine-tuned solutions based on specific user specifications.
+By knowing the user on a holistic level, SOURCE allows AI to detect problems faster—before they **metastasize** into toxic issues regarding mental, physical, or relationship health—and craft fine-tuned solutions based on specific user specifications.
 
 ---
 
 ## Technical Architecture: The Architecture of Reality
 
-Source is a hardware and software platform designed to bring true intelligence and awareness to the physical home. By bridging the gap between physical behavior and digital activity, Source creates a "True Record of Reality," enabling the next generation of Agentic Automation and immersive social connection.
+SOURCE is a hardware and software platform designed to bring true intelligence and awareness to the physical home. By bridging the gap between physical behavior and digital activity, SOURCE creates a "True Record of Reality," enabling the next generation of Agentic Automation and immersive social connection.
 
 ### I. The Hardware Architecture
 
-Source functions on a decentralized, AI-native infrastructure installed directly within the user's environment.
+SOURCE functions on a decentralized, AI-native infrastructure installed directly within the user's environment.
 
 - **Central Compute:** A dedicated, AI-first server (equipped with 2+ GPUs) installed in the home (closet/wall mount).
 
 - **Sensor Grid:** Hardwired via shielded Cat6/Ethernet to sensor arrays embedded in every wall. Each array comprises microphones, video sensors, Lidar, and speakers.
 
-- **Total Awareness:** This architecture allows Source to view, understand, and catalog every object and inhabitant within the space, effectively bringing intelligence to the home itself.
+- **Total Awareness:** This architecture allows SOURCE to view, understand, and catalog every object and inhabitant within the space, effectively bringing intelligence to the home itself.
 
 ### II. The Software Layer & Behavioral Intelligence
 
-Source operates an OS-level application that acts as a comprehensive surveillance and analysis tool for the user's digital life.
+SOURCE operates an OS-level application that acts as a comprehensive surveillance and analysis tool for the user's digital life.
 
 - **Activity Capture:** Logs all keystrokes, mouse movements, application usage, and complex workflows.
 
@@ -52,7 +52,7 @@ Source operates an OS-level application that acts as a comprehensive surveillanc
 
 ### III. Privacy & The Immutable Record
 
-To address the crisis of synthetic media, Source establishes an objective baseline of truth.
+To address the crisis of synthetic media, SOURCE establishes an objective baseline of truth.
 
 - **The Secure Enclave:** All data processing occurs locally within a Secure Enclave.
 
@@ -62,7 +62,7 @@ To address the crisis of synthetic media, Source establishes an objective baseli
 
 ### IV. Use Cases & Market Application
 
-- **Agentic Automation:** By understanding the specific needs and repetitive workflows of the user, Source autonomously generates programs to execute tasks on the user's behalf.
+- **Agentic Automation:** By understanding the specific needs and repetitive workflows of the user, SOURCE autonomously generates programs to execute tasks on the user's behalf.
 
 - **The "Movie Studio in the Home":** The hardware configuration enables **Real-Time 4D Gaussian Splatting**. Users can capture fully interactive, volumetric video of their lives.
 
@@ -74,35 +74,35 @@ We are undertaking a massive R&D effort to build a Human Behavioral Model based 
 
 ---
 
-## Source ID
+## SOURCE ID
 
 ### The future of frictionless identity
 
 ### Product Overview
 
-Source ID is the inevitable future of identity—a shift from "clumsy" legacy authentication (passports, passwords, cards) and high-friction biometrics (FaceID, palm scanners) to a state of frictionless existence. Source ID authenticates the user not by what they hold, but by **who they are**.
+SOURCE ID is the inevitable future of identity—a shift from "clumsy" legacy authentication (passports, passwords, cards) and high-friction biometrics (FaceID, palm scanners) to a state of frictionless existence. SOURCE ID authenticates the user not by what they hold, but by **who they are**.
 
 ### The Philosophy
 
-For all of history, identity has been physical and disconnected. Source ID digitizes the natural, "holistic" way humans identify friends: through a deep history of shared time, behavioral consistency, and physical recognition. It combines **"a thing you are, a thing you know, and a thing you have"** into a single, holistic signature.
+For all of history, identity has been physical and disconnected. SOURCE ID digitizes the natural, "holistic" way humans identify friends: through a deep history of shared time, behavioral consistency, and physical recognition. It combines **"a thing you are, a thing you know, and a thing you have"** into a single, holistic signature.
 
 ### The Technology
 
-Utilizing proprietary Source hardware and software, we generate a dynamic, digital blueprint of the user that mimics biological recognition.
+Utilizing proprietary SOURCE hardware and software, we generate a dynamic, digital blueprint of the user that mimics biological recognition.
 
 - **Multimodal Calculation:** Simultaneously analyzes behavior, physical characteristics, and historical memory.
 
 - **Immutable Security:** The identity is backed by the blockchain and constantly updated.
 
-- **Unhackable:** Security is absolute. To hack Source ID, an attacker would literally need to be the user and remotely control their physical body.
+- **Unhackable:** Security is absolute. To hack SOURCE ID, an attacker would literally need to be the user and remotely control their physical body.
 
 ### The User Experience
 
-Source ID removes the "middleman" of authentication.
+SOURCE ID removes the "middleman" of authentication.
 
 **Current State:** "Clumsy" interactions like lifting a phone for FaceID or placing a hand on an Amazon One scanner.
 
-**Source ID State:** Zero-effort authentication. The user walks into a room, a store, or a home, and is verified simply by existing. The infrastructure does the work; the user just *is*.
+**SOURCE ID State:** Zero-effort authentication. The user walks into a room, a store, or a home, and is verified simply by existing. The infrastructure does the work; the user just *is*.
 
 ### The Strategy
 
@@ -112,7 +112,7 @@ We are building the global infrastructure to detect the human user. The rollout 
 
 ## Technical Thesis: Continuous Learning Architecture
 
-The industry is moving toward **continuous learning model architectures**. Text and voice chat are insufficient for this future. These architectures require a constant, real-world data stream to function. Source provides the infrastructure for this reality, feeding models the data necessary to automate life on a personalized level.
+The industry is moving toward **continuous learning model architectures**. Text and voice chat are insufficient for this future. These architectures require a constant, real-world data stream to function. SOURCE provides the infrastructure for this reality, feeding models the data necessary to automate life on a personalized level.
 
 ---
 
@@ -138,9 +138,9 @@ We do not earn trust by acting like Google, Apple, or OpenAI. We earn trust by g
 
 We are entering a weird time in history. To navigate it, we are building out the hardware and software infrastructure to generate the first true **Human Behavioral Model**. We are solving the data problem for human interaction.
 
-### Phase 1: The Source School (The R&D Engine)
+### Phase 1: The SOURCE School (The R&D Engine)
 
-To test Source in its full capacity, we require an environment where complex human interactions happen across many people. We are building the **Source School**—a proprietary educational facility and R&D lab located on the outskirts of a major city (e.g., Warsaw).
+To test SOURCE in its full capacity, we require an environment where complex human interactions happen across many people. We are building the **SOURCE School**—a proprietary educational facility and R&D lab located on the outskirts of a major city (e.g., Warsaw).
 
 #### The "Three Birds" Strategy
 
@@ -152,7 +152,7 @@ This facility serves three distinct purposes:
 
 **3. Educational Reform** - A first-principles approach to raising the next generation.
 
-### The Product: Source ID & Behavioral Intelligence
+### The Product: SOURCE ID & Behavioral Intelligence
 
 We are deploying cameras and sensors to feed a Video Language Model (VLM). This isn't just recording; it is understanding.
 
@@ -160,7 +160,7 @@ We are deploying cameras and sensors to feed a Video Language Model (VLM). This 
 
 - **Emotional Recognition:** We track the emotional trajectory of the student—identifying when they are engaged, isolated, or in conflict.
 
-- **Source ID:** We are building the capability to track an individual consistently through the day to create a cohesive narrative of their development.
+- **SOURCE ID:** We are building the capability to track an individual consistently through the day to create a cohesive narrative of their development.
 
 ### The Curriculum: High-Tech / Low-Tech
 
@@ -174,7 +174,7 @@ The school structure (approx. 20 students, 4:1 ratio) blends Montessori-style ex
 
 ### Phase 2: Residential Beta & The Neighborhood Demo
 
-Following the school, we will expand the dataset by installing Source into ~100 residential units.
+Following the school, we will expand the dataset by installing SOURCE into ~100 residential units.
 
 - **The Mix:** 50% Families, 25% Solo, 25% Couples (plus pets).
 
@@ -184,7 +184,7 @@ Following the school, we will expand the dataset by installing Source into ~100 
 
 ### Infrastructure & HQ
 
-We are buying land to build the "Source Campus." This will house the School, the permaculture gardens, and the **Source HQ**.
+We are buying land to build the "SOURCE Campus." This will house the School, the permaculture gardens, and the **SOURCE HQ**.
 
 - **Tight Integration:** The hardware engineers and software developers will work on-site, directly next to the deployment environment.
 
@@ -198,11 +198,11 @@ We are buying land to build the "Source Campus." This will house the School, the
 
 #### Executive Summary
 
-Source is not merely a hardware device; it is the next phase of AI and the fundamental future of computing. We are engineering a transition away from archaic, screen-based interaction toward an always-listening, always-watching ambient infrastructure. This is a **civilizational-scale compute upgrade**.
+SOURCE is not merely a hardware device; it is the next phase of AI and the fundamental future of computing. We are engineering a transition away from archaic, screen-based interaction toward an always-listening, always-watching ambient infrastructure. This is a **civilizational-scale compute upgrade**.
 
 ### The Platform: Ambient Intelligence
 
-Source installs a comprehensive sensory array (vision and audio) directly into the physical home environment. By leveraging advanced 4D Gaussian Splats and massive context windows, we convert physical reality into a queryable, intelligent data stream.
+SOURCE installs a comprehensive sensory array (vision and audio) directly into the physical home environment. By leveraging advanced 4D Gaussian Splats and massive context windows, we convert physical reality into a queryable, intelligent data stream.
 
 **The Shift:** Moving from handheld devices to environmental intelligence. The system sees what you see and hears what you hear, eliminating the friction of "input."
 
@@ -213,10 +213,10 @@ Source installs a comprehensive sensory array (vision and audio) directly into t
 We see clear, immediate utility in specific high-need demographics before achieving mass adoption.
 
 **1. The Elderly (Safety & Cognition)**
-A critical application for memory assistance and safety. Source acts as an externalized memory bank, resolving issues of forgetfulness (e.g., locating objects, verifying appliances are off/doors are closed). It is a passive safety layer for the aging population.
+A critical application for memory assistance and safety. SOURCE acts as an externalized memory bank, resolving issues of forgetfulness (e.g., locating objects, verifying appliances are off/doors are closed). It is a passive safety layer for the aging population.
 
 **2. Physical Health & Bio-Tracking**
-An always-on intelligent trainer. By observing form and caloric intake within the home, Source provides specialized feedback that human trainers cannot offer 24/7. It creates an objective record of health behaviors.
+An always-on intelligent trainer. By observing form and caloric intake within the home, SOURCE provides specialized feedback that human trainers cannot offer 24/7. It creates an objective record of health behaviors.
 
 **3. The Influencer/Streamer Economy (The Marketing Engine)**
 We will leverage the "novelty" of 4D Gaussian Splat content. Early adoption by streamers and influencers will demonstrate the platform's capabilities to the public, turning the installation process and the resulting 4D data into viral content. This drives the cultural hype cycle necessary for mass adoption.
@@ -227,11 +227,11 @@ To achieve planet-scale adoption, we are building a physical operations layer al
 
 - **Installation Infrastructure:** We will deploy dedicated installation teams in over 100 major metropolitan areas globally.
 
-- **The New Norm:** Just as utilities are standard in a home, Source will become the default installed infrastructure for the modern living space.
+- **The New Norm:** Just as utilities are standard in a home, SOURCE will become the default installed infrastructure for the modern living space.
 
 ### Long-Term Thesis: Civilizational Refinement
 
-We are betting on a shifting cultural norm where total data capture is embraced for its utility. This is the eventual status quo. By moving computing from the screen to the audio-visual environment, Source represents a **civilizational refinement**—optimizing human life through intelligent, omnipresent observation.
+We are betting on a shifting cultural norm where total data capture is embraced for its utility. This is the eventual status quo. By moving computing from the screen to the audio-visual environment, SOURCE represents a **civilizational refinement**—optimizing human life through intelligent, omnipresent observation.
 
 ---
 
@@ -253,7 +253,7 @@ We are trending toward a civilization divided by a massive "classes" issue. A ha
 
 ### The Solution: SOURCE
 
-Source is the bridge between humanity and Super Intelligence.
+SOURCE is the bridge between humanity and Super Intelligence.
 
 We are building a platform to correct every structural error in society through a single, clear, transparent architecture. It is the "Manhattan Project" for peace.
 
@@ -267,9 +267,9 @@ We are building a platform to correct every structural error in society through 
 
 ### The Mechanism: AI-Assisted Direct Democracy
 
-Source creates a balancing algorithm between everyone's value sets.
+SOURCE creates a balancing algorithm between everyone's value sets.
 
-- **Zero-Hierarchy Governance:** Over a long enough timeline, Source enables a society where Super Intelligence autonomously votes on macro-issues based on the aggregate values of all humans.
+- **Zero-Hierarchy Governance:** Over a long enough timeline, SOURCE enables a society where Super Intelligence autonomously votes on macro-issues based on the aggregate values of all humans.
 
 - **The End of Deception:** We are researching "angelic" models—AI that understands deception (to detect lies) but is architecturally incapable of deceiving humanity itself.
 
@@ -279,11 +279,11 @@ Source creates a balancing algorithm between everyone's value sets.
 
 This is a futurist—not transhumanist—vision for a sane world beyond animal instincts.
 
-- **Destruction of Money:** Source's undying goal is the end of capitalism and the concept of money, replaced by abundance for all and shared resources (land/housing).
+- **Destruction of Money:** SOURCE's undying goal is the end of capitalism and the concept of money, replaced by abundance for all and shared resources (land/housing).
 
 - **Global Unity:** A humanity-directed global defense force—not for war against each other, but for defense against external non-human threats (asteroids, invasion).
 
-- **The Great Unification:** We predict the inevitable consolidation of the "Mag 7" (Apple, Google, OpenAI, etc.) into one unified computing entity. Source provides the architecture for this unification.
+- **The Great Unification:** We predict the inevitable consolidation of the "Mag 7" (Apple, Google, OpenAI, etc.) into one unified computing entity. SOURCE provides the architecture for this unification.
 
 - **Reality Reconstruction:** Unlocking breakthroughs in physics, human psychology, and generative realities (100% reality reconstruction) through massive data pattern recognition.
 
@@ -291,9 +291,9 @@ This is a futurist—not transhumanist—vision for a sane world beyond animal i
 
 This is not a tech company for shareholders seeking quarterly returns—though early liquidity is possible. This is for investors aligned with survival.
 
-If you want to invest in the status quo, look elsewhere. If you want to invest in the **real future**—a fair, decentralized, and safe future—invest in Source.
+If you want to invest in the status quo, look elsewhere. If you want to invest in the **real future**—a fair, decentralized, and safe future—invest in SOURCE.
 
-**Source: We guide AI, and AI guides us.**
+**SOURCE: We guide AI, and AI guides us.**
 
 ---
 
@@ -301,4 +301,4 @@ If you want to invest in the status quo, look elsewhere. If you want to invest i
 
 We're building infrastructure for civilization. Join us in creating the foundation for the next computing era.
 
-© 2025 Source. Building the future of human-AI interaction.
+© 2025 SOURCE. Building the future of human-AI interaction.
