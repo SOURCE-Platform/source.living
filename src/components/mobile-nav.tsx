@@ -6,7 +6,7 @@ import { useTheme } from 'next-themes'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect, useRef } from 'react'
 import { Mail, FileText, Type, X } from 'lucide-react'
-import { SystemIcon, DarkIcon, LightIcon } from '@/components/icons/theme-icons'
+import { SystemIcon, DarkIcon, LightIcon, EmailIcon } from '@/components/icons/theme-icons'
 import Image from 'next/image'
 import { useTransitionTo } from '@/components/providers/transition-context'
 import { cn } from '@/lib/utils'
@@ -89,6 +89,23 @@ export function MobileNav() {
         return () => scrollContainer.removeEventListener('scroll', handleScroll);
     }, []);
 
+    // Helper to handle navigation with modifier key support (CMD+Click)
+    const handleNavClick = (href: string, e: any) => {
+
+        // If modifier keys are pressed, open in new tab
+        if (e && (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey)) {
+            window.open(href, '_blank');
+            return;
+        }
+
+        if (href.includes('#')) {
+            router.push(href);
+        } else {
+            transitionTo(href);
+        }
+    };
+
+
     const menuItems: MenuItem[] = [
         {
             id: 'home',
@@ -111,8 +128,9 @@ export function MobileNav() {
                     />
                 </div>
             ),
-            onClick: () => transitionTo('/')
+            onClick: ((e: any) => handleNavClick('/', e)) as any
         },
+        /*
         {
             id: 'wordz',
             label: 'WORDz',
@@ -122,19 +140,32 @@ export function MobileNav() {
                     <span className="text-sm font-medium">WORDz</span>
                 </div>
             ),
-            onClick: () => transitionTo('/wordz')
+            onClick: ((e: any) => handleNavClick('/wordz', e)) as any
+        },
+        */
+        {
+            id: 'contact-header',
+            label: 'CONTACT',
+            icon: (
+                <div className="flex items-center gap-2 pr-2 opacity-50">
+                    <span className="text-[10px] font-bold tracking-[0.2em] uppercase translate-y-1">CONTACT</span>
+                </div>
+            ),
+            onClick: () => { },
+            disabled: true
         },
         {
             id: 'contact',
-            label: 'Contact',
+            label: 'Email',
             icon: (
                 <div className="flex items-center gap-2 pr-2">
-                    <Mail className="h-5 w-5" />
+                    <EmailIcon className="h-5 w-5" theme={resolvedTheme} />
                     <span className="text-sm font-medium">Email</span>
                 </div>
             ),
-            onClick: () => router.push('/#contact')
+            onClick: ((e: any) => handleNavClick('/#contact', e)) as any
         },
+        /*
         {
             id: 'font-switcher',
             label: 'Typography',
@@ -148,6 +179,7 @@ export function MobileNav() {
                 setShowFonts(!showFonts)
             }
         },
+        */
         {
             id: 'theme-header',
             label: 'THEME',
@@ -156,7 +188,8 @@ export function MobileNav() {
                     <span className="text-[10px] font-bold tracking-[0.2em] uppercase translate-y-1">THEME</span>
                 </div>
             ),
-            onClick: () => { }
+            onClick: () => { },
+            disabled: true
         },
         {
             id: 'theme-system',
@@ -170,17 +203,6 @@ export function MobileNav() {
             onClick: () => setTheme('system')
         },
         {
-            id: 'theme-dark',
-            label: 'Dark',
-            icon: (
-                <div className="flex items-center gap-2 pr-2">
-                    <DarkIcon className="h-5 w-5" theme={resolvedTheme} />
-                    <span className="text-sm font-medium">Dark</span>
-                </div>
-            ),
-            onClick: () => setTheme('dark')
-        },
-        {
             id: 'theme-light',
             label: 'Light',
             icon: (
@@ -190,6 +212,17 @@ export function MobileNav() {
                 </div>
             ),
             onClick: () => setTheme('light')
+        },
+        {
+            id: 'theme-dark',
+            label: 'Dark',
+            icon: (
+                <div className="flex items-center gap-2 pr-2">
+                    <DarkIcon className="h-5 w-5" theme={resolvedTheme} />
+                    <span className="text-sm font-medium">Dark</span>
+                </div>
+            ),
+            onClick: () => setTheme('dark')
         }
     ]
 

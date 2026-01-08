@@ -5,6 +5,7 @@ export interface MenuItem {
     label: string
     icon: React.ReactNode | null
     onClick: () => void
+    disabled?: boolean
 }
 
 export interface CircularMenuProps {

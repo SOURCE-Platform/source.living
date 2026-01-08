@@ -8,6 +8,7 @@ export interface MenuItem {
     label: string
     icon: React.ReactNode | null
     onClick: () => void
+    disabled?: boolean
 }
 
 export interface CircularMenuProps {
@@ -235,7 +236,7 @@ export function CircularMenu({
             {/* Menu Items - Separate from circle with fade in/out */}
             {menuMounted && (
                 <div
-                    className={`fixed p-8 z-[10001] circular-menu-items transition-opacity duration-300 ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+                    className={`fixed z-[10001] circular-menu-items transition-opacity duration-300 ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
                     style={{
                         ...getContainerPositionStyles(),
                         right: position.includes('right') ? '0' : 'auto',
@@ -247,19 +248,22 @@ export function CircularMenu({
                         if (!isOpen) setMenuMounted(false)
                     }}
                 >
-                    <div className="flex flex-col space-y-2 p-4">
+                    <div className="flex flex-col space-y-2 p-2">
                         {items.map((item) => {
                             return (
                                 <button
                                     key={item.id}
                                     type="button"
                                     onClick={(e) => {
+                                        if (item.disabled) return
                                         e.stopPropagation()
                                         item.onClick()
                                         setIsOpen(false)
                                     }}
-                                    className={`group flex items-center text-lg transition-colors duration-200 px-4 py-3 pr-6 rounded-[32px] cursor-pointer
-                    ${darkMode ? 'text-white hover:bg-white/5' : 'text-black hover:bg-black/5'}
+                                    className={`group flex items-center text-lg transition-colors duration-200 px-4 py-3 pr-6 rounded-[32px] 
+                    ${item.disabled ? 'cursor-default' : 'cursor-pointer hover:bg-black/5 dark:hover:bg-white/5'}
+                    ${darkMode ? 'text-white' : 'text-black'}
+                    ${item.disabled ? '' : ''} 
                     justify-end`}
                                 >
                                     {item.icon ? (

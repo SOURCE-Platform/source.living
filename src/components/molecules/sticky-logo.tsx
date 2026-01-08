@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { SourceLogo } from "@/components/atoms/icons/source-logo";
+import { TransitionLink } from "@/components/atoms/transition-link";
 import { cn } from "@/lib/utils";
 
 export function StickyLogo() {
@@ -31,7 +32,9 @@ export function StickyLogo() {
                 isVisible ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
             )}
         >
-            <SourceLogo className="h-12 w-auto" />
+            <TransitionLink href="/">
+                <SourceLogo className="h-12 w-auto" />
+            </TransitionLink>
         </div>
     );
 }

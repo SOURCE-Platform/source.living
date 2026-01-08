@@ -2,7 +2,7 @@ export function FooterSection() {
     return (
         <section className="mt-12 space-y-6 border-t border-border pt-8">
             <p className="text-lg font-semibold text-foreground">
-                Ready to invest in the future of AI and human civilization?
+                Fund the new frontier.
             </p>
             <div className="flex flex-col gap-3 sm:flex-row">
                 <a

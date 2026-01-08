@@ -20,6 +20,11 @@ export const TransitionLink: React.FC<TransitionLinkProps> = ({
     const { transitionTo } = useTransitionTo();
 
     const handleTransition = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        // If modifier keys are pressed, let the browser handle it (new tab, new window, etc.)
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {
+            return;
+        }
+
         e.preventDefault();
         if (onClick) onClick(e);
         transitionTo(href.toString());
