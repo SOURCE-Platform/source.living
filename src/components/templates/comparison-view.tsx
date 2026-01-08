@@ -264,7 +264,7 @@ function ComparisonRow({ category }: { category: CategoryData }) {
             {category.problems.map((problem, i) => {
                 const solution = category.solutions.find(s => s.problem === problem.label);
                 return (
-                    <div key={i} className="grid grid-cols-1 md:grid-cols-2 border-b last:border-b-0 last:rounded-b-lg border-border hover:bg-muted/5 transition-colors">
+                    <div key={i} className="grid grid-cols-1 md:grid-cols-2 border-b last:border-b-0 last:rounded-b-lg border-border transition-colors">
                         <div className="p-6 border-b md:border-b-0 md:border-r border-border">
                             <ProblemCard issue={problem} />
                         </div>

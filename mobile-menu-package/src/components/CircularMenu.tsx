@@ -248,7 +248,7 @@ export function CircularMenu({
                         if (!isOpen) setMenuMounted(false)
                     }}
                 >
-                    <div className="flex flex-col space-y-2 p-2">
+                    <div className={`flex flex-col space-y-2 p-2 ${position.includes('left') ? 'items-start' : 'items-end'}`}>
                         {items.map((item) => {
                             return (
                                 <button
