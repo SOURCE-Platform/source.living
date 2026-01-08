@@ -332,6 +332,33 @@
   .playgrade-border:hover::before {
     opacity: 1;
   }
+
+  .playgrade-glow-shadow {
+    position: relative;
+    z-index: 10;
+  }
+
+  .playgrade-glow-shadow::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    transform: scale(0.85);
+    filter: blur(10px);
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    background: var(--blue-button);
+    border-radius: inherit;
+  }
+
+  .dark .playgrade-glow-shadow::after {
+    background: var(--background-image-playgrade);
+  }
+
+  .playgrade-glow-shadow:hover::after {
+    opacity: 0.6;
+    transform: scale(0.98);
+  }
 }
 
 /* Override AudioWaveform positioning to place it in the sidebar */
