@@ -359,6 +359,36 @@
     opacity: 0.6;
     transform: scale(0.98);
   }
+
+  .playgrade-link-bg {
+    position: relative;
+    /* Ensure content is above the background pseudo-element */
+    z-index: 1; 
+  }
+
+  .playgrade-link-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    /* Blue gradient default (Light Mode) */
+    background: var(--blue-button);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1; 
+    border-radius: inherit;
+  }
+
+  .dark .playgrade-link-bg::after {
+     /* Use the playgrade gradient for dark mode, or keep it generic if preferred. 
+        User asked for "blue gradient" which usually implies the blue-button one or similar.
+        Let's match the border logic: dark mode uses --background-image-playgrade 
+     */
+    background: var(--background-image-playgrade);
+  }
+
+  .playgrade-link-bg:hover::after {
+    opacity: 0.1;
+  }
 }
 
 /* Override AudioWaveform positioning to place it in the sidebar */

@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import Link from "next/link";
+import { Modal } from "@/components/ui/modal";
 import { StickyLogo } from "@/components/molecules/sticky-logo";
 import { TransitionLink } from "../atoms/transition-link";
 import { BackButton } from "../atoms/back-button";
@@ -69,6 +70,7 @@ const HoverEyeIcon = ({ className }: { className?: string }) => (
 function ProblemCard({ issue }: { issue: ConvergingIssue }) {
     const [menuOffset, setMenuOffset] = useState(0);
     const [alignment, setAlignment] = useState<'left' | 'right'>('right');
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const triggerRef = useRef<HTMLDivElement>(null);
     const menuRef = useRef<HTMLDivElement>(null);
 
@@ -127,7 +129,7 @@ function ProblemCard({ issue }: { issue: ConvergingIssue }) {
         <div className="mb-4 last:mb-0">
             <div className="flex flex-col gap-1">
                 <div ref={triggerRef} className="group/menu relative w-fit">
-                    <span className="text-base font-semibold text-foreground cursor-help px-2 py-1 -ml-2 rounded-lg transition-colors hover:bg-muted whitespace-normal inline decoration-clone leading-snug">
+                    <span className="text-base font-semibold text-foreground lg:cursor-help px-2 py-1 -ml-2 rounded-lg transition-colors group-hover/menu:bg-muted whitespace-normal inline decoration-clone leading-snug">
                         {(() => {
                             const words = issue.label.split(' ');
                             if (words.length === 0) return issue.label;
@@ -152,7 +154,7 @@ function ProblemCard({ issue }: { issue: ConvergingIssue }) {
                     <div
                         ref={menuRef}
                         style={{ top: `${menuOffset}px` }}
-                        className={`absolute ${alignmentClasses} z-50 w-72 rounded-lg border border-border bg-background p-3 opacity-0 shadow-2xl dark:shadow-[0_0_40px_rgba(255,255,255,0.2)] transition-opacity duration-200 pointer-events-none group-hover/menu:opacity-100 group-hover/menu:pointer-events-auto hover:opacity-100 hover:pointer-events-auto before:content-[''] before:absolute before:inset-y-0 before:bg-transparent`}
+                        className={`absolute ${alignmentClasses} z-40 w-72 rounded-lg border border-border bg-background p-3 opacity-0 shadow-2xl dark:shadow-[0_0_40px_rgba(255,255,255,0.2)] transition-opacity duration-200 pointer-events-none group-hover/menu:opacity-100 group-hover/menu:pointer-events-auto hover:opacity-100 hover:pointer-events-auto before:content-[''] before:absolute before:inset-y-0 before:bg-transparent hidden lg:block`}
                     >
                         <ul className="space-y-2">
                             {issue.links.map((link, i) => (
@@ -170,10 +172,58 @@ function ProblemCard({ issue }: { issue: ConvergingIssue }) {
                             ))}
                         </ul>
                     </div>
+
+                    {/* Mobile/Touch CLICK Handler Overlay */}
+                    <div
+                        className="absolute inset-0 z-30 lg:hidden cursor-pointer"
+                        onClick={() => setIsModalOpen(true)}
+                    />
                 </div>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                     {issue.description}
                 </p>
+
+                {/* Mobile/Accessible Modal */}
+                <Modal
+                    isOpen={isModalOpen}
+                    onClose={() => setIsModalOpen(false)}
+                    title={issue.label}
+                >
+                    <div className="space-y-6">
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                            {issue.description}
+                        </p>
+
+                        <div className="space-y-3">
+                            <h4 className="text-sm font-semibold text-foreground uppercase tracking-wide">
+                                Related Signals & Research
+                            </h4>
+                            <ul className="grid gap-2">
+                                {issue.links.map((link, i) => (
+                                    <li key={i}>
+                                        <Link
+                                            href={link.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="block rounded-lg p-3 transition-all bg-background/50 playgrade-border playgrade-link-bg group/link"
+                                        >
+                                            <span className="block text-sm font-medium text-foreground mb-1">
+                                                {link.title}
+                                            </span>
+                                            <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
+                                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                                                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                                                </svg>
+                                                {getDomain(link.url)}
+                                            </div>
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                </Modal>
             </div>
         </div >
     );
@@ -349,49 +399,47 @@ export function ComparisonView({ defaultView, initialCompareMode = false }: Comp
         : (isCompareMode ? "Hide Problems" : "View Problems");
 
     return (
-        <div className="min-h-screen bg-background text-foreground">
+        <div className="min-h-screen text-foreground">
             <StickyLogo />
             <main className="mx-auto max-w-7xl px-6 sm:px-12 pt-0 pb-12">
                 {/* Sentinel for sticky detection */}
                 <div id="header-sentinel" className="absolute top-0 h-12 w-full pointer-events-none opacity-0" />
 
-                {/* Header */}
-                <div className="mb-6 flex items-center justify-end sticky top-0 z-40 bg-transparent py-4 transition-all duration-300 pointer-events-none">
+                <div className="mb-6 flex items-center justify-center sm:justify-end sticky top-0 z-40 bg-transparent py-4 mt-32 sm:mt-0 transition-all duration-300 pointer-events-none">
                     <div className={`transition-all duration-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
-                        <div className="flex items-center gap-4 pointer-events-auto">
-                            <div className={`
+                        <div className={`
                             flex items-center gap-3 px-4 py-2 rounded-full border transition-all duration-300
                             ${isStuck
-                                    ? 'bg-background/80 backdrop-blur-md border-border shadow-md dark:shadow-[0_0_20px_rgba(255,255,255,0.15)] transform translate-y-2'
-                                    : 'bg-muted/20 border-transparent sm:border-border'
-                                }
+                                ? 'bg-background/80 backdrop-blur-md border-border shadow-md dark:shadow-[0_0_20px_rgba(255,255,255,0.15)] transform translate-y-2'
+                                : 'bg-muted/20 border-transparent sm:border-border'
+                            }
                         `}>
-                                <span className="text-sm font-medium text-muted-foreground">
-                                    {defaultView === 'problems' ? "Problems View" : "Solutions View"}
-                                </span>
+                            <span className="text-sm font-medium text-muted-foreground">
+                                {defaultView === 'problems' ? "Problems View" : "Solutions View"}
+                            </span>
 
-                                <button
-                                    onClick={() => setIsCompareMode(!isCompareMode)}
-                                    className="relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 focus:outline-none cursor-pointer bg-muted overflow-hidden"
-                                >
-                                    <div
-                                        className={`absolute inset-0 transition-opacity duration-200 ${isCompareMode ? 'opacity-100' : 'opacity-0'} bg-[image:var(--blue-button)] dark:bg-[image:var(--background-image-playgrade)]`}
-                                    />
-                                    <span
-                                        className={`
+                            <button
+                                onClick={() => setIsCompareMode(!isCompareMode)}
+                                className="relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 focus:outline-none cursor-pointer bg-muted overflow-hidden"
+                            >
+                                <div
+                                    className={`absolute inset-0 transition-opacity duration-200 ${isCompareMode ? 'opacity-100' : 'opacity-0'} bg-[image:var(--blue-button)] dark:bg-[image:var(--background-image-playgrade)]`}
+                                />
+                                <span
+                                    className={`
                       relative z-10 inline-block h-4 w-4 transform rounded-full bg-background shadow-sm transition-transform duration-200
                       ${isCompareMode ? 'translate-x-6' : 'translate-x-1'}
                     `}
-                                    />
-                                </button>
+                                />
+                            </button>
 
-                                <span className={`text-sm font-medium ${isCompareMode ? 'text-foreground' : 'text-muted-foreground'}`}>
-                                    Compare
-                                </span>
-                            </div>
+                            <span className={`text-sm font-medium ${isCompareMode ? 'text-foreground' : 'text-muted-foreground'}`}>
+                                Compare
+                            </span>
                         </div>
                     </div>
                 </div>
+
 
                 {/* Spacer to push content down for logo */}
                 <div className="h-24" />
@@ -505,7 +553,7 @@ export function ComparisonView({ defaultView, initialCompareMode = false }: Comp
                         </div>
                     </div>
                 </div>
-            </main>
-        </div>
+            </main >
+        </div >
     );
 }
