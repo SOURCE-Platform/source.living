@@ -128,10 +128,25 @@ function ProblemCard({ issue }: { issue: ConvergingIssue }) {
             <div className="flex flex-col gap-1">
                 <div ref={triggerRef} className="group/menu relative w-fit">
                     <span className="text-base font-semibold text-foreground cursor-help px-2 py-1 -ml-2 rounded-lg transition-colors hover:bg-muted whitespace-normal inline decoration-clone leading-snug">
-                        {issue.label}
-                        <span className="inline-flex align-middle ml-2">
-                            <HoverEyeIcon className="w-4 h-4 text-muted-foreground/60 transition-transform group-hover/menu:scale-110 group-hover/menu:text-primary/80" />
-                        </span>
+                        {(() => {
+                            const words = issue.label.split(' ');
+                            if (words.length === 0) return issue.label;
+
+                            const lastWord = words.pop();
+                            const firstPart = words.join(' ');
+
+                            return (
+                                <>
+                                    {firstPart && `${firstPart} `}
+                                    <span className="whitespace-nowrap">
+                                        {lastWord}
+                                        <span className="inline-flex align-middle ml-2">
+                                            <HoverEyeIcon className="w-4 h-4 text-muted-foreground/60 transition-transform group-hover/menu:scale-110 group-hover/menu:text-primary/80" />
+                                        </span>
+                                    </span>
+                                </>
+                            );
+                        })()}
                     </span>
                     {/* Tooltip with invisible bridge */}
                     <div
