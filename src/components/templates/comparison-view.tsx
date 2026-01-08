@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import Link from "next/link";
 import { StickyLogo } from "@/components/molecules/sticky-logo";
 import { TransitionLink } from "../atoms/transition-link";
-import { ArrowLeft } from 'lucide-react';
+import { BackButton } from "../atoms/back-button";
 
 import {
     politicalIssues, economicIssues, socialIssues, techIssues,
@@ -384,24 +384,7 @@ export function ComparisonView({ defaultView, initialCompareMode = false }: Comp
                 <section className="max-w-4xl mb-20">
                     <div className="flex flex-col 2xl:flex-row 2xl:items-center gap-4 2xl:gap-12 mb-8 -ml-0 2xl:-ml-[248px]">
                         <div className="w-[200px] flex-shrink-0 flex 2xl:justify-end">
-                            <TransitionLink
-                                href="/"
-                                className="group flex items-center gap-3 text-muted-foreground hover:text-foreground transition-all duration-300 pointer-events-auto"
-                            >
-                                <div className="relative flex items-center">
-                                    <svg width="45" height="12" viewBox="0 0 45 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="overflow-visible">
-                                        <path
-                                            d="M45 6H1M1 6L6 1M1 6L6 11"
-                                            stroke="currentColor"
-                                            strokeWidth="1.5"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            className="transition-all duration-300 group-hover:translate-x-[-4px]"
-                                        />
-                                    </svg>
-                                </div>
-                                <span className="text-sm font-medium">Back</span>
-                            </TransitionLink>
+                            <BackButton />
                         </div>
 
                         <h1 className={`text-4xl font-bold tracking-tight transition-opacity duration-200 ${isContentVisible ? 'opacity-100' : 'opacity-0'}`}>
@@ -503,13 +486,7 @@ export function ComparisonView({ defaultView, initialCompareMode = false }: Comp
                     {/* Footer */}
                     <div className={`pt-24 pb-12 ${activeCompareMode ? 'grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-6 lg:gap-12' : 'flex justify-center'}`}>
                         <div className={activeCompareMode ? 'lg:col-start-2 flex justify-center' : ''}>
-                            <TransitionLink
-                                href="/"
-                                className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 text-sm font-medium"
-                            >
-                                <ArrowLeft className="w-4 h-4" />
-                                Back to Investment Memo
-                            </TransitionLink>
+                            <BackButton />
                         </div>
                     </div>
                 </div>
