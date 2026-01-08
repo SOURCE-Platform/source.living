@@ -11,6 +11,7 @@ import {
     VolumeMuteIcon,
 } from "./PlayerIcons";
 import { SegmentedTimeline } from "./SegmentedTimeline";
+import { ChapterList } from "./ChapterList";
 
 const SpeedIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
     <svg width={60} height={62} viewBox="0 0 60 62" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
@@ -42,6 +43,21 @@ const containerBaseStyle: React.CSSProperties = {
     transform: "translateX(-50%)",
     width: "min(960px, calc(100vw - 48px))",
     zIndex: 100,
+};
+
+const containerXsStyle: React.CSSProperties = {
+    background: "var(--audio-bg, rgba(255, 255, 255, 0.98))",
+    backdropFilter: "blur(10px)",
+    borderRadius: "16px 16px 0 0",
+    padding: "16px",
+    maxHeight: "70vh",
+    overflowY: "auto",
+    boxShadow: "0 -4px 20px rgba(0, 0, 0, 0.1)",
+    border: "1px solid var(--audio-border, rgba(0, 0, 0, 0.1))",
+    width: "100%",
+    left: 0,
+    bottom: 0,
+    position: "relative",
 };
 
 const controlsRowStyle: React.CSSProperties = {
@@ -211,6 +227,8 @@ export const AudioWaveform: React.FC<AudioWaveformProps> = ({
         .filter(Boolean)
         .join(" ");
 
+    // Determine if we're on XS screen (this is a client-side check approximation)
+    // For proper responsive behavior, we'll use CSS classes and media queries
     const containerStyle: React.CSSProperties = {
         ...containerBaseStyle,
         background: "transparent",
@@ -218,9 +236,15 @@ export const AudioWaveform: React.FC<AudioWaveformProps> = ({
         gap: isExpanded ? "12px" : "0",
         paddingTop: isExpanded ? "16px" : "12px",
         paddingRight: isExpanded ? "0" : "20px",
-        paddingBottom: "24px",
+        paddingBottom: "0", // Changed for XS layout
         paddingLeft: isExpanded ? "0" : "20px",
         transition: "padding 0.5s ease, gap 0.5s ease",
+    };
+
+    // XS-specific overrides via CSS custom properties
+    const containerStyleWithMedia: React.CSSProperties = {
+        ...containerStyle,
+        // These will be overridden by the xs:hidden/xs:flex classes
     };
 
     const controlsRowDynamicStyle: React.CSSProperties = {
@@ -309,21 +333,9 @@ export const AudioWaveform: React.FC<AudioWaveformProps> = ({
             style={containerStyle}
             data-expanded={isExpanded ? "true" : "false"}
         >
-            {/* Time display */}
-            <div style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                marginBottom: "8px",
-                opacity: isExpanded ? 1 : 0,
-                transition: "opacity 0.5s ease",
-                pointerEvents: isExpanded ? "auto" : "none"
-            }}>
-                <span style={timeLabelStyle}>{timeDisplay}</span>
-            </div>
-
-            {/* Segmented Timeline - appears above controls when expanded */}
-            {isExpanded && (
+            {/* XS Layout: Timeline, Chapters, Controls - shows on screens below 480px (default), hidden on 480px+ */}
+            <div className="flex flex-col gap-4 xs:hidden" style={containerXsStyle}>
+                {/* Timeline - always visible on XS */}
                 <SegmentedTimeline
                     chapters={chapters}
                     currentTimeMs={currentTimeMs}
@@ -332,39 +344,53 @@ export const AudioWaveform: React.FC<AudioWaveformProps> = ({
                     disabled={disabled}
                     className="audio-player-shell__timeline"
                 />
-            )}
 
-            <div className="audio-player-shell__controls" style={{ ...controlsRowDynamicStyle, background: "transparent" }}>
-                <div
-                    className="!hidden sm:!flex"
-                    onMouseEnter={() => setIsVolumeHovered(true)}
-                    onMouseLeave={() => setIsVolumeHovered(false)}
-                    style={{
-                        ...flexGroupStyle,
-                        justifySelf: "start",
-                        gap: 12,
-                        minWidth: "205px",
-                        opacity: isExpanded ? 1 : 0,
-                        pointerEvents: isExpanded ? "auto" : "none",
-                        transition: "opacity 0.5s ease",
-                        cursor: "pointer",
-                        position: "relative",
-                        zIndex: 50
-                    }}
-                >
-                    {/* Volume controls */}
-                    <div
-                        style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: 12
-                        }}
-                    >
+                {/* Chapters/Timestamps - always visible on XS */}
+                <div style={{ maxHeight: "200px", overflowY: "auto" }}>
+                    <ChapterList
+                        className="flex-col gap-2"
+                        listClassName="flex-col gap-2"
+                        title=""
+                    />
+                </div>
+
+                {/* Controls Row: Skip Back, Play/Pause, Skip Forward, Mute, Close */}
+                <div style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    gap: "12px",
+                }}>
+                    {/* Left side: Skip buttons and Play/Pause */}
+                    <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+                        <button
+                            type="button"
+                            onClick={() => skipBySeconds(-skipSeconds)}
+                            disabled={disabled}
+                            style={composeButtonStyle()}
+                            aria-label={`Skip backward ${skipSeconds} seconds`}
+                        >
+                            <SkipBackIcon style={skipBackStyle} aria-hidden="true" focusable="false" />
+                        </button>
+                        {renderPlayToggle()}
+                        <button
+                            type="button"
+                            onClick={() => skipBySeconds(skipSeconds)}
+                            disabled={disabled}
+                            style={composeButtonStyle()}
+                            aria-label={`Skip forward ${skipSeconds} seconds`}
+                        >
+                            <SkipForwardIcon style={skipForwardStyle} aria-hidden="true" focusable="false" />
+                        </button>
+                    </div>
+
+                    {/* Right side: Mute and Close */}
+                    <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
                         <button
                             type="button"
                             onClick={toggleMute}
                             disabled={disabled}
-                            style={{ ...composeButtonStyle(), opacity: isVolumeHovered ? 1 : 0.5 }}
+                            style={composeButtonStyle()}
                             aria-label={isMuted ? "Unmute" : "Mute"}
                         >
                             {isMuted ? (
@@ -373,111 +399,207 @@ export const AudioWaveform: React.FC<AudioWaveformProps> = ({
                                 <VolumeWavesIcon style={volumeIconStyle} aria-hidden="true" focusable="false" />
                             )}
                         </button>
-                        <input
-                            type="range"
-                            min={0}
-                            max={1}
-                            step={0.01}
-                            value={isMuted ? 0 : volume}
-                            onChange={handleVolumeChange}
-                            disabled={disabled}
-                            className="audio-slider audio-slider--volume"
-                            style={{
-                                width: isVolumeHovered ? "140px" : "0",
-                                opacity: isVolumeHovered ? 1 : 0,
-                                overflow: "hidden",
-                                color: "var(--audio-text)",
-                                transition: "opacity 0.3s ease, width 0.3s ease",
-                                position: "relative",
-                                zIndex: 50,
-                                // @ts-expect-error - CSS custom property
-                                "--volume-percent": `${(isMuted ? 0 : volume) * 100}%`
-                            }}
-                            aria-label="Volume"
-                        />
                         <button
                             type="button"
-                            onClick={handleMaxVolume}
-                            disabled={disabled}
-                            style={{
-                                ...composeButtonStyle(),
-                                opacity: isVolumeHovered ? 1 : 0,
-                                width: isVolumeHovered ? "auto" : "0",
-                                overflow: "hidden",
-                                transition: "opacity 0.3s ease, width 0.3s ease",
-                                position: "relative",
-                                zIndex: 50
+                            onClick={() => {
+                                // Close functionality - could toggle isExpanded or other behavior
+                                if (typeof window !== 'undefined') {
+                                    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+                                }
                             }}
-                            aria-label="Max volume"
+                            style={composeButtonStyle()}
+                            aria-label="Close audio player"
                         >
-                            <VolumeLevelIcon style={volumeLevelStyle} aria-hidden="true" focusable="false" />
+                            <svg
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            >
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
                         </button>
                     </div>
                 </div>
+            </div>
 
-                <div
-                    className="audio-player-shell__transport"
-                    style={{ ...transportGroupBaseStyle, gap: 16 }}
-                >
-                    {renderSkipButton("back")}
-                    {renderPlayToggle()}
-                    {renderSkipButton("forward")}
+            {/* Standard Layout (sm and above) - hidden by default, shows on screens 480px+ */}
+            <div className="hidden xs:flex flex-col gap-3">
+                {/* Time display */}
+                <div style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginBottom: "8px",
+                    opacity: isExpanded ? 1 : 0,
+                    transition: "opacity 0.5s ease",
+                    pointerEvents: isExpanded ? "auto" : "none"
+                }}>
+                    <span style={timeLabelStyle}>{timeDisplay}</span>
                 </div>
 
-                {/* Speed controls - full width version (hidden on mobile) */}
-                <div
-                    className="audio-player-shell__speed-group !hidden sm:!flex"
-                    style={{
-                        justifySelf: "end",
-                        justifyContent: "flex-end",
-                        gap: "8px",
-                        minWidth: "205px",
-                        transition: "opacity 0.5s ease",
-                        opacity: isExpanded ? 1 : 0,
-                        pointerEvents: isExpanded ? "auto" : "none",
-                    }}
-                >
-                    {playbackRates.map((rate, index) => {
-                        const isActive = index === playbackRateIndex;
-                        const buttonClassName = isActive
-                            ? `${playbackSpeedButtonClass} ${playbackSpeedButtonActiveClass}`
-                            : playbackSpeedButtonClass;
-
-                        return (
-                            <button
-                                key={rate}
-                                type="button"
-                                onClick={() => setPlaybackRate(rate)}
-                                className={buttonClassName}
-                                aria-pressed={isActive}
-                                disabled={disabled}
-                            >
-                                {rate.toFixed(rate % 1 === 0 ? 0 : 2)}x
-                            </button>
-                        );
-                    })}
-                </div>
-
-                {/* Speed icon button (visible only on mobile) */}
-                <div
-                    className="!flex sm:!hidden"
-                    style={{
-                        justifySelf: "end",
-                        justifyContent: "flex-end",
-                        transition: "opacity 0.5s ease",
-                        opacity: isExpanded ? 1 : 0,
-                        pointerEvents: isExpanded ? "auto" : "none",
-                    }}
-                >
-                    <button
-                        type="button"
-                        onClick={() => setIsSpeedModalOpen(true)}
+                {/* Segmented Timeline - appears above controls when expanded */}
+                {isExpanded && (
+                    <SegmentedTimeline
+                        chapters={chapters}
+                        currentTimeMs={currentTimeMs}
+                        durationMs={durationMs}
+                        onSeek={seekToMs}
                         disabled={disabled}
-                        style={composeButtonStyle({ opacity: isExpanded ? 0.6 : 0, pointerEvents: isExpanded ? "auto" : "none" })}
-                        aria-label="Playback speed"
+                        className="audio-player-shell__timeline"
+                    />
+                )}
+
+                <div className="audio-player-shell__controls" style={{ ...controlsRowDynamicStyle, background: "transparent" }}>
+                    <div
+                        className="!hidden sm:!flex"
+                        onMouseEnter={() => setIsVolumeHovered(true)}
+                        onMouseLeave={() => setIsVolumeHovered(false)}
+                        style={{
+                            ...flexGroupStyle,
+                            justifySelf: "start",
+                            gap: 12,
+                            minWidth: "205px",
+                            opacity: isExpanded ? 1 : 0,
+                            pointerEvents: isExpanded ? "auto" : "none",
+                            transition: "opacity 0.5s ease",
+                            cursor: "pointer",
+                            position: "relative",
+                            zIndex: 50
+                        }}
                     >
-                        <SpeedIcon style={scaledStyle(iconDimensions.volumeSpeaker.width, iconDimensions.volumeSpeaker.height)} aria-hidden="true" focusable="false" />
-                    </button>
+                        {/* Volume controls */}
+                        <div
+                            style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: 12
+                            }}
+                        >
+                            <button
+                                type="button"
+                                onClick={toggleMute}
+                                disabled={disabled}
+                                style={{ ...composeButtonStyle(), opacity: isVolumeHovered ? 1 : 0.5 }}
+                                aria-label={isMuted ? "Unmute" : "Mute"}
+                            >
+                                {isMuted ? (
+                                    <VolumeMuteIcon style={volumeIconStyle} aria-hidden="true" focusable="false" />
+                                ) : (
+                                    <VolumeWavesIcon style={volumeIconStyle} aria-hidden="true" focusable="false" />
+                                )}
+                            </button>
+                            <input
+                                type="range"
+                                min={0}
+                                max={1}
+                                step={0.01}
+                                value={isMuted ? 0 : volume}
+                                onChange={handleVolumeChange}
+                                disabled={disabled}
+                                className="audio-slider audio-slider--volume"
+                                style={{
+                                    width: isVolumeHovered ? "140px" : "0",
+                                    opacity: isVolumeHovered ? 1 : 0,
+                                    overflow: "hidden",
+                                    color: "var(--audio-text)",
+                                    transition: "opacity 0.3s ease, width 0.3s ease",
+                                    position: "relative",
+                                    zIndex: 50,
+                                    // @ts-expect-error - CSS custom property
+                                    "--volume-percent": `${(isMuted ? 0 : volume) * 100}%`
+                                }}
+                                aria-label="Volume"
+                            />
+                            <button
+                                type="button"
+                                onClick={handleMaxVolume}
+                                disabled={disabled}
+                                style={{
+                                    ...composeButtonStyle(),
+                                    opacity: isVolumeHovered ? 1 : 0,
+                                    width: isVolumeHovered ? "auto" : "0",
+                                    overflow: "hidden",
+                                    transition: "opacity 0.3s ease, width 0.3s ease",
+                                    position: "relative",
+                                    zIndex: 50
+                                }}
+                                aria-label="Max volume"
+                            >
+                                <VolumeLevelIcon style={volumeLevelStyle} aria-hidden="true" focusable="false" />
+                            </button>
+                        </div>
+                    </div>
+
+                    <div
+                        className="audio-player-shell__transport"
+                        style={{ ...transportGroupBaseStyle, gap: 16 }}
+                    >
+                        {renderSkipButton("back")}
+                        {renderPlayToggle()}
+                        {renderSkipButton("forward")}
+                    </div>
+
+                    {/* Speed controls - full width version (hidden on mobile) */}
+                    <div
+                        className="audio-player-shell__speed-group !hidden sm:!flex"
+                        style={{
+                            justifySelf: "end",
+                            justifyContent: "flex-end",
+                            gap: "8px",
+                            minWidth: "205px",
+                            transition: "opacity 0.5s ease",
+                            opacity: isExpanded ? 1 : 0,
+                            pointerEvents: isExpanded ? "auto" : "none",
+                        }}
+                    >
+                        {playbackRates.map((rate, index) => {
+                            const isActive = index === playbackRateIndex;
+                            const buttonClassName = isActive
+                                ? `${playbackSpeedButtonClass} ${playbackSpeedButtonActiveClass}`
+                                : playbackSpeedButtonClass;
+
+                            return (
+                                <button
+                                    key={rate}
+                                    type="button"
+                                    onClick={() => setPlaybackRate(rate)}
+                                    className={buttonClassName}
+                                    aria-pressed={isActive}
+                                    disabled={disabled}
+                                >
+                                    {rate.toFixed(rate % 1 === 0 ? 0 : 2)}x
+                                </button>
+                            );
+                        })}
+                    </div>
+
+                    {/* Speed icon button (visible only on mobile) */}
+                    <div
+                        className="!flex sm:!hidden"
+                        style={{
+                            justifySelf: "end",
+                            justifyContent: "flex-end",
+                            transition: "opacity 0.5s ease",
+                            opacity: isExpanded ? 1 : 0,
+                            pointerEvents: isExpanded ? "auto" : "none",
+                        }}
+                    >
+                        <button
+                            type="button"
+                            onClick={() => setIsSpeedModalOpen(true)}
+                            disabled={disabled}
+                            style={composeButtonStyle({ opacity: isExpanded ? 0.6 : 0, pointerEvents: isExpanded ? "auto" : "none" })}
+                            aria-label="Playback speed"
+                        >
+                            <SpeedIcon style={scaledStyle(iconDimensions.volumeSpeaker.width, iconDimensions.volumeSpeaker.height)} aria-hidden="true" focusable="false" />
+                        </button>
+                    </div>
                 </div>
             </div>
 
