@@ -288,38 +288,125 @@ interface ComparisonViewProps {
     defaultView: 'problems' | 'solutions';
     initialCompareMode?: boolean;
 }
+
+const StickySubsectionTitle = ({ title }: { title: string }) => {
+    const ref = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        let rafId: number;
+        const scrollContainer = document.getElementById('scroll-container') || window;
+
+        const handleScroll = () => {
+            if (!ref.current || !ref.current.parentElement) return;
+
+            // Use RAF to decouple read/write and prevent layout trashing/jitter
+            rafId = requestAnimationFrame(() => {
+                if (!ref.current || !ref.current.parentElement) return;
+
+                const parentRect = ref.current.parentElement.getBoundingClientRect();
+                const elementHeight = ref.current.offsetHeight;
+
+                // Sticky top is 192px (12rem).
+                // The element starts to "slide up" (unstick) when the parent's bottom
+                // reaches the bottom of the sticky element.
+                // Collision point (relative to viewport top) = 192 + height.
+                const stickyTop = 192;
+                const collisionPoint = stickyTop + elementHeight;
+
+                // Distance remaining before it hits the collision point and starts moving up
+                const distanceRemaining = parentRect.bottom - collisionPoint;
+
+                // We want to start fading before it hits that point.
+                // Let's say we start fading 150px before it unsticks.
+                const fadeRange = 150;
+
+                if (distanceRemaining < fadeRange) {
+                    // Phase 1: Fading out BEFORE sticking ends (distance > 0)
+                    // We go from Opacity 1.0 -> 0.3
+                    if (distanceRemaining > 0) {
+                        // Progress 0 (start of fade) -> 1 (collision point)
+                        const progress = 1 - (distanceRemaining / fadeRange);
+
+                        // Opacity: 1 -> 0.3
+                        const opacity = 1 - (progress * 0.7);
+                        // Blur: 0 -> 3px
+                        const blur = progress * 3;
+
+                        ref.current.style.opacity = opacity.toFixed(2);
+                        ref.current.style.filter = `blur(${blur.toFixed(1)}px)`;
+                    }
+                    // Phase 2: Sliding up (distance <= 0)
+                    // We go from Opacity 0.3 -> 0.0
+                    else {
+                        const slideUpDistance = Math.abs(distanceRemaining);
+                        // Fade out completely over the next 50px of movement
+                        const slideProgress = Math.min(1, slideUpDistance / 50);
+
+                        // Opacity: 0.3 -> 0
+                        const opacity = 0.3 * (1 - slideProgress);
+
+                        // Keep max blur
+                        ref.current.style.opacity = opacity.toFixed(2);
+                        ref.current.style.filter = 'blur(3px)';
+                    }
+                } else {
+                    // Reset if we scrolled back up
+                    if (ref.current.style.opacity !== '1') {
+                        ref.current.style.opacity = '1';
+                        ref.current.style.filter = 'blur(0px)';
+                    }
+                }
+            });
+        };
+
+        scrollContainer.addEventListener('scroll', handleScroll, { passive: true });
+
+        // Initial check
+        handleScroll();
+
+        return () => {
+            scrollContainer.removeEventListener('scroll', handleScroll);
+            if (rafId) cancelAnimationFrame(rafId);
+        };
+    }, []);
+
+    return (
+        <div ref={ref} className="sticky top-48 will-change-[opacity,filter]">
+            <h3 className="text-base font-bold text-muted-foreground">
+                {title}
+            </h3>
+        </div>
+    );
+};
+
 const ComparisonSection = ({ title, categories, isLastSection = false }: { title: string, categories: CategoryData[], isLastSection?: boolean }) => {
     return (
         <section className="relative">
             {/* Mobile Main Title */}
-            <h2 className="lg:hidden text-2xl font-bold text-foreground mb-6">{title}</h2>
+            <h2 className="lg:hidden text-xl font-bold text-foreground mb-6">{title}</h2>
 
             {/* Desktop Sticky Main Title Sidebar */}
-            <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-[200px] pointer-events-none pt-20">
+            <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-[260px] pointer-events-none pt-20">
                 <div className="sticky top-8 pt-2">
-                    <h2 className="text-2xl font-bold text-foreground mb-1">{title}</h2>
+                    <h2 className="text-xl font-bold text-foreground mb-1">{title}</h2>
                 </div>
             </div>
 
             {/* Grid Content */}
-            <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-6 lg:gap-12 lg:pt-48">
+            <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-6 lg:gap-12 lg:pt-48">
                 {categories.map((cat, index) => {
                     const isLastItem = index === categories.length - 1;
                     return (
                         <div key={cat.title} className="contents">
                             {/* Desktop Sticky Sub-Title */}
                             <div className="hidden lg:block lg:col-start-1 pt-2">
-                                <div className="sticky top-32 transition-all duration-300">
-                                    <h3 className="text-lg font-bold text-muted-foreground">
-                                        {cat.title}
-                                    </h3>
-                                </div>
+                                <StickySubsectionTitle title={cat.title} />
                             </div>
 
                             {/* Mobile Sub-Title */}
                             <div className={`lg:col-start-2 min-w-0 ${isLastSection && isLastItem ? 'min-h-[75vh] pb-0' : ''}`}>
                                 {/* Mobile Sub-Title */}
-                                <h3 className="lg:hidden text-lg font-bold text-muted-foreground mb-4">
+                                <h3 className="lg:hidden text-base font-bold text-muted-foreground mb-4">
                                     {cat.title}
                                 </h3>
                                 <div className="scroll-mt-24">
@@ -355,8 +442,13 @@ export function ComparisonView({ defaultView, initialCompareMode = false }: Comp
     }, [isCompareMode, activeCompareMode]);
 
     useEffect(() => {
+        const scrollContainer = document.getElementById('scroll-container') || window;
+
         const handleScroll = () => {
-            const currentScrollY = window.scrollY;
+            // If using #scroll-container, get its scrollTop. Otherwise use window.scrollY
+            const currentScrollY = scrollContainer instanceof HTMLElement
+                ? scrollContainer.scrollTop
+                : window.scrollY;
 
             // Show when scrolling up or at the top
             if (currentScrollY < lastScrollY.current || currentScrollY < 100) {
@@ -370,8 +462,8 @@ export function ComparisonView({ defaultView, initialCompareMode = false }: Comp
             lastScrollY.current = currentScrollY;
         };
 
-        window.addEventListener("scroll", handleScroll, { passive: true });
-        return () => window.removeEventListener("scroll", handleScroll);
+        scrollContainer.addEventListener("scroll", handleScroll, { passive: true });
+        return () => scrollContainer.removeEventListener("scroll", handleScroll);
     }, []);
 
     useEffect(() => {
@@ -451,8 +543,8 @@ export function ComparisonView({ defaultView, initialCompareMode = false }: Comp
                 <div className="h-24" />
 
                 <section className="max-w-4xl mb-20">
-                    <div className="flex flex-col 2xl:flex-row 2xl:items-center gap-4 2xl:gap-12 mb-8 -ml-0 2xl:-ml-[248px]">
-                        <div className="w-[200px] flex-shrink-0 flex 2xl:justify-end">
+                    <div className="flex flex-col 2xl:flex-row 2xl:items-center gap-4 2xl:gap-12 mb-8 -ml-0 2xl:-ml-[308px]">
+                        <div className="w-[260px] flex-shrink-0 flex 2xl:justify-end">
                             <BackButton />
                         </div>
 
@@ -478,11 +570,11 @@ export function ComparisonView({ defaultView, initialCompareMode = false }: Comp
                             {defaultView === 'problems' && (
                                 <>
                                     <section className="space-y-8">
-                                        <h2 className="text-2xl font-bold text-foreground">The Macro Problem Set</h2>
+                                        <h2 className="text-xl font-bold text-foreground">The Macro Problem Set</h2>
                                         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 not-prose">
                                             {MACRO_CATEGORIES.map(cat => (
                                                 <div key={cat.title} className="border border-border p-6 rounded-lg bg-card/50">
-                                                    <h3 className="mb-4 text-lg font-semibold text-foreground">{cat.title}</h3>
+                                                    <h3 className="mb-4 text-base font-semibold text-foreground">{cat.title}</h3>
                                                     <div className="space-y-3">
                                                         {cat.problems.map((p, i) => <ProblemCard key={i} issue={p} />)}
                                                     </div>
@@ -492,11 +584,11 @@ export function ComparisonView({ defaultView, initialCompareMode = false }: Comp
                                     </section>
 
                                     <section className="space-y-8">
-                                        <h2 className="text-2xl font-bold text-foreground">The Micro Problem Set</h2>
+                                        <h2 className="text-xl font-bold text-foreground">The Micro Problem Set</h2>
                                         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 not-prose">
                                             {MICRO_CATEGORIES.map(cat => (
                                                 <div key={cat.title} className="border border-border p-6 rounded-lg bg-card/50">
-                                                    <h3 className="mb-4 text-lg font-semibold text-foreground">{cat.title}</h3>
+                                                    <h3 className="mb-4 text-base font-semibold text-foreground">{cat.title}</h3>
                                                     <div className="space-y-3">
                                                         {cat.problems.map((p, i) => <ProblemCard key={i} issue={p} />)}
                                                     </div>
@@ -511,11 +603,11 @@ export function ComparisonView({ defaultView, initialCompareMode = false }: Comp
                             {defaultView === 'solutions' && (
                                 <>
                                     <section className="space-y-8">
-                                        <h2 className="text-2xl font-bold text-foreground">Macro Solutions</h2>
+                                        <h2 className="text-xl font-bold text-foreground">Macro Solutions</h2>
                                         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 not-prose">
                                             {MACRO_CATEGORIES.map(cat => (
                                                 <div key={cat.title} className="border border-border p-6 rounded-lg bg-card/50">
-                                                    <h3 className="mb-4 text-xl font-bold text-foreground">{cat.title}</h3>
+                                                    <h3 className="mb-4 text-base font-bold text-foreground">{cat.title}</h3>
                                                     <div className="space-y-6">
                                                         {cat.solutions.map((s, i) => <SolutionCard key={i} item={s} />)}
                                                     </div>
@@ -524,11 +616,11 @@ export function ComparisonView({ defaultView, initialCompareMode = false }: Comp
                                         </div>
                                     </section>
                                     <section className="space-y-8">
-                                        <h2 className="text-2xl font-bold text-foreground">Micro Solutions</h2>
+                                        <h2 className="text-xl font-bold text-foreground">Micro Solutions</h2>
                                         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 not-prose">
                                             {MICRO_CATEGORIES.map(cat => (
                                                 <div key={cat.title} className="border border-border p-6 rounded-lg bg-card/50">
-                                                    <h3 className="mb-4 text-xl font-bold text-foreground">{cat.title}</h3>
+                                                    <h3 className="mb-4 text-base font-bold text-foreground">{cat.title}</h3>
                                                     <div className="space-y-6">
                                                         {cat.solutions.map((s, i) => <SolutionCard key={i} item={s} />)}
                                                     </div>
@@ -553,7 +645,7 @@ export function ComparisonView({ defaultView, initialCompareMode = false }: Comp
                     )}
 
                     {/* Footer */}
-                    <div className={`pt-24 pb-12 ${activeCompareMode ? 'grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-6 lg:gap-12' : 'flex justify-center'}`}>
+                    <div className={`pt-24 pb-12 ${activeCompareMode ? 'grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-6 lg:gap-12' : 'flex justify-center'}`}>
                         <div className={activeCompareMode ? 'lg:col-start-2 flex justify-center' : ''}>
                             <BackButton />
                         </div>
