@@ -68,6 +68,7 @@ const HoverEyeIcon = ({ className }: { className?: string }) => (
 
 function ProblemCard({ issue }: { issue: ConvergingIssue }) {
     const [menuOffset, setMenuOffset] = useState(0);
+    const [alignment, setAlignment] = useState<'left' | 'right'>('right');
     const triggerRef = useRef<HTMLDivElement>(null);
     const menuRef = useRef<HTMLDivElement>(null);
 
@@ -75,24 +76,33 @@ function ProblemCard({ issue }: { issue: ConvergingIssue }) {
         const checkPosition = () => {
             if (triggerRef.current && menuRef.current) {
                 const triggerRect = triggerRef.current.getBoundingClientRect();
+                const menuWidth = menuRef.current.offsetWidth;
                 const menuHeight = menuRef.current.offsetHeight;
+                const viewportWidth = window.innerWidth;
                 const viewportHeight = window.innerHeight;
-                const bottomBuffer = 32; // 32px from viewport bottom
+                const bottomBuffer = 32;
 
-                // Calculate ideal position (aligned with trigger top)
+                // Vertical positioning logic
                 const idealBottom = triggerRect.top + menuHeight;
-
-                // If menu would overflow, calculate how much to shift it up
                 if (idealBottom > viewportHeight - bottomBuffer) {
                     const overflow = idealBottom - (viewportHeight - bottomBuffer);
                     setMenuOffset(-overflow);
                 } else {
                     setMenuOffset(0);
                 }
+
+                // Horizontal positioning logic
+                // Provide a small buffer so it doesn't flip at the exact pixel
+                const rightEdge = triggerRect.right + menuWidth + 16;
+
+                if (rightEdge > viewportWidth) {
+                    setAlignment('left');
+                } else {
+                    setAlignment('right');
+                }
             }
         };
 
-        // Check on mount and when hovering
         const trigger = triggerRef.current;
         if (trigger) {
             trigger.addEventListener('mouseenter', checkPosition);
@@ -109,6 +119,10 @@ function ProblemCard({ issue }: { issue: ConvergingIssue }) {
         };
     }, []);
 
+    const alignmentClasses = alignment === 'right'
+        ? "left-full ml-2 before:right-full before:w-2"
+        : "right-full mr-2 before:left-full before:w-2";
+
     return (
         <div className="mb-4 last:mb-0">
             <div className="flex flex-col gap-1">
@@ -123,7 +137,7 @@ function ProblemCard({ issue }: { issue: ConvergingIssue }) {
                     <div
                         ref={menuRef}
                         style={{ top: `${menuOffset}px` }}
-                        className="absolute left-full ml-2 z-50 w-72 rounded-lg border border-border bg-background p-3 opacity-0 shadow-2xl dark:shadow-[0_0_40px_rgba(255,255,255,0.2)] transition-opacity duration-200 pointer-events-none group-hover/menu:opacity-100 group-hover/menu:pointer-events-auto hover:opacity-100 hover:pointer-events-auto before:content-[''] before:absolute before:right-full before:inset-y-0 before:w-2 before:bg-transparent"
+                        className={`absolute ${alignmentClasses} z-50 w-72 rounded-lg border border-border bg-background p-3 opacity-0 shadow-2xl dark:shadow-[0_0_40px_rgba(255,255,255,0.2)] transition-opacity duration-200 pointer-events-none group-hover/menu:opacity-100 group-hover/menu:pointer-events-auto hover:opacity-100 hover:pointer-events-auto before:content-[''] before:absolute before:inset-y-0 before:bg-transparent`}
                     >
                         <ul className="space-y-2">
                             {issue.links.map((link, i) => (

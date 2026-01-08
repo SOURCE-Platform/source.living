@@ -75,7 +75,7 @@ export default function RootLayout({
             <BackgroundAnimation />
             <MobileNav />
             <TransitionEffect>
-              <div id="scroll-container" className="h-dvh overflow-y-auto relative z-10">
+              <div id="scroll-container" className="h-dvh overflow-y-auto overflow-x-hidden relative z-10">
                 {children}
               </div>
             </TransitionEffect>
