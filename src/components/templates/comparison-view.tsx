@@ -308,8 +308,8 @@ const StickySubsectionTitle = ({ title }: { title: string }) => {
 
                 // The element starts to "slide up" (unstick) when the parent's bottom
                 // reaches the bottom of the sticky element.
-                // Collision point (relative to viewport top) = 112 + height.
-                const stickyTop = 112;
+                // Collision point (relative to viewport top) = 144 + height.
+                const stickyTop = 144;
                 const collisionPoint = stickyTop + elementHeight;
 
                 // Distance remaining before it hits the collision point and starts moving up
@@ -370,8 +370,11 @@ const StickySubsectionTitle = ({ title }: { title: string }) => {
     }, []);
 
     return (
-        <div ref={ref} className="sticky top-28 will-change-[opacity,filter]">
-            <h3 className="text-base font-bold text-muted-foreground">
+        <div ref={ref} className="sticky top-36 will-change-[opacity,filter]">
+            <h3
+                className="text-base font-extralight text-muted-foreground/70 leading-[0.9]"
+                style={{ fontFamily: 'var(--font-paragraph)' }}
+            >
                 {title}
             </h3>
         </div>

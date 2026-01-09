@@ -260,18 +260,19 @@ export function CircularMenu({
                                         item.onClick()
                                         setIsOpen(false)
                                     }}
-                                    className={`group flex items-center text-lg transition-colors duration-200 px-4 py-3 pr-6 rounded-[32px] 
-                    ${item.disabled ? 'cursor-default' : 'cursor-pointer hover:bg-black/5 dark:hover:bg-white/5'}
+                                    className={`group relative flex items-center text-lg transition-all duration-300 px-4 py-3 pr-6 rounded-[32px] 
+                                    before:content-[''] before:absolute before:inset-0 before:z-[-1] before:rounded-[32px] before:blur-lg before:transition-opacity before:duration-300 before:opacity-0 hover:before:opacity-100 before:bg-gradient-to-r before:from-[#02ABFF]/20 before:to-[#001AFF]/20 dark:before:bg-none dark:before:bg-white/20
+                    ${item.disabled ? 'cursor-default' : 'cursor-pointer'}
                     ${darkMode ? 'text-white' : 'text-black'}
                     ${item.disabled ? '' : ''} 
-                    justify-end`}
+                                    justify-end ease-in-out`}
                                 >
                                     {item.icon ? (
-                                        <div className="flex-shrink-0">
+                                        <div className="flex-shrink-0 relative z-10">
                                             {item.icon}
                                         </div>
                                     ) : (
-                                        <span className="link-underline-animate">
+                                        <span className="link-underline-animate relative z-10">
                                             {item.label}
                                         </span>
                                     )}
