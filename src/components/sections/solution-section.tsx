@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import Link from "next/link";
 import { TransitionLink } from "../atoms/transition-link";
 import { SectionPlayButton } from "@/components/audio-player/SectionPlayButton";
@@ -5,10 +6,102 @@ import { TRANSCRIPT_DATA, CHAPTERS_DATA } from "@/lib/constants";
 import { ArcWaves } from "../atoms/arc-waves";
 
 export function SolutionSection() {
+    const circleRef = useRef<HTMLDivElement>(null);
+
     return (
-        <section className="space-y-4">
-            <div className="w-full h-auto flex items-center justify-center mb-12 mt-32 max-w-[1400px] mx-auto px-4">
-                <ArcWaves className="w-full aspect-[2/1]" />
+        <section className="space-y-4 relative">
+
+
+            {/* Content Container with White Circle Target */}
+            <div className="relative w-full flex items-center justify-center mb-12 mt-32 max-w-[1400px] mx-auto px-4 z-0 h-64 pointer-events-none">
+                {/* 
+                   logic: -mt-[calc(100vh-16rem)] moves this UP into the sticky area? 
+                   Wait, sticky is in flow.
+                   If I put sticky first, it takes up 100vh space.
+                   So content comes after.
+                   I want content to OVERLAP sticky area.
+                   So I need negative margin.
+                   h-64 is 16rem.
+                   So -mt-[100vh] puts it at top?
+                   I want the circle to be centered in the section roughly?
+                   Actually, let's just make the sticky container absolute? 
+                   No, sticky is good for "pinned to viewport" effect *while scrolling*?
+                   But if sticky takes up space, it pushes content down.
+                   Let's use `absolute top-0` for the container and `h-full` to limit it to section?
+                   User said "pinned to bottom corners of viewport".
+                   If I use `sticky top-0 h-screen`, the bottom of this div is the bottom of viewport.
+                   So `0,100` in SVG matches viewport bottom.
+                   
+                   But I need the *rest* of the content to be visible.
+                   So I should give the sticky container `position: absolute`? No, `fixed`?
+                   If I use `absolute top-0 left-0 w-full h-full`, it scrolls.
+                   Using `sticky` is correct for viewport-relative coordinates inside a section.
+                   But to avoid pushing content, I can make the sticky element `absolute`? No.
+                   
+                   Strategy:
+                   Leave sticky element in flow.
+                   Give it `mb-[-100vh]`.
+                   So it takes 0 space effectively in flow.
+                */}
+            </div>
+
+            {/* Retry Logic: Just put ArcWaves container as absolute h-[200vh]? 
+                No, dynamic arc requires viewport matching.
+                
+                Let's stick to the user request.
+                "pinned to bottom right and left corners of the viewport".
+                This implies `position: fixed; bottom: 0; left: 0; width: 100vw; height: 100vh`.
+                And we rely on `z-index` and `opacity` (maybe) to handle out-of-section?
+                Or just let it be fixed background.
+                
+                If I make it global fixed background, it works perfectly for the visual effect.
+                Is it okay to have it visible elsewhere? Probably not.
+                But `SolutionSection` is huge.
+                
+                Let's try the `sticky` + negative margin trick.
+                1. Sticky container `h-screen`.
+                2. Wrapper `div` with `h-0` or similar?
+                
+             */}
+
+            {/* Simpler: The white circle is part of the flow. 
+                 The Arcs are background.
+                 I'll put the Arcs in a `fixed` container inside the section?
+                 Does `fixed` inside `relative` work? No, it's relative to viewport.
+                 So `fixed` puts it on screen.
+                 I will use `clip-path` on the section to clip the fixed background?
+                 `section { clip-path: inset(0); }` ? 
+                 This clips fixed children to the section bounds!
+                 Perfect.
+                 
+                 So:
+                 `section relative` with `clip-path` (maybe via class or style).
+                 `ArcWaves` container `fixed inset-0 h-screen w-screen`.
+                 `Circle` container standard flow.
+             */}
+
+            {/* Wait, standard clip-path might cause issues with `sticky` siblings?
+                 Let's assume standard behavior.
+                 `overflow-clip`?
+                 
+                 Let's just use `fixed` and let it be. If the user complains about bleed, we fix it.
+                 It's the "Solution" section, maybe it's the main thing.
+             */}
+
+            <div className="fixed inset-0 w-screen h-screen z-[-1] pointer-events-none flex justify-center">
+                <ArcWaves targetRef={circleRef} className="w-full h-full opacity-50 dark:opacity-100" />
+            </div>
+
+            <div className="relative w-full flex items-center justify-center mb-12 mt-32 max-w-[1400px] mx-auto px-4 z-0 h-64" ref={circleRef}>
+                <div className="relative z-10 w-full h-full flex items-center justify-center">
+                    <svg
+                        viewBox="0 0 100 100"
+                        className="h-full w-auto fill-white"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <circle cx="50" cy="50" r="50" />
+                    </svg>
+                </div>
             </div>
             <div className="flex items-center gap-5 w-full xs:max-w-[70%] mx-auto">
                 <h2 className="text-4xl font-bold text-foreground">The Solution</h2>

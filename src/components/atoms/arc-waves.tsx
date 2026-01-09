@@ -1,54 +1,113 @@
 "use client";
 
-import React, { useId } from "react";
+import React, { useId, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 
 interface ArcWavesProps {
     className?: string;
     lineCount?: number;
+    targetRef?: any;
 }
 
-export function ArcWaves({ className, lineCount = 15 }: ArcWavesProps) {
+export function ArcWaves({ className, lineCount = 15, targetRef }: ArcWavesProps) {
     const rawId = useId();
-    // React's useId generates strings like ":r1:", which are invalid in CSS selectors/class names unless escaped.
-    // We'll treat it as a string and replace colons with dashes or underscores.
     const idPrefix = rawId.replace(/:/g, "-");
-
     const gradientLightId = `${idPrefix}-gradient-light`;
     const gradientDarkId = `${idPrefix}-gradient-dark`;
 
-    // Generate radii for the arcs.
-    // We want them to span the full width of the viewport.
-    // The viewBox is 0 0 100 50 (top half of a 100x100 circle).
-    // The outermost radius should be 50.
-    // We want ~15 arcs.
-    // Let's space them out nicely.
-    const radii = Array.from({ length: lineCount }, (_, i) => {
-        // Distribute from R=50 down to some inner radius, say R=20 or 10.
-        // Or linear distribution.
-        const t = i / (lineCount - 1);
-        // Outer to inner
-        return 50 - t * 35; // 50 down to 15
-    });
+    const svgRef = useRef<SVGSVGElement>(null);
+    const lightGroupRef = useRef<SVGGElement>(null);
+    const darkGroupRef = useRef<SVGGElement>(null);
+    const lightPathsRef = useRef<(SVGPathElement | null)[]>([]);
+    const darkPathsRef = useRef<(SVGPathElement | null)[]>([]);
+
+    useEffect(() => {
+        let animationFrameId: number;
+
+        const updatePaths = () => {
+            if (!svgRef.current || !targetRef?.current) return;
+
+            const svgRect = svgRef.current.getBoundingClientRect();
+            const targetRect = targetRef.current.getBoundingClientRect();
+
+            // Calculate target center relative to SVG top
+            // SVG bottom is at svgRect.height (which is mapped to viewBox 100)
+            const targetCenterYPx = (targetRect.top + targetRect.height / 2) - svgRect.top;
+
+            // Map pixels to viewBox coordinates (0-100 vertical)
+            // viewBox is 0 0 100 100. Height is 100 units.
+            const scaleY = 100 / svgRect.height;
+            const targetCenterY = targetCenterYPx * scaleY;
+
+            // Update paths
+            // We want arcs to stack concentrically around the target center.
+            // Each arc should have a control point cy relative to targetCenterY.
+            // Pinned at bottom corners: 0,100 and 100,100.
+
+            const updateGroup = (paths: (SVGPathElement | null)[]) => {
+                // Calculate strictly constrained spacing
+                const targetHeightUnits = targetRect.height * scaleY;
+                // Use 95% of the circle height to ensure even the strokes fit nicely inside
+                const availableHeight = targetHeightUnits * 0.95;
+
+                // Calculate spacing to distribute N lines over the available height
+                // The distance between top and bottom line is availableHeight
+                const spacing = lineCount > 1 ? availableHeight / (lineCount - 1) : 0;
+
+                // Center the stack around targetCenterY
+                // Top line is at -HalfHeight, Bottom at +HalfHeight
+                const startY = targetCenterY - (availableHeight / 2);
+
+                paths.forEach((path, i) => {
+                    if (!path) return;
+
+                    const apexY = startY + (i * spacing);
+                    const controlY = 2 * (apexY - 50);
+
+                    path.setAttribute("d", `M 0 100 Q 50 ${controlY} 100 100`);
+                });
+            };
+
+            updateGroup(lightPathsRef.current);
+            updateGroup(darkPathsRef.current);
+
+            // Fade Out Logic
+            const fadeStart = window.innerHeight / 2;
+            const fadeDist = 500;
+            let opacity = 1;
+            if (targetCenterYPx < fadeStart) {
+                opacity = Math.max(0, 1 - (fadeStart - targetCenterYPx) / fadeDist);
+            }
+
+            if (lightGroupRef.current) lightGroupRef.current.style.opacity = opacity.toString();
+            if (darkGroupRef.current) darkGroupRef.current.style.opacity = opacity.toString();
+
+            animationFrameId = requestAnimationFrame(updatePaths);
+        };
+
+        // Start loop
+        animationFrameId = requestAnimationFrame(updatePaths);
+
+        return () => cancelAnimationFrame(animationFrameId);
+    }, [targetRef, lineCount]);
 
     return (
-        <div className={cn("w-full", className)}>
+        <div className={cn("w-full h-full", className)}>
             <svg
-                viewBox="0 0 100 50"
-                className="w-full h-full block bg-blue-500/20"
-                preserveAspectRatio="xMidYMax slice"
+                ref={svgRef}
+                viewBox="0 0 100 100"
+                className="w-full h-full block"
+                preserveAspectRatio="none"
                 xmlns="http://www.w3.org/2000/svg"
             >
-                <path d="M 10 50 A 40 40 0 0 0 90 50" fill="none" stroke="red" strokeWidth="2" />
                 <defs>
-                    {/* Light Mode Gradient: Playgrade Light */}
                     <radialGradient
                         id={gradientLightId}
-                        cx="30"
-                        cy="30"
+                        cx="50"
+                        cy="100"
                         r="100"
-                        fx="30"
-                        fy="30"
+                        fx="50"
+                        fy="100"
                         gradientUnits="userSpaceOnUse"
                     >
                         <stop offset="0%" stopColor="#ABAB88" />
@@ -57,13 +116,12 @@ export function ArcWaves({ className, lineCount = 15 }: ArcWavesProps) {
                         <stop offset="100%" stopColor="#141B5C" />
                     </radialGradient>
 
-                    {/* Dark Mode Gradient: Playgrade */}
                     <linearGradient
                         id={gradientDarkId}
-                        x1="0"
-                        y1="0"
-                        x2="100"
-                        y2="50"
+                        x1="50"
+                        y1="100"
+                        x2="50"
+                        y2="0"
                         gradientUnits="userSpaceOnUse"
                     >
                         <stop offset="0%" stopColor="#FFC1D5" />
@@ -73,12 +131,11 @@ export function ArcWaves({ className, lineCount = 15 }: ArcWavesProps) {
                     </linearGradient>
                 </defs>
 
-                {/* Light Mode Paths */}
-                <g className="dark:hidden">
-                    {radii.map((r, i) => (
+                <g className="dark:hidden" ref={lightGroupRef}>
+                    {Array.from({ length: lineCount }).map((_, i) => (
                         <path
                             key={`light-${i}`}
-                            d={`M ${50 - r} 50 A ${r} ${r} 0 0 0 ${50 + r} 50`}
+                            ref={(el) => { lightPathsRef.current[i] = el; }}
                             fill="none"
                             stroke={`url(#${gradientLightId})`}
                             strokeWidth="1"
@@ -87,12 +144,11 @@ export function ArcWaves({ className, lineCount = 15 }: ArcWavesProps) {
                     ))}
                 </g>
 
-                {/* Dark Mode Paths */}
-                <g className="hidden dark:block">
-                    {radii.map((r, i) => (
+                <g className="hidden dark:block" ref={darkGroupRef}>
+                    {Array.from({ length: lineCount }).map((_, i) => (
                         <path
                             key={`dark-${i}`}
-                            d={`M ${50 - r} 50 A ${r} ${r} 0 0 0 ${50 + r} 50`}
+                            ref={(el) => { darkPathsRef.current[i] = el; }}
                             fill="none"
                             stroke={`url(#${gradientDarkId})`}
                             strokeWidth="1"
