@@ -1,8 +1,35 @@
 import Link from "next/link";
+import Image from "next/image";
+import { WarpedImage } from "../3d/WarpedImage";
 import { TransitionLink } from "../atoms/transition-link";
 import { SectionPlayButton } from "@/components/audio-player/SectionPlayButton";
 import { Badge } from "@/components/atoms/badge";
 import { TRANSCRIPT_DATA, CHAPTERS_DATA } from "@/lib/constants";
+import { Slideshow } from "@/components/atoms/slideshow";
+import { RotatingSlideshow } from "@/components/atoms/rotating-slideshow";
+
+const LOW_QUALITY_DATA_IMAGES = [
+    "/images/low quality data/61c822907d87b57f50b38b41ab48038c.gif",
+    "/images/low quality data/ericmish.gif",
+    "/images/low quality data/girlrlrlrlr.gif",
+    "/images/low quality data/eat-delicious.gif",
+    "/images/low quality data/drakemosh.png",
+    "/images/low quality data/b74.gif",
+    "/images/low quality data/aORgQU.gif",
+    "/images/low quality data/tumblr_mlzogpwjwI1rxkznbo1_500.gif",
+    "/images/low quality data/corrupt-datamosh.gif",
+    "/images/low quality data/1_FbpwampTI0FMq9rfihQjIA.gif",
+    "/images/low quality data/RQmFCoy.gif",
+    "/images/low quality data/jack-torrence-datamosh.gif",
+    "/images/low quality data/feac6cb7fcb3a95881e15ac4d620e541.gif",
+    "/images/low quality data/datamosh-3.png",
+];
+
+const LOW_QUANTITY_DATA_IMAGES = [
+    { src: "/images/low quantity data/image.png", scale: 1.0 }, // Doom Disk
+    { src: "/images/low quantity data/image (1).png", scale: 1.5 }, // Assuming similar
+    { src: "/images/low quantity data/imegobg rm.png", scale: 0.95 }, // Ultima IV
+];
 
 export function ProblemSection() {
     return (
@@ -16,59 +43,74 @@ export function ProblemSection() {
             </div>
 
             {/* 1. The Data Wall */}
-            <div className="space-y-4">
-                <div className="flex items-center gap-5 w-full xs:max-w-[70%] mx-auto">
-                    <h3 className="text-3xl font-bold text-foreground">1. The Data Wall</h3>
-                    <SectionPlayButton
-                        title="The Data Wall"
-                        audioSrc="/audio/The%20Data%20Wall.mp3"
-                        transcript={TRANSCRIPT_DATA}
-                        chapters={CHAPTERS_DATA}
-                    />
+            <div className="flex flex-row gap-6 w-full xs:max-w-[70%] mx-auto">
+                <span className="text-8xl font-thin leading-none text-transparent bg-clip-text bg-[image:var(--background-image-playgrade-light)] dark:bg-[image:var(--background-image-playgrade)] select-none">1</span>
+                <div className="space-y-4 pt-2">
+                    <div className="flex items-center gap-5 w-full">
+                        <h3 className="text-3xl font-bold text-foreground">The Data Wall</h3>
+                        <SectionPlayButton
+                            title="The Data Wall"
+                            audioSrc="/audio/The%20Data%20Wall.mp3"
+                            transcript={TRANSCRIPT_DATA}
+                            chapters={CHAPTERS_DATA}
+                        />
+                    </div>
+                    <p className="w-full">
+                        We have thrown the entire internet at Transformers. While effective, this approach is constrained by the <strong className="text-foreground">qualitative</strong> and <strong className="text-foreground">quantitative</strong> limitations of the data source itself.
+                    </p>
                 </div>
-                <p className="w-full xs:max-w-[70%] mx-auto">
-                    We have thrown the entire internet at Transformers. While effective, this approach is constrained by the <strong className="text-foreground">qualitative</strong> and <strong className="text-foreground">quantitative</strong> limitations of the data source itself.
-                </p>
+            </div>
 
-                <div className="space-y-8 py-6">
-                    <div className="flex flex-col xs:flex-row gap-8 items-start">
-                        <div className="w-full xs:w-24 xs:h-24 md:w-48 md:h-48 h-48 shrink-0 bg-muted/20 rounded-lg" />
-                        <div>
-                            <Badge className="mb-2">Qualitative</Badge>
-                            <h4 className="text-xl font-bold text-foreground mb-2">Low Quality Data</h4>
-                            <p className="text-muted-foreground">
-                                LLMs are trained on the <em>internet</em>, which is performative, artificial, and highly edited. It lacks the authentic, natural behavior that defines actual human experience.
-                            </p>
-                        </div>
+            <div className="space-y-8 py-6">
+                <div className="flex flex-col xs:flex-row gap-8 items-start">
+                    <div className="w-full xs:w-24 xs:h-24 md:w-48 md:h-48 h-48 shrink-0 bg-muted/20 rounded-lg overflow-hidden relative">
+                        <Slideshow images={LOW_QUALITY_DATA_IMAGES} />
                     </div>
-                    <div className="flex flex-col xs:flex-row gap-8 items-start">
-                        <div className="w-full xs:w-24 xs:h-24 md:w-48 md:h-48 h-48 shrink-0 bg-muted/20 rounded-lg" />
-                        <div>
-                            <Badge className="mb-2">Quantitative</Badge>
-                            <h4 className="text-xl font-bold text-foreground mb-2">Low Quantity Data</h4>
-                            <p className="text-muted-foreground">
-                                Current AI misses 99.99% of human experience—the physical world and the real-time living that happens beyond static text and curated uploads. After all, we humans are constantly producing data that's getting lost to the void.
-                            </p>
-                        </div>
+                    <div>
+                        <Badge className="mb-2">Qualitative</Badge>
+                        <h4 className="text-xl font-bold text-foreground mb-2">Low Quality Data</h4>
+                        <p className="text-muted-foreground">
+                            LLMs are trained on the <em>internet</em>, which is performative, artificial, and highly edited. It lacks the authentic, natural behavior that defines actual human experience.
+                        </p>
                     </div>
                 </div>
-            </div >
+                <div className="flex flex-col xs:flex-row gap-8 items-start">
+                    <div className="w-full xs:w-24 xs:h-24 md:w-48 md:h-48 h-48 shrink-0 rounded-lg overflow-hidden relative">
+                        <RotatingSlideshow images={LOW_QUANTITY_DATA_IMAGES} />
+                    </div>
+                    <div>
+                        <Badge className="mb-2">Quantitative</Badge>
+                        <h4 className="text-xl font-bold text-foreground mb-2">Low Quantity Data</h4>
+                        <p className="text-muted-foreground">
+                            Current AI misses 99.99% of human experience—the physical world and the real-time living that happens beyond static text and curated uploads. After all, we humans are constantly producing data that's getting lost to the void.
+                        </p>
+                    </div>
+                </div>
+            </div>
 
             {/* 2. The Expanded Problem Set */}
-            < div className="space-y-4 mt-24" >
-                <div className="w-full h-64 bg-muted/20 rounded-lg mb-8" />
-                <div className="flex items-center gap-5 w-full xs:max-w-[70%] mx-auto">
-                    <h3 className="text-3xl font-bold text-foreground">2. The Systemic Convergence</h3>
-                    <SectionPlayButton
-                        title="The Systemic Convergence"
-                        audioSrc="/audio/Systemic%20Convergence.mp3"
-                        transcript={TRANSCRIPT_DATA}
-                        chapters={CHAPTERS_DATA}
-                    />
+            <div className="space-y-4 mt-24">
+                <WarpedImage
+                    src="/images/systemicconvergence/beksinski-1.jpg"
+                    className="w-full rounded-lg mb-8"
+                />
+                <div className="flex flex-row gap-6 w-full xs:max-w-[70%] mx-auto">
+                    <span className="text-8xl font-thin leading-none text-transparent bg-clip-text bg-[image:var(--background-image-playgrade-light)] dark:bg-[image:var(--background-image-playgrade)] select-none">2</span>
+                    <div className="space-y-4 pt-2">
+                        <div className="flex items-center gap-5 w-full">
+                            <h3 className="text-3xl font-bold text-foreground">The Systemic Convergence</h3>
+                            <SectionPlayButton
+                                title="The Systemic Convergence"
+                                audioSrc="/audio/Systemic%20Convergence.mp3"
+                                transcript={TRANSCRIPT_DATA}
+                                chapters={CHAPTERS_DATA}
+                            />
+                        </div>
+                        <p className="w-full">
+                            Beyond the AI data bottleneck, failure modes are converging across the entire stack. From macro-institutional decay to micro-biological strain, the friction of existence is rising uniformly.
+                        </p>
+                    </div>
                 </div>
-                <p className="w-full xs:max-w-[70%] mx-auto">
-                    Beyond the AI data bottleneck, failure modes are converging across the entire stack. From macro-institutional decay to micro-biological strain, the friction of existence is rising uniformly.
-                </p>
 
                 <div className="flex flex-col rounded-lg border border-border bg-white/30 dark:bg-muted/20 mt-2">
                     <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-border">

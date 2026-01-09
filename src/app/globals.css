@@ -363,7 +363,7 @@
   .playgrade-link-bg {
     position: relative;
     /* Ensure content is above the background pseudo-element */
-    z-index: 1; 
+    z-index: 1;
   }
 
   .playgrade-link-bg::after {
@@ -374,12 +374,12 @@
     background: var(--blue-button);
     opacity: 0;
     transition: opacity 0.3s ease;
-    z-index: -1; 
+    z-index: -1;
     border-radius: inherit;
   }
 
   .dark .playgrade-link-bg::after {
-     /* Use the playgrade gradient for dark mode, or keep it generic if preferred. 
+    /* Use the playgrade gradient for dark mode, or keep it generic if preferred. 
         User asked for "blue gradient" which usually implies the blue-button one or similar.
         Let's match the border logic: dark mode uses --background-image-playgrade 
      */

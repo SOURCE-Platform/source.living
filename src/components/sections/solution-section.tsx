@@ -2,18 +2,13 @@ import Link from "next/link";
 import { TransitionLink } from "../atoms/transition-link";
 import { SectionPlayButton } from "@/components/audio-player/SectionPlayButton";
 import { TRANSCRIPT_DATA, CHAPTERS_DATA } from "@/lib/constants";
+import { ArcWaves } from "../atoms/arc-waves";
 
 export function SolutionSection() {
     return (
         <section className="space-y-4">
-            <div className="w-full h-64 flex items-center justify-center mb-24 mt-32">
-                <svg
-                    viewBox="0 0 100 100"
-                    className="h-full w-auto fill-white"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <circle cx="50" cy="50" r="50" />
-                </svg>
+            <div className="w-full h-auto flex items-center justify-center mb-12 mt-32 max-w-[1400px] mx-auto px-4">
+                <ArcWaves className="w-full aspect-[2/1]" />
             </div>
             <div className="flex items-center gap-5 w-full xs:max-w-[70%] mx-auto">
                 <h2 className="text-4xl font-bold text-foreground">The Solution</h2>
