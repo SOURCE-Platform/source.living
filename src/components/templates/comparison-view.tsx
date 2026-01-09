@@ -306,11 +306,10 @@ const StickySubsectionTitle = ({ title }: { title: string }) => {
                 const parentRect = ref.current.parentElement.getBoundingClientRect();
                 const elementHeight = ref.current.offsetHeight;
 
-                // Sticky top is 192px (12rem).
                 // The element starts to "slide up" (unstick) when the parent's bottom
                 // reaches the bottom of the sticky element.
-                // Collision point (relative to viewport top) = 192 + height.
-                const stickyTop = 192;
+                // Collision point (relative to viewport top) = 112 + height.
+                const stickyTop = 112;
                 const collisionPoint = stickyTop + elementHeight;
 
                 // Distance remaining before it hits the collision point and starts moving up
@@ -371,7 +370,7 @@ const StickySubsectionTitle = ({ title }: { title: string }) => {
     }, []);
 
     return (
-        <div ref={ref} className="sticky top-48 will-change-[opacity,filter]">
+        <div ref={ref} className="sticky top-28 will-change-[opacity,filter]">
             <h3 className="text-base font-bold text-muted-foreground">
                 {title}
             </h3>
@@ -388,7 +387,7 @@ const ComparisonSection = ({ title, categories, isLastSection = false }: { title
             {/* Desktop Sticky Main Title Sidebar */}
             <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-[260px] pointer-events-none pt-20">
                 <div className="sticky top-8 pt-2">
-                    <h2 className="text-xl font-bold text-foreground mb-1">{title}</h2>
+                    <h2 className="text-xl font-bold text-foreground mb-1 leading-[0.9]">{title}</h2>
                 </div>
             </div>
 

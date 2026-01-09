@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { TransitionLink } from "../atoms/transition-link";
 import { SectionPlayButton } from "@/components/audio-player/SectionPlayButton";
+import { Badge } from "@/components/atoms/badge";
 import { TRANSCRIPT_DATA, CHAPTERS_DATA } from "@/lib/constants";
 
 export function ProblemSection() {
@@ -33,7 +34,7 @@ export function ProblemSection() {
                     <div className="flex flex-col xs:flex-row gap-8 items-start">
                         <div className="w-full xs:w-24 xs:h-24 md:w-48 md:h-48 h-48 shrink-0 bg-muted/20 rounded-lg" />
                         <div>
-                            <div className="mb-2 w-fit rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-semibold text-foreground uppercase tracking-wider">Qualitative</div>
+                            <Badge className="mb-2">Qualitative</Badge>
                             <h4 className="text-xl font-bold text-foreground mb-2">Low Quality Data</h4>
                             <p className="text-muted-foreground">
                                 LLMs are trained on the <em>internet</em>, which is performative, artificial, and highly edited. It lacks the authentic, natural behavior that defines actual human experience.
@@ -43,7 +44,7 @@ export function ProblemSection() {
                     <div className="flex flex-col xs:flex-row gap-8 items-start">
                         <div className="w-full xs:w-24 xs:h-24 md:w-48 md:h-48 h-48 shrink-0 bg-muted/20 rounded-lg" />
                         <div>
-                            <div className="mb-2 w-fit rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-semibold text-foreground uppercase tracking-wider">Quantitative</div>
+                            <Badge className="mb-2">Quantitative</Badge>
                             <h4 className="text-xl font-bold text-foreground mb-2">Low Quantity Data</h4>
                             <p className="text-muted-foreground">
                                 Current AI misses 99.99% of human experience—the physical world and the real-time living that happens beyond static text and curated uploads. After all, we humans are constantly producing data that's getting lost to the void.
@@ -51,10 +52,10 @@ export function ProblemSection() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
 
             {/* 2. The Expanded Problem Set */}
-            <div className="space-y-4 mt-24">
+            < div className="space-y-4 mt-24" >
                 <div className="w-full h-64 bg-muted/20 rounded-lg mb-8" />
                 <div className="flex items-center gap-5 w-full xs:max-w-[70%] mx-auto">
                     <h3 className="text-3xl font-bold text-foreground">2. The Systemic Convergence</h3>
@@ -69,7 +70,7 @@ export function ProblemSection() {
                     Beyond the AI data bottleneck, failure modes are converging across the entire stack. From macro-institutional decay to micro-biological strain, the friction of existence is rising uniformly.
                 </p>
 
-                <div className="flex flex-col rounded-lg border border-border bg-muted/10 mt-2">
+                <div className="flex flex-col rounded-lg border border-border bg-white/30 dark:bg-muted/20 mt-2">
                     <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-border">
                         <div className="p-5 pb-16 space-y-6">
                             <h4 className="text-xl font-bold text-foreground">The Macro Problem Set</h4>
@@ -77,33 +78,33 @@ export function ProblemSection() {
                                 <li>
                                     <strong className="text-foreground block mb-1">Political</strong>
                                     <div className="flex flex-wrap gap-2">
-                                        <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Inadequate Problem Solving</span>
-                                        <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Polarization</span>
-                                        <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Erosion of Trust</span>
+                                        <Badge>Inadequate Problem Solving</Badge>
+                                        <Badge>Polarization</Badge>
+                                        <Badge>Erosion of Trust</Badge>
                                     </div>
                                 </li>
                                 <li>
                                     <strong className="text-foreground block mb-1">Economic</strong>
                                     <div className="flex flex-wrap gap-2">
-                                        <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Layoffs</span>
-                                        <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Supply Chain Disruptions</span>
-                                        <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Inflation</span>
+                                        <Badge>Layoffs</Badge>
+                                        <Badge>Supply Chain Disruptions</Badge>
+                                        <Badge>Inflation</Badge>
                                     </div>
                                 </li>
                                 <li>
                                     <strong className="text-foreground block mb-1">Macro-Social</strong>
                                     <div className="flex flex-wrap gap-2">
-                                        <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Social Media Algorithms</span>
-                                        <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Division</span>
-                                        <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Classism</span>
+                                        <Badge>Social Media Algorithms</Badge>
+                                        <Badge>Division</Badge>
+                                        <Badge>Classism</Badge>
                                     </div>
                                 </li>
                                 <li>
                                     <strong className="text-foreground block mb-1">Technological</strong>
                                     <div className="flex flex-wrap gap-2">
-                                        <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Privacy</span>
-                                        <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Deepfakes</span>
-                                        <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">AI Alignment</span>
+                                        <Badge>Privacy</Badge>
+                                        <Badge>Deepfakes</Badge>
+                                        <Badge>AI Alignment</Badge>
                                     </div>
                                 </li>
                             </ul>
@@ -115,32 +116,32 @@ export function ProblemSection() {
                                 <li>
                                     <strong className="text-foreground block mb-1">Mental & Emotional</strong>
                                     <div className="flex flex-wrap gap-2">
-                                        <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Loneliness</span>
-                                        <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Depression</span>
-                                        <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Neurodivergency</span>
+                                        <Badge>Loneliness</Badge>
+                                        <Badge>Depression</Badge>
+                                        <Badge>Neurodivergency</Badge>
                                     </div>
                                 </li>
                                 <li>
                                     <strong className="text-foreground block mb-1">Physical Health</strong>
                                     <div className="flex flex-wrap gap-2">
-                                        <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Late Diagnosis</span>
-                                        <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Poor Management</span>
-                                        <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Accidents</span>
+                                        <Badge>Late Diagnosis</Badge>
+                                        <Badge>Poor Management</Badge>
+                                        <Badge>Accidents</Badge>
                                     </div>
                                 </li>
                                 <li>
                                     <strong className="text-foreground block mb-1">Micro-Social</strong>
                                     <div className="flex flex-wrap gap-2">
-                                        <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Relationship Conflicts</span>
-                                        <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Degradation of Bonds</span>
+                                        <Badge>Relationship Conflicts</Badge>
+                                        <Badge>Degradation of Bonds</Badge>
                                     </div>
                                 </li>
                                 <li>
                                     <strong className="text-foreground block mb-1">Computing</strong>
                                     <div className="flex flex-wrap gap-2">
-                                        <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">UX Pain</span>
-                                        <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">Fragmented Ecosystems</span>
-                                        <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">IAM</span>
+                                        <Badge>UX Pain</Badge>
+                                        <Badge>Fragmented Ecosystems</Badge>
+                                        <Badge>IAM</Badge>
                                     </div>
                                 </li>
                             </ul>
@@ -169,7 +170,7 @@ export function ProblemSection() {
                         </svg>
                     </TransitionLink>
                 </div>
-            </div>
-        </section>
+            </div >
+        </section >
     );
 }

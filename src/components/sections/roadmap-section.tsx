@@ -1,3 +1,4 @@
+import { Badge } from "@/components/atoms/badge";
 import { SectionPlayButton } from "@/components/audio-player/SectionPlayButton";
 import { TRANSCRIPT_DATA, CHAPTERS_DATA } from "@/lib/constants";
 
@@ -27,7 +28,7 @@ export function RoadmapSection() {
                         <div className="mb-6">
                             <span className="text-xs font-bold tracking-widest text-muted-foreground uppercase block mb-2">Phase 1</span>
                             <h3 className="text-2xl font-bold text-foreground block mb-1">R&D</h3>
-                            <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">18 Months</span>
+                            <Badge>18 Months</Badge>
                         </div>
 
                         <div className="space-y-6">
@@ -67,7 +68,7 @@ export function RoadmapSection() {
                         <div className="mb-6">
                             <span className="text-xs font-bold tracking-widest text-muted-foreground uppercase block mb-2">Phase 2</span>
                             <h3 className="text-2xl font-bold text-foreground block mb-1">GTM</h3>
-                            <span className="rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider">18 Months</span>
+                            <Badge>18 Months</Badge>
                         </div>
 
                         <div className="space-y-6">

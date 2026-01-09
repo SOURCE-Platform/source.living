@@ -1,3 +1,4 @@
+import { Badge } from "@/components/atoms/badge";
 import { SectionPlayButton } from "@/components/audio-player/SectionPlayButton";
 import { TRANSCRIPT_DATA, CHAPTERS_DATA } from "@/lib/constants";
 
@@ -18,7 +19,7 @@ export function GTMSection() {
                     <div className="w-full h-32 bg-muted/20 rounded-lg" />
                     <div>
                         <h4 className="text-lg font-bold text-foreground mb-1">Elderly Care</h4>
-                        <span className="inline-block rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider mb-2">Revenue Driver</span>
+                        <Badge className="mb-2">Revenue Driver</Badge>
                         <p className="text-sm text-muted-foreground leading-relaxed">
                             A passive safety layer that tracks cognitive decline, memory, and physical safety without wearable devices. Families pay for peace of mind.
                         </p>
@@ -29,7 +30,7 @@ export function GTMSection() {
                     <div className="w-full h-32 bg-muted/20 rounded-lg" />
                     <div>
                         <h4 className="text-lg font-bold text-foreground mb-1">Early Adopters & Tech</h4>
-                        <span className="inline-block rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider mb-2">Revenue Driver</span>
+                        <Badge className="mb-2">Revenue Driver</Badge>
                         <p className="text-sm text-muted-foreground leading-relaxed">
                             Selling the "Smart Home 2.0" experience to the tech-forward demographic who want total home automation and "Jarvis-like" AI.
                         </p>
@@ -40,7 +41,7 @@ export function GTMSection() {
                     <div className="w-full h-32 bg-muted/20 rounded-lg" />
                     <div>
                         <h4 className="text-lg font-bold text-foreground mb-1">Influencers & Streamers</h4>
-                        <span className="inline-block rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider mb-2">Marketing Engine</span>
+                        <Badge className="mb-2">Marketing Engine</Badge>
                         <p className="text-sm text-muted-foreground leading-relaxed">
                             We provide free/subsidized installations to top creators. They use Source as a full in-house studio system—no longer tied to their computers—while showcasing the <strong>4D Gaussian Splatting</strong> capabilities (holographic video) to their millions of followers, driving the cultural hype cycle.
                         </p>
@@ -51,7 +52,7 @@ export function GTMSection() {
                     <div className="w-full h-32 bg-muted/20 rounded-lg" />
                     <div>
                         <h4 className="text-lg font-bold text-foreground mb-1">Government Contracts</h4>
-                        <span className="inline-block rounded-md bg-muted px-2 pt-1 pb-0.5 text-xs font-medium text-foreground tracking-wider mb-2">Market Expansion</span>
+                        <Badge className="mb-2">Market Expansion</Badge>
                         <p className="text-sm text-muted-foreground leading-relaxed">
                             Partnering with municipalities to install complete surveillance in public downtowns and high-crime neighborhoods. This "crime prevention by design" strategy solves public safety issues while simultaneously onboarding entire districts of users into the Source ecosystem.
                         </p>
