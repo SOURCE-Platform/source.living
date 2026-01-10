@@ -1,6 +1,5 @@
 import { useRef } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { CodeIllustration } from "@/components/illustrations/CodeIllustration";
 import { TransitionLink } from "../atoms/transition-link";
 import { SectionPlayButton } from "@/components/audio-player/SectionPlayButton";
@@ -124,14 +123,22 @@ export function SolutionSection() {
                 </p>
             </div>
 
-            <div className="mt-24 flex flex-col md:flex-row gap-8 md:gap-12 md:-mx-[25%] items-start">
+            <div className="mt-36 flex flex-col md:flex-row gap-8 md:gap-12 md:-mx-[25%] items-start">
                 <div className="md:flex-1">
-                    <div className="relative w-full h-32 mb-6">
+                    <div className="relative w-full h-[380px] mb-6">
+                        {/* Light Mode Image */}
                         <Image
-                            src="/images/hardware/Gemini_Generated_Image_3317ta3317ta3317.png"
+                            src="/images/hardware/kern-computer-in-cubby.png"
                             alt="Hardware Illustration"
                             fill
-                            className="object-cover rounded-lg"
+                            className="object-cover rounded-lg dark:hidden"
+                        />
+                        {/* Dark Mode Image */}
+                        <Image
+                            src="/images/hardware/kern-compute-in-dark-cubby.png"
+                            alt="Hardware Illustration"
+                            fill
+                            className="object-cover rounded-lg hidden dark:block"
                         />
                     </div>
                     <h3 className="text-3xl font-bold text-foreground mb-6">Hardware</h3>
@@ -151,23 +158,21 @@ export function SolutionSection() {
                     </div>
                 </div>
 
-                <div className="md:flex-1">
-                    <div className="relative w-full h-32 mb-6">
-                        {/* Base sharp layer - fades out to right */}
-                        <CodeIllustration
-                            className="absolute inset-0 object-contain"
-                            style={{
-                                maskImage: 'linear-gradient(to right, black 40%, transparent 100%)',
-                                WebkitMaskImage: 'linear-gradient(to right, black 40%, transparent 100%)'
-                            }}
+                <div className="md:flex-1 md:-mt-16">
+                    <div className="relative w-full aspect-[1440/1439] mb-6">
+                        {/* Light Mode: settings white mode.png */}
+                        <Image
+                            src="/images/software/settings white mode.png"
+                            alt="Software Illustration"
+                            fill
+                            className="object-cover object-top rounded-lg dark:hidden"
                         />
-                        {/* Progressive Blur Layer - fades in from left */}
-                        <CodeIllustration
-                            className="absolute inset-0 object-contain blur-[4px]"
-                            style={{
-                                maskImage: 'linear-gradient(to right, transparent 40%, black 100%)',
-                                WebkitMaskImage: 'linear-gradient(to right, transparent 40%, black 100%)'
-                            }}
+                        {/* Dark Mode: settings dark.png */}
+                        <Image
+                            src="/images/software/settings dark.png"
+                            alt="Software Illustration"
+                            fill
+                            className="object-cover object-top rounded-lg hidden dark:block"
                         />
                     </div>
                     <h3 className="text-3xl font-bold text-foreground mb-6">Software</h3>
@@ -194,13 +199,20 @@ export function SolutionSection() {
                 </div>
 
                 <div className="md:flex-1">
-                    <div className="w-full h-32 bg-muted/20 rounded-lg mb-6" />
+                    <div className="relative w-full h-[380px] mb-6">
+                        <Image
+                            src="/images/social/royal social.png"
+                            alt="Social Illustration"
+                            fill
+                            className="object-cover rounded-lg"
+                        />
+                    </div>
                     <h3 className="text-3xl font-bold text-foreground mb-6">Social</h3>
                     <div className="space-y-6">
                         <div>
                             <h4 className="text-lg font-bold text-foreground mb-1">CAST</h4>
                             <p className="text-sm text-muted-foreground leading-relaxed">
-                                A "Context Economy" engine that leverages real-world data from the Sensor Grid, combined with SOURCE ID and Personal AI, to matchmake across the human population. This high-resolution understanding of reality generates deep behavioral insights previously impossible to detect.
+                                A &quot;Context Economy&quot; engine that leverages real-world data from the Sensor Grid, combined with SOURCE ID and Personal AI, to matchmake across the human population. This high-resolution understanding of reality generates deep behavioral insights previously impossible to detect.
                             </p>
                         </div>
                         <div>
@@ -213,7 +225,7 @@ export function SolutionSection() {
                 </div>
             </div>
 
-            <div className="mt-24 rounded-lg border border-border bg-muted/10 py-20 px-6 space-y-4">
+            <div className="mt-36 rounded-lg border border-border bg-muted/10 py-20 px-6 space-y-4">
                 <div className="flex items-center gap-5 w-full xs:max-w-[70%] mx-auto">
                     <h3 className="text-3xl font-bold text-foreground">Data Ownership</h3>
                     <SectionPlayButton

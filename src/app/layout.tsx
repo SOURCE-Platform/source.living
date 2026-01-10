@@ -6,6 +6,8 @@ import { BackgroundAnimation } from "@/components/organisms/background-animation
 import { MobileNav } from "@/components/mobile-nav";
 import { TransitionProvider, TransitionEffect } from "@/components/providers/transition-context";
 
+import { SmoothScrolling } from "@/components/providers/smooth-scrolling";
+
 import "./globals.css";
 import "@/components/audio-player/styles/audio-player.css";
 
@@ -75,9 +77,9 @@ export default function RootLayout({
             <BackgroundAnimation />
             <MobileNav />
             <TransitionEffect>
-              <div id="scroll-container" className="h-dvh overflow-y-auto overflow-x-hidden relative z-10">
+              <SmoothScrolling id="scroll-container" className="h-dvh overflow-y-auto overflow-x-hidden relative z-10">
                 {children}
-              </div>
+              </SmoothScrolling>
             </TransitionEffect>
           </TransitionProvider>
         </ThemeProvider>

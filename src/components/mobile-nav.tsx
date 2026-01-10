@@ -69,13 +69,11 @@ export function MobileNav() {
     const lastScrollTop = useRef(0);
 
     useEffect(() => {
-        const scrollContainer = document.getElementById('scroll-container');
-        if (!scrollContainer) return;
-
-        // Initialize lastScrollTop to current position to avoid false direction detection
-        lastScrollTop.current = scrollContainer.scrollTop;
+        let scrollContainer: HTMLElement | null = null;
+        let intervalId: NodeJS.Timeout;
 
         const handleScroll = () => {
+            if (!scrollContainer) return;
             const currentScrollTop = scrollContainer.scrollTop;
             if (currentScrollTop > lastScrollTop.current && currentScrollTop > 10) {
                 setIsVisible(false);
@@ -85,8 +83,30 @@ export function MobileNav() {
             lastScrollTop.current = currentScrollTop <= 0 ? 0 : currentScrollTop;
         };
 
-        scrollContainer.addEventListener('scroll', handleScroll);
-        return () => scrollContainer.removeEventListener('scroll', handleScroll);
+        const attachListener = () => {
+            scrollContainer = document.getElementById('scroll-container');
+            if (scrollContainer) {
+                lastScrollTop.current = scrollContainer.scrollTop;
+                scrollContainer.addEventListener('scroll', handleScroll);
+                return true;
+            }
+            return false;
+        };
+
+        if (!attachListener()) {
+            intervalId = setInterval(() => {
+                if (attachListener()) {
+                    clearInterval(intervalId);
+                }
+            }, 100);
+        }
+
+        return () => {
+            if (intervalId) clearInterval(intervalId);
+            if (scrollContainer) {
+                scrollContainer.removeEventListener('scroll', handleScroll);
+            }
+        };
     }, []);
 
     // Helper to handle navigation with modifier key support (CMD+Click)
