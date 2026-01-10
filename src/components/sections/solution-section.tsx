@@ -1,5 +1,7 @@
 import { useRef } from "react";
+import Image from "next/image";
 import Link from "next/link";
+import { CodeIllustration } from "@/components/illustrations/CodeIllustration";
 import { TransitionLink } from "../atoms/transition-link";
 import { SectionPlayButton } from "@/components/audio-player/SectionPlayButton";
 import { TRANSCRIPT_DATA, CHAPTERS_DATA } from "@/lib/constants";
@@ -124,7 +126,14 @@ export function SolutionSection() {
 
             <div className="mt-24 flex flex-col md:flex-row gap-8 md:gap-12 md:-mx-[25%] items-start">
                 <div className="md:flex-1">
-                    <div className="w-full h-32 bg-muted/20 rounded-lg mb-6" />
+                    <div className="relative w-full h-32 mb-6">
+                        <Image
+                            src="/images/hardware/Gemini_Generated_Image_3317ta3317ta3317.png"
+                            alt="Hardware Illustration"
+                            fill
+                            className="object-cover rounded-lg"
+                        />
+                    </div>
                     <h3 className="text-3xl font-bold text-foreground mb-6">Hardware</h3>
                     <div className="space-y-6">
                         <div>
@@ -143,7 +152,24 @@ export function SolutionSection() {
                 </div>
 
                 <div className="md:flex-1">
-                    <div className="w-full h-32 bg-muted/20 rounded-lg mb-6" />
+                    <div className="relative w-full h-32 mb-6">
+                        {/* Base sharp layer - fades out to right */}
+                        <CodeIllustration
+                            className="absolute inset-0 object-contain"
+                            style={{
+                                maskImage: 'linear-gradient(to right, black 40%, transparent 100%)',
+                                WebkitMaskImage: 'linear-gradient(to right, black 40%, transparent 100%)'
+                            }}
+                        />
+                        {/* Progressive Blur Layer - fades in from left */}
+                        <CodeIllustration
+                            className="absolute inset-0 object-contain blur-[4px]"
+                            style={{
+                                maskImage: 'linear-gradient(to right, transparent 40%, black 100%)',
+                                WebkitMaskImage: 'linear-gradient(to right, transparent 40%, black 100%)'
+                            }}
+                        />
+                    </div>
                     <h3 className="text-3xl font-bold text-foreground mb-6">Software</h3>
                     <div className="space-y-6">
                         <div>

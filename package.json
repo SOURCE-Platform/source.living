@@ -17,6 +17,7 @@
     "@w3rk17/circular-menu-next": "file:mobile-menu-package",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "framer-motion": "^12.25.0",
     "leva": "^0.10.1",
     "lucide-react": "^0.545.0",
     "next": "15.5.7",
