@@ -225,23 +225,63 @@ export function SolutionSection() {
                 </div>
             </div>
 
-            <div className="mt-36 rounded-lg border border-border bg-muted/10 py-20 px-6 space-y-4">
-                <div className="flex items-center gap-5 w-full xs:max-w-[70%] mx-auto">
-                    <h3 className="text-3xl font-bold text-foreground">Data Ownership</h3>
-                    <SectionPlayButton
-                        title="Data Ownership"
-                        audioSrc="/audio/Data%20Ownership.mp3"
-                        transcript={TRANSCRIPT_DATA}
-                        chapters={CHAPTERS_DATA}
-                    />
+            {/* Data Ownership & Security Section - Shield Left, Text Content Right */}
+            <div className="mt-36 mb-36 flex flex-col md:flex-row gap-12 items-start md:-mx-[15%]">
+                {/* Shield Image on Left */}
+                <div className="w-full md:w-[60%]">
+                    <div className="relative w-full h-full min-h-[500px] rounded-lg overflow-hidden md:sticky md:top-24">
+                        <Image
+                            src="/images/data ownership/data shield.png"
+                            alt="Data Ownership Illustration"
+                            fill
+                            className="object-contain"
+                        />
+                    </div>
                 </div>
-                <div className="w-full xs:max-w-[70%] mx-auto">
-                    <p className="text-lg font-bold text-foreground mb-1">
-                        Source democratizes surveillance.
-                    </p>
-                    <p className="text-sm text-foreground">
-                        Instead of states and corporations owning your data, you own it. All data is processed locally and cryptographically secured—serving your health, safety, and personal AI, not external entities.
-                    </p>
+
+                {/* Right Column - Both Sections Stacked */}
+                <div className="w-full md:w-[40%] space-y-16 mt-12">
+                    {/* Data Ownership Section */}
+                    <div className="space-y-4">
+                        <div className="flex items-center gap-5">
+                            <h3 className="text-3xl font-bold text-foreground">Data Ownership</h3>
+                            <SectionPlayButton
+                                title="Data Ownership"
+                                audioSrc="/audio/Data%20Ownership.mp3"
+                                transcript={TRANSCRIPT_DATA}
+                                chapters={CHAPTERS_DATA}
+                            />
+                        </div>
+                        <div>
+                            <p className="text-lg font-bold text-foreground mb-1">
+                                Source democratizes surveillance.
+                            </p>
+                            <p className="text-sm text-foreground">
+                                Instead of states and corporations owning your data, you own it. All data is processed locally and cryptographically secured—serving your health, safety, and personal AI, not external entities.
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Data Security Section */}
+                    <div className="space-y-4">
+                        <div className="flex items-center gap-5">
+                            <h3 className="text-3xl font-bold text-foreground">Data Security</h3>
+                            <SectionPlayButton
+                                title="Data Security"
+                                audioSrc="/audio/Data%20Security.mp3"
+                                transcript={TRANSCRIPT_DATA}
+                                chapters={CHAPTERS_DATA}
+                            />
+                        </div>
+                        <div>
+                            <p className="text-lg font-bold text-foreground mb-1">
+                                Military-grade encryption at the edge.
+                            </p>
+                            <p className="text-sm text-foreground">
+                                All data processing happens locally on your hardware. Nothing leaves your environment unless you explicitly authorize it. Your data is cryptographically secured and protected by design.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
