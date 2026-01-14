@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Badge } from "@/components/atoms/badge";
 import { SectionPlayButton } from "@/components/audio-player/SectionPlayButton";
 import { TRANSCRIPT_DATA, CHAPTERS_DATA } from "@/lib/constants";
@@ -16,7 +17,15 @@ export function GTMSection() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 md:-mx-[25%] items-start">
                 <div className="space-y-6">
-                    <div className="w-full h-32 bg-muted/20 rounded-lg" />
+                    <div className="relative w-full rounded-lg overflow-hidden">
+                        <Image
+                            src="/images/elderly care/elderly.png"
+                            alt="Elderly Care"
+                            width={2816}
+                            height={1536}
+                            className="w-full h-auto"
+                        />
+                    </div>
                     <div>
                         <h4 className="text-lg font-bold text-foreground mb-1">Elderly Care</h4>
                         <Badge className="mb-2">Revenue Driver</Badge>
@@ -27,7 +36,15 @@ export function GTMSection() {
                 </div>
 
                 <div className="space-y-6">
-                    <div className="w-full h-32 bg-muted/20 rounded-lg" />
+                    <div className="relative w-full rounded-lg overflow-hidden">
+                        <Image
+                            src="/images/influencers and streamers/streamers-grid.png"
+                            alt="Early Adopters & Tech"
+                            width={2816}
+                            height={1536}
+                            className="w-full h-auto"
+                        />
+                    </div>
                     <div>
                         <h4 className="text-lg font-bold text-foreground mb-1">Early Adopters & Tech</h4>
                         <Badge className="mb-2">Revenue Driver</Badge>

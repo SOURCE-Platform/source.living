@@ -15,16 +15,23 @@ export function RoadmapSection() {
                 />
             </div>
 
-            <div className="relative mt-12 md:-mx-[25%] px-4 md:px-0">
+            <div className="relative mt-12 md:-mx-[25%] md:px-0">
                 {/* Horizontal Line (Desktop) */}
-                <div className="absolute top-0 left-0 w-full h-px bg-border hidden md:block" />
+                <div className="absolute top-[9.5rem] left-0 w-full h-px bg-border hidden md:block" />
+                {/* Vertical Line (Mobile) */}
+                <div className="absolute top-0 bottom-0 left-[1.125rem] w-px bg-border md:hidden" />
 
                 <div className="flex flex-col md:flex-row gap-8 md:gap-6">
                     {/* PHASE 1 */}
-                    <div className="md:flex-1 relative pt-6 md:pt-8">
-                        {/* Circle Node */}
-                        <div className="absolute top-[-4px] left-0 w-2 h-2 rounded-full bg-foreground hidden md:block" />
+                    <div className="md:flex-1 relative pl-12 md:pl-0 mb-16 md:mb-0">
+                        {/* Star Node */}
+                        <img
+                            src="/icons/star.svg"
+                            alt="Star"
+                            className="absolute top-[-2rem] left-0 md:top-[8.375rem] md:left-[-1.75rem] w-9 h-9 block dark:invert"
+                        />
 
+                        <div className="w-full h-32 bg-muted/20 rounded-lg mb-6 md:mb-12" />
                         <div className="mb-6">
                             <span className="text-xs font-bold tracking-widest text-muted-foreground uppercase block mb-2">Phase 1</span>
                             <h3 className="text-2xl font-bold text-foreground block mb-1">R&D</h3>
@@ -32,7 +39,6 @@ export function RoadmapSection() {
                         </div>
 
                         <div className="space-y-6">
-                            <div className="w-full h-32 bg-muted/20 rounded-lg" />
                             <div>
                                 <h4 className="text-sm font-bold text-foreground mb-1">Objective</h4>
                                 <p className="text-sm text-muted-foreground leading-relaxed">
@@ -61,10 +67,15 @@ export function RoadmapSection() {
                     </div>
 
                     {/* PHASE 2 */}
-                    <div className="md:flex-1 relative pt-6 md:pt-8">
-                        {/* Circle Node */}
-                        <div className="absolute top-[-4px] left-0 w-2 h-2 rounded-full bg-foreground hidden md:block" />
+                    <div className="md:flex-1 relative pl-12 md:pl-0 mb-16 md:mb-0">
+                        {/* Star Node */}
+                        <img
+                            src="/icons/star.svg"
+                            alt="Star"
+                            className="absolute top-[-2rem] left-0 md:top-[8.375rem] md:left-[-1.75rem] w-9 h-9 block dark:invert"
+                        />
 
+                        <div className="w-full h-32 bg-muted/20 rounded-lg mb-6 md:mb-12" />
                         <div className="mb-6">
                             <span className="text-xs font-bold tracking-widest text-muted-foreground uppercase block mb-2">Phase 2</span>
                             <h3 className="text-2xl font-bold text-foreground block mb-1">GTM</h3>
@@ -72,7 +83,6 @@ export function RoadmapSection() {
                         </div>
 
                         <div className="space-y-6">
-                            <div className="w-full h-32 bg-muted/20 rounded-lg" />
                             <div>
                                 <h4 className="text-sm font-bold text-foreground mb-1">Objective</h4>
                                 <p className="text-sm text-muted-foreground leading-relaxed">
@@ -101,10 +111,15 @@ export function RoadmapSection() {
                     </div>
 
                     {/* PHASE 3 */}
-                    <div className="md:flex-1 relative pt-6 md:pt-8">
-                        {/* Circle Node */}
-                        <div className="absolute top-[-4px] left-0 w-2 h-2 rounded-full bg-foreground hidden md:block" />
+                    <div className="md:flex-1 relative pl-12 md:pl-0 mb-16 md:mb-0">
+                        {/* Star Node */}
+                        <img
+                            src="/icons/star.svg"
+                            alt="Star"
+                            className="absolute top-[-2rem] left-0 md:top-[8.375rem] md:left-[-1.75rem] w-9 h-9 block dark:invert"
+                        />
 
+                        <div className="w-full h-32 bg-muted/20 rounded-lg mb-6 md:mb-12" />
                         <div className="mb-6">
                             <span className="text-xs font-bold tracking-widest text-muted-foreground uppercase block mb-2">Phase 3</span>
                             <h3 className="text-2xl font-bold text-foreground block mb-1">Civilizational Scale</h3>
@@ -113,7 +128,6 @@ export function RoadmapSection() {
                         </div>
 
                         <div className="space-y-6">
-                            <div className="w-full h-32 bg-muted/20 rounded-lg" />
                             <div>
                                 <h4 className="text-sm font-bold text-foreground mb-1">Objective</h4>
                                 <p className="text-sm text-muted-foreground leading-relaxed">
