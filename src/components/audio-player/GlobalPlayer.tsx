@@ -402,10 +402,10 @@ const GlobalPlayerContent = ({
                 </div>
 
                 {/* CENTER: Chapter Title + Timeline */}
-                <div className="flex flex-col flex-1 px-4 lg:px-6 min-w-0">
-                    {/* Chapter Title - above timeline */}
+                <div className="relative flex items-center gap-3 flex-1 px-4 lg:px-6 min-w-0">
+                    {/* Chapter Title - absolutely positioned above timeline */}
                     {displayedChapter && (
-                        <div className="flex justify-center mb-1">
+                        <div className="absolute left-0 right-0 bottom-full mb-1 flex justify-center pointer-events-none">
                             <span
                                 className={`text-xs text-muted-foreground transition-opacity duration-300 ${isChapterFading ? 'opacity-0' : 'opacity-100'}`}
                                 style={{
@@ -420,42 +420,40 @@ const GlobalPlayerContent = ({
                         </div>
                     )}
 
-                    {/* Timeline row */}
-                    <div className="flex items-center gap-3">
-                        <span className="text-xs font-mono tabular-nums text-muted-foreground min-w-[35px] text-right">
-                            {formatTime(currentTimeMs)}
-                        </span>
+                    {/* Timeline elements - directly in parent flex container */}
+                    <span className="text-xs font-mono tabular-nums text-muted-foreground min-w-[35px] text-right">
+                        {formatTime(currentTimeMs)}
+                    </span>
 
-                        <div className="relative h-1 flex-1 bg-black/15 dark:bg-muted/50 rounded-full group cursor-pointer hover:h-1.5 transition-all">
+                    <div className="relative h-1 flex-1 bg-black/15 dark:bg-muted/50 rounded-full group cursor-pointer hover:h-1.5 transition-all">
+                        <div
+                            className="absolute inset-y-0 left-0 rounded-full group-hover:bg-opacity-80 transition-all"
+                            style={{
+                                width: `${progress}%`,
+                                background: "var(--background-image-playgrade)"
+                            }}
+                        >
                             <div
-                                className="absolute inset-y-0 left-0 rounded-full group-hover:bg-opacity-80 transition-all"
-                                style={{
-                                    width: `${progress}%`,
-                                    background: "var(--background-image-playgrade)"
-                                }}
-                            >
-                                <div
-                                    className="dark:hidden absolute inset-0 rounded-full"
-                                    style={{ background: "var(--blue-button)" }}
-                                />
-                            </div>
-                            <input
-                                type="range"
-                                min="0"
-                                max="100"
-                                step="0.1"
-                                value={progress}
-                                onChange={handleSeek}
-                                disabled={disabled}
-                                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
-                                aria-label="Seek time"
+                                className="dark:hidden absolute inset-0 rounded-full"
+                                style={{ background: "var(--blue-button)" }}
                             />
                         </div>
-
-                        <span className="text-xs font-mono tabular-nums text-muted-foreground min-w-[35px]">
-                            {formatTime(durationMs)}
-                        </span>
+                        <input
+                            type="range"
+                            min="0"
+                            max="100"
+                            step="0.1"
+                            value={progress}
+                            onChange={handleSeek}
+                            disabled={disabled}
+                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                            aria-label="Seek time"
+                        />
                     </div>
+
+                    <span className="text-xs font-mono tabular-nums text-muted-foreground min-w-[35px]">
+                        {formatTime(durationMs)}
+                    </span>
                 </div>
 
                 {/* RIGHT: Volume & Close */}
