@@ -451,9 +451,8 @@ export const AudioWaveform: React.FC<AudioWaveformProps> = ({
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        opacity: isExpanded ? 1 : 0,
-                        transition: "opacity 0.5s ease",
-                        pointerEvents: isExpanded ? "auto" : "none"
+                        opacity: 1,
+                        pointerEvents: "auto"
                     }}
                 >
                     <span
@@ -481,24 +480,21 @@ export const AudioWaveform: React.FC<AudioWaveformProps> = ({
                     justifyContent: "center",
                     alignItems: "center",
                     marginBottom: "8px",
-                    opacity: isExpanded ? 1 : 0,
-                    transition: "opacity 0.5s ease",
-                    pointerEvents: isExpanded ? "auto" : "none"
+                    opacity: 1,
+                    pointerEvents: "auto"
                 }}>
                     <span style={timeLabelStyle}>{timeDisplay}</span>
                 </div>
 
-                {/* Segmented Timeline - appears above controls when expanded */}
-                {isExpanded && (
-                    <SegmentedTimeline
-                        chapters={chapters}
-                        currentTimeMs={currentTimeMs}
-                        durationMs={durationMs}
-                        onSeek={seekToMs}
-                        disabled={disabled}
-                        className="audio-player-shell__timeline"
-                    />
-                )}
+                {/* Segmented Timeline - always visible */}
+                <SegmentedTimeline
+                    chapters={chapters}
+                    currentTimeMs={currentTimeMs}
+                    durationMs={durationMs}
+                    onSeek={seekToMs}
+                    disabled={disabled}
+                    className="audio-player-shell__timeline"
+                />
 
                 <div className="audio-player-shell__controls" style={{ ...controlsRowDynamicStyle, background: "transparent" }}>
                     <div
