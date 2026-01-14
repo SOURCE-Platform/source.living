@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useMemo } from "react";
 import { useAudioExperience } from "../context/AudioExperienceContext";
 import {
     PauseIcon,
@@ -327,6 +327,19 @@ export const AudioWaveform: React.FC<AudioWaveformProps> = ({
         );
     };
 
+    const currentChapter = useMemo(() => {
+        if (!chapters?.length) return null;
+        let active = chapters[0];
+        for (const chapter of chapters) {
+            if (currentTimeMs >= chapter.start) {
+                active = chapter;
+            } else {
+                break;
+            }
+        }
+        return active;
+    }, [chapters, currentTimeMs]);
+
     return (
         <div
             className={combinedClassName}
@@ -430,6 +443,38 @@ export const AudioWaveform: React.FC<AudioWaveformProps> = ({
 
             {/* Standard Layout (sm and above) - hidden by default, shows on screens 480px+ */}
             <div className="hidden xs:flex flex-col gap-3">
+                {/* Chapter Title Overlay */}
+                <div
+                    style={{
+                        height: "20px",
+                        marginBottom: "4px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        opacity: isExpanded ? 1 : 0,
+                        transition: "opacity 0.5s ease",
+                        pointerEvents: isExpanded ? "auto" : "none"
+                    }}
+                >
+                    <span
+                        key={currentChapter?.title}
+                        className="animate-in fade-in duration-300 slide-in-from-bottom-1"
+                        style={{
+                            fontSize: "13px",
+                            fontWeight: 500,
+                            color: "var(--audio-text)",
+                            opacity: 0.9,
+                            textAlign: "center",
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            maxWidth: "100%"
+                        }}
+                    >
+                        {currentChapter?.title}
+                    </span>
+                </div>
+
                 {/* Time display */}
                 <div style={{
                     display: "flex",
