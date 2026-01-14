@@ -22,7 +22,7 @@ export const ChapterPopup: React.FC<ChapterPopupProps> = ({ title, chapters, onC
     // Styling matches GlobalPlayer: bg, border, shadow
     return (
         <div
-            className="absolute bottom-[calc(100%+38px)] left-[-16px] w-[420px] bg-[#F4F4F5] dark:bg-[#1F1F28] rounded-2xl border border-black/5 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_48px_rgba(255,255,255,0.12)] overflow-hidden flex flex-col max-h-[400px] z-[90] animate-in slide-in-from-bottom-2 fade-in duration-200 origin-bottom-left"
+            className="absolute bottom-[calc(100%+38px)] left-[-16px] w-[420px] bg-[#F4F4F5] dark:bg-[#1F1F28] rounded-2xl border border-black/5 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_48px_rgba(255,255,255,0.12)] overflow-hidden flex flex-col max-h-[80vh] z-[90] animate-in slide-in-from-bottom-2 fade-in duration-200 origin-bottom-left"
         >
             <div className="flex flex-col px-4 py-3 border-b border-black/5 dark:border-white/5 sticky top-0 z-10 bg-[#F4F4F5] dark:bg-[#1F1F28]">
                 <span className="text-sm font-semibold text-foreground truncate mb-1" title={title}>{title}</span>
