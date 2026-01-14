@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { useGlobalAudio } from "@/contexts/GlobalAudioContext";
 import { AudioExperienceProvider, useAudioExperience } from "@/components/audio-player";
 import {
@@ -51,6 +51,35 @@ const GlobalPlayerContent = ({
     } = useAudioExperience();
 
     const [showChapters, setShowChapters] = useState(false);
+    const [displayedChapter, setDisplayedChapter] = useState<string | null>(null);
+    const [isChapterFading, setIsChapterFading] = useState(false);
+
+    // Compute current chapter based on playback time
+    const currentChapter = useMemo(() => {
+        if (!chapters?.length) return null;
+        let active = chapters[0];
+        for (const chapter of chapters) {
+            if (currentTimeMs >= chapter.start) {
+                active = chapter;
+            } else {
+                break;
+            }
+        }
+        return active;
+    }, [chapters, currentTimeMs]);
+
+    // Handle chapter change with fade animation
+    useEffect(() => {
+        const newTitle = currentChapter?.title || null;
+        if (newTitle !== displayedChapter) {
+            setIsChapterFading(true);
+            const timeout = setTimeout(() => {
+                setDisplayedChapter(newTitle);
+                setIsChapterFading(false);
+            }, 150); // Half of 0.3s for fade-out, then instant switch, then fade-in
+            return () => clearTimeout(timeout);
+        }
+    }, [currentChapter?.title, displayedChapter]);
 
     // Bidirectional Sync Logic
     const prevGlobalRef = useRef(globalIsPlaying);
@@ -372,41 +401,61 @@ const GlobalPlayerContent = ({
                     </div>
                 </div>
 
-                {/* CENTER: Timeline */}
-                <div className="flex items-center gap-3 flex-1 px-4 lg:px-6 min-w-0">
-                    <span className="text-xs font-mono tabular-nums text-muted-foreground min-w-[35px] text-right">
-                        {formatTime(currentTimeMs)}
-                    </span>
+                {/* CENTER: Chapter Title + Timeline */}
+                <div className="flex flex-col flex-1 px-4 lg:px-6 min-w-0">
+                    {/* Chapter Title - above timeline */}
+                    {displayedChapter && (
+                        <div className="flex justify-center mb-1">
+                            <span
+                                className={`text-xs text-muted-foreground transition-opacity duration-300 ${isChapterFading ? 'opacity-0' : 'opacity-100'}`}
+                                style={{
+                                    whiteSpace: 'nowrap',
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis',
+                                    maxWidth: '100%'
+                                }}
+                            >
+                                {displayedChapter}
+                            </span>
+                        </div>
+                    )}
 
-                    <div className="relative h-1 flex-1 bg-black/15 dark:bg-muted/50 rounded-full group cursor-pointer hover:h-1.5 transition-all">
-                        <div
-                            className="absolute inset-y-0 left-0 rounded-full group-hover:bg-opacity-80 transition-all"
-                            style={{
-                                width: `${progress}%`,
-                                background: "var(--background-image-playgrade)"
-                            }}
-                        >
+                    {/* Timeline row */}
+                    <div className="flex items-center gap-3">
+                        <span className="text-xs font-mono tabular-nums text-muted-foreground min-w-[35px] text-right">
+                            {formatTime(currentTimeMs)}
+                        </span>
+
+                        <div className="relative h-1 flex-1 bg-black/15 dark:bg-muted/50 rounded-full group cursor-pointer hover:h-1.5 transition-all">
                             <div
-                                className="dark:hidden absolute inset-0 rounded-full"
-                                style={{ background: "var(--blue-button)" }}
+                                className="absolute inset-y-0 left-0 rounded-full group-hover:bg-opacity-80 transition-all"
+                                style={{
+                                    width: `${progress}%`,
+                                    background: "var(--background-image-playgrade)"
+                                }}
+                            >
+                                <div
+                                    className="dark:hidden absolute inset-0 rounded-full"
+                                    style={{ background: "var(--blue-button)" }}
+                                />
+                            </div>
+                            <input
+                                type="range"
+                                min="0"
+                                max="100"
+                                step="0.1"
+                                value={progress}
+                                onChange={handleSeek}
+                                disabled={disabled}
+                                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                                aria-label="Seek time"
                             />
                         </div>
-                        <input
-                            type="range"
-                            min="0"
-                            max="100"
-                            step="0.1"
-                            value={progress}
-                            onChange={handleSeek}
-                            disabled={disabled}
-                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
-                            aria-label="Seek time"
-                        />
-                    </div>
 
-                    <span className="text-xs font-mono tabular-nums text-muted-foreground min-w-[35px]">
-                        {formatTime(durationMs)}
-                    </span>
+                        <span className="text-xs font-mono tabular-nums text-muted-foreground min-w-[35px]">
+                            {formatTime(durationMs)}
+                        </span>
+                    </div>
                 </div>
 
                 {/* RIGHT: Volume & Close */}
