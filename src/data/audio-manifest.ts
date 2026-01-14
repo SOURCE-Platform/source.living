@@ -14,7 +14,7 @@ export const audioManifest: AudioTrack[] = [
     {
         id: "source-setting-the-stage",
         title: "SOURCE: Setting the Stage",
-        audioSrc: "/audio/source-setting-the-stage/audio.mp3",
+        audioSrc: "/audio/source-setting-the-stage/audio.mp3", // Kept as is if file exists, or update if renormalized
         // transcriptSrc: "/audio/source-setting-the-stage/transcript.json",
         // chaptersSrc: "/audio/source-setting-the-stage/chapters.json",
         chapters: [

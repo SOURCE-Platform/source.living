@@ -259,10 +259,10 @@ export function SolutionSection() {
                     <div className="space-y-4">
                         <div className="flex items-center gap-5">
                             <h3 className="text-3xl font-bold text-foreground">Data Ownership</h3>
-                            <SectionPlayButton
+                            {/* <SectionPlayButton
                                 title="Data Ownership"
                                 audioSrc="/audio/Data%20Ownership.mp3"
-                            />
+                            /> */}
                         </div>
                         <div>
                             <p className="text-lg font-bold text-foreground mb-1">
@@ -278,10 +278,10 @@ export function SolutionSection() {
                     <div className="space-y-4">
                         <div className="flex items-center gap-5">
                             <h3 className="text-3xl font-bold text-foreground">Data Security</h3>
-                            <SectionPlayButton
+                            {/* <SectionPlayButton
                                 title="Data Security"
                                 audioSrc="/audio/Data%20Security.mp3"
-                            />
+                            /> */}
                         </div>
                         <div>
                             <p className="text-lg font-bold text-foreground mb-1">
