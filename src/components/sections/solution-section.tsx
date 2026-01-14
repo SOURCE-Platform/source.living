@@ -3,8 +3,23 @@ import Image from "next/image";
 import { CodeIllustration } from "@/components/illustrations/CodeIllustration";
 import { TransitionLink } from "../atoms/transition-link";
 import { SectionPlayButton } from "@/components/audio-player/SectionPlayButton";
-import { TRANSCRIPT_DATA, CHAPTERS_DATA } from "@/lib/constants";
+
 import { ArcWaves } from "../atoms/arc-waves";
+import type { ChapterSummary } from "@/components/audio-player/context/types";
+
+const SOLUTION_CHAPTERS: ChapterSummary[] = [
+    { title: "The Source Hardware Vision: Sensors & Robotic Installation", start: 0 },
+    { title: "Total Transparency: Recording the Installation Process", start: 95000 },
+    { title: "Paranoia as Marketing: The “Zero Fuckery” Policy", start: 155000 },
+    { title: "Privacy, Nudity, and Auto-Redaction", start: 248000 },
+    { title: "Technical Architecture: Secure Enclaves & Blockchain Hashing", start: 305000 },
+    { title: "Reality Proving and Immutable Evidence", start: 346000 },
+    { title: "Countering Deepfakes with \"Proof of Humanity\"", start: 402000 },
+    { title: "Manufacturing Reality: The Difficulty of Discerning Truth", start: 488000 },
+    { title: "The Deceptive Nature of Humans: \"Guilty Until Proven Innocent\"", start: 538000 },
+    { title: "BCI Integration and Detecting Psychosis", start: 664000 },
+    { title: "The Necessity of Capturing Fact to Save Reality", start: 688000 },
+];
 
 export function SolutionSection() {
     const circleRef = useRef<HTMLDivElement>(null);
@@ -108,9 +123,8 @@ export function SolutionSection() {
                 <h2 className="text-4xl font-bold text-foreground">The Solution</h2>
                 <SectionPlayButton
                     title="The Solution"
-                    audioSrc="/audio/The%20Three%20Layers.mp3"
-                    transcript={TRANSCRIPT_DATA}
-                    chapters={CHAPTERS_DATA}
+                    audioSrc="/audio/source-solution-v1.mp3"
+                    chapters={SOLUTION_CHAPTERS}
                 />
             </div>
             <div className="w-full xs:max-w-[70%] space-y-4 mx-auto">
@@ -248,8 +262,6 @@ export function SolutionSection() {
                             <SectionPlayButton
                                 title="Data Ownership"
                                 audioSrc="/audio/Data%20Ownership.mp3"
-                                transcript={TRANSCRIPT_DATA}
-                                chapters={CHAPTERS_DATA}
                             />
                         </div>
                         <div>
@@ -269,8 +281,6 @@ export function SolutionSection() {
                             <SectionPlayButton
                                 title="Data Security"
                                 audioSrc="/audio/Data%20Security.mp3"
-                                transcript={TRANSCRIPT_DATA}
-                                chapters={CHAPTERS_DATA}
                             />
                         </div>
                         <div>

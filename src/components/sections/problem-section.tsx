@@ -4,9 +4,29 @@ import { WarpedImage } from "../3d/WarpedImage";
 import { TransitionLink } from "../atoms/transition-link";
 import { SectionPlayButton } from "@/components/audio-player/SectionPlayButton";
 import { Badge } from "@/components/atoms/badge";
-import { TRANSCRIPT_DATA, CHAPTERS_DATA } from "@/lib/constants";
+
 import { Slideshow } from "@/components/atoms/slideshow";
 import { RotatingSlideshow } from "@/components/atoms/rotating-slideshow";
+import type { ChapterSummary } from "@/components/audio-player/context/types";
+
+const DATA_WALL_CHAPTERS: ChapterSummary[] = [
+    { title: "The Data Problem: Quantity vs. Quality", start: 0 },
+    { title: "The Necessity of Continuous Observation (The Sensor Grid)", start: 91000 },
+    { title: "Scaling Up: A Holistic Understanding of Humanity", start: 150000 },
+    { title: "AI Driven Matchmaking and the End of Human Politicians", start: 189000 },
+    { title: "The Concept of \"Super Awareness\"", start: 308000 },
+    { title: "Privacy vs. The Obligation to Upgrade Civilization", start: 383000 },
+];
+
+const SYSTEMIC_CONVERGENCE_CHAPTERS: ChapterSummary[] = [
+    { title: "Defining Systemic Convergence & Failure Modes", start: 0 },
+    { title: "The Macro & Micro Problem Sets (Evidence of Decline)", start: 52000 },
+    { title: "Is It Too Late? (The Doomer Perspective vs. Action)", start: 116000 },
+    { title: "Planning for What Comes After the Collapse", start: 161000 },
+    { title: "\"Source\" as the Base Infrastructure for Rebuilding", start: 202000 },
+    { title: "Frustration with the Current World Design", start: 226000 },
+    { title: "Important Lessons in the Near Future", start: 258000 },
+];
 
 const LOW_QUALITY_DATA_IMAGES = [
     "/images/low quality data/61c822907d87b57f50b38b41ab48038c.gif",
@@ -50,9 +70,8 @@ export function ProblemSection() {
                         <h3 className="text-3xl font-bold text-foreground">The Data Wall</h3>
                         <SectionPlayButton
                             title="The Data Wall"
-                            audioSrc="/audio/The%20Data%20Wall.mp3"
-                            transcript={TRANSCRIPT_DATA}
-                            chapters={CHAPTERS_DATA}
+                            audioSrc="/audio/source-data-wall.mp3"
+                            chapters={DATA_WALL_CHAPTERS}
                         />
                     </div>
                     <p className="w-full">
@@ -101,9 +120,8 @@ export function ProblemSection() {
                             <h3 className="text-3xl font-bold text-foreground">The Systemic Convergence</h3>
                             <SectionPlayButton
                                 title="The Systemic Convergence"
-                                audioSrc="/audio/Systemic%20Convergence.mp3"
-                                transcript={TRANSCRIPT_DATA}
-                                chapters={CHAPTERS_DATA}
+                                audioSrc="/audio/source-systemic-convergence.mp3"
+                                chapters={SYSTEMIC_CONVERGENCE_CHAPTERS}
                             />
                         </div>
                         <p className="w-full">

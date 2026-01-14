@@ -1,5 +1,16 @@
 import { SectionPlayButton } from "@/components/audio-player/SectionPlayButton";
-import { TRANSCRIPT_DATA, CHAPTERS_DATA } from "@/lib/constants";
+import type { ChapterSummary } from "@/components/audio-player/context/types";
+
+const VISION_CHAPTERS: ChapterSummary[] = [
+    { title: "Introduction: What is Source?", start: 0 },
+    { title: "How It Works: \"Internal Surveillance\" & Data Collection", start: 21000 },
+    { title: "The Goal: Developing the Ultimate Personal AI", start: 98000 },
+    { title: "Human Data Generation & Changing Social Norms", start: 148000 },
+    { title: "Reimagining Civilization & Eradicating Crime", start: 230000 },
+    { title: "Why It Must Be Open-Source & Transparent", start: 323000 },
+    { title: "Future Implications: The End of Crime & Human Relationships", start: 413000 },
+    { title: "Conclusion: Why We Need AI to Clean Up Our Act", start: 450000 },
+];
 
 export function VisionSection() {
     return (
@@ -8,7 +19,9 @@ export function VisionSection() {
             <div className="flex items-center gap-5 w-full xs:max-w-[70%] mx-auto">
                 <h2 className="text-4xl font-bold text-foreground">Vision</h2>
                 <SectionPlayButton
-                    trackId="source-setting-the-stage"
+                    title="The Vision"
+                    audioSrc="/audio/source-vision.mp3"
+                    chapters={VISION_CHAPTERS}
                 />
             </div>
             <div className="w-full xs:max-w-[70%] space-y-4 mx-auto">
