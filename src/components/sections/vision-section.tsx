@@ -1,5 +1,12 @@
 import { SectionPlayButton } from "@/components/audio-player/SectionPlayButton";
+import dynamic from 'next/dynamic';
 import type { ChapterSummary } from "@/components/audio-player/context/types";
+
+// Dynamic import to avoid SSR issues with globe.gl (uses window)
+const EarthScene = dynamic(() => import('@/components/3d/EarthScene').then(mod => mod.EarthScene), {
+    ssr: false,
+    loading: () => <div className="w-full h-[500px] -mt-24" /> // Placeholder
+});
 
 const VISION_CHAPTERS: ChapterSummary[] = [
     { title: "Introduction: What is Source?", start: 0 },
@@ -15,7 +22,7 @@ const VISION_CHAPTERS: ChapterSummary[] = [
 export function VisionSection() {
     return (
         <section className="space-y-4">
-            <div className="w-full h-64 bg-muted/20 rounded-lg mb-8" />
+            <EarthScene />
             <div className="flex items-center gap-5 w-full xs:max-w-[70%] mx-auto">
                 <h2 className="text-4xl font-bold text-foreground">Vision</h2>
                 <SectionPlayButton
