@@ -1,38 +1,51 @@
 import { Badge } from "@/components/atoms/badge";
 import { SectionPlayButton } from "@/components/audio-player/SectionPlayButton";
 import { TRANSCRIPT_DATA, CHAPTERS_DATA } from "@/lib/constants";
+import { RndSlideshow } from "./rnd-slideshow";
 
 export function RoadmapSection() {
     return (
         <section className="space-y-4 mt-40">
-            <div className="flex items-center gap-5 md:-mx-[25%]">
-                <h2 className="text-4xl font-bold text-foreground">Roadmap</h2>
-                <SectionPlayButton
-                    title="Roadmap"
-                    audioSrc="/audio/Roadmap.mp3"
-                    transcript={TRANSCRIPT_DATA}
-                    chapters={CHAPTERS_DATA}
-                />
+            <div className="relative w-[100vw] left-1/2 -translate-x-1/2 flex justify-center">
+                <div className="w-full max-w-[1700px] flex items-center gap-5 px-5 lg:px-20">
+                    <h2 className="text-4xl font-bold text-foreground">Roadmap</h2>
+                    <SectionPlayButton
+                        title="Roadmap"
+                        audioSrc="/audio/Roadmap.mp3"
+                        transcript={TRANSCRIPT_DATA}
+                        chapters={CHAPTERS_DATA}
+                    />
+                </div>
             </div>
 
-            <div className="relative mt-12 md:-mx-[25%] md:px-0">
-                {/* Horizontal Line (Desktop) */}
-                <div className="absolute top-[9.5rem] left-0 w-full h-px bg-border hidden md:block" />
-                {/* Vertical Line (Mobile) */}
-                <div className="absolute top-0 bottom-0 left-[1.125rem] w-px bg-border md:hidden" />
+            <div className="relative mt-12 w-[100vw] left-1/2 -translate-x-1/2">
+                {/* Vertical Line (Mobile) - Positioned in the new gutter */}
+                <div className="absolute top-0 bottom-0 left-6 md:left-8 w-px bg-border lg:hidden" />
 
-                <div className="flex flex-col md:flex-row gap-8 md:gap-6">
+                <div className="flex flex-col lg:flex-row gap-12 lg:gap-12 max-w-[1700px] mx-auto px-12 md:px-20 lg:px-20">
                     {/* PHASE 1 */}
-                    <div className="md:flex-1 relative pl-12 md:pl-0 mb-16 md:mb-0">
-                        {/* Star Node */}
+                    <div className="lg:flex-1 relative lg:pl-0 mb-16 lg:mb-0">
+                        <RndSlideshow />
+
+                        {/* Timeline Anchor (Desktop) */}
+                        <div className="relative h-px w-full hidden lg:block my-6">
+                            {/* Star */}
+                            <img
+                                src="/icons/star.svg"
+                                alt="Star"
+                                className="absolute top-1/2 -translate-y-1/2 left-[-2.6rem] w-9 h-9 block dark:invert z-10"
+                            />
+                            {/* Line Segment: Starts at star center (-1.5rem), goes to right gap center (-24px) */}
+                            <div className="absolute top-0 left-[-1.5rem] right-[-24px] h-px bg-border" />
+                        </div>
+                        {/* Mobile Star (Vertical Layout) */}
                         <img
                             src="/icons/star.svg"
                             alt="Star"
-                            className="absolute top-[-2rem] left-0 md:top-[8.375rem] md:left-[-1.75rem] w-9 h-9 block dark:invert"
+                            className="absolute top-[-2rem] left-[-2.8rem] md:left-[-4.2rem] w-9 h-9 block dark:invert lg:hidden"
                         />
 
-                        <div className="w-full h-32 bg-muted/20 rounded-lg mb-6 md:mb-12" />
-                        <div className="mb-6">
+                        <div className="mb-6 lg:mt-6">
                             <span className="text-xs font-bold tracking-widest text-muted-foreground uppercase block mb-2">Phase 1</span>
                             <h3 className="text-2xl font-bold text-foreground block mb-1">R&D</h3>
                             <Badge>18 Months</Badge>
@@ -67,16 +80,28 @@ export function RoadmapSection() {
                     </div>
 
                     {/* PHASE 2 */}
-                    <div className="md:flex-1 relative pl-12 md:pl-0 mb-16 md:mb-0">
-                        {/* Star Node */}
+                    <div className="lg:flex-1 relative lg:pl-0 mb-16 lg:mb-0">
+                        <div className="w-full aspect-[2500/1335] bg-muted/20 rounded-lg mb-6 lg:mb-0" />
+
+                        {/* Timeline Anchor (Desktop) */}
+                        <div className="relative h-px w-full hidden lg:block my-6">
+                            {/* Star */}
+                            <img
+                                src="/icons/star.svg"
+                                alt="Star"
+                                className="absolute top-1/2 -translate-y-1/2 left-[-2.6rem] w-9 h-9 block dark:invert z-10"
+                            />
+                            {/* Line Segment: Full width plus gaps (-24px to -24px) */}
+                            <div className="absolute top-0 left-[-24px] right-[-24px] h-px bg-border" />
+                        </div>
+                        {/* Mobile Star */}
                         <img
                             src="/icons/star.svg"
                             alt="Star"
-                            className="absolute top-[-2rem] left-0 md:top-[8.375rem] md:left-[-1.75rem] w-9 h-9 block dark:invert"
+                            className="absolute top-[-2rem] left-0 w-9 h-9 block dark:invert lg:hidden"
                         />
 
-                        <div className="w-full h-32 bg-muted/20 rounded-lg mb-6 md:mb-12" />
-                        <div className="mb-6">
+                        <div className="mb-6 lg:mt-6">
                             <span className="text-xs font-bold tracking-widest text-muted-foreground uppercase block mb-2">Phase 2</span>
                             <h3 className="text-2xl font-bold text-foreground block mb-1">GTM</h3>
                             <Badge>18 Months</Badge>
@@ -111,16 +136,28 @@ export function RoadmapSection() {
                     </div>
 
                     {/* PHASE 3 */}
-                    <div className="md:flex-1 relative pl-12 md:pl-0 mb-16 md:mb-0">
-                        {/* Star Node */}
+                    <div className="lg:flex-1 relative lg:pl-0 mb-16 lg:mb-0">
+                        <div className="w-full aspect-[2500/1335] bg-muted/20 rounded-lg mb-6 lg:mb-0" />
+
+                        {/* Timeline Anchor (Desktop) */}
+                        <div className="relative h-px w-full hidden lg:block my-6">
+                            {/* Star */}
+                            <img
+                                src="/icons/star.svg"
+                                alt="Star"
+                                className="absolute top-1/2 -translate-y-1/2 left-[-2.6rem] w-9 h-9 block dark:invert z-10"
+                            />
+                            {/* Line Segment: Starts from left gap (-24px) and extends off screen */}
+                            <div className="absolute top-0 left-[-24px] w-[100vw] h-px bg-border" />
+                        </div>
+                        {/* Mobile Star */}
                         <img
                             src="/icons/star.svg"
                             alt="Star"
-                            className="absolute top-[-2rem] left-0 md:top-[8.375rem] md:left-[-1.75rem] w-9 h-9 block dark:invert"
+                            className="absolute top-[-2rem] left-0 w-9 h-9 block dark:invert lg:hidden"
                         />
 
-                        <div className="w-full h-32 bg-muted/20 rounded-lg mb-6 md:mb-12" />
-                        <div className="mb-6">
+                        <div className="mb-6 lg:mt-6">
                             <span className="text-xs font-bold tracking-widest text-muted-foreground uppercase block mb-2">Phase 3</span>
                             <h3 className="text-2xl font-bold text-foreground block mb-1">Civilizational Scale</h3>
                             {/* Spacer for alignment */}
@@ -156,6 +193,6 @@ export function RoadmapSection() {
                     </div>
                 </div>
             </div>
-        </section>
+        </section >
     );
 }
