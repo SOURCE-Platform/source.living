@@ -234,12 +234,12 @@ export function FlagGrid() {
                     <img
                         src="/logo/SOURCE-pictogram.svg"
                         alt="SOURCE pictogram"
-                        className="h-auto w-[15%] invert transition-colors duration-300 dark:invert-0"
+                        className="h-auto w-[15%] brightness-0 invert"
                     />
                     <img
                         src="/logo/SOURCE-wordmark.svg"
                         alt="SOURCE wordmark"
-                        className="h-auto w-[70%] invert transition-colors duration-300 dark:invert-0"
+                        className="h-auto w-[70%] brightness-0 invert"
                     />
                 </div>
             </div>
