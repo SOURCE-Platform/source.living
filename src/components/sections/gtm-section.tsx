@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Badge } from "@/components/atoms/badge";
 import { SectionPlayButton } from "@/components/audio-player/SectionPlayButton";
 import { TRANSCRIPT_DATA, CHAPTERS_DATA } from "@/lib/constants";
+import { FlagGrid } from "./FlagGrid";
 
 export function GTMSection() {
     return (
@@ -76,7 +77,7 @@ export function GTMSection() {
                 </div>
 
                 <div className="space-y-6">
-                    <div className="w-full h-32 bg-muted/20 rounded-lg" />
+                    <FlagGrid />
                     <div>
                         <h4 className="text-lg font-bold text-foreground mb-1">Government Contracts</h4>
                         <Badge className="mb-2">Market Expansion</Badge>
