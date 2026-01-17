@@ -1,6 +1,7 @@
 import { Badge } from "@/components/atoms/badge";
 import { SectionPlayButton } from "@/components/audio-player/SectionPlayButton";
 import { TRANSCRIPT_DATA, CHAPTERS_DATA } from "@/lib/constants";
+import { WipeLoopVideo } from "@/components/ui/wipe-loop-video";
 import { RndSlideshow } from "./rnd-slideshow";
 
 export function RoadmapSection() {
@@ -137,7 +138,12 @@ export function RoadmapSection() {
 
                     {/* PHASE 3 */}
                     <div className="lg:flex-1 relative lg:pl-0 mb-16 lg:mb-0">
-                        <div className="w-full aspect-[2500/1335] bg-muted/20 rounded-lg mb-6 lg:mb-0" />
+                        <div className="w-full aspect-[2500/1335] rounded-lg overflow-hidden bg-black mb-6 lg:mb-0">
+                            <WipeLoopVideo
+                                src="/images/civilizational%20scale/Animated_Earth_View_From_Space.mp4"
+                                className="w-full h-full object-cover scale-[1.35] transform origin-center"
+                            />
+                        </div>
 
                         {/* Timeline Anchor (Desktop) */}
                         <div className="relative h-px w-full hidden lg:block my-6">

@@ -39,32 +39,120 @@ export function GTMSection() {
                 <div className="space-y-6">
                     <div className="w-full h-32 bg-muted/20 rounded-lg" />
                     <div>
-                        <h4 className="text-lg font-bold text-foreground mb-1">Early Adopters & Tech</h4>
+                        <h4 className="text-lg font-bold text-foreground mb-1">Smart Home and Surveillance</h4>
                         <Badge className="mb-2">Revenue Driver</Badge>
                         <p className="text-sm text-muted-foreground leading-relaxed">
-                            Selling the "Smart Home 2.0" experience to the tech-forward demographic who want total home automation and "Jarvis-like" AI.
+                            Selling the "Smart Home 2.0" experience to the tech-forward demographic who want total home automation, "Jarvis-like" AI, and advanced surveillance capabilities.
                         </p>
                     </div>
                 </div>
 
                 <div className="space-y-6">
-                    <div className="relative w-full rounded-lg overflow-hidden bg-background">
-                        <div className="grid grid-cols-5 grid-rows-3 gap-[1px] bg-white">
-                            {[
-                                "kai_cenat", "pokimane", "ishowspeed", "valkyrae", "ibai_llanos",
-                                "xqc", "amouranth", "jynxzi", "qtcinderella", "asmongold",
-                                "caseoh", "sketch", "ludwig", "hasanabi", "ninja"
-                            ].map((streamer, i) => (
-                                <div key={streamer} className="relative aspect-square w-full h-full overflow-hidden bg-white">
-                                    <Image
-                                        src={`/images/influencers/${streamer}.png`}
-                                        alt={streamer.replace("_", " ")}
-                                        fill
-                                        className="object-cover"
-                                        sizes="(max-width: 768px) 20vw, 10vw"
-                                    />
-                                </div>
-                            ))}
+                    <div className="relative w-full h-[261px] rounded-lg overflow-hidden bg-background flex flex-col gap-[1px]">
+                        {/* Row 1: Speed 90s, Delay 0s */}
+                        <div className="flex-1 overflow-hidden relative">
+                            <div className="flex h-full animate-scroll-right w-max" style={{ animationDuration: '90s', animationDelay: '0s' }}>
+                                {[
+                                    "kai_cenat", "pokimane", "ishowspeed", "valkyrae", "ibai_llanos",
+                                    "xqc", "amouranth", "jynxzi", "qtcinderella", "asmongold",
+                                    "caseoh", "sketch"
+                                ].concat([
+                                    "kai_cenat", "pokimane", "ishowspeed", "valkyrae", "ibai_llanos",
+                                    "xqc", "amouranth", "jynxzi", "qtcinderella", "asmongold",
+                                    "caseoh", "sketch"
+                                ]).concat([
+                                    "kai_cenat", "pokimane", "ishowspeed", "valkyrae", "ibai_llanos",
+                                    "xqc", "amouranth", "jynxzi", "qtcinderella", "asmongold",
+                                    "caseoh", "sketch"
+                                ]).concat([
+                                    "kai_cenat", "pokimane", "ishowspeed", "valkyrae", "ibai_llanos",
+                                    "xqc", "amouranth", "jynxzi", "qtcinderella", "asmongold",
+                                    "caseoh", "sketch"
+                                ]).map((streamer, i) => (
+                                    <div key={`r1-${streamer}-${i}`} className="aspect-square h-full bg-white border-r border-white box-content">
+                                        <div className="relative w-full h-full">
+                                            <Image
+                                                src={`/images/influencers/${streamer}.png`}
+                                                alt={streamer.replace("_", " ")}
+                                                fill
+                                                className="object-cover"
+                                                sizes="100px"
+                                                priority={i < 10}
+                                            />
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Row 2: Speed 90s, Delay -20s */}
+                        <div className="flex-1 overflow-hidden relative">
+                            <div className="flex h-full animate-scroll-right w-max" style={{ animationDuration: '90s', animationDelay: '-20s' }}>
+                                {[
+                                    "ludwig", "hasanabi", "ninja", "mrbeast", "logan_paul",
+                                    "ksi", "rubius", "auronplay", "thegrefg", "shroud",
+                                    "tfue", "summit1g"
+                                ].concat([
+                                    "ludwig", "hasanabi", "ninja", "mrbeast", "logan_paul",
+                                    "ksi", "rubius", "auronplay", "thegrefg", "shroud",
+                                    "tfue", "summit1g"
+                                ]).concat([
+                                    "ludwig", "hasanabi", "ninja", "mrbeast", "logan_paul",
+                                    "ksi", "rubius", "auronplay", "thegrefg", "shroud",
+                                    "tfue", "summit1g"
+                                ]).concat([
+                                    "ludwig", "hasanabi", "ninja", "mrbeast", "logan_paul",
+                                    "ksi", "rubius", "auronplay", "thegrefg", "shroud",
+                                    "tfue", "summit1g"
+                                ]).map((streamer, i) => (
+                                    <div key={`r2-${streamer}-${i}`} className="aspect-square h-full bg-white border-r border-white box-content">
+                                        <div className="relative w-full h-full">
+                                            <Image
+                                                src={`/images/influencers/${streamer}.png`}
+                                                alt={streamer.replace("_", " ")}
+                                                fill
+                                                className="object-cover"
+                                                sizes="100px"
+                                            />
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Row 3: Speed 90s, Delay -40s */}
+                        <div className="flex-1 overflow-hidden relative">
+                            <div className="flex h-full animate-scroll-right w-max" style={{ animationDuration: '90s', animationDelay: '-40s' }}>
+                                {[
+                                    "sypherpk", "nickmercs", "timthetatman", "moistcr1tikal", "mkbhd",
+                                    "linus_sebastian", "pewdiepie", "markiplier", "jacksepticeye", "dream",
+                                    "tommyinnit", "mizkif"
+                                ].concat([
+                                    "sypherpk", "nickmercs", "timthetatman", "moistcr1tikal", "mkbhd",
+                                    "linus_sebastian", "pewdiepie", "markiplier", "jacksepticeye", "dream",
+                                    "tommyinnit", "mizkif"
+                                ]).concat([
+                                    "sypherpk", "nickmercs", "timthetatman", "moistcr1tikal", "mkbhd",
+                                    "linus_sebastian", "pewdiepie", "markiplier", "jacksepticeye", "dream",
+                                    "tommyinnit", "mizkif"
+                                ]).concat([
+                                    "sypherpk", "nickmercs", "timthetatman", "moistcr1tikal", "mkbhd",
+                                    "linus_sebastian", "pewdiepie", "markiplier", "jacksepticeye", "dream",
+                                    "tommyinnit", "mizkif"
+                                ]).map((streamer, i) => (
+                                    <div key={`r3-${streamer}-${i}`} className="aspect-square h-full bg-white border-r border-white box-content">
+                                        <div className="relative w-full h-full">
+                                            <Image
+                                                src={`/images/influencers/${streamer}.png`}
+                                                alt={streamer.replace("_", " ")}
+                                                fill
+                                                className="object-cover"
+                                                sizes="100px"
+                                            />
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </div>
                     <div>
@@ -77,7 +165,9 @@ export function GTMSection() {
                 </div>
 
                 <div className="space-y-6">
-                    <FlagGrid />
+                    <div className="w-full h-[261px]">
+                        <FlagGrid />
+                    </div>
                     <div>
                         <h4 className="text-lg font-bold text-foreground mb-1">Government Contracts</h4>
                         <Badge className="mb-2">Market Expansion</Badge>
