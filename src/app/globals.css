@@ -389,6 +389,54 @@
   .playgrade-link-bg:hover::after {
     opacity: 0.1;
   }
+
+  .playgrade-static-glow {
+    position: relative;
+  }
+
+  /* Border */
+  .playgrade-static-glow::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: var(--background-image-playgrade-light);
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 1;
+    pointer-events: none;
+    z-index: 20;
+  }
+
+  .dark .playgrade-static-glow::before {
+    background: var(--background-image-playgrade);
+  }
+
+  /* Glow */
+  .playgrade-static-glow::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    transform: translateY(4px) scale(0.98);
+    filter: blur(15px);
+    opacity: 0.25;
+    background: black;
+    border-radius: inherit;
+  }
+
+  .dark .playgrade-static-glow::after {
+    background: var(--background-image-playgrade);
+    opacity: 0.6;
+  }
+
 }
 
 /* Override AudioWaveform positioning to place it in the sidebar */
@@ -450,4 +498,32 @@
     transform: scaleY(0.1);
     opacity: 0;
   }
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scroll-right {
+  0% {
+    transform: translateX(-50%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 40s linear infinite;
+}
+
+.animate-scroll-right {
+  animation: scroll-right 40s linear infinite;
 }

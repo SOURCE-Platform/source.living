@@ -139,7 +139,7 @@ export function SolutionSection() {
 
             <div className="mt-36 flex flex-col md:flex-row gap-8 md:gap-12 md:-mx-[25%] items-start">
                 <div className="md:flex-1">
-                    <div className="relative w-full h-[380px] mb-6">
+                    <div className="relative w-full h-[380px] mb-6 rounded-lg playgrade-static-glow">
                         {/* Light Mode Image */}
                         <Image
                             src="/images/hardware/kern-computer-in-cubby.png"
@@ -173,7 +173,7 @@ export function SolutionSection() {
                 </div>
 
                 <div className="md:flex-1 md:-mt-16">
-                    <div className="relative w-full aspect-[1440/1439] mb-6">
+                    <div className="relative w-full aspect-[1440/1439] mb-6 rounded-lg playgrade-static-glow">
                         {/* Light Mode: settings white mode.png */}
                         <Image
                             src="/images/software/settings white mode.png"
@@ -213,7 +213,7 @@ export function SolutionSection() {
                 </div>
 
                 <div className="md:flex-1">
-                    <div className="relative w-full h-[380px] mb-6">
+                    <div className="relative w-full h-[380px] mb-6 rounded-lg playgrade-static-glow">
                         <Image
                             src="/images/social/royal social.png"
                             alt="Social Illustration"
@@ -295,53 +295,7 @@ export function SolutionSection() {
                 </div>
             </div>
 
-            {/* Duplicated Section - Image Above, Two Text Columns Below */}
-            <div className="mt-36 mb-36 flex flex-col gap-12 items-start md:-mx-[15%]">
-                {/* Image on Top */}
-                <div className="w-full">
-                    <div className="relative w-full min-h-[500px] rounded-lg overflow-hidden">
-                        <Image
-                            src="/images/data ownership/data shield.png"
-                            alt="Data Ownership Illustration"
-                            fill
-                            className="object-contain"
-                        />
-                    </div>
-                </div>
 
-                {/* Two Text Columns Below */}
-                <div className="w-full flex flex-col md:flex-row gap-12">
-                    {/* Left Column - Data Ownership */}
-                    <div className="w-full md:w-1/2 space-y-4">
-                        <div className="flex items-center gap-5">
-                            <h3 className="text-3xl font-bold text-foreground">Data Ownership</h3>
-                        </div>
-                        <div>
-                            <p className="text-lg font-bold text-foreground mb-1">
-                                Source democratizes surveillance.
-                            </p>
-                            <p className="text-sm text-foreground">
-                                Instead of states and corporations owning your data, you own it. All data is processed locally and cryptographically secured—serving your health, safety, and personal AI, not external entities.
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* Right Column - Data Security */}
-                    <div className="w-full md:w-1/2 space-y-4">
-                        <div className="flex items-center gap-5">
-                            <h3 className="text-3xl font-bold text-foreground">Data Security</h3>
-                        </div>
-                        <div>
-                            <p className="text-lg font-bold text-foreground mb-1">
-                                Military-grade encryption at the edge.
-                            </p>
-                            <p className="text-sm text-foreground">
-                                All data processing happens locally on your hardware. Nothing leaves your environment unless you explicitly authorize it. Your data is cryptographically secured and protected by design.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <div className="flex flex-col rounded-lg border border-border bg-muted/10 w-full xs:max-w-[70%] mx-auto">
                 <div className="p-5 space-y-3">
