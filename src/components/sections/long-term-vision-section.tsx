@@ -4,7 +4,19 @@ import { TRANSCRIPT_DATA, CHAPTERS_DATA } from "@/lib/constants";
 export function LongTermVisionSection() {
     return (
         <section className="space-y-4">
-            <div className="w-full h-64 bg-muted/20 rounded-lg mb-8" />
+            <div className="w-[calc(200%-200px)] ml-[calc(-50%+100px)] mb-8">
+                <img
+                    src="/images/the long term vision/wide longterm.webp"
+                    alt="The Long Term Vision"
+                    className="w-full rounded-lg"
+                    style={{
+                        maskImage: 'radial-gradient(75% 140% at 50% 140%, black 75%, transparent 100%), radial-gradient(75% 140% at 50% -40%, black 75%, transparent 100%)',
+                        WebkitMaskImage: 'radial-gradient(75% 140% at 50% 140%, black 75%, transparent 100%), radial-gradient(75% 140% at 50% -40%, black 75%, transparent 100%)',
+                        maskComposite: 'intersect',
+                        WebkitMaskComposite: 'source-in'
+                    }}
+                />
+            </div>
             <div className="flex items-center gap-5 w-full xs:max-w-[70%] mx-auto">
                 <h2 className="text-4xl font-bold text-foreground">The Long-Term Vision</h2>
                 <SectionPlayButton
