@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { WarpedImage } from "../3d/WarpedImage";
+import { InteractiveImage } from "@/components/ui/interactive-image";
 import { TransitionLink } from "../atoms/transition-link";
 import { SectionPlayButton } from "@/components/audio-player/SectionPlayButton";
 import { Badge } from "@/components/atoms/badge";
@@ -55,10 +56,14 @@ export function ProblemSection() {
     return (
         <section className="space-y-8">
             <div className="space-y-4">
-                <div className="w-full h-64 bg-muted/20 rounded-lg mb-8" />
+                <InteractiveImage
+                    src="/images/the%20problems/The_Garden_of_Earthly_Delights_by_Bosch_High_Resolution.jpg"
+                    alt="The Garden of Earthly Delights"
+                    className="-mb-8 z-10 w-[101vw] ml-[calc(50%-50.5vw)] [mask-image:linear-gradient(to_bottom,black_80%,transparent),url(/images/viewing-mask.svg)] [-webkit-mask-image:linear-gradient(to_bottom,black_80%,transparent),url(/images/viewing-mask.svg)] [mask-composite:intersect] [-webkit-mask-composite:source-in] [mask-size:100%_100%] [-webkit-mask-size:100%_100%] [mask-repeat:no-repeat] [-webkit-mask-repeat:no-repeat]"
+                />
                 <h2 className="text-4xl font-bold text-foreground w-full xs:max-w-[70%] mx-auto">The Problems</h2>
                 <p className="w-full xs:max-w-[70%] mx-auto">
-                    We are facing a simultaneous convergence of systemic failures that are reshaping human civilization. The "Data Wall"—the limit of current AI—is just one component of this larger crisis.
+                    We are facing a simultaneous convergence of systemic failures that are reshaping human civilization but inorder to address those in an agentic way we need to first deal with the underlying core problem which is the lack of a high-quantity of high-quality data.
                 </p>
             </div>
 
