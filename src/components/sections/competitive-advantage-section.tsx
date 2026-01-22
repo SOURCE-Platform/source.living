@@ -1,7 +1,15 @@
+import { SectionPlayButton } from "@/components/audio-player/SectionPlayButton";
+
 export function CompetitiveAdvantageSection() {
     return (
         <section className="space-y-4">
-            <h2 className="text-4xl font-bold text-foreground">Competitive Advantage</h2>
+            <div className="flex items-center gap-4">
+                <h2 className="text-4xl font-bold text-foreground">Competitive Advantage</h2>
+                <SectionPlayButton
+                    title="Competitive Advantage"
+                    audioSrc="/audio/competitive-advantage.mp3"
+                />
+            </div>
             <div className="space-y-8 mt-12">
                 <div className="flex flex-col md:flex-row gap-6 items-start">
                     <div className="w-full md:w-32 h-32 shrink-0 bg-muted/20 rounded-lg" />

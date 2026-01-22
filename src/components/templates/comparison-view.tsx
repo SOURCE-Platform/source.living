@@ -6,6 +6,7 @@ import { Modal } from "@/components/ui/modal";
 import { StickyLogo } from "@/components/molecules/sticky-logo";
 import { TransitionLink } from "../atoms/transition-link";
 import { BackButton } from "../atoms/back-button";
+import { SectionPlayButton } from "@/components/audio-player/SectionPlayButton";
 
 import {
     politicalIssues, economicIssues, socialIssues, techIssues,
@@ -26,6 +27,10 @@ interface CategoryData {
     solutions: SolutionItem[];
 }
 
+function getAudioSlug(title: string): string {
+    return title.toLowerCase().replace(/ & /g, '-and-').replace(/ /g, '-');
+}
+
 const MACRO_CATEGORIES: CategoryData[] = [
     { title: "Political", problems: politicalIssues, solutions: politicalSolutions },
     { title: "Economic", problems: economicIssues, solutions: economicSolutions },
@@ -34,7 +39,7 @@ const MACRO_CATEGORIES: CategoryData[] = [
 ];
 
 const MICRO_CATEGORIES: CategoryData[] = [
-    { title: "Mental & Emotional", problems: mentalIssues, solutions: mentalSolutions },
+    { title: "Mental Health", problems: mentalIssues, solutions: mentalSolutions },
     { title: "Micro-Social", problems: microSocialIssues, solutions: microSolutionsData },
     { title: "Physical Health", problems: physicalIssues, solutions: physicalSolutionsData },
     { title: "Computing UX", problems: computingIssues, solutions: computingSolutionsData },
@@ -370,13 +375,18 @@ const StickySubsectionTitle = ({ title }: { title: string }) => {
     }, []);
 
     return (
-        <div ref={ref} className="sticky top-36 will-change-[opacity,filter]">
+        <div ref={ref} className="sticky top-36 will-change-[opacity,filter] flex flex-col items-start gap-4">
             <h3
                 className="text-base font-extralight text-muted-foreground/70 leading-[0.9]"
                 style={{ fontFamily: 'var(--font-paragraph)' }}
             >
                 {title}
             </h3>
+            <SectionPlayButton
+                title={title}
+                audioSrc={`/audio/${getAudioSlug(title)}.mp3`}
+                className="origin-left"
+            />
         </div>
     );
 };
@@ -408,8 +418,13 @@ const ComparisonSection = ({ title, categories, isLastSection = false }: { title
                             {/* Mobile Sub-Title */}
                             <div className={`lg:col-start-2 min-w-0 ${isLastSection && isLastItem ? 'min-h-[75vh] pb-0' : ''}`}>
                                 {/* Mobile Sub-Title */}
-                                <h3 className="lg:hidden text-base font-bold text-muted-foreground mb-4">
+                                <h3 className="lg:hidden text-base font-bold text-muted-foreground mb-4 flex flex-col items-start gap-3">
                                     {cat.title}
+                                    <SectionPlayButton
+                                        title={cat.title}
+                                        audioSrc={`/audio/${getAudioSlug(cat.title)}.mp3`}
+                                        className="origin-left"
+                                    />
                                 </h3>
                                 <div className="scroll-mt-24">
                                     <ComparisonRow category={cat} />
@@ -573,10 +588,16 @@ export function ComparisonView({ defaultView, initialCompareMode = false }: Comp
                                 <>
                                     <section className="space-y-8">
                                         <h2 className="text-xl font-bold text-foreground">The Macro Problem Set</h2>
-                                        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 not-prose">
+                                        <div className="grid gap-6 grid-cols-1 min-[850px]:grid-cols-2 not-prose">
                                             {MACRO_CATEGORIES.map(cat => (
                                                 <div key={cat.title} className="border border-border p-6 rounded-lg bg-card/50">
-                                                    <h3 className="mb-4 text-base font-semibold text-foreground">{cat.title}</h3>
+                                                    <div className="flex items-center gap-3 mb-4">
+                                                        <h3 className="text-base font-semibold text-foreground">{cat.title}</h3>
+                                                        <SectionPlayButton
+                                                            title={cat.title}
+                                                            audioSrc={`/audio/${getAudioSlug(cat.title)}.mp3`}
+                                                        />
+                                                    </div>
                                                     <div className="space-y-3">
                                                         {cat.problems.map((p, i) => <ProblemCard key={i} issue={p} />)}
                                                     </div>
@@ -587,10 +608,16 @@ export function ComparisonView({ defaultView, initialCompareMode = false }: Comp
 
                                     <section className="space-y-8">
                                         <h2 className="text-xl font-bold text-foreground">The Micro Problem Set</h2>
-                                        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 not-prose">
+                                        <div className="grid gap-6 grid-cols-1 min-[850px]:grid-cols-2 not-prose">
                                             {MICRO_CATEGORIES.map(cat => (
                                                 <div key={cat.title} className="border border-border p-6 rounded-lg bg-card/50">
-                                                    <h3 className="mb-4 text-base font-semibold text-foreground">{cat.title}</h3>
+                                                    <div className="flex items-center gap-3 mb-4">
+                                                        <h3 className="text-base font-semibold text-foreground">{cat.title}</h3>
+                                                        <SectionPlayButton
+                                                            title={cat.title}
+                                                            audioSrc={`/audio/${getAudioSlug(cat.title)}.mp3`}
+                                                        />
+                                                    </div>
                                                     <div className="space-y-3">
                                                         {cat.problems.map((p, i) => <ProblemCard key={i} issue={p} />)}
                                                     </div>
@@ -606,10 +633,16 @@ export function ComparisonView({ defaultView, initialCompareMode = false }: Comp
                                 <>
                                     <section className="space-y-8">
                                         <h2 className="text-xl font-bold text-foreground">Macro Solutions</h2>
-                                        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 not-prose">
+                                        <div className="grid gap-6 grid-cols-1 min-[850px]:grid-cols-2 not-prose">
                                             {MACRO_CATEGORIES.map(cat => (
                                                 <div key={cat.title} className="border border-border p-6 rounded-lg bg-card/50">
-                                                    <h3 className="mb-4 text-base font-bold text-foreground">{cat.title}</h3>
+                                                    <div className="flex items-center gap-3 mb-4">
+                                                        <h3 className="text-base font-bold text-foreground">{cat.title}</h3>
+                                                        <SectionPlayButton
+                                                            title={cat.title}
+                                                            audioSrc={`/audio/${getAudioSlug(cat.title)}.mp3`}
+                                                        />
+                                                    </div>
                                                     <div className="space-y-6">
                                                         {cat.solutions.map((s, i) => <SolutionCard key={i} item={s} />)}
                                                     </div>
@@ -619,10 +652,16 @@ export function ComparisonView({ defaultView, initialCompareMode = false }: Comp
                                     </section>
                                     <section className="space-y-8">
                                         <h2 className="text-xl font-bold text-foreground">Micro Solutions</h2>
-                                        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 not-prose">
+                                        <div className="grid gap-6 grid-cols-1 min-[850px]:grid-cols-2 not-prose">
                                             {MICRO_CATEGORIES.map(cat => (
                                                 <div key={cat.title} className="border border-border p-6 rounded-lg bg-card/50">
-                                                    <h3 className="mb-4 text-base font-bold text-foreground">{cat.title}</h3>
+                                                    <div className="flex items-center gap-3 mb-4">
+                                                        <h3 className="text-base font-bold text-foreground">{cat.title}</h3>
+                                                        <SectionPlayButton
+                                                            title={cat.title}
+                                                            audioSrc={`/audio/${getAudioSlug(cat.title)}.mp3`}
+                                                        />
+                                                    </div>
                                                     <div className="space-y-6">
                                                         {cat.solutions.map((s, i) => <SolutionCard key={i} item={s} />)}
                                                     </div>

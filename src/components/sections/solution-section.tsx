@@ -155,7 +155,13 @@ export function SolutionSection() {
                             className="object-cover rounded-lg hidden dark:block"
                         />
                     </div>
-                    <h3 className="text-3xl font-bold text-foreground mb-6">Hardware</h3>
+                    <div className="flex items-center gap-4 mb-6">
+                        <h3 className="text-3xl font-bold text-foreground">Hardware</h3>
+                        <SectionPlayButton
+                            title="Hardware"
+                            audioSrc="/audio/hardware.mp3"
+                        />
+                    </div>
                     <div className="space-y-6">
                         <div>
                             <h4 className="text-lg font-bold text-foreground mb-1">Sensor Grid</h4>
@@ -189,7 +195,13 @@ export function SolutionSection() {
                             className="object-cover object-top rounded-lg hidden dark:block"
                         />
                     </div>
-                    <h3 className="text-3xl font-bold text-foreground mb-6">Software</h3>
+                    <div className="flex items-center gap-4 mb-6">
+                        <h3 className="text-3xl font-bold text-foreground">Software</h3>
+                        <SectionPlayButton
+                            title="Software"
+                            audioSrc="/audio/software.mp3"
+                        />
+                    </div>
                     <div className="space-y-6">
                         <div>
                             <h4 className="text-lg font-bold text-foreground mb-1">SOURCE ID</h4>
@@ -221,7 +233,13 @@ export function SolutionSection() {
                             className="object-cover rounded-lg"
                         />
                     </div>
-                    <h3 className="text-3xl font-bold text-foreground mb-6">Social</h3>
+                    <div className="flex items-center gap-4 mb-6">
+                        <h3 className="text-3xl font-bold text-foreground">Social</h3>
+                        <SectionPlayButton
+                            title="Social"
+                            audioSrc="/audio/social.mp3"
+                        />
+                    </div>
                     <div className="space-y-6">
                         <div>
                             <h4 className="text-lg font-bold text-foreground mb-1">CAST</h4>
@@ -259,10 +277,10 @@ export function SolutionSection() {
                     <div className="space-y-4">
                         <div className="flex items-center gap-5">
                             <h3 className="text-3xl font-bold text-foreground">Data Ownership</h3>
-                            {/* <SectionPlayButton
+                            <SectionPlayButton
                                 title="Data Ownership"
-                                audioSrc="/audio/Data%20Ownership.mp3"
-                            /> */}
+                                audioSrc="/audio/data-ownership.mp3"
+                            />
                         </div>
                         <div>
                             <p className="text-lg font-bold text-foreground mb-1">
@@ -278,10 +296,10 @@ export function SolutionSection() {
                     <div className="space-y-4">
                         <div className="flex items-center gap-5">
                             <h3 className="text-3xl font-bold text-foreground">Data Security</h3>
-                            {/* <SectionPlayButton
+                            <SectionPlayButton
                                 title="Data Security"
-                                audioSrc="/audio/Data%20Security.mp3"
-                            /> */}
+                                audioSrc="/audio/data-security.mp3"
+                            />
                         </div>
                         <div>
                             <p className="text-lg font-bold text-foreground mb-1">
