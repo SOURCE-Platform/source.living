@@ -359,7 +359,7 @@ export function EarthSceneV2({ setUseV2 }: { setUseV2?: (v: boolean) => void }) 
             }
 
             if (isSpinningRef.current) {
-                rotationRef.current += 0.0005;
+                rotationRef.current += 0.001;
             }
 
             if (earthGroupRef.current) {
