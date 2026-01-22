@@ -27,7 +27,7 @@ export function InteractiveImage({ src, alt, className }: InteractiveImageProps)
 
         const animate = (time: number) => {
             const elapsed = (time - startTime) / 1000; // seconds
-            const speed = 0.5; // Adjust speed as needed
+            const speed = 0.1; // Adjust speed as needed
 
             // Figure 8 parameters
             // x = A * sin(at)

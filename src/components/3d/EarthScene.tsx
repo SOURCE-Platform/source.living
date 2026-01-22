@@ -14,6 +14,28 @@ export function EarthScene() {
     const globeMatRef = useRef<THREE.MeshPhongMaterial | null>(null);
     const [isVisible, setIsVisible] = useState(false);
 
+    // DEBUG CONTROLS
+    const [debugProgress, setDebugProgress] = useState(0); // 0-100
+    const [showSunset, setShowSunset] = useState(true);
+    const [isSpinning, setIsSpinning] = useState(true);
+    const [rotationVal, setRotationVal] = useState(0); // 0-360 for UI
+
+    const isManualRef = useRef(false);
+    const rotationRef = useRef(0);
+    const isSpinningRef = useRef(true); // Fix: Initialize ref
+
+    // Sync state to ref for animation loop
+    useEffect(() => {
+        isSpinningRef.current = isSpinning;
+    }, [isSpinning]);
+
+    // Handle shader uniform updates when state changes
+    useEffect(() => {
+        if (globeMatRef.current?.userData?.shader) {
+            globeMatRef.current.userData.shader.uniforms.uShowSunset.value = showSunset ? 1.0 : 0.0;
+        }
+    }, [showSunset]);
+
     useEffect(() => {
         if (!containerRef.current) return;
 
@@ -38,7 +60,79 @@ export function EarthScene() {
                 nightTexture.colorSpace = THREE.SRGBColorSpace;
                 globeMat.emissiveMap = nightTexture;
                 globeMat.emissive = new THREE.Color(0xffffff);
-                globeMat.emissiveIntensity = 0.3;
+                globeMat.emissiveIntensity = 0; // Handled in shader now
+
+                // CUSTOM SHADER: Sharp terminator + Sunset glow
+                globeMat.onBeforeCompile = (shader) => {
+                    shader.uniforms.sunDirection = { value: new THREE.Vector3(0, 0, 1) };
+                    shader.uniforms.uShowSunset = { value: 1.0 }; // Default on
+
+                    // Pass the directional light position to the customized shader
+                    // We'll hook into the update loop to keep this sync'd
+                    globeMat.userData.shader = shader;
+
+                    // Vertex Shader: Pass Normal and world position if needed (Standard provides vNormal)
+                    // We primarily need to ensure we have the correct lighting calculations in fragment.
+                    // For MeshPhongMaterial, we can hijack the lights_phong_fragment or similar.
+                    // Actually, easiest way for day/night is to modify how emissive and diffuse mix.
+
+                    shader.fragmentShader = shader.fragmentShader.replace(
+                        '#include <common>',
+                        `
+                        #include <common>
+                        uniform float uShowSunset;
+                        `
+                    );
+
+                    shader.fragmentShader = shader.fragmentShader.replace(
+                        '#include <emissivemap_fragment>',
+                        `
+                        #ifdef USE_EMISSIVEMAP
+                            vec4 emissiveColor = texture2D( emissiveMap, vEmissiveMapUv );
+                            
+                            // CALCULATE SUN INTENSITY MANUALLY
+                            vec3 lightDir = normalize(directionalLights[0].direction); 
+                            float dotNL = dot(normalize(vNormal), lightDir);
+                            
+                            // 1. TERMINATOR GEOMETRY
+                            // Sharp transition for night lights
+                            float dayStrength = smoothstep(-0.02, 0.02, dotNL); 
+                            
+                            // 2. ATMOSPHERIC HAZE (Day Side)
+                            // "Wash out" the day side like Google Earth. 
+                            // Stronger when facing sun directly, fades at terminator.
+                            float atmosphereFactor = smoothstep(0.0, 1.0, dotNL); 
+                            vec3 atmosphereColor = vec3(0.6, 0.75, 1.0); // Light blue-ish white
+                            
+                            // Mix haze into the base texture (diffuseColor)
+                            // Mix 30% atmosphere at peak day
+                            diffuseColor.rgb = mix(diffuseColor.rgb, atmosphereColor, atmosphereFactor * 0.3);
+                            
+                            // 3. SUNSET SCATTERING
+                            // Natural tinting at the terminator (scattering)
+                            // Band from -0.1 to 0.2
+                            float sunsetFactor = 1.0 - abs(smoothstep(-0.1, 0.2, dotNL) * 2.0 - 1.0);
+                            sunsetFactor = pow(sunsetFactor, 3.0);
+                            
+                            vec3 sunsetTint = vec3(1.2, 0.7, 0.4); // Warm glow, slightly brighter than 1.0
+                            
+                            // Apply tint if enabled
+                            if (uShowSunset > 0.5) {
+                                diffuseColor.rgb += sunsetTint * sunsetFactor * 0.5;
+                            }
+                            
+                            // 4. NIGHT LIGHTS masking
+                            totalEmissiveRadiance = emissiveColor.rgb * (1.0 - dayStrength) * 1.5; 
+                            
+                            // 5. REMOVE BLUE FROM NIGHT SIDE
+                            // Force day side only for diffuse. 
+                            // This ensures the blue marble texture is BLACK on the night side.
+                            diffuseColor.rgb *= dayStrength; 
+                            
+                        #endif
+                        `
+                    );
+                };
             }
         );
 
@@ -119,23 +213,35 @@ export function EarthScene() {
         // Animation loop
         const R = 10;
         const animate = () => {
-            timeRef.current += 0.016;
+            // ONLY increment time if NOT in manual mode
+            if (!isManualRef.current) {
+                timeRef.current += 0.016;
+                // Update debug slider just for visual sync if playing purely
+                // But avoid re-renders loop: we'll just let the slider be controlled by user primarily
+            }
+
             const time = timeRef.current;
+
+            // ROTATION Logic
+            // We use a ref to track accumulated rotation, but also allow UI override
+            if (isSpinningRef.current) {
+                rotationRef.current += 0.0010;
+            }
 
             // Rotate globe
             const globeMesh = world.scene().children.find((c: THREE.Object3D) => c.type === 'Group');
             if (globeMesh) {
-                globeMesh.rotation.y += 0.0010;
+                globeMesh.rotation.y = rotationRef.current;
             }
 
-            // Rotate clouds - apply rotation directly to mesh
+            // Rotate clouds - sync with earth + slight drift
             if (cloudsRef.current) {
-                cloudsRef.current.rotation.y += 0.0012; // Slightly faster to make it visible
+                cloudsRef.current.rotation.y = rotationRef.current + (time * 0.02);
             }
 
             // Rotate white sphere with the globe
             if (whiteSphereRef.current) {
-                whiteSphereRef.current.rotation.y += 0.0010;
+                whiteSphereRef.current.rotation.y = rotationRef.current;
             }
 
             // --- LIGHTING ANIMATION (faster timings) ---
@@ -164,6 +270,14 @@ export function EarthScene() {
 
                 directionalLight.intensity = t * 3;
                 ambientLight.intensity = t * 0.1;
+
+                // Update shader with sun direction if available (mostly auto-handled by Three.js lights, but good to know)
+                if (globeMatRef.current && globeMatRef.current.userData.shader) {
+                    // Force material update if needed, but directionalLights[0] is uniform
+                    globeMatRef.current.needsUpdate = true;
+                    // Note: We don't actually need to set userData.shader.uniforms.sunDirection 
+                    // because we are reading directionalLights[0] in the shader directly.
+                }
             }
 
             // Phase 3: Full illumination + Whiteout (5s+) - 1.5 seconds for white, 2.5 for glow
@@ -184,6 +298,8 @@ export function EarthScene() {
                 directionalLight.position.set(0, 2, R);
                 directionalLight.intensity = 3 + (t * 7);
                 ambientLight.intensity = 0.1 + (t * 1.5);
+
+                if (globeMatRef.current) globeMatRef.current.needsUpdate = true;
 
                 // Expand atmosphere glow by 50% (0.25 -> 0.375)
                 world.atmosphereAltitude(0.25 + (glowEased * 0.125));
@@ -209,11 +325,73 @@ export function EarthScene() {
         };
     }, []);
 
+    // DEBUG HANDLER
+    const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const val = parseFloat(e.target.value);
+        setDebugProgress(val);
+
+        // Pause auto-play when user interacts
+        isManualRef.current = true;
+
+        // Map 0-100 to 0-10 seconds (approx duration)
+        timeRef.current = (val / 100) * 10;
+    };
+
+    const handleRotationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const degrees = parseFloat(e.target.value);
+        setRotationVal(degrees);
+        setIsSpinning(false); // Auto-pause spin
+        rotationRef.current = degrees * (Math.PI / 180);
+    };
+
     return (
-        <div
-            ref={containerRef}
-            className="w-full h-[500px] relative bg-transparent overflow-visible -mt-16 flex items-center justify-center pointer-events-none transition-opacity duration-1000"
-            style={{ opacity: isVisible ? 1 : 0 }}
-        />
+        <div className="relative">
+            <div
+                ref={containerRef}
+                className="w-full h-[500px] relative bg-transparent overflow-visible -mt-16 flex items-center justify-center pointer-events-none transition-opacity duration-1000"
+                style={{ opacity: isVisible ? 1 : 0 }}
+            />
+            {/* DEBUG SLIDER UI */}
+            <div className="absolute right-4 top-4 bg-black/80 p-4 rounded-xl backdrop-blur-md z-50 pointer-events-auto flex flex-col gap-3 min-w-[200px] border border-white/10">
+
+                <div className="flex flex-col gap-1">
+                    <label className="text-white text-xs font-mono text-gray-400">ANIMATION PROGRESS</label>
+                    <input
+                        type="range" min="0" max="100" step="0.1"
+                        value={debugProgress} onChange={handleSliderChange}
+                        className="w-full h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+                    />
+                </div>
+
+                <div className="flex flex-col gap-1">
+                    <label className="text-white text-xs font-mono text-gray-400">EARTH ROTATION ({Math.round(rotationVal)}°)</label>
+                    <input
+                        type="range" min="0" max="360" step="1"
+                        value={rotationVal} onChange={handleRotationChange}
+                        className="w-full h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+                    />
+                </div>
+
+                <div className="flex items-center justify-between pt-2 border-t border-white/10">
+                    <label className="text-sm text-gray-300">Spinning</label>
+                    <input
+                        type="checkbox"
+                        checked={isSpinning}
+                        onChange={(e) => setIsSpinning(e.target.checked)}
+                        className="w-4 h-4 rounded border-gray-600 bg-gray-700 text-blue-500 focus:ring-offset-gray-900"
+                    />
+                </div>
+
+                <div className="flex items-center justify-between">
+                    <label className="text-sm text-gray-300">Sunset Effect</label>
+                    <input
+                        type="checkbox"
+                        checked={showSunset}
+                        onChange={(e) => setShowSunset(e.target.checked)}
+                        className="w-4 h-4 rounded border-gray-600 bg-gray-700 text-orange-500 focus:ring-offset-gray-900"
+                    />
+                </div>
+            </div>
+        </div>
     );
 }

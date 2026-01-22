@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 
 // List of country codes for flags (ISO 3166-1 alpha-2)
@@ -13,224 +13,101 @@ const FLAG_CODES = [
     "hu", "ro", "bg", "hr", "sk", "si", "lt", "lv", "ee", "is"
 ];
 
-// Grid dimensions
-const FLAG_WIDTH = 60;
-const FLAG_HEIGHT = Math.round(FLAG_WIDTH * (2 / 3));
-const TRANSITION_DURATION = 1500; // 1.5 second fades
-
-interface CellState {
-    currentFlag: number;
-    nextFlag: number | null;
-    fadeProgress: number; // 0 = showing current, 1 = showing next
-}
-
-interface FlagCellProps {
-    state: CellState;
-}
-
-function FlagCell({ state }: FlagCellProps) {
-    const { currentFlag, nextFlag, fadeProgress } = state;
-
-    return (
-        <div className="relative overflow-hidden w-full h-full">
-            {/* Current flag - always visible underneath */}
-            <Image
-                src={`https://flagcdn.com/w80/${FLAG_CODES[currentFlag]}.png`}
-                alt={FLAG_CODES[currentFlag]}
-                fill
-                className="object-cover"
-                style={{ opacity: 1 }}
-                sizes={`${FLAG_WIDTH}px`}
-                unoptimized
-            />
-            {/* Next flag fading in on top */}
-            {nextFlag !== null && (
-                <Image
-                    src={`https://flagcdn.com/w80/${FLAG_CODES[nextFlag]}.png`}
-                    alt={FLAG_CODES[nextFlag]}
-                    fill
-                    className="object-cover"
-                    style={{
-                        opacity: fadeProgress,
-                        transition: `opacity ${TRANSITION_DURATION}ms ease-in-out`
-                    }}
-                    sizes={`${FLAG_WIDTH}px`}
-                    unoptimized
-                />
-            )}
-        </div>
-    );
-}
+const FLAG_WIDTH = 63;
+const FLAG_HEIGHT = Math.round(FLAG_WIDTH * (2 / 3)); // 42
 
 export function FlagGrid() {
     const containerRef = useRef<HTMLDivElement>(null);
-    const [dimensions, setDimensions] = useState({ cols: 8, rows: 4 });
-    const [cellStates, setCellStates] = useState<CellState[]>([]);
+    const [rows, setRows] = useState(6);
 
-    // Use refs for the transition loop to avoid stale closures
-    const cellStatesRef = useRef<CellState[]>([]);
-    const usedFlagsRef = useRef<Set<number>>(new Set());
-    const transitioningCellsRef = useRef<Set<number>>(new Set());
-    const loopTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-    // Calculate grid dimensions based on container size
+    // Calculate how many rows fit in the container
     useEffect(() => {
         const updateDimensions = () => {
             if (containerRef.current) {
-                const width = containerRef.current.clientWidth;
                 const height = containerRef.current.clientHeight;
-                const cols = Math.floor(width / (FLAG_WIDTH + 1));
-                const rows = Math.floor(height / (FLAG_HEIGHT + 1));
-                setDimensions({ cols: Math.max(1, cols), rows: Math.max(1, rows) });
+                // Use Math.floor to ensure we don't overflow
+                const calculatedRows = Math.floor(height / (FLAG_HEIGHT + 1));
+                if (calculatedRows > 0) setRows(calculatedRows);
             }
         };
 
         updateDimensions();
         window.addEventListener('resize', updateDimensions);
 
-        const observer = new ResizeObserver(updateDimensions);
-        if (containerRef.current) {
-            observer.observe(containerRef.current);
-        }
-
         return () => {
             window.removeEventListener('resize', updateDimensions);
-            observer.disconnect();
         };
     }, []);
 
-    // Initialize cell states with unique flags
-    useEffect(() => {
-        const totalCells = dimensions.cols * dimensions.rows;
-        if (totalCells === 0) return;
+    // Create a strip of flags large enough to seamless scroll
 
-        const initialStates: CellState[] = [];
-        usedFlagsRef.current = new Set();
+    // We want to randomize the flags for each row so we don't get vertical columns of the same flag.
+    // A simple way is to shuffle the FLAG_CODES differently for each row, or just offset them.
+    // Since we need a seamless loop, we should just ensure the sequence repeats.
 
-        for (let i = 0; i < totalCells; i++) {
-            let flagIndex = i % FLAG_CODES.length;
-            while (usedFlagsRef.current.has(flagIndex) && usedFlagsRef.current.size < FLAG_CODES.length) {
-                flagIndex = (flagIndex + 1) % FLAG_CODES.length;
-            }
-            initialStates.push({
-                currentFlag: flagIndex,
-                nextFlag: null,
-                fadeProgress: 0
-            });
-            usedFlagsRef.current.add(flagIndex);
+    // Helper to get a randomized/shuffled version of flags for a row
+    const getRowFlags = (rowIndex: number) => {
+        // Create a copy to shuffle
+        const shuffled = [...FLAG_CODES];
+
+        // Fisher-Yates shuffle with a pseudo-random seed based on row index
+        let seed = rowIndex * 1337 + 12345;
+        const random = () => {
+            const x = Math.sin(seed++) * 10000;
+            return x - Math.floor(x);
+        };
+
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
         }
 
-        cellStatesRef.current = initialStates;
-        setCellStates(initialStates);
-        transitioningCellsRef.current = new Set();
-    }, [dimensions]);
-
-    // Get a random unused flag
-    const getUnusedFlag = (): number | null => {
-        const availableFlags: number[] = [];
-        for (let i = 0; i < FLAG_CODES.length; i++) {
-            if (!usedFlagsRef.current.has(i)) {
-                availableFlags.push(i);
-            }
-        }
-        if (availableFlags.length === 0) return null;
-        return availableFlags[Math.floor(Math.random() * availableFlags.length)];
+        // Return multiple copies for the loop
+        return [...shuffled, ...shuffled, ...shuffled, ...shuffled];
     };
-
-    // Transition loop
-    useEffect(() => {
-        if (cellStates.length === 0) return;
-
-        const runTransitionLoop = () => {
-            // Pick a random cell that isn't currently transitioning
-            const availableCells: number[] = [];
-            for (let i = 0; i < cellStatesRef.current.length; i++) {
-                if (!transitioningCellsRef.current.has(i)) {
-                    availableCells.push(i);
-                }
-            }
-
-            if (availableCells.length > 0) {
-                const cellIndex = availableCells[Math.floor(Math.random() * availableCells.length)];
-                const newFlag = getUnusedFlag();
-
-                if (newFlag !== null) {
-                    const oldFlag = cellStatesRef.current[cellIndex].currentFlag;
-
-                    // Mark as transitioning and reserve new flag
-                    transitioningCellsRef.current.add(cellIndex);
-                    usedFlagsRef.current.add(newFlag);
-
-                    // Set nextFlag and start fade (fadeProgress: 0 -> 1)
-                    cellStatesRef.current[cellIndex] = {
-                        currentFlag: oldFlag,
-                        nextFlag: newFlag,
-                        fadeProgress: 0
-                    };
-                    setCellStates([...cellStatesRef.current]);
-
-                    // After a tiny delay to ensure the element renders at opacity 0, trigger the fade
-                    requestAnimationFrame(() => {
-                        cellStatesRef.current[cellIndex] = {
-                            currentFlag: oldFlag,
-                            nextFlag: newFlag,
-                            fadeProgress: 1
-                        };
-                        setCellStates([...cellStatesRef.current]);
-                    });
-
-                    // Complete transition after duration
-                    setTimeout(() => {
-                        // Release old flag
-                        usedFlagsRef.current.delete(oldFlag);
-
-                        // Make new flag the current flag
-                        cellStatesRef.current[cellIndex] = {
-                            currentFlag: newFlag,
-                            nextFlag: null,
-                            fadeProgress: 0
-                        };
-                        transitioningCellsRef.current.delete(cellIndex);
-
-                        setCellStates([...cellStatesRef.current]);
-                    }, TRANSITION_DURATION + 50);
-                }
-            }
-
-            // Schedule next transition (300-1500ms)
-            loopTimeoutRef.current = setTimeout(runTransitionLoop, 300 + Math.random() * 1200);
-        };
-
-        // Start the loop
-        loopTimeoutRef.current = setTimeout(runTransitionLoop, 500);
-
-        return () => {
-            if (loopTimeoutRef.current) {
-                clearTimeout(loopTimeoutRef.current);
-            }
-        };
-    }, [cellStates.length]);
 
     return (
         <div
             ref={containerRef}
-            className="w-full h-full rounded-lg overflow-hidden bg-muted/30 relative"
-            style={{ aspectRatio: '5/3' }}
+            className="w-full h-full rounded-lg overflow-hidden relative bg-background"
         >
-            <div
-                className="grid gap-[1px] bg-muted/30 h-full"
-                style={{
-                    gridTemplateColumns: `repeat(${dimensions.cols}, 1fr)`,
-                    gridTemplateRows: `repeat(${dimensions.rows}, 1fr)`
-                }}
-            >
-                {cellStates.map((state, i) => (
-                    <FlagCell key={i} state={state} />
+            {/* Scrolling Content */}
+            <div className="absolute inset-0 flex flex-col gap-[1px] overflow-hidden">
+                {Array.from({ length: rows }).map((_, rowIndex) => (
+                    <div
+                        key={rowIndex}
+                        className="flex gap-[1px] min-w-max animate-scroll-right-to-left flex-1"
+                        style={{
+                            animationDuration: '120s',
+                            animationDelay: `-${rowIndex * 13}s` // Larger offset to desynchronize
+                        }}
+                    >
+                        {getRowFlags(rowIndex).map((code, i) => (
+                            <div
+                                key={`${rowIndex}-${i}`}
+                                className="relative overflow-hidden shrink-0"
+                                style={{ width: FLAG_WIDTH, height: '100%' }} // Fill the flex-1 row height
+                            >
+                                <Image
+                                    src={`https://flagcdn.com/w80/${code}.png`}
+                                    alt={code}
+                                    fill
+                                    className="object-cover"
+                                    sizes={`${FLAG_WIDTH}px`}
+                                    unoptimized
+                                />
+                            </div>
+                        ))}
+                    </div>
                 ))}
             </div>
+
+            {/* Overlay */}
+            <div className="absolute inset-0 bg-blue-500/10 dark:bg-black/50 pointer-events-none z-10" />
+
             {/* Logo overlay */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none px-[5%]">
-                <div className="flex items-center gap-[5%] w-full justify-center drop-shadow-[0_4px_8px_rgba(0,0,0,0.5)]">
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none px-[5%] z-20">
+                <div className="flex items-center gap-[5%] w-full justify-center">
                     <img
                         src="/logo/SOURCE-pictogram.svg"
                         alt="SOURCE pictogram"
@@ -243,6 +120,20 @@ export function FlagGrid() {
                     />
                 </div>
             </div>
+
+            <style jsx>{`
+                @keyframes scroll-right-to-left {
+                    0% { transform: translateX(0%); }
+                    100% { transform: translateX(-25%); } 
+                    /* We used 4x the array, so scrolling 25% (1 full set) gives a seamless loop if the set is identical. 
+                       Wait, getRowFlags returns [S1, S1, S1, S1]. 
+                       So moving from 0 to -25% (width of one S1) is the loop. 
+                    */
+                }
+                .animate-scroll-right-to-left {
+                    animation: scroll-right-to-left 120s linear infinite;
+                }
+            `}</style>
         </div>
     );
 }

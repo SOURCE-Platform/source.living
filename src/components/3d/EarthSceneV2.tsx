@@ -13,10 +13,14 @@ void main() {
 
 // Fragment Shader for Atmosphere Glow (Outer)
 const atmosphereFragmentShader = `
+uniform vec3 color;
+uniform float coefficient;
+uniform float power;
+uniform float intensity;
 varying vec3 vNormal;
 void main() {
-    float intensity = pow(0.7 - dot(vNormal, vec3(0, 0, 1.0)), 2.0);
-    gl_FragColor = vec4(0.3, 0.6, 1.0, 1.0) * intensity;
+    float i = pow(coefficient - dot(vNormal, vec3(0, 0, 1.0)), power);
+    gl_FragColor = vec4(color, 1.0) * i * intensity;
 }
 `;
 
@@ -29,49 +33,95 @@ export function EarthSceneV2({ setUseV2 }: { setUseV2?: (v: boolean) => void }) 
     // Logic Refs
     const sceneRef = useRef<THREE.Scene | null>(null);
     const earthGroupRef = useRef<THREE.Group | null>(null);
-    const sunLightRef = useRef<THREE.DirectionalLight | null>(null);
-    const ambientLightRef = useRef<THREE.AmbientLight | null>(null);
-    const whiteSphereRef = useRef<THREE.Mesh | null>(null);
     const cloudsRef = useRef<THREE.Mesh | null>(null);
-    const timeRef = useRef(0); // Start at 0 (Sun in front)
+    const timeRef = useRef(0);
+
+    // Object Refs for Updates
+    const atmosphereMeshRef = useRef<THREE.Mesh | null>(null);
+    const glowSpriteRef = useRef<THREE.Sprite | null>(null);
+    const starfieldMeshRef = useRef<THREE.Mesh | null>(null);
+    const starfieldTextureRef = useRef<THREE.Texture | null>(null);
 
     // React State
-    const [debugProgress, setDebugProgress] = useState(0); // Start at 0
+    const [debugProgress, setDebugProgress] = useState(0);
     const [rotationVal, setRotationVal] = useState(0);
     const [isSpinning, setIsSpinning] = useState(true);
-    const [isSunMoving, setIsSunMoving] = useState(true); // New Control
+    const [isSunMoving, setIsSunMoving] = useState(true);
+
+    // New Controls
+    const [showBacklight, setShowBacklight] = useState(false);
+    const [atmColor, setAtmColor] = useState("#4d99ff"); // 0.3, 0.6, 1.0 roughly
+    const [atmSize, setAtmSize] = useState(1.26);
+    const [atmIntensity, setAtmIntensity] = useState(0.79); // The 0.4 multiplier
+    const [atmFalloff, setAtmFalloff] = useState(2.9); // The power
+    const [atmCoefficient, setAtmCoefficient] = useState(0.41); // The base
+
+    // Background Controls
+    const [bgSpeed, setBgSpeed] = useState(0.00005);
+    const [bgTiling, setBgTiling] = useState(1);
+    const [isBgScrolling, setIsBgScrolling] = useState(true);
 
     const isSpinningRef = useRef(true);
     const isSunMovingRef = useRef(true);
     const rotationRef = useRef(0);
-    const isManualRef = useRef(false); // Restore isManualRef
+    const isManualRef = useRef(false);
+    const bgSpeedRef = useRef(0.0001);
+    const isBgScrollingRef = useRef(true);
 
     useEffect(() => { isSpinningRef.current = isSpinning; }, [isSpinning]);
     useEffect(() => { isSunMovingRef.current = isSunMoving; }, [isSunMoving]);
+    useEffect(() => { bgSpeedRef.current = bgSpeed; }, [bgSpeed]);
+    useEffect(() => { isBgScrollingRef.current = isBgScrolling; }, [isBgScrolling]);
+
+    // Update Atmosphere Uniforms & Size
+    useEffect(() => {
+        if (!atmosphereMeshRef.current) return;
+        const mat = atmosphereMeshRef.current.material as THREE.ShaderMaterial;
+        mat.uniforms.color.value.set(atmColor);
+        mat.uniforms.intensity.value = atmIntensity;
+        mat.uniforms.power.value = atmFalloff;
+        mat.uniforms.coefficient.value = atmCoefficient;
+
+        atmosphereMeshRef.current.scale.setScalar(atmSize);
+    }, [atmColor, atmIntensity, atmFalloff, atmCoefficient, atmSize]);
+
+    // Update Backlight Visibility
+    useEffect(() => {
+        if (glowSpriteRef.current) {
+            glowSpriteRef.current.visible = showBacklight;
+        }
+    }, [showBacklight]);
+
+    // Update Background Tiling
+    useEffect(() => {
+        if (starfieldTextureRef.current) {
+            starfieldTextureRef.current.repeat.set(bgTiling, 1);
+        }
+    }, [bgTiling]);
+
 
     useEffect(() => {
         if (!mountRef.current) return;
 
-        // CLEANUP PREVIOUS (Strict Mode fix)
-        // Instead of blocking init, we clean up the container first
+        // CLEANUP
         while (mountRef.current.firstChild) {
             mountRef.current.removeChild(mountRef.current.firstChild);
         }
 
         const w = mountRef.current.clientWidth;
-        const h = mountRef.current.clientHeight; // Use container height
+        const h = mountRef.current.clientHeight;
 
         // --- SCENE ---
         const scene = new THREE.Scene();
         sceneRef.current = scene;
         const camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 1000);
-        camera.position.z = 6.5; // Zoomed out for smaller Earth presentation
+        camera.position.z = 6.5;
 
         // --- RENDERER ---
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setSize(w, h); // No pixel ratio, performance
+        renderer.setSize(w, h);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        renderer.toneMapping = THREE.LinearToneMapping; // More vivid than ACES
+        renderer.toneMapping = THREE.LinearToneMapping;
         renderer.toneMappingExposure = 1.5;
         renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
         mountRef.current.appendChild(renderer.domElement);
@@ -85,31 +135,48 @@ export function EarthSceneV2({ setUseV2 }: { setUseV2?: (v: boolean) => void }) 
         controls.enableZoom = false;
         controlsRef.current = controls;
 
-        // --- MANAGE USER INTERACTION ---
         controls.addEventListener('start', () => {
             setIsSpinning(false);
             isManualRef.current = true;
         });
 
-        // --- TEXTURES (Using a potentially brighter map if preferred, but boosting marble) ---
+        // --- TEXTURES ---
         const loader = new THREE.TextureLoader();
         const map = loader.load('/images/earth_blue_marble.jpg');
-        const bump = loader.load('/images/earth_topology.png');
         const lights = loader.load('/images/earth_night.jpg');
         const cloudsMap = loader.load('/images/earth_clouds.png');
+        const starfieldMap = loader.load('/images/starfield.jpg');
 
-        // Ensure proper coloring
         map.colorSpace = THREE.SRGBColorSpace;
         lights.colorSpace = THREE.SRGBColorSpace;
+        starfieldMap.colorSpace = THREE.SRGBColorSpace;
+
+        // Setup Infinite Scroll
+        starfieldMap.wrapS = THREE.RepeatWrapping;
+        starfieldMap.wrapT = THREE.ClampToEdgeWrapping;
+        starfieldMap.repeat.set(2, 1); // Initial tiling
+        starfieldTextureRef.current = starfieldMap;
+
+        // BACKGROUND SPHERE (Infinite Scroll)
+        // Large sphere, viewed from inside
+        const starGeometry = new THREE.SphereGeometry(50, 64, 64);
+        const starMaterial = new THREE.MeshBasicMaterial({
+            map: starfieldMap,
+            side: THREE.BackSide
+        });
+        const starMesh = new THREE.Mesh(starGeometry, starMaterial);
+        scene.add(starMesh);
+        starfieldMeshRef.current = starMesh;
+
 
         // --- EARTH GROUP ---
         const earthGroup = new THREE.Group();
         earthGroup.rotation.z = 23.4 * Math.PI / 180;
-        earthGroup.position.y = 0.5; // Lowered from 1.0 to 0.5 (~60px shift)
+        earthGroup.position.y = 0.5;
         scene.add(earthGroup);
         earthGroupRef.current = earthGroup;
 
-        // --- 1. EARTH BASE (Shader for Sharp Day/Night + Atmosphere + Night Lights) ---
+        // --- 1. EARTH BASE ---
         const earthMaterial = new THREE.ShaderMaterial({
             uniforms: {
                 map: { value: map },
@@ -142,41 +209,25 @@ export function EarthSceneV2({ setUseV2 }: { setUseV2?: (v: boolean) => void }) 
                     vec3 texColor = texture2D(map, vUv).rgb;
                     vec3 nightColor = texture2D(nightMap, vUv).rgb;
                     
-                    // 1. Desaturate Day
                     float gray = dot(texColor, vec3(0.299, 0.587, 0.114));
                     texColor = mix(texColor, vec3(gray), 0.25);
 
-                    // 2. Atmospheric Haze (Day side only mostly)
                     vec3 viewDir = normalize(cameraPosition - vWorldPosition);
                     float fresnel = pow(1.0 - max(0.0, dot(vWorldNormal, viewDir)), 2.5);
                     texColor = mix(texColor, atmosphereColor, 0.1 + fresnel * 0.4);
 
-                    // 3. Lighting Factors
                     float d = dot(vWorldNormal, normalize(sunDirection));
                     
-                    // --- SUNSET / SUNRISE EFFECT ---
-                    // "Dark to warm gradient over ice/clouds"
-                    // Band of effect around terminator (-0.1 to 0.1)
                     float sunsetBand = smoothstep(-0.15, 0.05, d) * (1.0 - smoothstep(0.05, 0.2, d));
-                    
-                    // Mask: Only affect bright areas (Ice, Clouds)
                     float luminance = dot(texColor, vec3(0.299, 0.587, 0.114));
                     float brightMask = smoothstep(0.35, 0.8, luminance);
-                    
-                    // Apply warm reddish-orange tint
                     vec3 sunsetColor = vec3(1.0, 0.35, 0.1); 
                     texColor = mix(texColor, sunsetColor, sunsetBand * brightMask * 0.65);
                     
-                    
                     float dayIntensity = smoothstep(-0.05, 0.05, d);
-                    float nightIntensity = 1.0 - smoothstep(-0.02, 0.0, d); // Tutorial Logic
+                    float nightIntensity = 1.0 - smoothstep(-0.02, 0.0, d);
                     
-                    // 4. Compose
-                    // Day: Boosted brightness
                     vec3 finalDay = texColor * (dayIntensity * 3.0 + 0.01);
-                    
-                    // Night: Tinted yellow (0xffff88) and masked
-                    // Aggressive boost (8.0) to make lights clearly visible against dark side
                     vec3 finalNight = nightColor * nightIntensity * vec3(1.0, 1.0, 0.6) * 8.0;
                     
                     gl_FragColor = vec4(finalDay + finalNight, 1.0);
@@ -188,15 +239,8 @@ export function EarthSceneV2({ setUseV2 }: { setUseV2?: (v: boolean) => void }) 
         earthGroup.add(earthMesh);
 
 
-
-
-        // Note: glowMesh is a plane added to a rotated group. 
-        // But since the texture is a centered radial gradient, Z-rotation doesn't affect appearance.
-        // However, Y-rotation (spin) WOULD make it spin if it wasn't a perfect circle.
-        // Fortunately, it is a generated circle.
-
         // --- 3. CLOUDS ---
-        const cloudGeometry = new THREE.SphereGeometry(1.02, 64, 64);
+        const cloudGeometry = new THREE.SphereGeometry(1.005, 64, 64);
         const cloudMaterial = new THREE.MeshStandardMaterial({
             map: cloudsMap,
             transparent: true,
@@ -209,8 +253,14 @@ export function EarthSceneV2({ setUseV2 }: { setUseV2?: (v: boolean) => void }) 
         earthGroup.add(cloudMesh);
         cloudsRef.current = cloudMesh;
 
-        // --- 4. ATMOSPHERE (Fresnel) ---
+        // --- 4. ATMOSPHERE (Outer GLOW) ---
         const atmosphereMaterial = new THREE.ShaderMaterial({
+            uniforms: {
+                color: { value: new THREE.Color(atmColor) },
+                coefficient: { value: atmCoefficient },
+                power: { value: atmFalloff },
+                intensity: { value: atmIntensity },
+            },
             vertexShader: atmosphereVertexShader,
             fragmentShader: atmosphereFragmentShader,
             blending: THREE.AdditiveBlending,
@@ -218,25 +268,22 @@ export function EarthSceneV2({ setUseV2 }: { setUseV2?: (v: boolean) => void }) 
             transparent: true,
             depthWrite: false
         });
-        const atmosphereMesh = new THREE.Mesh(new THREE.SphereGeometry(1.2, 64, 64), atmosphereMaterial);
+        const atmosphereMesh = new THREE.Mesh(new THREE.SphereGeometry(1, 64, 64), atmosphereMaterial);
+        atmosphereMesh.scale.setScalar(atmSize);
         earthGroup.add(atmosphereMesh);
+        atmosphereMeshRef.current = atmosphereMesh;
 
         // --- 5. BACKLIGHT GLOW (Sprite) ---
-        // Using a Sprite ensures it always faces camera and has no "square" matrix artifacts
         const makeGlowTexture = () => {
             const canvas = document.createElement('canvas');
             canvas.width = 128;
             canvas.height = 128;
             const context = canvas.getContext('2d');
             if (context) {
-                const gradient = context.createRadialGradient(
-                    64, 64, 0,
-                    64, 64, 64
-                );
-                // Soft blue glow
-                gradient.addColorStop(0, 'rgba(51, 102, 255, 0.6)'); // Center #3366ff
-                gradient.addColorStop(0.5, 'rgba(51, 102, 255, 0.2)');
-                gradient.addColorStop(1, 'rgba(0, 0, 0, 0)'); // Edge transparent
+                const gradient = context.createRadialGradient(64, 64, 0, 64, 64, 64);
+                gradient.addColorStop(0, 'rgba(51, 102, 255, 0.24)');
+                gradient.addColorStop(0.5, 'rgba(51, 102, 255, 0.08)');
+                gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
                 context.fillStyle = gradient;
                 context.fillRect(0, 0, 128, 128);
             }
@@ -250,73 +297,55 @@ export function EarthSceneV2({ setUseV2 }: { setUseV2?: (v: boolean) => void }) 
             blending: THREE.AdditiveBlending,
             depthWrite: false
         }));
-        glowSprite.scale.set(7, 7, 1); // Large scale
-        // Push it slightly behind Earth so it doesn't clip
-        glowSprite.position.set(0, 0, -1.5);
-        earthGroup.add(glowSprite);
-
-        // --- 6. WHITEOUT SPHERE ---
-        const whiteSphere = new THREE.Mesh(
-            new THREE.SphereGeometry(1.05, 64, 64),
-            new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0 })
-        );
-        scene.add(whiteSphere);
-        whiteSphereRef.current = whiteSphere;
-
+        glowSprite.scale.set(7, 7, 1);
+        glowSprite.position.set(0, 0.5, -1.5);
+        glowSprite.visible = showBacklight;
+        scene.add(glowSprite);
+        glowSpriteRef.current = glowSprite;
 
         // --- LIGHTING ---
         const sunLight = new THREE.DirectionalLight(0xffffff, 1.5);
         scene.add(sunLight);
-        sunLightRef.current = sunLight;
 
-        const ambientLight = new THREE.AmbientLight(0x404040, 0.2); // Soft fill
+        const ambientLight = new THREE.AmbientLight(0x404040, 0.2);
         scene.add(ambientLight);
-        ambientLightRef.current = ambientLight;
 
         // --- ANIMATION ---
         const R = 10;
-        let isRunning = true; // Flag to control animation loop
+        let isRunning = true;
 
         const animate = () => {
-            if (!isRunning) return; // Stop animation if component unmounts
+            if (!isRunning) return;
             frameIdRef.current = requestAnimationFrame(animate);
 
-            // Time logic
             if (!isManualRef.current && isSunMovingRef.current) {
                 timeRef.current += 0.016;
             }
-            // Logic to keep time looping 0-14? Or clamp?
-            // V1 logic loops 0-14? No, V1 stops at end usually.
-            // Let's loop for dev for now? Or clamp.
-            // V1 logic: if (time >= 450) stop.
-            // We use simple 0-14 cycle here.
-
             const time = timeRef.current;
-            setDebugProgress(Math.min((time / 14) * 100, 100)); // Sync slider
+            setDebugProgress(Math.min((time / 14) * 100, 100));
 
-            // Light Physics
-            sunLight.intensity = 7.0; // Significantly higher base intensity
+            sunLight.intensity = 7.0;
             const angle = time * 0.5;
             sunLight.position.set(Math.sin(angle) * R, 2, Math.cos(angle) * R);
 
-            // Update Light Uniforms
             if (earthMesh.material instanceof THREE.ShaderMaterial) {
                 earthMesh.material.uniforms.sunDirection.value.copy(sunLight.position).normalize();
             }
 
-
-            // Rotation
             if (isSpinningRef.current) {
-                rotationRef.current += 0.0005; // Base rotation
+                rotationRef.current += 0.0005;
             }
 
-            // Sync Rotations
             if (earthGroupRef.current) {
                 earthGroupRef.current.rotation.y = rotationRef.current;
             }
             if (cloudsRef.current) {
-                // Clouds move slightly faster
                 cloudsRef.current.rotation.y = rotationRef.current * 1.1 + (time * 0.005);
+            }
+
+            // Background Scroll
+            if (isBgScrollingRef.current && starfieldTextureRef.current) {
+                starfieldTextureRef.current.offset.x += bgSpeedRef.current;
             }
 
             controls.update();
@@ -328,7 +357,7 @@ export function EarthSceneV2({ setUseV2 }: { setUseV2?: (v: boolean) => void }) 
         const handleResize = () => {
             if (!mountRef.current) return;
             const newW = mountRef.current.clientWidth;
-            const newH = 500;
+            const newH = mountRef.current.clientHeight;
             camera.aspect = newW / newH;
             camera.updateProjectionMatrix();
             renderer.setSize(newW, newH);
@@ -336,21 +365,19 @@ export function EarthSceneV2({ setUseV2 }: { setUseV2?: (v: boolean) => void }) 
         window.addEventListener('resize', handleResize);
 
         return () => {
-            isRunning = false; // Stop the animation loop
+            isRunning = false;
             window.removeEventListener('resize', handleResize);
             cancelAnimationFrame(frameIdRef.current);
             controls.dispose();
             renderer.dispose();
-            // Final cleanup of the DOM element
             if (mountRef.current) {
                 while (mountRef.current.firstChild) {
                     mountRef.current.removeChild(mountRef.current.firstChild);
                 }
             }
         };
-    }, []);
+    }, []); // Run once on mount
 
-    // ... Handlers (Keep existing)
     const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const val = parseFloat(e.target.value);
         setDebugProgress(val);
@@ -368,15 +395,14 @@ export function EarthSceneV2({ setUseV2 }: { setUseV2?: (v: boolean) => void }) 
 
     return (
         <>
-            {/* BREAKOUT CONTAINER: w-[1200px] fixed width, 650px height, -translate-x-1/2 centers it. Force width with ! and min-w */}
-            <div className="relative -mt-[140px] left-1/2 -translate-x-1/2 !w-[1200px] min-w-[1200px] h-[650px] overflow-hidden -z-10 pointer-events-none">
+            {/* BREAKOUT CONTAINER: w-[100vw] forces full viewport width, -translate-x-1/2 centers it. Mask applied for curved bottom. */}
+            <div className="relative -mt-[140px] left-1/2 -translate-x-1/2 !w-[100vw] min-w-[100vw] h-[650px] overflow-hidden -z-10 pointer-events-none [mask-image:url(/images/viewing-mask-earth.svg)] [mask-size:100%_100%] [mask-repeat:no-repeat] [mask-position:bottom]">
                 {/* CANVAS CONTAINER */}
                 <div ref={mountRef} className="absolute inset-0 z-0" />
             </div>
 
             {/* SIDEBAR CONTROL PANEL - Fixed to Viewport Right Edge */}
-            {/* Moved outside so it's not trapped in the -z-10 stacking context */}
-            <div className="fixed right-8 top-1/2 -translate-y-1/2 z-[9999] w-72 flex flex-col gap-6 bg-black/40 p-6 rounded-xl border border-white/10 backdrop-blur-md shadow-2xl pointer-events-auto">
+            <div className="fixed right-8 top-1/2 -translate-y-1/2 z-[9999] w-72 flex flex-col gap-6 bg-black/40 p-6 rounded-xl border border-white/10 backdrop-blur-md shadow-2xl pointer-events-auto max-h-[80vh] overflow-y-auto">
 
                 {/* VERSION TOGGLE */}
                 <div className="flex flex-col gap-2 pb-6 border-b border-white/10">
@@ -395,6 +421,98 @@ export function EarthSceneV2({ setUseV2 }: { setUseV2?: (v: boolean) => void }) 
                         </button>
                     </div>
                 </div>
+
+                {/* ATMOSPHERE CONTROLS */}
+                <div className="flex flex-col gap-4 pb-6 border-b border-white/10">
+                    <label className="text-white text-xs font-mono text-gray-400 tracking-widest text-center">ATMOSPHERE & GLOW</label>
+
+                    <div className="flex items-center justify-between">
+                        <label className="text-sm text-gray-300 font-medium">Backlight Sprite</label>
+                        <input
+                            type="checkbox"
+                            checked={showBacklight}
+                            onChange={(e) => setShowBacklight(e.target.checked)}
+                            className="w-5 h-5 rounded border-gray-600 bg-black/50 text-blue-500 focus:ring-offset-0 focus:ring-1 focus:ring-blue-500"
+                        />
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                        <div className="flex justify-between">
+                            <label className="text-xs text-gray-400">Color</label>
+                            <input
+                                type="color"
+                                value={atmColor}
+                                onChange={(e) => setAtmColor(e.target.value)}
+                                className="w-6 h-6 rounded cursor-pointer bg-transparent border-0 p-0"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                        <label className="text-xs text-gray-400">Intensity: {atmIntensity.toFixed(2)}</label>
+                        <input
+                            type="range" min="0" max="2" step="0.01"
+                            value={atmIntensity} onChange={(e) => setAtmIntensity(parseFloat(e.target.value))}
+                            className="w-full h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                        />
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                        <label className="text-xs text-gray-400">Size: {atmSize.toFixed(2)}</label>
+                        <input
+                            type="range" min="1.01" max="1.5" step="0.01"
+                            value={atmSize} onChange={(e) => setAtmSize(parseFloat(e.target.value))}
+                            className="w-full h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                        />
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                        <label className="text-xs text-gray-400">Gradient (Power): {atmFalloff.toFixed(1)}</label>
+                        <input
+                            type="range" min="0.5" max="10" step="0.1"
+                            value={atmFalloff} onChange={(e) => setAtmFalloff(parseFloat(e.target.value))}
+                            className="w-full h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                        />
+                    </div>
+                    <div className="flex flex-col gap-2">
+                        <label className="text-xs text-gray-400">Coefficient: {atmCoefficient.toFixed(2)}</label>
+                        <input
+                            type="range" min="0.0" max="1.0" step="0.01"
+                            value={atmCoefficient} onChange={(e) => setAtmCoefficient(parseFloat(e.target.value))}
+                            className="w-full h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                        />
+                    </div>
+
+                    <hr className="border-white/10" />
+
+                    <div className="flex items-center justify-between">
+                        <label className="text-sm text-gray-300 font-medium">Background Scroll</label>
+                        <input
+                            type="checkbox"
+                            checked={isBgScrolling}
+                            onChange={(e) => setIsBgScrolling(e.target.checked)}
+                            className="w-5 h-5 rounded border-gray-600 bg-black/50 text-blue-500 focus:ring-offset-0 focus:ring-1 focus:ring-blue-500"
+                        />
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                        <label className="text-xs text-gray-400">BG Speed: {bgSpeed.toFixed(5)}</label>
+                        <input
+                            type="range" min="-0.001" max="0.001" step="0.00005"
+                            value={bgSpeed} onChange={(e) => setBgSpeed(parseFloat(e.target.value))}
+                            className="w-full h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                        />
+                    </div>
+                    <div className="flex flex-col gap-2">
+                        <label className="text-xs text-gray-400">BG Tiling (Horizontal)</label>
+                        <input
+                            type="range" min="1" max="10" step="1"
+                            value={bgTiling} onChange={(e) => setBgTiling(parseFloat(e.target.value))}
+                            className="w-full h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                        />
+                    </div>
+                </div>
+
 
                 <div className="flex flex-col gap-2">
                     <label className="text-white text-xs font-mono text-gray-400 tracking-widest">ANIMATION</label>
