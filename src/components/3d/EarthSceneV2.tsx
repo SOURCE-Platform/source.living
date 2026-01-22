@@ -493,7 +493,7 @@ export function EarthSceneV2({ setUseV2 }: { setUseV2?: (v: boolean) => void }) 
             </div>
 
             {/* SIDEBAR CONTROL PANEL - Fixed to Viewport Right Edge */}
-            <div className="fixed right-8 top-1/2 -translate-y-1/2 z-[9999] w-72 flex flex-col gap-6 bg-black/40 p-6 rounded-xl border border-white/10 backdrop-blur-md shadow-2xl pointer-events-auto max-h-[80vh] overflow-y-auto">
+            <div className="hidden fixed right-8 top-1/2 -translate-y-1/2 z-[9999] w-72 flex flex-col gap-6 bg-black/40 p-6 rounded-xl border border-white/10 backdrop-blur-md shadow-2xl pointer-events-auto max-h-[80vh] overflow-y-auto">
 
                 {/* VERSION TOGGLE */}
                 <div className="flex flex-col gap-2 pb-6 border-b border-white/10">
