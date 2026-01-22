@@ -154,7 +154,7 @@ export function EarthSceneV2({ setUseV2 }: { setUseV2?: (v: boolean) => void }) 
         // Setup Infinite Scroll
         starfieldMap.wrapS = THREE.RepeatWrapping;
         starfieldMap.wrapT = THREE.ClampToEdgeWrapping;
-        starfieldMap.repeat.set(2, 1); // Initial tiling
+        starfieldMap.repeat.set(1, 1); // Initial tiling
         starfieldTextureRef.current = starfieldMap;
 
         // BACKGROUND SPHERE (Infinite Scroll)
