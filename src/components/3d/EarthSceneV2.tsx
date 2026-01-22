@@ -182,7 +182,8 @@ export function EarthSceneV2({ setUseV2 }: { setUseV2?: (v: boolean) => void }) 
                 map: { value: map },
                 nightMap: { value: lights },
                 sunDirection: { value: new THREE.Vector3(1, 0, 0) },
-                atmosphereColor: { value: new THREE.Vector3(0.3, 0.6, 1.0) }
+                atmosphereColor: { value: new THREE.Vector3(0.3, 0.6, 1.0) },
+                whiteout: { value: 0.0 }
             },
             vertexShader: `
                 varying vec2 vUv;
@@ -201,6 +202,7 @@ export function EarthSceneV2({ setUseV2 }: { setUseV2?: (v: boolean) => void }) 
                 uniform sampler2D nightMap;
                 uniform vec3 sunDirection;
                 uniform vec3 atmosphereColor;
+                uniform float whiteout;
                 varying vec2 vUv;
                 varying vec3 vWorldNormal;
                 varying vec3 vWorldPosition;
@@ -230,7 +232,7 @@ export function EarthSceneV2({ setUseV2 }: { setUseV2?: (v: boolean) => void }) 
                     vec3 finalDay = texColor * (dayIntensity * 3.0 + 0.01);
                     vec3 finalNight = nightColor * nightIntensity * vec3(1.0, 1.0, 0.6) * 8.0;
                     
-                    gl_FragColor = vec4(finalDay + finalNight, 1.0);
+                    gl_FragColor = vec4(mix(finalDay + finalNight, vec3(1.0), whiteout), 1.0);
                 }
             `
         });
@@ -322,14 +324,38 @@ export function EarthSceneV2({ setUseV2 }: { setUseV2?: (v: boolean) => void }) 
                 timeRef.current += 0.016;
             }
             const time = timeRef.current;
-            setDebugProgress(Math.min((time / 14) * 100, 100));
+            setDebugProgress(Math.min((time / 6) * 100, 100)); // Normalized to 6s
 
-            sunLight.intensity = 7.0;
-            const angle = time * 0.5;
-            sunLight.position.set(Math.sin(angle) * R, 2, Math.cos(angle) * R);
+            const R = 10;
+            // PHASE 1: 0s - 3s (Sun Rotation)
+            // Start from behind (dark side) -> -Z
+            // End at front (full illumination) -> +Z
+            // Using a simple circular path in XZ plane
+            let phase1Progress = Math.min(Math.max(time / 3.0, 0.0), 1.0);
+
+            // Allow easing or simple linear
+            // Let's go from Angle PI (back) to 0 (front)? Or similar suitable path.
+            // Camera is at Z=6.5. 
+            // If Sun is at Z=-10, it lights the back. If Sun is at Z=10, it lights the front.
+            // Let's rotate 180 degrees.
+            const startAngle = Math.PI; // Behind
+            const endAngle = 0;         // Front
+            const currentAngle = startAngle + (endAngle - startAngle) * phase1Progress;
+
+            // Adjust position calculation
+            // sunLight.position.set(Math.sin(angle) * R, 2, Math.cos(angle) * R);
+            // We want it to end at roughly (0, 2, 10) or similar frontal position
+
+            sunLight.position.set(Math.sin(currentAngle) * R, 2, Math.cos(currentAngle) * R);
+            // At PI: sin=0, cos=-1 => (0, 2, -10) -> Behind Earth
+            // At 0: sin=0, cos=1 => (0, 2, 10) -> Front of Earth
+
+            // PHASE 2: 3s - 6s (Whiteout)
+            let phase2Progress = Math.min(Math.max((time - 3.0) / 3.0, 0.0), 1.0);
 
             if (earthMesh.material instanceof THREE.ShaderMaterial) {
                 earthMesh.material.uniforms.sunDirection.value.copy(sunLight.position).normalize();
+                earthMesh.material.uniforms.whiteout.value = phase2Progress;
             }
 
             if (isSpinningRef.current) {
@@ -341,6 +367,30 @@ export function EarthSceneV2({ setUseV2 }: { setUseV2?: (v: boolean) => void }) 
             }
             if (cloudsRef.current) {
                 cloudsRef.current.rotation.y = rotationRef.current * 1.1 + (time * 0.005);
+
+                // Diminish cloud opacity during whiteout
+                // Phase 2: 3s -> 6s, whiteout 0 -> 1
+                // We want Opacity: 0.8 -> 0.0
+                const baseOpacity = 0.8;
+                const targetOpacity = 0.0;
+
+                const currentCloudOpacity = baseOpacity + (targetOpacity - baseOpacity) * phase2Progress;
+
+                if (cloudsRef.current.material instanceof THREE.Material) {
+                    cloudsRef.current.material.opacity = currentCloudOpacity;
+                }
+            }
+
+            // Phase 2: Atmosphere Color -> White
+            if (atmosphereMeshRef.current) {
+                const mat = atmosphereMeshRef.current.material as THREE.ShaderMaterial;
+                // Using fixed blue as base to avoid complex ref logic for now, matching default state
+                const baseColor = new THREE.Color("#4d99ff");
+                const targetColor = new THREE.Color(1.0, 1.0, 1.0); // White
+
+                // Lerp color
+                const currentColor = baseColor.clone().lerp(targetColor, phase2Progress);
+                mat.uniforms.color.value.copy(currentColor);
             }
 
             // Background Scroll
