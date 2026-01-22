@@ -363,7 +363,8 @@ export function EarthSceneV2({ setUseV2 }: { setUseV2?: (v: boolean) => void }) 
                 timeRef.current += 0.016;
                 // Loop or stop? Let's loop for now or stop at 7s?
                 // Request implies sequence, maybe loop? Or just run.
-                if (timeRef.current > 7.0) timeRef.current = 0; // Optional loop for dev
+                // Stop at 7s (final state) instead of looping
+                if (timeRef.current > 7.0) timeRef.current = 7.0;
             }
             const time = timeRef.current;
 
