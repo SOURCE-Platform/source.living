@@ -243,10 +243,49 @@ export function EarthSceneV2({ setUseV2 }: { setUseV2?: (v: boolean) => void }) 
 
         // --- 3. CLOUDS ---
         const cloudGeometry = new THREE.SphereGeometry(1.005, 64, 64);
-        const cloudMaterial = new THREE.MeshStandardMaterial({
-            map: cloudsMap,
+        const cloudMaterial = new THREE.ShaderMaterial({
+            uniforms: {
+                map: { value: cloudsMap },
+                sunDirection: { value: new THREE.Vector3(1, 0, 0) },
+                whiteout: { value: 0.0 }
+            },
+            vertexShader: `
+                varying vec2 vUv;
+                varying vec3 vWorldNormal;
+                void main() {
+                    vUv = uv;
+                    vWorldNormal = normalize((modelMatrix * vec4(normal, 0.0)).xyz);
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                }
+            `,
+            fragmentShader: `
+                uniform sampler2D map;
+                uniform vec3 sunDirection;
+                uniform float whiteout;
+                varying vec2 vUv;
+                varying vec3 vWorldNormal;
+
+                void main() {
+                    vec4 texColor = texture2D(map, vUv);
+                    
+                    // Lighting calculation
+                    float d = dot(vWorldNormal, normalize(sunDirection));
+                    
+                    // Day/Night masking
+                    // Matches Earth shader thresholds (-0.05, 0.05) to sync terminator line
+                    float dayIntensity = smoothstep(-0.05, 0.05, d);
+                    
+                    // Apply lighting to alpha
+                    float finalAlpha = texColor.a * dayIntensity;
+                    
+                    // Whiteout Phase: Fade OUT clouds
+                    // We want opacity to go to 0 as whiteout goes to 1
+                    finalAlpha *= (1.0 - whiteout);
+                    
+                    gl_FragColor = vec4(texColor.rgb, finalAlpha);
+                }
+            `,
             transparent: true,
-            opacity: 0.8,
             blending: THREE.NormalBlending,
             side: THREE.DoubleSide,
             depthWrite: false
@@ -322,9 +361,16 @@ export function EarthSceneV2({ setUseV2 }: { setUseV2?: (v: boolean) => void }) 
 
             if (!isManualRef.current && isSunMovingRef.current) {
                 timeRef.current += 0.016;
+                // Loop or stop? Let's loop for now or stop at 7s?
+                // Request implies sequence, maybe loop? Or just run.
+                if (timeRef.current > 7.0) timeRef.current = 0; // Optional loop for dev
             }
             const time = timeRef.current;
-            setDebugProgress(Math.min((time / 6) * 100, 100)); // Normalized to 6s
+
+            // Sync slider if not manual interacting (optional, but good for visualizing auto-play)
+            if (!isManualRef.current) {
+                setDebugProgress(time);
+            }
 
             const R = 10;
             // PHASE 1: 0s - 3s (Sun Rotation)
@@ -368,16 +414,10 @@ export function EarthSceneV2({ setUseV2 }: { setUseV2?: (v: boolean) => void }) 
             if (cloudsRef.current) {
                 cloudsRef.current.rotation.y = rotationRef.current * 1.1 + (time * 0.005);
 
-                // Diminish cloud opacity during whiteout
-                // Phase 2: 3s -> 6s, whiteout 0 -> 1
-                // We want Opacity: 0.8 -> 0.0
-                const baseOpacity = 0.8;
-                const targetOpacity = 0.0;
-
-                const currentCloudOpacity = baseOpacity + (targetOpacity - baseOpacity) * phase2Progress;
-
-                if (cloudsRef.current.material instanceof THREE.Material) {
-                    cloudsRef.current.material.opacity = currentCloudOpacity;
+                // Update Cloud Shader Uniforms
+                if (cloudsRef.current.material instanceof THREE.ShaderMaterial) {
+                    cloudsRef.current.material.uniforms.sunDirection.value.copy(sunLight.position).normalize();
+                    cloudsRef.current.material.uniforms.whiteout.value = phase2Progress;
                 }
             }
 
@@ -431,7 +471,7 @@ export function EarthSceneV2({ setUseV2 }: { setUseV2?: (v: boolean) => void }) 
     const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const val = parseFloat(e.target.value);
         setDebugProgress(val);
-        timeRef.current = (val / 100) * 14;
+        timeRef.current = val;
         isManualRef.current = true;
         setIsSpinning(false);
     };
@@ -564,13 +604,34 @@ export function EarthSceneV2({ setUseV2 }: { setUseV2?: (v: boolean) => void }) 
                 </div>
 
 
-                <div className="flex flex-col gap-2">
-                    <label className="text-white text-xs font-mono text-gray-400 tracking-widest">ANIMATION</label>
+                <div className="flex flex-col gap-2 pt-4 border-t border-white/10">
+                    <label className="text-white text-xs font-mono text-gray-400 tracking-widest">ANIMATION TIMELINE</label>
+
+                    <div className="relative w-full h-6 mb-2">
+                        {/* Labels positioned absolutely based on 0-7s range */}
+                        <div className="absolute left-0 top-0 -translate-x-1/2 flex flex-col items-center">
+                            <span className="w-px h-2 bg-white/20 mb-1"></span>
+                            <span className="text-[10px] text-gray-400 whitespace-nowrap">Dark</span>
+                        </div>
+                        <div className="absolute left-[42.8%] top-0 -translate-x-1/2 flex flex-col items-center">
+                            <span className="w-px h-2 bg-white/40 mb-1"></span>
+                            <span className="text-[10px] text-gray-400 whitespace-nowrap">Illuminated</span>
+                        </div>
+                        <div className="absolute left-[85.7%] top-0 -translate-x-1/2 flex flex-col items-center">
+                            <span className="w-px h-2 bg-white/60 mb-1"></span>
+                            <span className="text-[10px] text-gray-400 whitespace-nowrap">White</span>
+                        </div>
+                    </div>
+
                     <input
-                        type="range" min="0" max="100" step="0.1"
+                        type="range" min="0" max="7" step="0.01"
                         value={debugProgress} onChange={handleSliderChange}
-                        className="w-full h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                        className="w-full h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-blue-500 relative z-10"
                     />
+                    <div className="flex justify-between text-[10px] text-gray-500 font-mono">
+                        <span>0s</span>
+                        <span>7s</span>
+                    </div>
                 </div>
                 <div className="flex flex-col gap-2">
                     <label className="text-white text-xs font-mono text-gray-400 tracking-widest">ROTATION</label>
