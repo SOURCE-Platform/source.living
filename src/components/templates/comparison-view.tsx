@@ -519,7 +519,7 @@ export function ComparisonView({ defaultView, initialCompareMode = false }: Comp
                         <div className={`
                             flex items-center gap-5 px-6 py-2 rounded-full border transition-all duration-300 pointer-events-auto
                             ${isStuck
-                                ? 'bg-background/80 backdrop-blur-md border-border shadow-md dark:shadow-[0_0_20px_rgba(255,255,255,0.15)] transform translate-y-2'
+                                ? 'bg-background backdrop-blur-md border-border shadow-md dark:shadow-[0_0_20px_rgba(255,255,255,0.15)] transform translate-y-2'
                                 : 'bg-muted/20 border-transparent sm:border-border'
                             }
                         `}>
