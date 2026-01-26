@@ -110,9 +110,9 @@
   --background: rgba(23, 23, 32, 1);
   --gradient-background: linear-gradient(55deg, rgba(16, 16, 15, 1) 0%, rgba(35, 34, 43, 1) 100%);
   --foreground: rgba(255, 255, 255, 1);
-  --card: rgba(38, 38, 50, 0.9);
+  --card: rgb(36, 36, 40);
   --card-foreground: rgba(236, 236, 248, 1);
-  --popover: rgba(38, 38, 50, 0.9);
+  --popover: rgba(38, 38, 50, 1);
   --popover-foreground: rgba(236, 236, 248, 1);
   --primary: #cdcdd7;
   --primary-foreground: rgba(23, 23, 32, 1);
@@ -287,7 +287,21 @@
   }
 
   .solution-card {
-    @apply rounded-2xl bg-zinc-100 p-4 font-medium text-zinc-800 backdrop-blur-sm dark:bg-zinc-800 dark:text-zinc-200;
+    @apply rounded-2xl bg-zinc-100 p-4 font-medium text-zinc-800 backdrop-blur-sm dark:bg-zinc-900 dark:text-zinc-200;
+  }
+
+  .convergence-card {
+    @apply border border-border p-8 rounded-2xl bg-card transition-all duration-300;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  }
+
+  .dark .convergence-card {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  }
+
+  .convergence-card:hover {
+    @apply border-primary/20 -translate-y-1;
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
   }
 
   .description-text {

@@ -12,37 +12,8 @@ export function CornerImage({ src, className }: CornerImageProps) {
     const [isVisible, setIsVisible] = useState(true);
 
     useEffect(() => {
-        const handleScroll = () => {
-            // Check scroll-container first, fall back to window
-            const scrollTop = (() => {
-                const container = document.getElementById('scroll-container');
-                if (container) {
-                    return container.scrollTop;
-                }
-                return window.scrollY || document.documentElement.scrollTop;
-            })();
-
-            // Visible at top, fade out when scrolling down
-            const shouldBeVisible = scrollTop < 100;
-            setIsVisible(shouldBeVisible);
-        };
-
-        // Initial check
-        handleScroll();
-
-        // Listen to both to cover all cases
-        const container = document.getElementById('scroll-container');
-        if (container) {
-            container.addEventListener('scroll', handleScroll, { passive: true });
-        }
-        window.addEventListener('scroll', handleScroll, { passive: true });
-
-        return () => {
-            if (container) {
-                container.removeEventListener('scroll', handleScroll);
-            }
-            window.removeEventListener('scroll', handleScroll);
-        };
+        // Always visible
+        setIsVisible(true);
     }, []);
 
     return (

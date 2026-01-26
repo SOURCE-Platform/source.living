@@ -254,9 +254,9 @@ function SolutionCard({ item, showProblem = true }: { item: SolutionItem; showPr
 
 function ComparisonRow({ category }: { category: CategoryData }) {
     return (
-        <div className="border border-border rounded-lg mb-8">
+        <div className="border border-border rounded-2xl bg-card shadow-lg mb-8 overflow-hidden">
             {/* Header Row */}
-            <div className="grid grid-cols-1 md:grid-cols-2 bg-muted/30 border-b border-border rounded-t-lg">
+            <div className="grid grid-cols-1 md:grid-cols-2 border-b border-border">
                 <div className="p-4 border-b md:border-b-0 md:border-r border-border">
                     <h4 className="text-sm font-bold text-muted-foreground uppercase tracking-wider">Problems</h4>
                 </div>
@@ -273,7 +273,7 @@ function ComparisonRow({ category }: { category: CategoryData }) {
                         <div className="p-6 border-b md:border-b-0 md:border-r border-border">
                             <ProblemCard issue={problem} />
                         </div>
-                        <div className="p-6 bg-muted/5 md:bg-muted/10">
+                        <div className="p-6">
                             {solution ? (
                                 <SolutionCard item={solution} showProblem={false} />
                             ) : (
@@ -590,7 +590,7 @@ export function ComparisonView({ defaultView, initialCompareMode = false }: Comp
                                         <h2 className="text-xl font-bold text-foreground">The Macro Problem Set</h2>
                                         <div className="grid gap-6 grid-cols-1 min-[850px]:grid-cols-2 not-prose">
                                             {MACRO_CATEGORIES.map(cat => (
-                                                <div key={cat.title} className="border border-border p-6 rounded-lg bg-card/50">
+                                                <div key={cat.title} className="convergence-card">
                                                     <div className="flex items-center gap-3 mb-4">
                                                         <h3 className="text-base font-semibold text-foreground">{cat.title}</h3>
                                                         <SectionPlayButton
@@ -610,7 +610,7 @@ export function ComparisonView({ defaultView, initialCompareMode = false }: Comp
                                         <h2 className="text-xl font-bold text-foreground">The Micro Problem Set</h2>
                                         <div className="grid gap-6 grid-cols-1 min-[850px]:grid-cols-2 not-prose">
                                             {MICRO_CATEGORIES.map(cat => (
-                                                <div key={cat.title} className="border border-border p-6 rounded-lg bg-card/50">
+                                                <div key={cat.title} className="convergence-card">
                                                     <div className="flex items-center gap-3 mb-4">
                                                         <h3 className="text-base font-semibold text-foreground">{cat.title}</h3>
                                                         <SectionPlayButton
@@ -635,7 +635,7 @@ export function ComparisonView({ defaultView, initialCompareMode = false }: Comp
                                         <h2 className="text-xl font-bold text-foreground">Macro Solutions</h2>
                                         <div className="grid gap-6 grid-cols-1 min-[850px]:grid-cols-2 not-prose">
                                             {MACRO_CATEGORIES.map(cat => (
-                                                <div key={cat.title} className="border border-border p-6 rounded-lg bg-card/50">
+                                                <div key={cat.title} className="convergence-card">
                                                     <div className="flex items-center gap-3 mb-4">
                                                         <h3 className="text-base font-bold text-foreground">{cat.title}</h3>
                                                         <SectionPlayButton
@@ -654,7 +654,7 @@ export function ComparisonView({ defaultView, initialCompareMode = false }: Comp
                                         <h2 className="text-xl font-bold text-foreground">Micro Solutions</h2>
                                         <div className="grid gap-6 grid-cols-1 min-[850px]:grid-cols-2 not-prose">
                                             {MICRO_CATEGORIES.map(cat => (
-                                                <div key={cat.title} className="border border-border p-6 rounded-lg bg-card/50">
+                                                <div key={cat.title} className="convergence-card">
                                                     <div className="flex items-center gap-3 mb-4">
                                                         <h3 className="text-base font-bold text-foreground">{cat.title}</h3>
                                                         <SectionPlayButton

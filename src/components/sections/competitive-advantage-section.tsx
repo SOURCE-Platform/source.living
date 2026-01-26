@@ -1,5 +1,4 @@
 import { SectionPlayButton } from "@/components/audio-player/SectionPlayButton";
-import { CornerWaves } from "@/components/atoms/corner-waves";
 
 export function CompetitiveAdvantageSection() {
     return (
@@ -10,10 +9,6 @@ export function CompetitiveAdvantageSection() {
                     title="Competitive Advantage"
                     audioSrc="/audio/competitive-advantage.mp3"
                 />
-            </div>
-
-            <div className="absolute top-0 right-0 w-[100vw] h-[100vh] z-0 pointer-events-none overflow-hidden">
-                <CornerWaves className="w-full h-full opacity-100" />
             </div>
 
             <div className="space-y-8 mt-12 relative z-10">
