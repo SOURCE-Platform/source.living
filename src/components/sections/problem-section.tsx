@@ -75,18 +75,18 @@ export function ProblemSection() {
                             chapters={DATA_WALL_CHAPTERS}
                         />
                     </div>
-                    <p className="w-full">
+                    <p className="w-full text-left">
                         We have thrown the entire internet at Transformers. While effective, this approach is constrained by the <strong className="text-foreground">qualitative</strong> and <strong className="text-foreground">quantitative</strong> limitations of the data source itself.
                     </p>
                 </div>
             </div>
 
-            <div className="space-y-8 py-6">
+            <div className="space-y-8 py-6 w-full mx-auto">
                 <div className="flex flex-col xs:flex-row gap-8 items-start">
                     <div className="w-full xs:w-24 xs:h-24 md:w-48 md:h-48 h-48 shrink-0 bg-muted/20 rounded-lg overflow-hidden relative">
                         <Slideshow images={LOW_QUALITY_DATA_IMAGES} />
                     </div>
-                    <div>
+                    <div className="flex-1">
                         <Badge className="mb-2">Qualitative</Badge>
                         <h4 className="text-xl font-bold text-foreground mb-2">Low Quality Data</h4>
                         <p className="text-muted-foreground">
@@ -94,11 +94,12 @@ export function ProblemSection() {
                         </p>
                     </div>
                 </div>
+
                 <div className="flex flex-col xs:flex-row gap-8 items-start">
                     <div className="w-full xs:w-24 xs:h-24 md:w-48 md:h-48 h-48 shrink-0 rounded-lg overflow-hidden relative">
                         <RotatingSlideshow images={LOW_QUANTITY_DATA_IMAGES} />
                     </div>
-                    <div>
+                    <div className="flex-1">
                         <Badge className="mb-2">Quantitative</Badge>
                         <h4 className="text-xl font-bold text-foreground mb-2">Low Quantity Data</h4>
                         <p className="text-muted-foreground">

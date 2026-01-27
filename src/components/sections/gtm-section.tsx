@@ -3,6 +3,7 @@ import { Badge } from "@/components/atoms/badge";
 import { SectionPlayButton } from "@/components/audio-player/SectionPlayButton";
 import { TRANSCRIPT_DATA, CHAPTERS_DATA } from "@/lib/constants";
 import { FlagGrid } from "./FlagGrid";
+import { ScrollScaleImage } from "@/components/ui/scroll-scale-image";
 
 export function GTMSection() {
     return (
@@ -18,15 +19,14 @@ export function GTMSection() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 md:-mx-[25%] items-start">
                 <div className="space-y-6">
-                    <div className="relative w-full rounded-lg overflow-hidden">
-                        <Image
-                            src="/images/elderly care/elderly.png"
-                            alt="Elderly Care"
-                            width={2816}
-                            height={1536}
-                            className="w-full h-auto"
-                        />
-                    </div>
+                    <ScrollScaleImage
+                        src="/images/elderly care/elderly.png"
+                        alt="Elderly Care"
+                        width={2816}
+                        height={1536}
+                        containerClassName="relative w-full rounded-lg"
+                        className="w-full h-auto"
+                    />
                     <div>
                         <h4 className="text-lg font-bold text-foreground mb-1">Elderly Care</h4>
                         <Badge className="mb-2">Revenue Driver</Badge>
@@ -37,7 +37,13 @@ export function GTMSection() {
                 </div>
 
                 <div className="space-y-6">
-                    <div className="w-full h-32 bg-muted/20 rounded-lg" />
+                    <ScrollScaleImage
+                        src="/images/smart home/surveillance.jpg"
+                        alt="Smart Home and Surveillance"
+                        fill
+                        containerClassName="relative w-full aspect-[11/6] rounded-lg"
+                        className="object-cover"
+                    />
                     <div>
                         <h4 className="text-lg font-bold text-foreground mb-1">Smart Home and Surveillance</h4>
                         <Badge className="mb-2">Revenue Driver</Badge>

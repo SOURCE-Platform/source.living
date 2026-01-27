@@ -1,20 +1,25 @@
+import Image from "next/image";
 import { SectionPlayButton } from "@/components/audio-player/SectionPlayButton";
 import { TRANSCRIPT_DATA, CHAPTERS_DATA } from "@/lib/constants";
 
 export function LongTermVisionSection() {
     return (
         <section className="space-y-4">
-            <div className="w-[calc(200%-200px)] ml-[calc(-50%+100px)] mb-8">
-                <img
+            <div
+                className="w-[calc(200%-200px)] ml-[calc(-50%+100px)] mb-8"
+                style={{
+                    maskImage: 'radial-gradient(60% 140% at 50% 140%, black 75%, transparent 100%), radial-gradient(60% 140% at 50% -40%, black 75%, transparent 100%)',
+                    WebkitMaskImage: 'radial-gradient(60% 140% at 50% 140%, black 75%, transparent 100%), radial-gradient(60% 140% at 50% -40%, black 75%, transparent 100%)',
+                    maskComposite: 'intersect',
+                    WebkitMaskComposite: 'source-in'
+                }}
+            >
+                <Image
                     src="/images/the long term vision/wide longterm.webp"
                     alt="The Long Term Vision"
-                    className="w-full rounded-lg"
-                    style={{
-                        maskImage: 'radial-gradient(75% 140% at 50% 140%, black 75%, transparent 100%), radial-gradient(75% 140% at 50% -40%, black 75%, transparent 100%)',
-                        WebkitMaskImage: 'radial-gradient(75% 140% at 50% 140%, black 75%, transparent 100%), radial-gradient(75% 140% at 50% -40%, black 75%, transparent 100%)',
-                        maskComposite: 'intersect',
-                        WebkitMaskComposite: 'source-in'
-                    }}
+                    width={1920}
+                    height={1080}
+                    className="w-full h-auto"
                 />
             </div>
             <div className="flex items-center gap-5 w-full xs:max-w-[70%] mx-auto">
