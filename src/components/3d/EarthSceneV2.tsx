@@ -24,7 +24,7 @@ void main() {
 }
 `;
 
-export function EarthSceneV2({ setUseV2 }: { setUseV2?: (v: boolean) => void }) {
+export function EarthSceneV2({ setUseV2, scrollProgress = 0 }: { setUseV2?: (v: boolean) => void; scrollProgress?: number }) {
     const mountRef = useRef<HTMLDivElement>(null);
     const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
     const frameIdRef = useRef<number>(0);
@@ -67,11 +67,13 @@ export function EarthSceneV2({ setUseV2 }: { setUseV2?: (v: boolean) => void }) 
     const isManualRef = useRef(false);
     const bgSpeedRef = useRef(0.0001);
     const isBgScrollingRef = useRef(true);
+    const scrollProgressRef = useRef(0);
 
     useEffect(() => { isSpinningRef.current = isSpinning; }, [isSpinning]);
     useEffect(() => { isSunMovingRef.current = isSunMoving; }, [isSunMoving]);
     useEffect(() => { bgSpeedRef.current = bgSpeed; }, [bgSpeed]);
     useEffect(() => { isBgScrollingRef.current = isBgScrolling; }, [isBgScrolling]);
+    useEffect(() => { scrollProgressRef.current = scrollProgress; }, [scrollProgress]);
 
     // Update Atmosphere Uniforms & Size
     useEffect(() => {
@@ -411,6 +413,18 @@ export function EarthSceneV2({ setUseV2 }: { setUseV2?: (v: boolean) => void }) 
 
             if (earthGroupRef.current) {
                 earthGroupRef.current.rotation.y = rotationRef.current;
+
+                // Scroll-based transformations
+                const scroll = scrollProgressRef.current;
+                // Move from y=0.5 to y=2
+                const startY = 0.5;
+                const endY = 3;
+                earthGroupRef.current.position.y = startY + (endY - startY) * scroll;
+
+                // Scale from 1 to 0, but complete faster (at 0.75 progress)
+                const scaleProgress = Math.min(scroll / 0.75, 1);
+                const scale = Math.max(1 - scaleProgress, 0);
+                earthGroupRef.current.scale.setScalar(scale);
             }
             if (cloudsRef.current) {
                 cloudsRef.current.rotation.y = rotationRef.current * 1.1 + (time * 0.005);

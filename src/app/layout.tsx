@@ -7,6 +7,7 @@ import { BackgroundAnimation } from "@/components/organisms/background-animation
 import { MobileNav } from "@/components/mobile-nav";
 import { TransitionProvider, TransitionEffect } from "@/components/providers/transition-context";
 import { EarthSceneBackground } from "@/components/3d/EarthSceneBackground";
+import { ProblemImageBackground } from "@/components/sections/ProblemImageBackground";
 
 import { SmoothScrolling } from "@/components/providers/smooth-scrolling";
 
@@ -80,6 +81,8 @@ export default function RootLayout({
               <BackgroundAnimation />
               {/* Fixed EarthSceneV2 background - sits behind scroll container */}
               <EarthSceneBackground />
+              {/* Problem section background - sits behind scroll container */}
+              <ProblemImageBackground />
               <MobileNav />
               <TransitionEffect>
                 <SmoothScrolling id="scroll-container" className="h-dvh overflow-y-auto overflow-x-hidden relative z-10">
