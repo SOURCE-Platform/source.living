@@ -15,32 +15,41 @@ export function DetailOverlay({ node, onClose, theme }: DetailOverlayProps) {
     const colors = THEME[theme];
 
     return (
-        <div className={`absolute top-4 right-4 w-80 ${colors.panelBg} backdrop-blur-md border ${colors.border} rounded-lg shadow-2xl p-6 z-50 animate-in fade-in slide-in-from-right-4 transition-colors duration-300`}>
-            <div className="flex justify-between items-start mb-4">
-                <div>
-                    <span className={`text-xs font-bold uppercase tracking-wider ${colors.textMuted}`}>
-                        {node.category}
-                    </span>
-                    <h2 className={`text-xl font-bold mt-1 ${colors.text}`}>{node.name}</h2>
-                </div>
-                <button
-                    onClick={onClose}
-                    className={`${colors.textMuted} hover:${colors.text} transition-colors`}
-                >
-                    ✕
-                </button>
+        <div
+            className={`absolute top-4 right-4 w-80 ${colors.panelBg} backdrop-blur-md border ${colors.border} rounded-lg shadow-2xl p-6 z-50 transition-all duration-200 pointer-events-none`}
+            style={{
+                animation: 'fadeIn 0.2s ease-in-out'
+            }}
+        >
+            <style jsx>{`
+                @keyframes fadeIn {
+                    from {
+                        opacity: 0;
+                        transform: translateY(-10px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+            `}</style>
+            <div className="mb-4">
+                <span className={`text-xs font-bold uppercase tracking-wider ${colors.textMuted}`}>
+                    {node.category}
+                </span>
+                <h2 className={`text-xl font-bold mt-1 ${colors.text}`}>{node.name}</h2>
             </div>
 
             <div className="space-y-4">
                 <div>
-                    <h3 className={`text-sm font-semibold ${theme === 'dark' ? 'text-slate-300' : 'text-slate-700'}`}>Era</h3>
+                    <div className={`text-base font-sans font-bold uppercase tracking-wider ${colors.text} mb-1`}>Era</div>
                     <p className={`text-sm ${colors.textMuted}`}>
                         {formatYear(node.startYear)} — {formatYear(node.endYear)}
                     </p>
                 </div>
 
                 <div>
-                    <h3 className={`text-sm font-semibold ${theme === 'dark' ? 'text-slate-300' : 'text-slate-700'}`}>Description</h3>
+                    <div className={`text-base font-sans font-bold uppercase tracking-wider ${colors.text} mb-1`}>Description</div>
                     <p className={`text-sm ${colors.textMuted} leading-relaxed`}>
                         {node.description}
                     </p>

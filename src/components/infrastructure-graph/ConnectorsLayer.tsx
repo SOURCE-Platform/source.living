@@ -1,7 +1,7 @@
 import React from 'react';
 import { InfrastructureNode } from './types';
 import { getX } from './utils';
-import { Theme, THEME } from './theme';
+import { Theme } from './theme';
 
 interface ConnectorsLayerProps {
     items: InfrastructureNode[];
@@ -14,9 +14,18 @@ interface ConnectorsLayerProps {
 const ROW_HEIGHT = 60;
 
 export function ConnectorsLayer({ items, layout, zoomLevel, hoveredId, theme }: ConnectorsLayerProps) {
-    const colors = THEME[theme];
     return (
         <g className="connectors-layer">
+            {/* Define playgrade gradient */}
+            <defs>
+                <linearGradient id="playgrade-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#FFC1D5" />
+                    <stop offset="29.69%" stopColor="#FFC1D5" />
+                    <stop offset="61.98%" stopColor="#FEFFE3" />
+                    <stop offset="100%" stopColor="#97A1FB" />
+                </linearGradient>
+            </defs>
+
             {items.map((child) => {
                 if (!child.parentId) return null;
 
@@ -41,16 +50,24 @@ export function ConnectorsLayer({ items, layout, zoomLevel, hoveredId, theme }: 
                 const path = getConnectorPath(parentX, pY, childStartX, cY);
 
                 return (
-                    <path
-                        key={`${parent.id}-${child.id}`}
-                        d={path}
-                        fill="none"
-                        stroke={colors.connector}
-                        strokeWidth={2}
-                        strokeDasharray="4,4"
-                        opacity={isDimmed ? 0.1 : 0.6}
-                        className="transition-opacity duration-300"
-                    />
+                    <g key={`${parent.id}-${child.id}`}>
+                        <path
+                            d={path}
+                            fill="none"
+                            stroke="url(#playgrade-gradient)"
+                            strokeWidth={1}
+                            opacity={1}
+                        />
+                        {/* White dot at the start of the connector line - always visible with high z-index */}
+                        <circle
+                            cx={parentX}
+                            cy={pY}
+                            r={4}
+                            fill="white"
+                            opacity={1}
+                            style={{ pointerEvents: 'none' }}
+                        />
+                    </g>
                 );
             })}
         </g>

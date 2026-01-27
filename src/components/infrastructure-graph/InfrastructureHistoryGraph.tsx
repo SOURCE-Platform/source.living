@@ -6,7 +6,7 @@ import { DetailOverlay } from './DetailOverlay';
 import { INITIAL_NODES } from './data';
 import { DEFAULT_ZOOM, getX } from './utils';
 import { InfrastructureNode } from './types';
-import { Theme, THEME } from './theme';
+import { Theme, THEME, getCategoryGradient, getLegendGradient } from './theme';
 
 import { useTheme } from 'next-themes';
 
@@ -26,6 +26,7 @@ export function InfrastructureHistoryGraph({ className = '', theme: propTheme }:
 
     const [zoomLevel, setZoomLevel] = useState(DEFAULT_ZOOM);
     const [selectedNode, setSelectedNode] = useState<InfrastructureNode | null>(null);
+    const [hoveredNode, setHoveredNode] = useState<InfrastructureNode | null>(null);
     const containerRef = React.useRef<HTMLDivElement>(null);
 
     // Determine effective theme
@@ -35,8 +36,7 @@ export function InfrastructureHistoryGraph({ className = '', theme: propTheme }:
     // Get theme colors
     const colors = THEME[effectiveTheme];
 
-    // Auto-fit on load - Two-stage process to ensure scroll happens after zoom resize
-    React.useEffect(() => {
+    const resetView = React.useCallback(() => {
         if (!containerRef.current) return;
 
         const width = containerRef.current.clientWidth;
@@ -51,34 +51,64 @@ export function InfrastructureHistoryGraph({ className = '', theme: propTheme }:
         setZoomLevel(finalZoom);
 
         // 2. We need to wait for the state update and re-render to affect the TimelineCanvas width
-        // requestAnimationFrame is usually enough to wait for the DOM to be ready after React commit
         requestAnimationFrame(() => {
-            // We might need a second frame or a timeout to strictly ensure the child has updated styling
             setTimeout(() => {
                 if (containerRef.current) {
                     const startX = getX(focusStart, finalZoom);
                     const scrollContainer = containerRef.current.querySelector('.overflow-auto');
                     if (scrollContainer) {
-                        // Scroll further to the right (positive X) to bringing the "future" items leftwards into view,
-                        // away from the right-edge gradient.
                         scrollContainer.scrollLeft = startX + 100;
                     }
                 }
             }, 50);
         });
+    }, []);
 
-    }, []); // Only run once on mount
+    // Auto-fit on load
+    React.useEffect(() => {
+        resetView();
+    }, [resetView]);
 
     return (
         <div ref={containerRef} className={`flex flex-col w-full relative ${className || 'h-screen'}`}>
-            {/* Controls Header - Minimalist */}
-            <div className={`flex items-center justify-end px-4 py-2 z-10 relative mb-8`}>
-                <h1 className={`absolute left-1/2 -translate-x-1/2 text-lg font-bold ${colors.text} text-center w-full pointer-events-none`}>
-                    Infrastructure Evolution
-                </h1>
-                <div className="flex gap-2 relative z-20">
+            {/* Controls Header */}
+            <div className={`flex items-center justify-between px-4 py-2 z-10 relative mb-8`}>
+                <div className="flex items-center gap-6 ml-64">
+                    <h1 className={`text-lg font-bold ${colors.text} pointer-events-none`}>
+                        Infrastructure Evolution
+                    </h1>
+
+                    {/* Inline Legend */}
+                    <div className="flex items-center gap-4">
+                        {[
+                            { label: 'Water', value: 'WATER' },
+                            { label: 'Transport', value: 'TRANSPORT' },
+                            { label: 'Energy', value: 'ENERGY' },
+                            { label: 'Digital', value: 'DIGITAL' },
+                            { label: 'Civic', value: 'CIVIC' },
+                        ].map((cat) => (
+                            <div key={cat.value} className="flex items-center gap-2">
+                                <div
+                                    className="w-5 h-5 rounded-full"
+                                    style={{ background: getLegendGradient(cat.value) }}
+                                />
+                                <span className={`text-sm ${effectiveTheme === 'dark' ? 'text-slate-300' : 'text-slate-600'}`}>
+                                    {cat.label}
+                                </span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="flex gap-2 relative z-20 items-center">
                     <button
-                        className={`px-2 py-1 text-xs font-bold ${effectiveTheme === 'light' ? 'text-slate-600 bg-slate-200 hover:bg-slate-300' : 'text-slate-300 bg-slate-800 hover:bg-slate-700'} rounded`}
+                        className={`h-12 px-4 text-sm font-bold ${effectiveTheme === 'light' ? 'text-slate-600 bg-slate-200 hover:bg-slate-300' : 'text-slate-300 bg-slate-800 hover:bg-slate-700'} rounded flex items-center justify-center`}
+                        onClick={resetView}
+                    >
+                        Reset
+                    </button>
+                    <button
+                        className={`h-12 px-4 text-sm font-bold ${effectiveTheme === 'light' ? 'text-slate-600 bg-slate-200 hover:bg-slate-300' : 'text-slate-300 bg-slate-800 hover:bg-slate-700'} rounded flex items-center justify-center`}
                         onClick={() => setZoomLevel(z => Math.max(0.1, z * 0.8))}
                     >
                         -
@@ -87,7 +117,7 @@ export function InfrastructureHistoryGraph({ className = '', theme: propTheme }:
                         {zoomLevel.toFixed(1)}x
                     </span>
                     <button
-                        className={`px-2 py-1 text-xs font-bold ${effectiveTheme === 'light' ? 'text-slate-600 bg-slate-200 hover:bg-slate-300' : 'text-slate-300 bg-slate-800 hover:bg-slate-700'} rounded`}
+                        className={`h-12 px-4 text-sm font-bold ${effectiveTheme === 'light' ? 'text-slate-600 bg-slate-200 hover:bg-slate-300' : 'text-slate-300 bg-slate-800 hover:bg-slate-700'} rounded flex items-center justify-center`}
                         onClick={() => setZoomLevel(z => Math.min(20, z * 1.2))}
                     >
                         +
@@ -97,8 +127,10 @@ export function InfrastructureHistoryGraph({ className = '', theme: propTheme }:
 
             {/* Main Graph Area */}
             <div
-                className="flex-1 overflow-hidden relative"
+                className="flex-1 relative pt-12"
                 style={{
+                    overflow: 'hidden',
+                    overflowY: 'visible',
                     maskImage: 'linear-gradient(to right, transparent, black 15%, black 95%, transparent)',
                     WebkitMaskImage: 'linear-gradient(to right, transparent, black 50px, black calc(100% - 150px), transparent)'
                 }}
@@ -107,18 +139,21 @@ export function InfrastructureHistoryGraph({ className = '', theme: propTheme }:
                     items={INITIAL_NODES}
                     zoomLevel={zoomLevel}
                     onNodeClick={setSelectedNode}
+                    onNodeHover={setHoveredNode}
                     theme={effectiveTheme}
                 />
             </div>
 
-            {/* Detail Overlay */}
-            {selectedNode && (
+            {/* Detail Overlay - shows on hover */}
+            {hoveredNode && (
                 <DetailOverlay
-                    node={selectedNode}
-                    onClose={() => setSelectedNode(null)}
+                    node={hoveredNode}
+                    onClose={() => setHoveredNode(null)}
                     theme={effectiveTheme}
                 />
             )}
         </div>
     );
 }
+
+

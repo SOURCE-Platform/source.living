@@ -1,7 +1,7 @@
 import React from 'react';
 import { InfrastructureNode } from './types';
 import { getX } from './utils';
-import { Theme } from './theme';
+import { Theme, getCategoryGradient } from './theme';
 
 interface StreamsLayerProps {
     items: InfrastructureNode[];
@@ -9,13 +9,14 @@ interface StreamsLayerProps {
     zoomLevel: number;
     hoveredId: string | null;
     onHover: (id: string | null) => void;
+    onNodeHover: (node: InfrastructureNode | null) => void;
     onClick: (node: InfrastructureNode) => void;
     theme: Theme;
 }
 
 const ROW_HEIGHT = 60;
 
-export function StreamsLayer({ items, layout, zoomLevel, hoveredId, onHover, onClick, theme }: StreamsLayerProps) {
+export function StreamsLayer({ items, layout, zoomLevel, hoveredId, onHover, onNodeHover, onClick, theme }: StreamsLayerProps) {
     return (
         <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
             {items.map((item) => {
@@ -29,13 +30,14 @@ export function StreamsLayer({ items, layout, zoomLevel, hoveredId, onHover, onC
                 // Adjusting to match previous SVG positioning:
                 // Center was (laneIndex + 0.5) * ROW_HEIGHT + 20.
                 const yCenter = (laneIndex + 0.5) * ROW_HEIGHT + 20;
-                const thickness = item.magnitude * 2;
+                const thickness = 16;
                 const y = yCenter - thickness / 2;
 
                 const isHovered = hoveredId === item.id;
                 const isDimmed = hoveredId !== null && !isHovered;
 
                 const color = getCategoryColor(item.category);
+                const gradient = getCategoryGradient(item.category);
                 const textColor = theme === 'light' ? '#334155' : '#cbd5e1';
 
                 return (
@@ -47,10 +49,16 @@ export function StreamsLayer({ items, layout, zoomLevel, hoveredId, onHover, onC
                             top: y,
                             width: width,
                             height: thickness,
-                            opacity: isDimmed ? 0.2 : 0.9,
+                            opacity: isDimmed ? 0.55 : 0.9,
                         }}
-                        onMouseEnter={() => onHover(item.id)}
-                        onMouseLeave={() => onHover(null)}
+                        onMouseEnter={() => {
+                            onHover(item.id);
+                            onNodeHover(item);
+                        }}
+                        onMouseLeave={() => {
+                            onHover(null);
+                            onNodeHover(null);
+                        }}
                         onClick={(e) => {
                             e.stopPropagation();
                             onClick(item);
@@ -60,7 +68,7 @@ export function StreamsLayer({ items, layout, zoomLevel, hoveredId, onHover, onC
                         <div
                             className="w-full h-full rounded-full transition-all duration-300 cursor-pointer"
                             style={{
-                                backgroundColor: color,
+                                background: gradient,
                                 filter: isHovered ? 'brightness(1.2)' : 'none'
                             }}
                         />
@@ -68,10 +76,10 @@ export function StreamsLayer({ items, layout, zoomLevel, hoveredId, onHover, onC
                         {/* Sticky Label */}
                         <div className="absolute top-0 left-0 w-full h-full flex items-center pointer-events-none">
                             <span
-                                className="sticky left-4 -mt-8 whitespace-nowrap text-xs font-medium select-none transition-opacity duration-300"
+                                className="sticky left-4 -mt-12 whitespace-nowrap text-xs font-medium select-none transition-opacity duration-300"
                                 style={{
                                     color: isDimmed ? color : textColor, // Use category color when dimmed (faded), text color otherwise? Actually previous logic was different.
-                                    opacity: isDimmed ? 0.5 : 1,
+                                    opacity: isDimmed ? 0.75 : 1,
                                 }}
                             >
                                 {item.name}
@@ -94,3 +102,6 @@ function getCategoryColor(category: string): string {
         default: return '#cbd5e1';
     }
 }
+
+// function getCategoryGradient removed
+
