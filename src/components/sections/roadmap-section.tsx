@@ -8,7 +8,7 @@ export function RoadmapSection() {
     return (
         <section className="space-y-4 mt-40">
             <div className="relative w-[100vw] left-1/2 -translate-x-1/2 flex justify-center">
-                <div className="w-full max-w-[1700px] flex items-center gap-5 px-5 lg:px-20">
+                <div className="w-full md:w-2/3 lg:w-full max-w-[1700px] flex items-center gap-5 px-5 lg:px-20">
                     <h2 className="text-4xl font-bold text-foreground">Roadmap</h2>
                     <SectionPlayButton
                         title="Roadmap"
@@ -21,9 +21,12 @@ export function RoadmapSection() {
 
             <div className="relative mt-12 w-[100vw] left-1/2 -translate-x-1/2">
                 {/* Vertical Line (Mobile) - Positioned in the new gutter */}
-                <div className="absolute top-0 bottom-0 left-6 md:left-8 w-px bg-border lg:hidden" />
 
-                <div className="flex flex-col lg:flex-row gap-12 lg:gap-12 max-w-[1700px] mx-auto px-12 md:px-20 lg:px-20">
+
+                <div className="relative flex flex-col lg:flex-row gap-12 lg:gap-12 w-full md:w-2/3 lg:w-full max-w-[1700px] mx-auto md:mx-auto lg:mx-auto pl-16 pr-6 md:pl-20 md:pr-12 lg:px-20">
+                    {/* Vertical Line (Mobile) - Positioned in the new gutter */}
+                    <div className="absolute top-0 bottom-0 left-10 md:left-14 w-px bg-border lg:hidden" />
+
                     {/* PHASE 1 */}
                     <div className="lg:flex-1 relative lg:pl-0 mb-16 lg:mb-0">
                         <RndSlideshow />
@@ -43,7 +46,7 @@ export function RoadmapSection() {
                         <img
                             src="/icons/star.svg"
                             alt="Star"
-                            className="absolute top-[-2rem] left-[-2.8rem] md:left-[-4.2rem] w-9 h-9 block dark:invert lg:hidden"
+                            className="absolute top-[-2rem] left-[-2.625rem] md:left-[-2.625rem] w-9 h-9 block dark:invert lg:hidden"
                         />
 
                         <div className="mb-6 lg:mt-6">
@@ -99,7 +102,7 @@ export function RoadmapSection() {
                         <img
                             src="/icons/star.svg"
                             alt="Star"
-                            className="absolute top-[-2rem] left-0 w-9 h-9 block dark:invert lg:hidden"
+                            className="absolute top-[-2rem] left-[-2.625rem] md:left-[-2.625rem] w-9 h-9 block dark:invert lg:hidden"
                         />
 
                         <div className="mb-6 lg:mt-6">
@@ -160,7 +163,7 @@ export function RoadmapSection() {
                         <img
                             src="/icons/star.svg"
                             alt="Star"
-                            className="absolute top-[-2rem] left-0 w-9 h-9 block dark:invert lg:hidden"
+                            className="absolute top-[-2rem] left-[-2.625rem] md:left-[-2.625rem] w-9 h-9 block dark:invert lg:hidden"
                         />
 
                         <div className="mb-6 lg:mt-6">
