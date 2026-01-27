@@ -3,10 +3,10 @@
 
 import { CircularMenu, MenuItem } from '@w3rk17/circular-menu-next'
 import { useTheme } from 'next-themes'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { useState, useEffect, useRef } from 'react'
 import { Mail, FileText, Type, X } from 'lucide-react'
-import { SystemIcon, DarkIcon, LightIcon, EmailIcon } from '@/components/icons/theme-icons'
+import { SystemIcon, DarkIcon, LightIcon, EmailIcon, WordzIcon } from '@/components/icons/theme-icons'
 import Image from 'next/image'
 import { useTransitionTo } from '@/components/providers/transition-context'
 import { cn } from '@/lib/utils'
@@ -43,6 +43,7 @@ export function MobileNav() {
     const { theme: currentTheme, resolvedTheme, setTheme } = useTheme()
     const { transitionTo } = useTransitionTo()
     const router = useRouter()
+    const pathname = usePathname()
 
     // Independent font states
     const [activeParagraphFont, setActiveParagraphFont] = useState(PARAGRAPH_FONTS[0].value);
@@ -126,6 +127,35 @@ export function MobileNav() {
     };
 
 
+
+    // Track scroll position for color logic
+    const [currentScrollTop, setCurrentScrollTop] = useState(0);
+
+    useEffect(() => {
+        const scrollContainer = document.getElementById('scroll-container');
+        if (!scrollContainer) return;
+
+        const handleScrollData = () => {
+            setCurrentScrollTop(scrollContainer.scrollTop);
+        };
+
+        // Initial set
+        handleScrollData();
+
+        scrollContainer.addEventListener('scroll', handleScrollData);
+        return () => scrollContainer.removeEventListener('scroll', handleScrollData);
+    }, []);
+
+    // Calculate forceWhiteDot
+    // Condition 1: Home ('/') AND Scroll < 1500 (over Earth/Problem dark sections)
+    // Condition 2: Convergence or Solutions routes (always dark backgrounds)
+    const isHome = pathname === '/';
+    const isDarkRoute = pathname === '/convergence' || pathname === '/solutions';
+
+    const forceWhiteDot = (isHome && currentScrollTop < 1500) || isDarkRoute;
+    const isDark = resolvedTheme === 'dark' || forceWhiteDot;
+    const effectiveTheme = isDark ? 'dark' : 'light';
+
     const menuItems: MenuItem[] = [
         {
             id: 'home',
@@ -137,49 +167,37 @@ export function MobileNav() {
                         alt=""
                         width={44}
                         height={44}
-                        className="h-11 w-11 min-w-[2.75rem] rounded-full flex-shrink-0 invert dark:invert-0"
+                        className={cn("h-11 w-11 min-w-[2.75rem] rounded-full flex-shrink-0 transition-colors", isDark ? "invert-0" : "invert")}
                     />
                     <img
                         src="/logo/SOURCE-wordmark.svg"
                         alt="SOURCE"
                         width={184}
                         height={34}
-                        className="h-8 w-auto flex-shrink-0 invert dark:invert-0"
+                        className={cn("h-8 w-auto flex-shrink-0 transition-colors", isDark ? "invert-0" : "invert")}
                     />
                 </div>
             ),
             onClick: ((e: any) => handleNavClick('/', e)) as any
         },
-        /*
         {
             id: 'wordz',
             label: 'WORDz',
             icon: (
                 <div className="flex items-center gap-2 pr-2">
-                    <FileText className="h-5 w-5" />
+                    <WordzIcon className="h-5 w-5" theme={effectiveTheme} />
                     <span className="text-sm font-medium">WORDz</span>
                 </div>
             ),
             onClick: ((e: any) => handleNavClick('/wordz', e)) as any
         },
-        */
-        {
-            id: 'contact-header',
-            label: 'CONTACT',
-            icon: (
-                <div className="flex items-center gap-2 pr-2 opacity-50">
-                    <span className="text-[10px] font-bold tracking-[0.2em] uppercase translate-y-1">CONTACT</span>
-                </div>
-            ),
-            onClick: () => { },
-            disabled: true
-        },
+
         {
             id: 'contact',
             label: 'Email',
             icon: (
                 <div className="flex items-center gap-2 pr-2">
-                    <EmailIcon className="h-5 w-5" theme={resolvedTheme} />
+                    <EmailIcon className="h-5 w-5" theme={effectiveTheme} />
                     <span className="text-sm font-medium">Email</span>
                 </div>
             ),
@@ -216,7 +234,7 @@ export function MobileNav() {
             label: 'System',
             icon: (
                 <div className="flex items-center gap-2 pr-2">
-                    <SystemIcon className="h-5 w-5" theme={resolvedTheme} />
+                    <SystemIcon className="h-5 w-5" theme={effectiveTheme} />
                     <span className="text-sm font-medium">System</span>
                 </div>
             ),
@@ -227,7 +245,7 @@ export function MobileNav() {
             label: 'Light',
             icon: (
                 <div className="flex items-center gap-2 pr-2">
-                    <LightIcon className="h-5 w-5" theme={resolvedTheme} />
+                    <LightIcon className="h-5 w-5" theme={effectiveTheme} />
                     <span className="text-sm font-medium">Light</span>
                 </div>
             ),
@@ -238,7 +256,7 @@ export function MobileNav() {
             label: 'Dark',
             icon: (
                 <div className="flex items-center gap-2 pr-2">
-                    <DarkIcon className="h-5 w-5" theme={resolvedTheme} />
+                    <DarkIcon className="h-5 w-5" theme={effectiveTheme} />
                     <span className="text-sm font-medium">Dark</span>
                 </div>
             ),
@@ -253,6 +271,8 @@ export function MobileNav() {
     const currentSpacing = activeTab === 'paragraph' ? activeParagraphSpacing : activeHeaderSpacing;
     const setSpacing = activeTab === 'paragraph' ? setActiveParagraphSpacing : setActiveHeaderSpacing;
 
+
+
     return (
         <>
             <div
@@ -265,7 +285,7 @@ export function MobileNav() {
                     items={menuItems}
                     position="top-right"
                     hideOnScroll={false}
-                    darkMode={resolvedTheme === 'dark'}
+                    darkMode={resolvedTheme === 'dark' || forceWhiteDot}
                     dotSize={12}
                     expandedSize={42.5}
                 />

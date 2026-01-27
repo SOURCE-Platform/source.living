@@ -44,7 +44,7 @@ export const SectionPlayButton = ({
     };
 
     return (
-        <>
+        <div className="inline-flex items-center align-middle">
             <svg width="0" height="0" className="absolute block w-0 h-0 overflow-hidden" aria-hidden="true">
                 <defs>
                     <linearGradient id="playgrade" gradientTransform="rotate(22, 0.2, 0.5) translate(0.2, 0.5) scale(2.5) translate(-0.5, -0.5)">
@@ -105,8 +105,8 @@ export const SectionPlayButton = ({
                         <PauseIcon className="absolute inset-0 w-full h-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-in-out [&_path]:fill-[url(#playgrade-light-hover)] dark:[&_path]:fill-[url(#playgrade-hover)]" />
                     </div>
                 </div>
-                <WaveformAnimation className="ml-4" isActive={!!isActive} />
             </button>
-        </>
+            <WaveformAnimation className="ml-4" isActive={!!isActive} />
+        </div>
     );
 };

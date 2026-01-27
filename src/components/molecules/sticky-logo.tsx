@@ -1,14 +1,20 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
+import { useTheme } from 'next-themes';
 import { SourceLogo } from "@/components/atoms/icons/source-logo";
 import { TransitionLink } from "@/components/atoms/transition-link";
 import { cn } from "@/lib/utils";
 
 export function StickyLogo() {
     const [isVisible, setIsVisible] = useState(true);
+    const [mounted, setMounted] = useState(false);
+    const pathname = usePathname();
+    const { resolvedTheme } = useTheme();
 
     useEffect(() => {
+        setMounted(true);
         const scrollContainer = document.getElementById('scroll-container');
         if (!scrollContainer) return;
 
@@ -25,6 +31,10 @@ export function StickyLogo() {
         return () => scrollContainer.removeEventListener('scroll', handleScroll);
     }, []);
 
+    // During SSR and initial hydration, resolvedTheme might not match.
+    // We defer theme-dependent logic until mounted to avoid hydration mismatch.
+    const shouldBeWhite = mounted && pathname === '/' && resolvedTheme === 'light';
+
     return (
         <div
             className={cn(
@@ -33,7 +43,7 @@ export function StickyLogo() {
             )}
         >
             <TransitionLink href="/">
-                <SourceLogo className="h-12 w-auto" />
+                <SourceLogo className="h-12 w-auto" forceWhite={shouldBeWhite} />
             </TransitionLink>
         </div>
     );

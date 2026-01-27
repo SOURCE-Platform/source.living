@@ -20,22 +20,35 @@ export function VisionSection() {
 
             <div className="relative z-10 -mt-40 space-y-4">
                 <div className="flex items-center gap-5 w-full xs:max-w-[70%] mx-auto">
-                    <h2 className="text-4xl font-bold text-foreground">Vision</h2>
+                    <h2 className="text-4xl font-bold bg-clip-text text-transparent bg-fixed bg-no-repeat dark:bg-none dark:text-foreground"
+                        style={{
+                            backgroundImage: 'url(/images/viewing-mask-earth-white.svg), linear-gradient(to bottom, #101015, #101015)',
+                            backgroundSize: '100% 650px, cover',
+                            backgroundPosition: 'top center, center'
+                        }}
+                    >Vision</h2>
                     <SectionPlayButton
                         title="The Vision"
                         audioSrc="/audio/source-vision.mp3"
                         chapters={VISION_CHAPTERS}
                     />
                 </div>
-                <div className="w-full xs:max-w-[70%] space-y-4 mx-auto">
+                <div
+                    className="w-full xs:max-w-[70%] space-y-4 mx-auto bg-clip-text text-transparent bg-fixed bg-no-repeat dark:bg-none dark:text-muted-foreground"
+                    style={{
+                        backgroundImage: 'url(/images/viewing-mask-earth-white.svg), linear-gradient(to bottom, #101015, #101015)',
+                        backgroundSize: '100% 650px, cover',
+                        backgroundPosition: 'top center, center'
+                    }}
+                >
                     <p>
-                        <strong className="text-foreground">SOURCE</strong> will be an open-source decentralized AI platform designed to achieve <strong className="text-foreground">Super Awareness</strong>, the prerequisite for <strong className="text-foreground">Super Intelligence</strong>.
+                        <strong className="text-current dark:text-foreground">SOURCE</strong> will be an open-source decentralized AI platform designed to achieve <strong className="text-current dark:text-foreground">Super Awareness</strong>, the prerequisite for <strong className="text-current dark:text-foreground">Super Intelligence</strong>.
                     </p>
                     <p>
-                        By deploying smart sensors and heavy local compute in both public and private spaces, we are building <strong className="text-foreground">the new holistic computing paradigm for civilization</strong> that functions as a proactive problem detector and solver.
+                        By deploying smart sensors and heavy local compute in both public and private spaces, we are building <strong className="text-current dark:text-foreground">the new holistic computing paradigm for civilization</strong> that functions as a proactive problem detector and solver.
                     </p>
                     <p>
-                        This infrastructure will capture what current AI fundamentally lacks: <strong className="text-foreground">Human Behavioral and Environmental Data</strong> of such high quality and near-infinite quantity that it will enable the creation of the <strong className="text-foreground">Most Accurate Global World Model</strong> ever built.
+                        This infrastructure will capture what current AI fundamentally lacks: <strong className="text-current dark:text-foreground">Human Behavioral and Environmental Data</strong> of such high quality and near-infinite quantity that it will enable the creation of the <strong className="text-current dark:text-foreground">Most Accurate Global World Model</strong> ever built.
                     </p>
                 </div>
             </div>

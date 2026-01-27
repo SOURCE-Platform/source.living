@@ -206,8 +206,8 @@
   #scroll-container {
     /* Transparent container to let EarthSceneV2 background show through */
     background: transparent;
-    /* Padding to center content (balances scrollbar width on the right) */
-    padding-left: var(--custom-scrollbar-width);
+    /* Padding-left removed to allow full-width components to touch the edge */
+    /* padding-left: var(--custom-scrollbar-width); */
     overflow-y: scroll;
   }
 

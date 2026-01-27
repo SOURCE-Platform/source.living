@@ -114,3 +114,29 @@ export const LightIcon = ({ className, theme, ...props }: IconProps) => {
         </svg>
     );
 };
+
+export const WordzIcon = ({ className, theme, ...props }: IconProps) => {
+    const id = "wordz-icon-gradient";
+    const suffix = theme === 'light' ? 'light' : 'dark';
+    const gradientUrl = `url(#${id}-${suffix})`;
+
+    return (
+        <svg
+            width="20"
+            height="20"
+            viewBox="0 0 44 44"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className={cn("w-5 h-5", className)}
+            {...props}
+        >
+            <GradientDefs id={id} />
+            <path
+                d="M36.0769 18.5868C38.723 20.1303 38.723 23.9535 36.0769 25.497L12.0155 39.5328C9.34885 41.0884 6 39.1649 6 36.0777L6 8.00603C6 4.91886 9.34886 2.99538 12.0155 4.55091L36.0769 18.5868Z"
+                stroke={gradientUrl}
+                strokeWidth="2.2"
+                strokeLinejoin="round"
+            />
+        </svg>
+    );
+};
