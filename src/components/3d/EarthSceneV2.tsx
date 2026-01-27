@@ -486,8 +486,8 @@ export function EarthSceneV2({ setUseV2 }: { setUseV2?: (v: boolean) => void }) 
 
     return (
         <>
-            {/* BREAKOUT CONTAINER: w-[100vw] forces full viewport width, -translate-x-1/2 centers it. Mask applied for curved bottom. */}
-            <div className="relative -mt-[140px] left-1/2 -translate-x-1/2 !w-[100vw] min-w-[100vw] h-[650px] overflow-hidden -z-10 pointer-events-none [mask-image:url(/images/viewing-mask-earth.svg)] [mask-size:100%_100%] [mask-repeat:no-repeat] [mask-position:bottom]">
+            {/* FIXED BACKGROUND CONTAINER: Full width including under scrollbar. Mask applied for curved bottom. */}
+            <div className="absolute top-0 left-0 w-full h-[650px] overflow-hidden pointer-events-none [mask-image:url(/images/viewing-mask-earth.svg)] [mask-size:100%_100%] [mask-repeat:no-repeat] [mask-position:bottom]">
                 {/* CANVAS CONTAINER */}
                 <div ref={mountRef} className="absolute inset-0 z-0" />
             </div>

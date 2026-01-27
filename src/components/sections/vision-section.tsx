@@ -1,18 +1,5 @@
 import { SectionPlayButton } from "@/components/audio-player/SectionPlayButton";
-import dynamic from 'next/dynamic';
 import type { ChapterSummary } from "@/components/audio-player/context/types";
-
-// Dynamic import to avoid SSR issues with globe.gl (uses window)
-// Dynamic import to avoid SSR issues with globe.gl (uses window)
-const EarthScene = dynamic(() => import('@/components/3d/EarthScene').then(mod => mod.EarthScene), {
-    ssr: false,
-    loading: () => <div className="w-full h-[500px] -mt-24" /> // Placeholder
-});
-
-const EarthSceneV2 = dynamic(() => import('@/components/3d/EarthSceneV2').then(mod => mod.EarthSceneV2), {
-    ssr: false,
-    loading: () => <div className="w-full h-[500px] -mt-24 bg-black/10" />
-});
 
 const VISION_CHAPTERS: ChapterSummary[] = [
     { title: "Introduction: What is Source?", start: 0 },
@@ -25,41 +12,11 @@ const VISION_CHAPTERS: ChapterSummary[] = [
     { title: "Conclusion: Why We Need AI to Clean Up Our Act", start: 450000 },
 ];
 
-import { useState } from 'react';
-
 export function VisionSection() {
-    const [activeChapter, setActiveChapter] = useState(0);
-    const [useV2, setUseV2] = useState(true); // Default to V2
-
     return (
         <section className="space-y-4 relative">
-            <div className="relative">
-                {/* VERSION TOGGLE - Only show for V1 (V2 has internal UI) */}
-                {!useV2 && (
-                    <div className="absolute left-4 top-4 z-50 flex items-center gap-2 bg-black/50 p-2 rounded-lg backdrop-blur-md border border-white/10">
-                        <span className="text-xs text-gray-300">Earth Version:</span>
-                        <button
-                            onClick={() => setUseV2(false)}
-                            className="px-3 py-1 rounded text-xs transition-colors bg-blue-600 text-white"
-                        >
-                            V1 (Globe.gl)
-                        </button>
-                        <button
-                            onClick={() => setUseV2(true)}
-                            className="px-3 py-1 rounded text-xs transition-colors bg-gray-800 text-gray-400 hover:bg-gray-700"
-                        >
-                            V2 (Custom)
-                        </button>
-                    </div>
-                )}
-
-                {useV2 ? (
-                    // @ts-ignore - dynamic component props
-                    <EarthSceneV2 setUseV2={setUseV2} />
-                ) : (
-                    <EarthScene />
-                )}
-            </div>
+            {/* Spacer for the fixed EarthSceneV2 background */}
+            <div className="h-[510px]" />
 
             <div className="relative z-10 -mt-40 space-y-4">
                 <div className="flex items-center gap-5 w-full xs:max-w-[70%] mx-auto">

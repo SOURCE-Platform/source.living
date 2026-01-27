@@ -104,6 +104,7 @@
   --sidebar-accent-foreground: rgba(44, 46, 94, 1);
   --sidebar-border: rgba(223, 224, 232, 1);
   --sidebar-ring: rgba(168, 172, 222, 1);
+  --custom-scrollbar-width: 22px;
 }
 
 .dark {
@@ -203,13 +204,16 @@
 
   /* Custom Scrollbar */
   #scroll-container {
-    /* Transparent container to let body gradient show through content */
+    /* Transparent container to let EarthSceneV2 background show through */
     background: transparent;
+    /* Padding to center content (balances scrollbar width on the right) */
+    padding-left: var(--custom-scrollbar-width);
+    overflow-y: scroll;
   }
 
   #scroll-container::-webkit-scrollbar {
-    width: 22px;
-    height: 22px;
+    width: var(--custom-scrollbar-width);
+    height: var(--custom-scrollbar-width);
     background: transparent;
   }
 
