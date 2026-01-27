@@ -103,7 +103,7 @@ export function FlagGrid() {
             </div>
 
             {/* Overlay */}
-            <div className="absolute inset-0 bg-blue-500/10 dark:bg-black/50 pointer-events-none z-10" />
+            <div className="absolute inset-0 bg-blue-500/30 dark:bg-black/20 pointer-events-none z-10" />
 
             {/* Logo overlay */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none px-[5%] z-20">
