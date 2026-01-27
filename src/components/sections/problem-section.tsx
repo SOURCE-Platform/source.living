@@ -132,7 +132,7 @@ export function ProblemSection() {
                     </div>
                 </div>
 
-                <div className="flex flex-col rounded-lg border border-border bg-white/30 dark:bg-muted/20 mt-2">
+                <div className="flex flex-col rounded-lg border border-border bg-white/30 dark:bg-muted/20 mt-10">
                     <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-border">
                         <div className="p-5 pb-16 space-y-6">
                             <h4 className="text-xl font-bold text-foreground">The Macro Problem Set</h4>
