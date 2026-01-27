@@ -15,6 +15,34 @@ interface TimelineCanvasProps {
 
 export function TimelineCanvas({ items, zoomLevel, onNodeClick, theme }: TimelineCanvasProps) {
     const ROW_HEIGHT = 60;
+    const scrollRef = React.useRef<HTMLDivElement>(null);
+    const [isDragging, setIsDragging] = React.useState(false);
+    const [startX, setStartX] = React.useState(0);
+    const [scrollLeft, setScrollLeft] = React.useState(0);
+
+    const onMouseDown = (e: React.MouseEvent) => {
+        if (!scrollRef.current) return;
+        setIsDragging(true);
+        setStartX(e.pageX - scrollRef.current.offsetLeft);
+        setScrollLeft(scrollRef.current.scrollLeft);
+    };
+
+    const onMouseLeave = () => {
+        setIsDragging(false);
+    };
+
+    const onMouseUp = () => {
+        setIsDragging(false);
+    };
+
+    const onMouseMove = (e: React.MouseEvent) => {
+        if (!isDragging || !scrollRef.current) return;
+        e.preventDefault();
+        const x = e.pageX - scrollRef.current.offsetLeft;
+        const walk = (x - startX) * 1; // Scroll-fast
+        scrollRef.current.scrollLeft = scrollLeft - walk;
+    };
+
     const colors = THEME[theme];
 
     // Local state for hover to avoid re-rendering entire app
@@ -30,7 +58,15 @@ export function TimelineCanvas({ items, zoomLevel, onNodeClick, theme }: Timelin
     const canvasHeight = laneCount * ROW_HEIGHT + 100;
 
     return (
-        <div className={`relative w-full h-full overflow-auto ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`} style={{ scrollbarWidth: 'none' }}>
+        <div
+            ref={scrollRef}
+            className={`relative w-full h-full overflow-auto cursor-grab active:cursor-grabbing ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}
+            style={{ scrollbarWidth: 'none' }}
+            onMouseDown={onMouseDown}
+            onMouseLeave={onMouseLeave}
+            onMouseUp={onMouseUp}
+            onMouseMove={onMouseMove}
+        >
             <style jsx>{`
                 div::-webkit-scrollbar {
                     display: none;

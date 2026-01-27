@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
+import { usePathname } from 'next/navigation';
 
 // Dynamic import of EarthSceneV2 to avoid SSR issues
 const EarthSceneV2 = dynamic(() => import('@/components/3d/EarthSceneV2').then(mod => mod.EarthSceneV2), {
@@ -10,8 +11,11 @@ const EarthSceneV2 = dynamic(() => import('@/components/3d/EarthSceneV2').then(m
 });
 
 export function EarthSceneBackground() {
+  const pathname = usePathname();
   const [scrollProgress, setScrollProgress] = useState(0);
   const [bgTopOffset, setBgTopOffset] = useState(0);
+
+  if (pathname !== '/') return null;
 
   useEffect(() => {
     const scrollContainer = document.getElementById('scroll-container');
