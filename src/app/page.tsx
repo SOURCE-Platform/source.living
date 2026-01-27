@@ -40,8 +40,8 @@ export default function Home() {
             </article>
           </div>
 
-          {/* Infrastructure Evolution Graph - Full Width */}
-          <div className="w-full mb-12 mt-32">
+          {/* Infrastructure Evolution Graph - Full Width with Right Buffer */}
+          <div className="w-full mb-12 mt-32 pr-4 md:pr-[150px]">
             <InfrastructureHistoryGraph className="h-[700px] w-full" theme="light" />
           </div>
 
