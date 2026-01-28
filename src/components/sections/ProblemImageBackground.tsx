@@ -1,10 +1,14 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
+
 import { useEffect, useState } from 'react';
 import { InteractiveImage } from "@/components/ui/interactive-image";
 
 export function ProblemImageBackground() {
   const [bgTopOffset, setBgTopOffset] = useState<number>(-9999); // Start off-screen
+
+  const pathname = usePathname();
 
   useEffect(() => {
     const scrollContainer = document.getElementById('scroll-container');
@@ -14,7 +18,11 @@ export function ProblemImageBackground() {
 
     const findSpacerPosition = () => {
       const spacer = document.getElementById('problem-image-spacer');
-      if (!spacer) return;
+      if (!spacer) {
+        spacerDocumentTop = null;
+        setBgTopOffset(-9999); // Hide if spacer not found
+        return;
+      }
 
       const rect = spacer.getBoundingClientRect();
       const scrollTop = scrollContainer.scrollTop;
@@ -52,7 +60,7 @@ export function ProblemImageBackground() {
     return () => {
       scrollContainer.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [pathname]);
 
   return (
     <div

@@ -3,6 +3,7 @@ import { SectionPlayButton } from "@/components/audio-player/SectionPlayButton";
 import { TRANSCRIPT_DATA, CHAPTERS_DATA } from "@/lib/constants";
 import { WipeLoopVideo } from "@/components/ui/wipe-loop-video";
 import { RndSlideshow } from "./rnd-slideshow";
+import { GTMSlideshow } from "./gtm-slideshow";
 
 export function RoadmapSection() {
     return (
@@ -85,7 +86,7 @@ export function RoadmapSection() {
 
                     {/* PHASE 2 */}
                     <div className="lg:flex-1 relative lg:pl-0 mb-16 lg:mb-0">
-                        <div className="w-full aspect-[2500/1335] bg-muted/20 rounded-lg mb-6 lg:mb-0" />
+                        <GTMSlideshow />
 
                         {/* Timeline Anchor (Desktop) */}
                         <div className="relative h-px w-full hidden lg:block my-6">

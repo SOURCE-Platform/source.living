@@ -15,9 +15,8 @@ export function EarthSceneBackground() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [bgTopOffset, setBgTopOffset] = useState(0);
 
-  if (pathname !== '/') return null;
-
   useEffect(() => {
+    if (pathname !== '/') return;
     const scrollContainer = document.getElementById('scroll-container');
     if (!scrollContainer) return;
 
@@ -47,7 +46,9 @@ export function EarthSceneBackground() {
 
     scrollContainer.addEventListener('scroll', handleScroll);
     return () => scrollContainer.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [pathname]);
+
+  if (pathname !== '/') return null;
 
   return (
     <div
