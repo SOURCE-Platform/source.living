@@ -1,13 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
+import { DitheredImage } from "@/components/atoms/dithered-image";
 import { WarpedImage } from "../3d/WarpedImage";
 import { TransitionLink } from "../atoms/transition-link";
 import { SectionPlayButton } from "@/components/audio-player/SectionPlayButton";
 import { Badge } from "@/components/atoms/badge";
 
-import { Slideshow } from "@/components/atoms/slideshow";
-import { RotatingSlideshow } from "@/components/atoms/rotating-slideshow";
-import type { ChapterSummary } from "@/components/audio-player/context/types";
+
+import { Leva } from "leva";
+import { ChapterSummary } from "@/components/audio-player/context/types";
 
 const DATA_WALL_CHAPTERS: ChapterSummary[] = [
     { title: "The Data Problem: Quantity vs. Quality", start: 0 },
@@ -28,32 +29,12 @@ const SYSTEMIC_CONVERGENCE_CHAPTERS: ChapterSummary[] = [
     { title: "Important Lessons in the Near Future", start: 258000 },
 ];
 
-const LOW_QUALITY_DATA_IMAGES = [
-    "/images/low quality data/61c822907d87b57f50b38b41ab48038c.gif",
-    "/images/low quality data/ericmish.gif",
-    "/images/low quality data/girlrlrlrlr.gif",
-    "/images/low quality data/eat-delicious.gif",
-    "/images/low quality data/drakemosh.png",
-    "/images/low quality data/b74.gif",
-    "/images/low quality data/aORgQU.gif",
-    "/images/low quality data/tumblr_mlzogpwjwI1rxkznbo1_500.gif",
-    "/images/low quality data/corrupt-datamosh.gif",
-    "/images/low quality data/1_FbpwampTI0FMq9rfihQjIA.gif",
-    "/images/low quality data/RQmFCoy.gif",
-    "/images/low quality data/jack-torrence-datamosh.gif",
-    "/images/low quality data/feac6cb7fcb3a95881e15ac4d620e541.gif",
-    "/images/low quality data/datamosh-3.png",
-];
 
-const LOW_QUANTITY_DATA_IMAGES = [
-    { src: "/images/low quantity data/image.png", scale: 1.0 }, // Doom Disk
-    { src: "/images/low quantity data/image (1).png", scale: 1.5 }, // Assuming similar
-    { src: "/images/low quantity data/imegobg rm.png", scale: 0.95 }, // Ultima IV
-];
 
 export function ProblemSection() {
     return (
         <section className="space-y-8">
+            <Leva collapsed />
             <div className="space-y-4">
                 {/* Transparent spacer - the actual image is rendered in ProblemImageBackground outside the scroll container */}
                 <div id="problem-image-spacer" className="h-[600px] -mb-8" />
@@ -84,7 +65,16 @@ export function ProblemSection() {
             <div className="space-y-8 py-6 w-full mx-auto">
                 <div className="flex flex-col xs:flex-row gap-8 items-start">
                     <div className="w-full xs:w-24 xs:h-24 md:w-48 md:h-48 h-48 shrink-0 bg-muted/20 rounded-lg overflow-hidden relative">
-                        <Slideshow images={LOW_QUALITY_DATA_IMAGES} />
+                        <DitheredImage
+                            src="/images/problem-quality.jpg"
+                            alt="Low Quality Data"
+                            className="absolute inset-0"
+                            enableScrollZoom={true}
+                            controlId="Quality (Mask)"
+                            internalWidth={180}
+                            initialContrast={0.9}
+                            initialBrightness={1.1}
+                        />
                     </div>
                     <div className="flex-1">
                         <Badge className="mb-2">Qualitative</Badge>
@@ -97,7 +87,16 @@ export function ProblemSection() {
 
                 <div className="flex flex-col xs:flex-row gap-8 items-start">
                     <div className="w-full xs:w-24 xs:h-24 md:w-48 md:h-48 h-48 shrink-0 rounded-lg overflow-hidden relative">
-                        <RotatingSlideshow images={LOW_QUANTITY_DATA_IMAGES} />
+                        <DitheredImage
+                            src="/images/problem-quantity.jpg"
+                            alt="Low Quantity Data"
+                            className="absolute inset-0"
+                            enableScrollZoom={true}
+                            controlId="Quantity (Iceberg)"
+                            internalWidth={180}
+                            initialContrast={0.9}
+                            initialBrightness={1.3}
+                        />
                     </div>
                     <div className="flex-1">
                         <Badge className="mb-2">Quantitative</Badge>
@@ -115,7 +114,7 @@ export function ProblemSection() {
                     src="/images/systemicconvergence/beksinski-1.jpg"
                     className="w-full rounded-lg mb-8"
                 />
-                <div className="flex flex-row gap-6 w-full xs:max-w-[70%] mx-auto">
+                <div className="flex flex-row gap-6 w-full xs:max-w-[85%] mx-auto">
                     <span className="text-8xl font-thin leading-none text-transparent bg-clip-text bg-[image:var(--background-image-playgrade-light)] dark:bg-[image:var(--background-image-playgrade)] select-none">2</span>
                     <div className="space-y-4 pt-2">
                         <div className="flex items-center gap-5 w-full">

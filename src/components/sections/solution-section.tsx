@@ -7,6 +7,9 @@ import { SectionPlayButton } from "@/components/audio-player/SectionPlayButton";
 import { ArcWaves } from "../atoms/arc-waves";
 import type { ChapterSummary } from "@/components/audio-player/context/types";
 
+
+import { ScrollScaleImage } from "@/components/ui/scroll-scale-image";
+
 const SOLUTION_CHAPTERS: ChapterSummary[] = [
     { title: "The Source Hardware Vision: Sensors & Robotic Installation", start: 0 },
     { title: "Total Transparency: Recording the Installation Process", start: 95000 },
@@ -139,21 +142,27 @@ export function SolutionSection() {
 
             <div className="mt-36 flex flex-col md:flex-row gap-8 md:gap-12 md:-mx-[25%] items-start">
                 <div className="md:flex-1">
-                    <div className="relative w-full h-[380px] mb-6 rounded-lg playgrade-static-glow">
+                    <div className="relative w-full h-[380px] mb-6 rounded-lg playgrade-static-glow overflow-hidden">
                         {/* Light Mode Image */}
-                        <Image
-                            src="/images/hardware/kern-computer-in-cubby.png"
-                            alt="Hardware Illustration"
-                            fill
-                            className="object-cover rounded-lg dark:hidden"
-                        />
+                        <div className="absolute inset-0 dark:hidden">
+                            <ScrollScaleImage
+                                src="/images/hardware/kern-computer-in-cubby.png"
+                                alt="Hardware Illustration"
+                                fill
+                                containerClassName="w-full h-full rounded-lg"
+                                className="w-full h-full object-cover"
+                            />
+                        </div>
                         {/* Dark Mode Image */}
-                        <Image
-                            src="/images/hardware/kern-compute-in-dark-cubby.png"
-                            alt="Hardware Illustration"
-                            fill
-                            className="object-cover rounded-lg hidden dark:block"
-                        />
+                        <div className="absolute inset-0 hidden dark:block">
+                            <ScrollScaleImage
+                                src="/images/hardware/kern-compute-in-dark-cubby.png"
+                                alt="Hardware Illustration"
+                                fill
+                                containerClassName="w-full h-full rounded-lg"
+                                className="w-full h-full object-cover"
+                            />
+                        </div>
                     </div>
                     <div className="flex items-center gap-4 mb-6">
                         <h3 className="text-3xl font-bold text-foreground">Hardware</h3>
@@ -179,21 +188,27 @@ export function SolutionSection() {
                 </div>
 
                 <div className="md:flex-1 md:-mt-16">
-                    <div className="relative w-full aspect-[1440/1439] mb-6 rounded-lg playgrade-static-glow">
+                    <div className="relative w-full aspect-[1440/1439] mb-6 rounded-lg playgrade-static-glow overflow-hidden">
                         {/* Light Mode: settings white mode.png */}
-                        <Image
-                            src="/images/software/settings white mode.png"
-                            alt="Software Illustration"
-                            fill
-                            className="object-cover object-top rounded-lg dark:hidden"
-                        />
+                        <div className="absolute inset-0 dark:hidden">
+                            <ScrollScaleImage
+                                src="/images/software/settings white mode.png"
+                                alt="Software Illustration"
+                                fill
+                                containerClassName="w-full h-full rounded-lg"
+                                className="w-full h-full object-cover object-top"
+                            />
+                        </div>
                         {/* Dark Mode: settings dark.png */}
-                        <Image
-                            src="/images/software/settings dark.png"
-                            alt="Software Illustration"
-                            fill
-                            className="object-cover object-top rounded-lg hidden dark:block"
-                        />
+                        <div className="absolute inset-0 hidden dark:block">
+                            <ScrollScaleImage
+                                src="/images/software/settings dark.png"
+                                alt="Software Illustration"
+                                fill
+                                containerClassName="w-full h-full rounded-lg"
+                                className="w-full h-full object-cover object-top"
+                            />
+                        </div>
                     </div>
                     <div className="flex items-center gap-4 mb-6">
                         <h3 className="text-3xl font-bold text-foreground">Software</h3>
@@ -225,12 +240,13 @@ export function SolutionSection() {
                 </div>
 
                 <div className="md:flex-1">
-                    <div className="relative w-full h-[380px] mb-6 rounded-lg playgrade-static-glow">
-                        <Image
+                    <div className="relative w-full h-[380px] mb-6 rounded-lg playgrade-static-glow overflow-hidden">
+                        <ScrollScaleImage
                             src="/images/social/royal social.png"
                             alt="Social Illustration"
                             fill
-                            className="object-cover rounded-lg"
+                            containerClassName="w-full h-full rounded-lg"
+                            className="w-full h-full object-cover"
                         />
                     </div>
                     <div className="flex items-center gap-4 mb-6">
