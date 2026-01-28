@@ -83,8 +83,18 @@ export function MobileNav() {
                 if (problemImageSpacer) {
                     const rect = problemImageSpacer.getBoundingClientRect();
                     const spacerBottom = rect.bottom;
-                    // Fade out 500px before the bottom of the spacer passes the top of the viewport
-                    setIsVisible(spacerBottom > 500);
+
+                    // If spacer is still on screen (hasn't passed the fade point), force visible
+                    if (spacerBottom > 500) {
+                        setIsVisible(true);
+                    } else {
+                        // After spacer passes, use scroll direction behavior
+                        if (currentScrollTop > lastScrollTop.current && currentScrollTop > 10) {
+                            setIsVisible(false);
+                        } else if (currentScrollTop < lastScrollTop.current) {
+                            setIsVisible(true);
+                        }
+                    }
                 } else {
                     // Fallback to default behavior
                     if (currentScrollTop > lastScrollTop.current && currentScrollTop > 10) {
