@@ -76,11 +76,32 @@ export function MobileNav() {
         const handleScroll = () => {
             if (!scrollContainer) return;
             const currentScrollTop = scrollContainer.scrollTop;
-            if (currentScrollTop > lastScrollTop.current && currentScrollTop > 10) {
-                setIsVisible(false);
-            } else if (currentScrollTop < lastScrollTop.current) {
-                setIsVisible(true);
+
+            // On main page, stay visible until problem image passes
+            if (pathname === '/') {
+                const problemImageSpacer = document.getElementById('problem-image-spacer');
+                if (problemImageSpacer) {
+                    const rect = problemImageSpacer.getBoundingClientRect();
+                    const spacerBottom = rect.bottom;
+                    // Fade out 500px before the bottom of the spacer passes the top of the viewport
+                    setIsVisible(spacerBottom > 500);
+                } else {
+                    // Fallback to default behavior
+                    if (currentScrollTop > lastScrollTop.current && currentScrollTop > 10) {
+                        setIsVisible(false);
+                    } else if (currentScrollTop < lastScrollTop.current) {
+                        setIsVisible(true);
+                    }
+                }
+            } else {
+                // On other pages, use scroll direction behavior
+                if (currentScrollTop > lastScrollTop.current && currentScrollTop > 10) {
+                    setIsVisible(false);
+                } else if (currentScrollTop < lastScrollTop.current) {
+                    setIsVisible(true);
+                }
             }
+
             lastScrollTop.current = currentScrollTop <= 0 ? 0 : currentScrollTop;
         };
 
@@ -108,7 +129,7 @@ export function MobileNav() {
                 scrollContainer.removeEventListener('scroll', handleScroll);
             }
         };
-    }, []);
+    }, [pathname]);
 
     // Helper to handle navigation with modifier key support (CMD+Click)
     const handleNavClick = (href: string, e: any) => {
