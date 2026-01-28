@@ -261,12 +261,13 @@ export function SolutionSection() {
             <div className="mt-36 mb-36 flex flex-col md:flex-row gap-12 items-start md:-mx-[15%]">
                 {/* Shield Image on Left */}
                 <div className="w-full md:w-[60%]">
-                    <div className="relative w-full h-full min-h-[500px] rounded-lg overflow-hidden md:sticky md:top-24">
+                    <div className="relative w-full h-[500px] md:sticky md:top-24">
                         <Image
-                            src="/images/data ownership/data shield.png"
+                            src="/images/shield.png"
                             alt="Data Ownership Illustration"
                             fill
                             className="object-contain"
+                            priority
                         />
                     </div>
                 </div>
