@@ -5,6 +5,7 @@ import { floydSteinbergDither } from "@/lib/dithering";
 import { cn } from "@/lib/utils";
 import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import { useControls } from "leva";
+import { StoreType } from "leva/dist/declarations/src/types";
 
 interface DitheredImageProps extends React.HTMLAttributes<HTMLDivElement> {
     src: string;
@@ -16,6 +17,8 @@ interface DitheredImageProps extends React.HTMLAttributes<HTMLDivElement> {
     controlId?: string; // If provided, shows Leva controls
     initialContrast?: number;
     initialBrightness?: number;
+    store?: StoreType; // Optional Leva store for isolated controls
+    animateResolution?: boolean; // If true, animates resolution from low to target on mount
 }
 
 export function DitheredImage({
@@ -29,24 +32,32 @@ export function DitheredImage({
     controlId,
     initialContrast = 1.0,
     initialBrightness = 1.0,
+    store,
+    animateResolution = false,
     ...props
 }: DitheredImageProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const imageRef = useRef<HTMLImageElement | null>(null);
+    const [animatedResolution, setAnimatedResolution] = useState<number | null>(
+        animateResolution ? 50 : null
+    );
 
-    // Controls
+    // Controls - use custom store if provided
     const controls = useControls(controlId || "Dither Settings", {
         Contrast: { value: initialContrast, min: 0.0, max: 3.0, step: 0.1, render: (get) => !!controlId },
         Brightness: { value: initialBrightness, min: 0.0, max: 3.0, step: 0.1, render: (get) => !!controlId },
         Resolution: { value: internalWidth, min: 50, max: 800, step: 10, render: (get) => !!controlId },
-    }, [controlId]);
+    }, { store }, [controlId]);
 
     // Use controls if ID provided, otherwise defaults
     const activeContrast = controlId ? controls.Contrast : initialContrast;
     const activeBrightness = controlId ? controls.Brightness : initialBrightness;
-    const activeResolution = controlId ? controls.Resolution : internalWidth;
+    const baseResolution = controlId ? controls.Resolution : internalWidth;
+
+    // Use animated resolution if animation is active, otherwise use base resolution
+    const activeResolution = animatedResolution !== null ? animatedResolution : baseResolution;
 
 
     // Scroll Zoom Logic
@@ -110,6 +121,43 @@ export function DitheredImage({
         floydSteinbergDither(imageData);
         ctx.putImageData(imageData, 0, 0);
     }, [activeResolution, activeContrast, activeBrightness]);
+
+    // Animate resolution on mount/src change
+    useEffect(() => {
+        if (!animateResolution) return;
+
+        setAnimatedResolution(50); // Start from low resolution
+
+        // Wait for card fade-in to complete (200ms) before starting resolution animation
+        const delayTimeout = setTimeout(() => {
+            const startTime = performance.now();
+            const duration = 1000; // 1 second
+            const startRes = 50;
+            const endRes = baseResolution;
+
+            const animate = (currentTime: number) => {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+
+                // Easing function (ease-out cubic for smooth deceleration)
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const currentRes = startRes + (endRes - startRes) * eased;
+
+                setAnimatedResolution(currentRes);
+
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                } else {
+                    // Animation complete, set to null to use base resolution
+                    setAnimatedResolution(null);
+                }
+            };
+
+            requestAnimationFrame(animate);
+        }, 200); // Delay to match card fadeIn animation
+
+        return () => clearTimeout(delayTimeout);
+    }, [src, animateResolution, baseResolution]);
 
     // Load Image
     useEffect(() => {

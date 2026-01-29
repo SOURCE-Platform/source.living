@@ -1,8 +1,8 @@
 import React from 'react';
-import Image from 'next/image';
 import { InfrastructureNode } from './types';
 import { getYear } from './utils';
 import { Theme, THEME } from './theme';
+import { DitheredImage } from '@/components/atoms/dithered-image';
 
 interface DetailOverlayProps {
     node: InfrastructureNode | null;
@@ -17,7 +17,7 @@ export function DetailOverlay({ node, onClose, theme }: DetailOverlayProps) {
 
     return (
         <div
-            className="absolute top-4 right-4 w-80 border border-border rounded-2xl bg-card z-50 transition-all duration-300 pointer-events-none overflow-hidden"
+            className="absolute top-4 right-4 w-80 border border-border rounded-2xl bg-card z-50 transition-all duration-300 pointer-events-auto overflow-hidden"
             style={{
                 animation: 'fadeIn 0.2s ease-in-out',
                 boxShadow: theme === 'dark'
@@ -39,14 +39,19 @@ export function DetailOverlay({ node, onClose, theme }: DetailOverlayProps) {
             `}</style>
 
             {/* Image Section - Always shown */}
-            <div className="w-full h-32 relative bg-muted/20">
+            <div className="w-full h-32 shrink-0 bg-muted/20 overflow-hidden relative">
                 {node.image && (
-                    <Image
-                        src={node.image}
-                        alt={node.name}
-                        fill
-                        className="object-cover"
-                    />
+                    <div className="overflow-hidden w-full h-full absolute inset-0">
+                        <DitheredImage
+                            src={node.image}
+                            alt={node.name}
+                            internalWidth={400}
+                            className="w-full h-full"
+                            initialContrast={1.0}
+                            initialBrightness={1.0}
+                            animateResolution={true}
+                        />
+                    </div>
                 )}
             </div>
 

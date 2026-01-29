@@ -27,7 +27,9 @@ export function InfrastructureHistoryGraph({ className = '', theme: propTheme }:
     const [zoomLevel, setZoomLevel] = useState(DEFAULT_ZOOM);
     const [selectedNode, setSelectedNode] = useState<InfrastructureNode | null>(null);
     const [hoveredNode, setHoveredNode] = useState<InfrastructureNode | null>(null);
+    const [pinnedNode, setPinnedNode] = useState<InfrastructureNode | null>(null);
     const containerRef = React.useRef<HTMLDivElement>(null);
+    const detailOverlayRef = React.useRef<HTMLDivElement>(null);
     const targetZoomRef = React.useRef(DEFAULT_ZOOM);
     const currentZoomRef = React.useRef(DEFAULT_ZOOM);
     const animationFrameRef = React.useRef<number | null>(null);
@@ -118,6 +120,45 @@ export function InfrastructureHistoryGraph({ className = '', theme: propTheme }:
     React.useEffect(() => {
         resetView();
     }, [resetView]);
+
+    // Handle click outside to close the pinned card
+    React.useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            const target = event.target as HTMLElement;
+
+            // Check if click is inside the detail overlay
+            if (detailOverlayRef.current && detailOverlayRef.current.contains(target)) {
+                return;
+            }
+
+            // Check if click is inside the Leva panel (it has class 'leva-c-')
+            if (target.closest('.leva-c-kWgxhW, .leva__root')) {
+                return;
+            }
+
+            // Click is outside both card and Leva panel, so close
+            if (pinnedNode) {
+                setPinnedNode(null);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [pinnedNode]);
+
+    // Handle node click to pin/unpin
+    const handleNodeClick = React.useCallback((node: InfrastructureNode | null) => {
+        if (pinnedNode?.id === node?.id) {
+            // Clicking the same node unpins it
+            setPinnedNode(null);
+        } else {
+            // Clicking a different node pins it
+            setPinnedNode(node);
+        }
+        setSelectedNode(node);
+    }, [pinnedNode]);
 
     // Handle zoom with Ctrl/Cmd + wheel and prevent page scrolling
     React.useEffect(() => {
@@ -238,19 +279,21 @@ export function InfrastructureHistoryGraph({ className = '', theme: propTheme }:
                     items={INITIAL_NODES}
                     zoomLevel={zoomLevel}
                     onZoomChange={setZoomLevel}
-                    onNodeClick={setSelectedNode}
+                    onNodeClick={handleNodeClick}
                     onNodeHover={setHoveredNode}
                     theme={effectiveTheme}
                 />
             </div>
 
-            {/* Detail Overlay - shows on hover */}
-            {hoveredNode && (
-                <DetailOverlay
-                    node={hoveredNode}
-                    onClose={() => setHoveredNode(null)}
-                    theme={effectiveTheme}
-                />
+            {/* Detail Overlay - shows on click (pinned) or hover (preview) */}
+            {(pinnedNode || hoveredNode) && (
+                <div ref={detailOverlayRef}>
+                    <DetailOverlay
+                        node={pinnedNode || hoveredNode}
+                        onClose={() => setPinnedNode(null)}
+                        theme={effectiveTheme}
+                    />
+                </div>
             )}
         </div>
     );
