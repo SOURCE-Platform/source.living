@@ -9,12 +9,13 @@ import { Theme, THEME } from './theme';
 interface TimelineCanvasProps {
     items: InfrastructureNode[];
     zoomLevel: number;
+    onZoomChange?: (zoom: number) => void;
     onNodeClick: (node: InfrastructureNode) => void;
     onNodeHover: (node: InfrastructureNode | null) => void;
     theme: Theme;
 }
 
-export function TimelineCanvas({ items, zoomLevel, onNodeClick, onNodeHover, theme }: TimelineCanvasProps) {
+export function TimelineCanvas({ items, zoomLevel, onZoomChange, onNodeClick, onNodeHover, theme }: TimelineCanvasProps) {
     const ROW_HEIGHT = 60;
     const scrollRef = React.useRef<HTMLDivElement>(null);
     const [isDragging, setIsDragging] = React.useState(false);
@@ -82,6 +83,40 @@ export function TimelineCanvas({ items, zoomLevel, onNodeClick, onNodeHover, the
         }, 150);
     };
 
+    // Handle wheel event for zoom (like Google Maps)
+    const handleWheel = (e: React.WheelEvent) => {
+        // Only zoom if Control (Windows/Linux) or Command (Mac) key is pressed
+        if ((e.ctrlKey || e.metaKey) && onZoomChange) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            // Determine zoom direction (negative deltaY = scroll up = zoom in)
+            const zoomDelta = e.deltaY > 0 ? 0.9 : 1.1;
+            const newZoom = Math.max(0.1, Math.min(20, zoomLevel * zoomDelta));
+
+            onZoomChange(newZoom);
+        }
+    };
+
+    // Add native wheel event listener to properly prevent default behavior
+    React.useEffect(() => {
+        const scrollElement = scrollRef.current;
+        if (!scrollElement) return;
+
+        const handleNativeWheel = (e: WheelEvent) => {
+            if (e.ctrlKey || e.metaKey) {
+                e.preventDefault();
+            }
+        };
+
+        // Use passive: false to allow preventDefault to work
+        scrollElement.addEventListener('wheel', handleNativeWheel, { passive: false });
+
+        return () => {
+            scrollElement.removeEventListener('wheel', handleNativeWheel);
+        };
+    }, []);
+
     // Cleanup timeout on unmount
     React.useEffect(() => {
         return () => {
@@ -103,7 +138,7 @@ export function TimelineCanvas({ items, zoomLevel, onNodeClick, onNodeHover, the
     // Calculate canvas width based on max year
     const maxYear = Math.max(...items.map(i => i.endYear));
     const canvasWidth = getX(maxYear + 500, zoomLevel); // +500 buffer for right-side spacing
-    const canvasHeight = laneCount * ROW_HEIGHT + 100;
+    const canvasHeight = laneCount * ROW_HEIGHT + 600; // Extra space for connector lines that extend below
 
     return (
         <div
@@ -115,6 +150,7 @@ export function TimelineCanvas({ items, zoomLevel, onNodeClick, onNodeHover, the
             onMouseUp={onMouseUp}
             onMouseMove={onMouseMove}
             onScroll={handleScroll}
+            onWheel={handleWheel}
         >
             <style jsx>{`
                 div::-webkit-scrollbar {

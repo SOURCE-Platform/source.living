@@ -92,7 +92,7 @@ export const INITIAL_NODES: InfrastructureNode[] = [
         id: 'highways',
         name: 'Interstate Highways',
         category: 'TRANSPORT',
-        parentId: 'roman-roads', // Conceptual successor
+        parentId: 'railways', // Evolution from railways
         startYear: 1930,
         endYear: 2046,
         peakYear: 2000,

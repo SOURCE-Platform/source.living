@@ -14,15 +14,28 @@ interface ConnectorsLayerProps {
 const ROW_HEIGHT = 60;
 
 export function ConnectorsLayer({ items, layout, zoomLevel, hoveredId, theme }: ConnectorsLayerProps) {
+    // Determine gradient and dot color based on theme
+    const gradientId = theme === 'light' ? 'playgrade-gradient-light' : 'playgrade-gradient';
+    const dotColor = theme === 'light' ? '#1F1F1C' : 'white';
+
     return (
         <g className="connectors-layer">
-            {/* Define playgrade gradient */}
+            {/* Define gradients for both themes */}
             <defs>
+                {/* Dark theme gradient */}
                 <linearGradient id="playgrade-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
                     <stop offset="0%" stopColor="#FFC1D5" />
                     <stop offset="29.69%" stopColor="#FFC1D5" />
                     <stop offset="61.98%" stopColor="#FEFFE3" />
                     <stop offset="100%" stopColor="#97A1FB" />
+                </linearGradient>
+
+                {/* Light theme gradient - adapted from playgrade-light radial gradient */}
+                <linearGradient id="playgrade-gradient-light" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#ABAB88" />
+                    <stop offset="40%" stopColor="#9B4460" />
+                    <stop offset="70%" stopColor="#1F1F1C" />
+                    <stop offset="100%" stopColor="#141B5C" />
                 </linearGradient>
             </defs>
 
@@ -54,16 +67,16 @@ export function ConnectorsLayer({ items, layout, zoomLevel, hoveredId, theme }: 
                         <path
                             d={path}
                             fill="none"
-                            stroke="url(#playgrade-gradient)"
+                            stroke={`url(#${gradientId})`}
                             strokeWidth={1}
                             opacity={1}
                         />
-                        {/* White dot at the start of the connector line - always visible with high z-index */}
+                        {/* Dot at the start of the connector line - color adapts to theme */}
                         <circle
                             cx={parentX}
                             cy={pY}
                             r={4}
-                            fill="white"
+                            fill={dotColor}
                             opacity={1}
                             style={{ pointerEvents: 'none' }}
                         />

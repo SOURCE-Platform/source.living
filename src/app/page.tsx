@@ -44,7 +44,7 @@ export default function Home() {
 
           {/* Infrastructure Evolution Graph - Full Width with Right Buffer */}
           <div className="w-full mb-12 mt-32 pr-4 md:pr-[50px]">
-            <InfrastructureHistoryGraph className="h-[700px] w-full" />
+            <InfrastructureHistoryGraph className="h-[800px] w-full" />
           </div>
 
           {/* Memo Content: Part 2 */}

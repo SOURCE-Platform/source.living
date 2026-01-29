@@ -28,6 +28,9 @@ export function InfrastructureHistoryGraph({ className = '', theme: propTheme }:
     const [selectedNode, setSelectedNode] = useState<InfrastructureNode | null>(null);
     const [hoveredNode, setHoveredNode] = useState<InfrastructureNode | null>(null);
     const containerRef = React.useRef<HTMLDivElement>(null);
+    const targetZoomRef = React.useRef(DEFAULT_ZOOM);
+    const currentZoomRef = React.useRef(DEFAULT_ZOOM);
+    const animationFrameRef = React.useRef<number | null>(null);
 
     // Determine effective theme
     // Default to 'dark' if not mounted yet to avoid hydration mismatch (or props if provided)
@@ -40,28 +43,75 @@ export function InfrastructureHistoryGraph({ className = '', theme: propTheme }:
         if (!containerRef.current) return;
 
         const width = containerRef.current.clientWidth;
-        const focusStart = 1800;
+        const focusStart = 1750;
         const focusEnd = 2050;
         const focusRange = focusEnd - focusStart;
 
-        const fitZoom = width / focusRange;
-        const finalZoom = Math.max(0.5, fitZoom);
+        // Calculate zoom to fit the modern era nicely
+        const fitZoom = (width * 0.85) / focusRange; // 85% of width for the range
+        const finalZoom = Math.max(2, Math.min(6, fitZoom)); // Between 2-6 pixels per year
 
-        // 1. Set the zoom level first
+        // 1. Set the zoom level and target first
         setZoomLevel(finalZoom);
+        targetZoomRef.current = finalZoom;
+        currentZoomRef.current = finalZoom;
 
-        // 2. We need to wait for the state update and re-render to affect the TimelineCanvas width
+        // 2. Wait for render and scroll to the modern era
         requestAnimationFrame(() => {
             setTimeout(() => {
                 if (containerRef.current) {
                     const startX = getX(focusStart, finalZoom);
                     const scrollContainer = containerRef.current.querySelector('.overflow-auto');
                     if (scrollContainer) {
-                        scrollContainer.scrollLeft = startX + 100;
+                        // Center the view with some left padding
+                        scrollContainer.scrollLeft = startX - (width * 0.1);
                     }
                 }
-            }, 50);
+            }, 100);
         });
+    }, []);
+
+    // Smooth zoom animation using refs to avoid dependency issues
+    React.useEffect(() => {
+        currentZoomRef.current = zoomLevel;
+    }, [zoomLevel]);
+
+    const animateZoom = React.useCallback(() => {
+        const current = currentZoomRef.current;
+        const target = targetZoomRef.current;
+        const diff = target - current;
+
+        // If we're close enough, snap to target and stop
+        if (Math.abs(diff) < 0.001) {
+            currentZoomRef.current = target;
+            setZoomLevel(target);
+            animationFrameRef.current = null;
+            return;
+        }
+
+        // Get scroll container to maintain scroll position
+        const scrollContainer = containerRef.current?.querySelector('.overflow-auto') as HTMLElement;
+        const oldScrollLeft = scrollContainer?.scrollLeft || 0;
+        const oldScrollWidth = scrollContainer?.scrollWidth || 0;
+
+        // Lerp towards target with slower easing (0.08 = slower, smoother)
+        const newZoom = current + diff * 0.08;
+        currentZoomRef.current = newZoom;
+        setZoomLevel(newZoom);
+
+        // Adjust scroll position to maintain view of rightmost items
+        if (scrollContainer) {
+            requestAnimationFrame(() => {
+                const newScrollWidth = scrollContainer.scrollWidth;
+                const scrollWidthRatio = newScrollWidth / oldScrollWidth;
+
+                // Adjust scroll to maintain relative position
+                scrollContainer.scrollLeft = oldScrollLeft * scrollWidthRatio;
+            });
+        }
+
+        // Continue animation
+        animationFrameRef.current = requestAnimationFrame(animateZoom);
     }, []);
 
     // Auto-fit on load
@@ -69,17 +119,56 @@ export function InfrastructureHistoryGraph({ className = '', theme: propTheme }:
         resetView();
     }, [resetView]);
 
+    // Handle zoom with Ctrl/Cmd + wheel and prevent page scrolling
+    React.useEffect(() => {
+        const container = containerRef.current;
+        if (!container) return;
+
+        const handleWheel = (e: WheelEvent) => {
+            if (e.ctrlKey || e.metaKey) {
+                // Check if event originated from within our container
+                if (container.contains(e.target as Node)) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    // Update target zoom with balanced increments for smooth control
+                    const zoomDelta = e.deltaY > 0 ? 0.96 : 1.04;
+                    const newTarget = Math.max(0.1, Math.min(20, targetZoomRef.current * zoomDelta));
+                    targetZoomRef.current = newTarget;
+
+                    // Start animation if not already running
+                    if (animationFrameRef.current === null) {
+                        animationFrameRef.current = requestAnimationFrame(animateZoom);
+                    }
+                }
+            }
+        };
+
+        // Add to both container and document to ensure we catch it
+        container.addEventListener('wheel', handleWheel, { passive: false });
+        document.addEventListener('wheel', handleWheel, { passive: false });
+
+        return () => {
+            container.removeEventListener('wheel', handleWheel);
+            document.removeEventListener('wheel', handleWheel);
+            // Cancel animation on unmount
+            if (animationFrameRef.current !== null) {
+                cancelAnimationFrame(animationFrameRef.current);
+            }
+        };
+    }, [animateZoom]);
+
     return (
         <div ref={containerRef} className={`flex flex-col w-full relative ${className || 'h-screen'}`}>
             {/* Controls Header */}
             <div className={`flex items-center justify-between px-4 py-2 z-10 relative mb-8`}>
-                <div className="flex items-center gap-6 ml-64">
+                <div className="flex items-center gap-12 ml-64">
                     <h1 className={`text-lg font-bold ${colors.text} pointer-events-none`}>
                         Infrastructure Evolution
                     </h1>
 
                     {/* Inline Legend */}
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-6">
                         {[
                             { label: 'Water', value: 'WATER' },
                             { label: 'Transport', value: 'TRANSPORT' },
@@ -109,7 +198,13 @@ export function InfrastructureHistoryGraph({ className = '', theme: propTheme }:
                     </button>
                     <button
                         className={`h-12 px-4 text-sm font-bold ${effectiveTheme === 'light' ? 'text-slate-600 bg-slate-200 hover:bg-slate-300' : 'text-slate-300 bg-slate-800 hover:bg-slate-700'} rounded flex items-center justify-center`}
-                        onClick={() => setZoomLevel(z => Math.max(0.1, z * 0.8))}
+                        onClick={() => {
+                            const newTarget = Math.max(0.1, targetZoomRef.current * 0.8);
+                            targetZoomRef.current = newTarget;
+                            if (animationFrameRef.current === null) {
+                                animationFrameRef.current = requestAnimationFrame(animateZoom);
+                            }
+                        }}
                     >
                         -
                     </button>
@@ -118,7 +213,13 @@ export function InfrastructureHistoryGraph({ className = '', theme: propTheme }:
                     </span>
                     <button
                         className={`h-12 px-4 text-sm font-bold ${effectiveTheme === 'light' ? 'text-slate-600 bg-slate-200 hover:bg-slate-300' : 'text-slate-300 bg-slate-800 hover:bg-slate-700'} rounded flex items-center justify-center`}
-                        onClick={() => setZoomLevel(z => Math.min(20, z * 1.2))}
+                        onClick={() => {
+                            const newTarget = Math.min(20, targetZoomRef.current * 1.2);
+                            targetZoomRef.current = newTarget;
+                            if (animationFrameRef.current === null) {
+                                animationFrameRef.current = requestAnimationFrame(animateZoom);
+                            }
+                        }}
                     >
                         +
                     </button>
@@ -127,10 +228,8 @@ export function InfrastructureHistoryGraph({ className = '', theme: propTheme }:
 
             {/* Main Graph Area */}
             <div
-                className="flex-1 relative pt-12"
+                className="flex-1 relative pt-12 overflow-hidden"
                 style={{
-                    overflow: 'hidden',
-                    overflowY: 'visible',
                     maskImage: 'linear-gradient(to right, transparent, black 15%, black 95%, transparent)',
                     WebkitMaskImage: 'linear-gradient(to right, transparent, black 50px, black calc(100% - 150px), transparent)'
                 }}
@@ -138,6 +237,7 @@ export function InfrastructureHistoryGraph({ className = '', theme: propTheme }:
                 <TimelineCanvas
                     items={INITIAL_NODES}
                     zoomLevel={zoomLevel}
+                    onZoomChange={setZoomLevel}
                     onNodeClick={setSelectedNode}
                     onNodeHover={setHoveredNode}
                     theme={effectiveTheme}
