@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useCallback, ReactNode } from "react";
 import { audioManifest } from "@/data/audio-manifest";
-import { ChapterSummary, TranscriptData } from "@/components/audio-player/context/types";
+import { ChapterSummary, TranscriptData, TranscriptDisplayMode } from "@/components/audio-player/context/types";
 
 export type Track = {
     src: string;
@@ -14,11 +14,15 @@ export type Track = {
 type GlobalAudioContextType = {
     currentTrack: Track | null;
     isPlaying: boolean;
+    currentTimeMs: number;
+    transcriptDisplayMode: TranscriptDisplayMode;
     playTrack: (track: Track) => void;
     playTrackById: (id: string) => Promise<void>;
     toggleTrack: (track: Track) => void;
     toggleTrackById: (id: string) => Promise<void>;
     setIsPlaying: (isPlaying: boolean) => void;
+    setCurrentTimeMs: (timeMs: number) => void;
+    setTranscriptDisplayMode: (mode: TranscriptDisplayMode) => void;
     closePlayer: () => void;
 };
 
@@ -27,6 +31,8 @@ const GlobalAudioContext = createContext<GlobalAudioContextType | null>(null);
 export const GlobalAudioProvider = ({ children }: { children: ReactNode }) => {
     const [currentTrack, setCurrentTrack] = useState<Track | null>(null);
     const [isPlaying, setIsPlaying] = useState(false);
+    const [currentTimeMs, setCurrentTimeMs] = useState(0);
+    const [transcriptDisplayMode, setTranscriptDisplayMode] = useState<TranscriptDisplayMode>('line');
 
     const playTrack = useCallback((track: Track) => {
         setCurrentTrack(track);
@@ -100,7 +106,7 @@ export const GlobalAudioProvider = ({ children }: { children: ReactNode }) => {
     }, []);
 
     return (
-        <GlobalAudioContext.Provider value={{ currentTrack, isPlaying, playTrack, playTrackById, toggleTrack, toggleTrackById, setIsPlaying, closePlayer }}>
+        <GlobalAudioContext.Provider value={{ currentTrack, isPlaying, currentTimeMs, transcriptDisplayMode, playTrack, playTrackById, toggleTrack, toggleTrackById, setIsPlaying, setCurrentTimeMs, setTranscriptDisplayMode, closePlayer }}>
             {children}
         </GlobalAudioContext.Provider>
     );

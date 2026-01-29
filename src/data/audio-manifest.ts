@@ -22,5 +22,14 @@ export const audioManifest: AudioTrack[] = [
             { title: "The Problem", start: 30000 }, // Example
             { title: "The Solution", start: 60000 }  // Example
         ]
+    },
+    {
+        id: "taking-relationships-yinyang",
+        title: "Taking Relationships & Yinyang",
+        audioSrc: "/audio/WORDz/Taking relationships & yinyang.m4a",
+        // Transcript will be added later by user
+        // transcript: undefined,
+        // OR use transcriptSrc for remote loading:
+        // transcriptSrc: "/audio/WORDz/transcript.json"
     }
 ];

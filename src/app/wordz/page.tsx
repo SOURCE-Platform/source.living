@@ -6,9 +6,15 @@ import { GlobalAudioProvider } from "@/contexts/GlobalAudioContext"
 import { GlobalPlayer } from "@/components/audio-player/GlobalPlayer"
 import { SectionPlayButton } from "@/components/audio-player/SectionPlayButton"
 import { StickyLogo } from "@/components/molecules/sticky-logo"
+import { WordzCaptionDisplay } from "@/components/wordz/WordzCaptionDisplay"
+import { CaptionModeToggle } from "@/components/wordz/CaptionModeToggle"
 
 const AUDIO_FILES = [
-    { title: "Taking Relationships & Yinyang", filename: "Taking relationships & yinyang.m4a" },
+    {
+        id: "taking-relationships-yinyang",
+        title: "Taking Relationships & Yinyang",
+        filename: "Taking relationships & yinyang.m4a"
+    },
 ]
 
 export default function WordzPage() {
@@ -68,8 +74,7 @@ export default function WordzPage() {
                                     </span>
                                     <div className="flex-shrink-0">
                                         <SectionPlayButton
-                                            title={audio.title}
-                                            audioSrc={`/audio/WORDz/${audio.filename}`}
+                                            trackId={audio.id}
                                             className="w-12 h-12 text-foreground hover:scale-105 transition-all"
                                         />
                                     </div>
@@ -79,9 +84,9 @@ export default function WordzPage() {
 
                         {/* Right Column: Live Captions */}
                         <div className="hidden lg:block relative">
-                            {/* Placeholder for live captions */}
-                            <div className="sticky top-12 p-4 border border-border/50 rounded-lg min-h-[300px] flex items-center justify-center text-muted-foreground/50 text-sm italic">
-                                Live Captions
+                            <div className="sticky top-12 space-y-4">
+                                <CaptionModeToggle />
+                                <WordzCaptionDisplay />
                             </div>
                         </div>
                     </div>

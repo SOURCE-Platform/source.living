@@ -35,6 +35,7 @@ const GlobalPlayerContent = ({
     globalIsPlaying: boolean;
     onGlobalPlayPause: (playing: boolean) => void;
 }) => {
+    const { setCurrentTimeMs: setGlobalCurrentTimeMs, setTranscriptDisplayMode: setGlobalTranscriptDisplayMode } = useGlobalAudio();
     const {
         isReady,
         isPlaying,
@@ -47,12 +48,23 @@ const GlobalPlayerContent = ({
         setVolume,
         isMuted,
         toggleMute,
-        chapters
+        chapters,
+        transcriptDisplayMode
     } = useAudioExperience();
 
     const [showChapters, setShowChapters] = useState(false);
     const [displayedChapter, setDisplayedChapter] = useState<string | null>(null);
     const [isChapterFading, setIsChapterFading] = useState(false);
+
+    // Sync currentTimeMs upward to global context
+    useEffect(() => {
+        setGlobalCurrentTimeMs(currentTimeMs);
+    }, [currentTimeMs, setGlobalCurrentTimeMs]);
+
+    // Sync transcriptDisplayMode upward to global context
+    useEffect(() => {
+        setGlobalTranscriptDisplayMode(transcriptDisplayMode);
+    }, [transcriptDisplayMode, setGlobalTranscriptDisplayMode]);
 
     // Compute current chapter based on playback time
     const currentChapter = useMemo(() => {
