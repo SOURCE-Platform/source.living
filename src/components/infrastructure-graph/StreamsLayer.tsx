@@ -15,7 +15,7 @@ interface StreamsLayerProps {
     isScrolling: boolean;
 }
 
-const ROW_HEIGHT = 60;
+const ROW_HEIGHT = 40; // Reduced from 60 for tighter spacing
 
 export function StreamsLayer({ items, layout, zoomLevel, hoveredId, onHover, onNodeHover, onClick, theme, isScrolling }: StreamsLayerProps) {
     return (
@@ -31,15 +31,14 @@ export function StreamsLayer({ items, layout, zoomLevel, hoveredId, onHover, onN
                 // Adjusting to match previous SVG positioning:
                 // Center was (laneIndex + 0.5) * ROW_HEIGHT + 20.
                 const yCenter = (laneIndex + 0.5) * ROW_HEIGHT + 20;
-                const thickness = 16;
-                const y = yCenter - thickness / 2;
+                const thinBarHeight = 12;
+                const tabHeight = 26;
+                const y = yCenter - thinBarHeight / 2;
 
                 const isHovered = hoveredId === item.id;
                 const isDimmed = hoveredId !== null && !isHovered;
 
-                const color = getCategoryColor(item.category);
                 const gradient = getCategoryGradient(item.category);
-                const textColor = theme === 'light' ? '#334155' : '#cbd5e1';
 
                 return (
                     <div
@@ -49,7 +48,7 @@ export function StreamsLayer({ items, layout, zoomLevel, hoveredId, onHover, onN
                             left: xStart,
                             top: y,
                             width: width,
-                            height: thickness,
+                            height: thinBarHeight,
                             opacity: isDimmed ? 0.55 : 0.9,
                         }}
                         onMouseEnter={() => {
@@ -69,7 +68,7 @@ export function StreamsLayer({ items, layout, zoomLevel, hoveredId, onHover, onN
                             onClick(item);
                         }}
                     >
-                        {/* The Ribbon (Visual Background) */}
+                        {/* Thin Bar Background */}
                         <div
                             className="w-full h-full rounded-full transition-all duration-300 cursor-pointer"
                             style={{
@@ -78,17 +77,44 @@ export function StreamsLayer({ items, layout, zoomLevel, hoveredId, onHover, onN
                             }}
                         />
 
-                        {/* Sticky Label */}
-                        <div className="absolute top-0 left-0 w-full h-full flex items-center pointer-events-none">
-                            <span
-                                className="sticky left-4 -mt-12 whitespace-nowrap text-xs font-medium select-none transition-opacity duration-300"
+                        {/* Label Tab - Expanded Height at Label Position */}
+                        <div className="absolute left-0 w-full" style={{ top: -(tabHeight - thinBarHeight) / 2, pointerEvents: 'none' }}>
+                            <div
+                                className="sticky left-8 inline-flex items-center cursor-pointer pointer-events-auto"
                                 style={{
-                                    color: textColor,
-                                    opacity: isDimmed ? 0.5 : 1,
+                                    background: gradient,
+                                    filter: isHovered ? 'brightness(1.2)' : 'none',
+                                    borderRadius: '16px',
+                                    padding: '8px 16px',
+                                    height: `${tabHeight}px`,
+                                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
+                                }}
+                                onMouseEnter={() => {
+                                    if (!isScrolling) {
+                                        onHover(item.id);
+                                        onNodeHover(item);
+                                    }
+                                }}
+                                onMouseLeave={() => {
+                                    if (!isScrolling) {
+                                        onHover(null);
+                                        onNodeHover(null);
+                                    }
+                                }}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    onClick(item);
                                 }}
                             >
-                                {item.name}
-                            </span>
+                                <span
+                                    className="whitespace-nowrap text-sm font-bold select-none"
+                                    style={{
+                                        color: isDimmed ? 'rgba(0, 0, 0, 0.5)' : 'rgba(0, 0, 0, 0.85)',
+                                    }}
+                                >
+                                    {item.name}
+                                </span>
+                            </div>
                         </div>
                     </div>
                 );
@@ -96,17 +122,3 @@ export function StreamsLayer({ items, layout, zoomLevel, hoveredId, onHover, onN
         </div>
     );
 }
-
-function getCategoryColor(category: string): string {
-    switch (category) {
-        case 'WATER': return '#22d3ee'; // cyan-400
-        case 'TRANSPORT': return '#fbbf24'; // amber-400
-        case 'ENERGY': return '#f87171'; // red-400
-        case 'DIGITAL': return '#e879f9'; // fuchsia-400
-        case 'CIVIC': return '#a3e635'; // lime-400
-        default: return '#cbd5e1';
-    }
-}
-
-// function getCategoryGradient removed
-

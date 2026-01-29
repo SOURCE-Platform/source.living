@@ -15,6 +15,18 @@ export const INITIAL_NODES: InfrastructureNode[] = [
         image: '/images/infrastructure/irrigation_canals.png',
     },
     {
+        id: 'dams-reservoirs',
+        name: 'Dams & Reservoirs',
+        category: 'WATER',
+        parentId: 'irrigation',
+        startYear: -3000,
+        endYear: 2046,
+        peakYear: 1950,
+        description: 'Large-scale water storage and flood control infrastructure.',
+        magnitude: 7,
+        // image: '/images/infrastructure/dams_reservoirs.png',
+    },
+    {
         id: 'aqueducts',
         name: 'Aqueducts',
         category: 'WATER',
@@ -26,6 +38,7 @@ export const INITIAL_NODES: InfrastructureNode[] = [
         magnitude: 5,
         image: '/images/infrastructure/aqueducts.png',
     },
+
     {
         id: 'modern-plumbing',
         name: 'Modern Plumbing',
@@ -40,6 +53,18 @@ export const INITIAL_NODES: InfrastructureNode[] = [
     },
 
     // TRANSPORT
+    {
+        id: 'maritime-shipping',
+        name: 'Maritime & Ports',
+        category: 'TRANSPORT',
+        parentId: null,
+        startYear: -3000,
+        endYear: 2046,
+        peakYear: 1900,
+        description: 'Ships, ports, and sea routes enabling global trade.',
+        magnitude: 8,
+        // image: '/images/infrastructure/maritime_ports.png',
+    },
     {
         id: 'roads-trackways',
         name: 'Ancient Trackways',
@@ -89,6 +114,18 @@ export const INITIAL_NODES: InfrastructureNode[] = [
         image: '/images/infrastructure/railways.png',
     },
     {
+        id: 'aviation-airports',
+        name: 'Aviation & Airports',
+        category: 'TRANSPORT',
+        parentId: 'railways',
+        startYear: 1903,
+        endYear: 2046,
+        peakYear: 2000,
+        description: 'Air travel infrastructure connecting continents.',
+        magnitude: 9,
+        // image: '/images/infrastructure/aviation_airports.png',
+    },
+    {
         id: 'highways',
         name: 'Interstate Highways',
         category: 'TRANSPORT',
@@ -100,6 +137,7 @@ export const INITIAL_NODES: InfrastructureNode[] = [
         magnitude: 10,
         image: '/images/infrastructure/interstate_highways.png',
     },
+
 
     // ENERGY
     {
@@ -138,6 +176,19 @@ export const INITIAL_NODES: InfrastructureNode[] = [
         magnitude: 10,
         image: '/images/infrastructure/electric_grid.png',
     },
+    {
+        id: 'renewable-energy',
+        name: 'Renewable Energy',
+        category: 'ENERGY',
+        parentId: 'electric-grid',
+        startYear: 1990,
+        endYear: 2046,
+        peakYear: 2030,
+        description: 'Solar, wind, and sustainable power generation infrastructure.',
+        magnitude: 9,
+        // image: '/images/infrastructure/renewable_energy.png',
+    },
+
 
     // DIGITAL
     {
@@ -165,6 +216,18 @@ export const INITIAL_NODES: InfrastructureNode[] = [
         image: '/images/infrastructure/telephone_network.png',
     },
     {
+        id: 'cellular-networks',
+        name: 'Cellular Networks',
+        category: 'DIGITAL',
+        parentId: 'telephone',
+        startYear: 1979,
+        endYear: 2046,
+        peakYear: 2020,
+        description: 'Mobile wireless communication infrastructure.',
+        magnitude: 9,
+        // image: '/images/infrastructure/cellular_networks.png',
+    },
+    {
         id: 'internet',
         name: 'Internet Backbone',
         category: 'DIGITAL',
@@ -188,4 +251,20 @@ export const INITIAL_NODES: InfrastructureNode[] = [
         magnitude: 10,
         image: '/images/infrastructure/source_infrastructure.png',
     },
+
+    // CIVIC
+    {
+        id: 'postal-systems',
+        name: 'Postal Systems',
+        category: 'CIVIC',
+        parentId: null,
+        startYear: -2400,
+        endYear: 2046,
+        peakYear: 1900,
+        description: 'First large-scale information distribution network.',
+        magnitude: 6,
+        // image: '/images/infrastructure/postal_systems.png',
+    },
+
+
 ];

@@ -16,7 +16,7 @@ interface TimelineCanvasProps {
 }
 
 export function TimelineCanvas({ items, zoomLevel, onZoomChange, onNodeClick, onNodeHover, theme }: TimelineCanvasProps) {
-    const ROW_HEIGHT = 60;
+    const ROW_HEIGHT = 40; // Reduced from 60 for tighter spacing
     const scrollRef = React.useRef<HTMLDivElement>(null);
     const [isDragging, setIsDragging] = React.useState(false);
     const [startX, setStartX] = React.useState(0);

@@ -11,7 +11,7 @@ interface ConnectorsLayerProps {
     theme: Theme;
 }
 
-const ROW_HEIGHT = 60;
+const ROW_HEIGHT = 40; // Reduced from 60 for tighter spacing
 
 export function ConnectorsLayer({ items, layout, zoomLevel, hoveredId, theme }: ConnectorsLayerProps) {
     // Determine gradient and dot color based on theme
