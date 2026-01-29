@@ -11,7 +11,9 @@ export function SolutionNodeIllustration({ className }: SolutionNodeIllustration
     const rawId = useId();
     const idPrefix = rawId.replace(/:/g, "-");
     const gradientLightId = `${idPrefix}-gradient-light`;
+    const gradientLightReverseId = `${idPrefix}-gradient-light-reverse`;
     const gradientDarkId = `${idPrefix}-gradient-dark`;
+    const gradientDarkReverseId = `${idPrefix}-gradient-dark-reverse`;
 
     // Configuration
     const lineCount = 14;
@@ -122,28 +124,53 @@ export function SolutionNodeIllustration({ className }: SolutionNodeIllustration
                 xmlns="http://www.w3.org/2000/svg"
             >
                 <defs>
-                    <radialGradient
+                    <linearGradient
                         id={gradientLightId}
-                        cx={cx}
-                        cy={height}
-                        r={height}
-                        fx={cx}
-                        fy={height}
-                        gradientUnits="userSpaceOnUse"
+                        x1="0"
+                        y1="0"
+                        x2="1"
+                        y2="0"
                     >
                         <stop offset="0%" stopColor="#ABAB88" />
-                        <stop offset="20%" stopColor="#9B4460" />
-                        <stop offset="50%" stopColor="#1F1F1C" />
+                        <stop offset="19%" stopColor="#9B4460" />
+                        <stop offset="35%" stopColor="#1F1F1C" />
+                        <stop offset="64%" stopColor="#1F1F1C" />
                         <stop offset="100%" stopColor="#141B5C" />
-                    </radialGradient>
+                    </linearGradient>
+
+                    <linearGradient
+                        id={gradientLightReverseId}
+                        x1="1"
+                        y1="0"
+                        x2="0"
+                        y2="0"
+                    >
+                        <stop offset="0%" stopColor="#ABAB88" />
+                        <stop offset="19%" stopColor="#9B4460" />
+                        <stop offset="35%" stopColor="#1F1F1C" />
+                        <stop offset="64%" stopColor="#1F1F1C" />
+                        <stop offset="100%" stopColor="#141B5C" />
+                    </linearGradient>
 
                     <linearGradient
                         id={gradientDarkId}
-                        x1={cx}
-                        y1={height}
-                        x2={cx}
+                        x1="0"
+                        y1="0"
+                        x2="1"
                         y2="0"
-                        gradientUnits="userSpaceOnUse"
+                    >
+                        <stop offset="0%" stopColor="#FFC1D5" />
+                        <stop offset="29.69%" stopColor="#FFC1D5" />
+                        <stop offset="61.98%" stopColor="#FEFFE3" />
+                        <stop offset="100%" stopColor="#97A1FB" />
+                    </linearGradient>
+
+                    <linearGradient
+                        id={gradientDarkReverseId}
+                        x1="1"
+                        y1="0"
+                        x2="0"
+                        y2="0"
                     >
                         <stop offset="0%" stopColor="#FFC1D5" />
                         <stop offset="29.69%" stopColor="#FFC1D5" />
@@ -166,7 +193,7 @@ export function SolutionNodeIllustration({ className }: SolutionNodeIllustration
                             <path
                                 ref={el => { lightRightPathsRef.current[i] = el; }}
                                 fill="none"
-                                stroke={`url(#${gradientLightId})`}
+                                stroke={`url(#${gradientLightReverseId})`}
                                 strokeWidth="1"
                                 vectorEffect="non-scaling-stroke"
                             />
@@ -188,7 +215,7 @@ export function SolutionNodeIllustration({ className }: SolutionNodeIllustration
                             <path
                                 ref={el => { darkRightPathsRef.current[i] = el; }}
                                 fill="none"
-                                stroke={`url(#${gradientDarkId})`}
+                                stroke={`url(#${gradientDarkReverseId})`}
                                 strokeWidth="1"
                                 vectorEffect="non-scaling-stroke"
                             />

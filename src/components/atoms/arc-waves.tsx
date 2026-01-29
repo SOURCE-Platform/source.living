@@ -101,28 +101,34 @@ export function ArcWaves({ className, lineCount = 15, targetRef }: ArcWavesProps
                 xmlns="http://www.w3.org/2000/svg"
             >
                 <defs>
-                    <radialGradient
+                    <linearGradient
                         id={gradientLightId}
-                        cx="50"
-                        cy="100"
-                        r="100"
-                        fx="50"
-                        fy="100"
-                        gradientUnits="userSpaceOnUse"
+                        x1="0"
+                        y1="0"
+                        x2="1"
+                        y2="0"
                     >
+                        <animateTransform
+                            attributeName="gradientTransform"
+                            type="rotate"
+                            from="0 0.5 0.5"
+                            to="360 0.5 0.5"
+                            dur="15s"
+                            repeatCount="indefinite"
+                        />
                         <stop offset="0%" stopColor="#ABAB88" />
-                        <stop offset="20%" stopColor="#9B4460" />
-                        <stop offset="50%" stopColor="#1F1F1C" />
+                        <stop offset="19%" stopColor="#9B4460" />
+                        <stop offset="35%" stopColor="#1F1F1C" />
+                        <stop offset="64%" stopColor="#1F1F1C" />
                         <stop offset="100%" stopColor="#141B5C" />
-                    </radialGradient>
+                    </linearGradient>
 
                     <linearGradient
                         id={gradientDarkId}
-                        x1="50"
-                        y1="100"
-                        x2="50"
+                        x1="0"
+                        y1="0"
+                        x2="1"
                         y2="0"
-                        gradientUnits="userSpaceOnUse"
                     >
                         <stop offset="0%" stopColor="#FFC1D5" />
                         <stop offset="29.69%" stopColor="#FFC1D5" />
