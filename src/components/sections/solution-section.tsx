@@ -9,6 +9,7 @@ import type { ChapterSummary } from "@/components/audio-player/context/types";
 
 
 import { ScrollScaleImage } from "@/components/ui/scroll-scale-image";
+import { SolutionNodeIllustration } from "@/components/illustrations/solution-node-illustration";
 
 const SOLUTION_CHAPTERS: ChapterSummary[] = [
     { title: "The Source Hardware Vision: Sensors & Robotic Installation", start: 0 },
@@ -332,34 +333,45 @@ export function SolutionSection() {
 
 
 
-            <div className="flex flex-col rounded-lg border border-border bg-muted/10 w-full xs:max-w-[70%] mx-auto">
-                <div className="p-5 space-y-3">
+            {/* Container for Illustration Spacer and Content Overlay */}
+            <div className="relative w-full h-[90vh] flex flex-col items-center justify-center">
+                {/* Spacer tracks the background position */}
+                <div id="solution-illustration-spacer" className="absolute inset-0 pointer-events-none" />
+
+                {/* Content Overlay - Independent Absolute Positioning relative to center */}
+
+                {/* Text Section - Positioned above center */}
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[220px] z-10 p-5 space-y-3 text-center w-full xs:max-w-[70%]">
                     <h3 className="text-3xl font-bold text-foreground">Mapping the Solution</h3>
                     <p className="text-sm">
                         How Source specifically targets and neutralizes the systemic threats outlined in the Convergence Report.
                     </p>
                 </div>
-                <TransitionLink
-                    href="/solutions"
-                    className="flex w-[calc(100%+32px)] -mx-4 -mb-6 items-center rounded-xl border border-transparent bg-white dark:bg-[#171720] px-8 py-4 text-sm font-bold text-foreground shadow-lg hover:shadow-xl dark:shadow-[0_0_20px_rgba(151,161,251,0.5)] dark:hover:shadow-[0_0_30px_rgba(151,161,251,0.8)] transition-all hover:bg-[#f2f3fa] dark:hover:bg-[#1c1c27] playgrade-border hover:scale-[1.01] active:scale-[0.99] -mt-px group relative z-10"
-                >
-                    <span className="flex-1 text-center font-bold">SOURCE Solution Map</span>
-                    <svg width="50" height="12" viewBox="0 0 50 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-4 group-hover:translate-x-1 transition-all duration-300 opacity-75 group-hover:opacity-100 [--pg-stop-1:#02ABFF] [--pg-stop-2:#02ABFF] [--pg-stop-3:#001AFF] dark:[--pg-stop-1:#FFC1D5] dark:[--pg-stop-2:#FEFFE3] dark:[--pg-stop-3:#97A1FB] [--pg-h-stop-1:#02ABFF] [--pg-h-stop-2:#001AFF] dark:[--pg-h-stop-1:#FFC1D5] dark:[--pg-h-stop-2:#FEFFE3]">
-                        <defs>
-                            <linearGradient id="pg-gradient-solution-normal" x1="0%" y1="0%" x2="100%" y2="0%">
-                                <stop offset="0%" stopColor="var(--pg-stop-1)" />
-                                <stop offset="50%" stopColor="var(--pg-stop-2)" />
-                                <stop offset="100%" stopColor="var(--pg-stop-3)" />
-                            </linearGradient>
-                            <linearGradient id="pg-gradient-solution-hover" x1="0%" y1="0%" x2="100%" y2="0%">
-                                <stop offset="0%" stopColor="var(--pg-h-stop-1)" />
-                                <stop offset="100%" stopColor="var(--pg-h-stop-2)" />
-                            </linearGradient>
-                        </defs>
-                        <path d="M0 6L49 6M49 6L44 1M49 6L44 11" stroke="url(#pg-gradient-solution-normal)" strokeWidth="1" />
-                        <path d="M0 6L49 6M49 6L44 1M49 6L44 11" stroke="url(#pg-gradient-solution-hover)" strokeWidth="1" className="opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                    </svg>
-                </TransitionLink>
+
+                {/* Button Section - Positioned below center (Closer now) */}
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 translate-y-[100px] z-10">
+                    <TransitionLink
+                        href="/solutions"
+                        className="flex w-[320px] items-center rounded-xl border border-transparent bg-white dark:bg-[#171720] px-8 py-4 text-sm font-bold text-foreground shadow-lg hover:shadow-xl dark:shadow-[0_0_20px_rgba(151,161,251,0.5)] dark:hover:shadow-[0_0_30px_rgba(151,161,251,0.8)] transition-all hover:bg-[#f2f3fa] dark:hover:bg-[#1c1c27] playgrade-border hover:scale-[1.01] active:scale-[0.99] group relative"
+                    >
+                        <span className="flex-1 text-center font-bold">SOURCE Solution Map</span>
+                        <svg width="50" height="12" viewBox="0 0 50 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-4 group-hover:translate-x-1 transition-all duration-300 opacity-75 group-hover:opacity-100 [--pg-stop-1:#02ABFF] [--pg-stop-2:#02ABFF] [--pg-stop-3:#001AFF] dark:[--pg-stop-1:#FFC1D5] dark:[--pg-stop-2:#FEFFE3] dark:[--pg-stop-3:#97A1FB] [--pg-h-stop-1:#02ABFF] [--pg-h-stop-2:#001AFF] dark:[--pg-h-stop-1:#FFC1D5] dark:[--pg-h-stop-2:#FEFFE3]">
+                            <defs>
+                                <linearGradient id="pg-gradient-solution-normal" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stopColor="var(--pg-stop-1)" />
+                                    <stop offset="50%" stopColor="var(--pg-stop-2)" />
+                                    <stop offset="100%" stopColor="var(--pg-stop-3)" />
+                                </linearGradient>
+                                <linearGradient id="pg-gradient-solution-hover" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stopColor="var(--pg-h-stop-1)" />
+                                    <stop offset="100%" stopColor="var(--pg-h-stop-2)" />
+                                </linearGradient>
+                            </defs>
+                            <path d="M0 6L49 6M49 6L44 1M49 6L44 11" stroke="url(#pg-gradient-solution-normal)" strokeWidth="1" />
+                            <path d="M0 6L49 6M49 6L44 1M49 6L44 11" stroke="url(#pg-gradient-solution-hover)" strokeWidth="1" className="opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                        </svg>
+                    </TransitionLink>
+                </div>
             </div>
         </section>
     );

@@ -17,7 +17,17 @@ export function GTMSection() {
                     chapters={CHAPTERS_DATA}
                 />
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 md:-mx-[25%] items-start">
+            <div className="relative grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 md:-mx-[25%] items-start">
+                {/* Vertical Line */}
+                <div className="absolute left-1/2 top-0 bottom-0 w-px bg-border/50 hidden md:block -translate-x-1/2" />
+                {/* Horizontal Line */}
+                <div className="absolute top-1/2 left-0 right-0 h-px bg-border/50 hidden md:block -translate-y-1/2" />
+                {/* Central Star */}
+                <img
+                    src="/icons/star.svg"
+                    alt="Star"
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 hidden md:block dark:invert z-10"
+                />
                 <div className="space-y-6">
                     <ScrollScaleImage
                         src="/images/elderly care/elderly.png"

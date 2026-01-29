@@ -8,6 +8,7 @@ import { MobileNav } from "@/components/mobile-nav";
 import { TransitionProvider, TransitionEffect } from "@/components/providers/transition-context";
 import { EarthSceneBackground } from "@/components/3d/EarthSceneBackground";
 import { ProblemImageBackground } from "@/components/sections/ProblemImageBackground";
+import { SolutionIllustrationBackground } from "@/components/sections/SolutionIllustrationBackground";
 
 import { SmoothScrolling } from "@/components/providers/smooth-scrolling";
 
@@ -83,6 +84,8 @@ export default function RootLayout({
               <EarthSceneBackground />
               {/* Problem section background - sits behind scroll container */}
               <ProblemImageBackground />
+              {/* Solution section background - sits behind scroll container */}
+              <SolutionIllustrationBackground />
               <MobileNav />
               <TransitionEffect>
                 <SmoothScrolling id="scroll-container" className="h-dvh overflow-y-auto overflow-x-hidden relative z-10">
