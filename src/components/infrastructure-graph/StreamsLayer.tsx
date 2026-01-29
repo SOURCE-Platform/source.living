@@ -12,11 +12,12 @@ interface StreamsLayerProps {
     onNodeHover: (node: InfrastructureNode | null) => void;
     onClick: (node: InfrastructureNode) => void;
     theme: Theme;
+    isScrolling: boolean;
 }
 
 const ROW_HEIGHT = 60;
 
-export function StreamsLayer({ items, layout, zoomLevel, hoveredId, onHover, onNodeHover, onClick, theme }: StreamsLayerProps) {
+export function StreamsLayer({ items, layout, zoomLevel, hoveredId, onHover, onNodeHover, onClick, theme, isScrolling }: StreamsLayerProps) {
     return (
         <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
             {items.map((item) => {
@@ -52,12 +53,16 @@ export function StreamsLayer({ items, layout, zoomLevel, hoveredId, onHover, onN
                             opacity: isDimmed ? 0.55 : 0.9,
                         }}
                         onMouseEnter={() => {
-                            onHover(item.id);
-                            onNodeHover(item);
+                            if (!isScrolling) {
+                                onHover(item.id);
+                                onNodeHover(item);
+                            }
                         }}
                         onMouseLeave={() => {
-                            onHover(null);
-                            onNodeHover(null);
+                            if (!isScrolling) {
+                                onHover(null);
+                                onNodeHover(null);
+                            }
                         }}
                         onClick={(e) => {
                             e.stopPropagation();
@@ -78,8 +83,8 @@ export function StreamsLayer({ items, layout, zoomLevel, hoveredId, onHover, onN
                             <span
                                 className="sticky left-4 -mt-12 whitespace-nowrap text-xs font-medium select-none transition-opacity duration-300"
                                 style={{
-                                    color: isDimmed ? color : textColor, // Use category color when dimmed (faded), text color otherwise? Actually previous logic was different.
-                                    opacity: isDimmed ? 0.75 : 1,
+                                    color: textColor,
+                                    opacity: isDimmed ? 0.5 : 1,
                                 }}
                             >
                                 {item.name}

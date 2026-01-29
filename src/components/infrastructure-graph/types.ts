@@ -10,4 +10,5 @@ export interface InfrastructureNode {
     peakYear?: number;       // When adoption was highest
     description: string;
     magnitude: number;       // 1-10 scale for line thickness relative to others
+    image?: string;          // Optional image URL for the detail overlay
 }

@@ -5,9 +5,6 @@ import { WarpedImage } from "../3d/WarpedImage";
 import { TransitionLink } from "../atoms/transition-link";
 import { SectionPlayButton } from "@/components/audio-player/SectionPlayButton";
 import { Badge } from "@/components/atoms/badge";
-
-
-import { Leva } from "leva";
 import { ChapterSummary } from "@/components/audio-player/context/types";
 
 const DATA_WALL_CHAPTERS: ChapterSummary[] = [
@@ -34,7 +31,6 @@ const SYSTEMIC_CONVERGENCE_CHAPTERS: ChapterSummary[] = [
 export function ProblemSection() {
     return (
         <section className="space-y-8">
-            <Leva collapsed />
             <div className="space-y-4">
                 {/* Transparent spacer - the actual image is rendered in ProblemImageBackground outside the scroll container */}
                 <div id="problem-image-spacer" className="h-[600px] -mb-8" />

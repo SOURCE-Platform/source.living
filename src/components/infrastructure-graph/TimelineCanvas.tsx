@@ -20,20 +20,37 @@ export function TimelineCanvas({ items, zoomLevel, onNodeClick, onNodeHover, the
     const [isDragging, setIsDragging] = React.useState(false);
     const [startX, setStartX] = React.useState(0);
     const [scrollLeft, setScrollLeft] = React.useState(0);
+    const [isScrolling, setIsScrolling] = React.useState(false);
+    const scrollTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
 
     const onMouseDown = (e: React.MouseEvent) => {
         if (!scrollRef.current) return;
         setIsDragging(true);
+        setIsScrolling(true);
+        setHoveredId(null);
+        onNodeHover(null);
         setStartX(e.pageX - scrollRef.current.offsetLeft);
         setScrollLeft(scrollRef.current.scrollLeft);
     };
 
     const onMouseLeave = () => {
         setIsDragging(false);
+        if (scrollTimeoutRef.current) {
+            clearTimeout(scrollTimeoutRef.current);
+        }
+        scrollTimeoutRef.current = setTimeout(() => {
+            setIsScrolling(false);
+        }, 150);
     };
 
     const onMouseUp = () => {
         setIsDragging(false);
+        if (scrollTimeoutRef.current) {
+            clearTimeout(scrollTimeoutRef.current);
+        }
+        scrollTimeoutRef.current = setTimeout(() => {
+            setIsScrolling(false);
+        }, 150);
     };
 
     const onMouseMove = (e: React.MouseEvent) => {
@@ -43,6 +60,36 @@ export function TimelineCanvas({ items, zoomLevel, onNodeClick, onNodeHover, the
         const walk = (x - startX) * 1; // Scroll-fast
         scrollRef.current.scrollLeft = scrollLeft - walk;
     };
+
+    // Handle scroll events to disable hover during scroll
+    const handleScroll = () => {
+        // Clear hover state when scrolling starts
+        if (!isScrolling) {
+            setHoveredId(null);
+            onNodeHover(null);
+        }
+
+        setIsScrolling(true);
+
+        // Clear existing timeout
+        if (scrollTimeoutRef.current) {
+            clearTimeout(scrollTimeoutRef.current);
+        }
+
+        // Set timeout to re-enable hover after scrolling stops
+        scrollTimeoutRef.current = setTimeout(() => {
+            setIsScrolling(false);
+        }, 150);
+    };
+
+    // Cleanup timeout on unmount
+    React.useEffect(() => {
+        return () => {
+            if (scrollTimeoutRef.current) {
+                clearTimeout(scrollTimeoutRef.current);
+            }
+        };
+    }, []);
 
     const colors = THEME[theme];
 
@@ -67,6 +114,7 @@ export function TimelineCanvas({ items, zoomLevel, onNodeClick, onNodeHover, the
             onMouseLeave={onMouseLeave}
             onMouseUp={onMouseUp}
             onMouseMove={onMouseMove}
+            onScroll={handleScroll}
         >
             <style jsx>{`
                 div::-webkit-scrollbar {
@@ -88,6 +136,7 @@ export function TimelineCanvas({ items, zoomLevel, onNodeClick, onNodeHover, the
                         onNodeHover={onNodeHover}
                         onClick={onNodeClick}
                         theme={theme}
+                        isScrolling={isScrolling}
                     />
                 </div>
 
