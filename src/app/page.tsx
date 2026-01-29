@@ -20,6 +20,8 @@ export default function Home() {
     <GlobalAudioProvider>
       <div className="min-h-screen pb-32">
         <StickyLogo />
+
+
         {/* Main Content */}
         <main className="py-12">
           {/* Header with Logo Removed (using sticky) */}

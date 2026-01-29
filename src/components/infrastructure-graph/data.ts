@@ -12,6 +12,7 @@ export const INITIAL_NODES: InfrastructureNode[] = [
         peakYear: -1000,
         description: 'Early water management systems for agriculture in Mesopotamia and Egypt.',
         magnitude: 3,
+        image: '/images/infrastructure/irrigation_canals.png',
     },
     {
         id: 'aqueducts',
@@ -23,6 +24,7 @@ export const INITIAL_NODES: InfrastructureNode[] = [
         peakYear: 100,
         description: 'Roman engineering marvels for transporting water over long distances.',
         magnitude: 5,
+        image: '/images/infrastructure/aqueducts.png',
     },
     {
         id: 'modern-plumbing',
@@ -34,6 +36,7 @@ export const INITIAL_NODES: InfrastructureNode[] = [
         peakYear: 1950,
         description: 'Pressurized water and sewage systems for urbanization.',
         magnitude: 8,
+        image: '/images/infrastructure/modern_plumbing.png',
     },
 
     // TRANSPORT
@@ -47,6 +50,7 @@ export const INITIAL_NODES: InfrastructureNode[] = [
         peakYear: -1000,
         description: 'Simple cleared paths for walking and livestock.',
         magnitude: 2,
+        image: '/images/infrastructure/ancient_trackways.png',
     },
     {
         id: 'roman-roads',
@@ -58,6 +62,7 @@ export const INITIAL_NODES: InfrastructureNode[] = [
         peakYear: 100,
         description: 'Paved road networks connecting the empire.',
         magnitude: 6,
+        image: '/images/infrastructure/roman_roads.png',
     },
     {
         id: 'canals-transport',
@@ -69,6 +74,7 @@ export const INITIAL_NODES: InfrastructureNode[] = [
         peakYear: 1800,
         description: 'Artificial waterways for heavy cargo transport.',
         magnitude: 5,
+        image: '/images/infrastructure/transport_canals.png',
     },
     {
         id: 'railways',
@@ -80,6 +86,7 @@ export const INITIAL_NODES: InfrastructureNode[] = [
         peakYear: 1920,
         description: 'Steam and later electric trains revolutionizing land transport.',
         magnitude: 9,
+        image: '/images/infrastructure/railways.png',
     },
     {
         id: 'highways',
@@ -91,6 +98,7 @@ export const INITIAL_NODES: InfrastructureNode[] = [
         peakYear: 2000,
         description: 'High-speed automotive networks.',
         magnitude: 10,
+        image: '/images/infrastructure/interstate_highways.png',
     },
 
     // ENERGY
@@ -104,6 +112,7 @@ export const INITIAL_NODES: InfrastructureNode[] = [
         peakYear: 1400,
         description: 'Mechanical energy from flowing water.',
         magnitude: 4,
+        image: '/images/infrastructure/water_wheels.png',
     },
     {
         id: 'steam-engine',
@@ -115,6 +124,7 @@ export const INITIAL_NODES: InfrastructureNode[] = [
         peakYear: 1900,
         description: 'Industrial scale power generation.',
         magnitude: 8,
+        image: '/images/infrastructure/steam_engine.png',
     },
     {
         id: 'electric-grid',
@@ -126,6 +136,7 @@ export const INITIAL_NODES: InfrastructureNode[] = [
         peakYear: 2020,
         description: 'Distribution of electricity to homes and industry.',
         magnitude: 10,
+        image: '/images/infrastructure/electric_grid.png',
     },
 
     // DIGITAL
@@ -139,6 +150,7 @@ export const INITIAL_NODES: InfrastructureNode[] = [
         peakYear: 1900,
         description: 'Long-distance instantaneous communication.',
         magnitude: 5,
+        image: '/images/infrastructure/telegraph.png',
     },
     {
         id: 'telephone',
@@ -150,6 +162,7 @@ export const INITIAL_NODES: InfrastructureNode[] = [
         peakYear: 2000,
         description: 'Voice communication infrastructure.',
         magnitude: 8,
+        image: '/images/infrastructure/telephone_network.png',
     },
     {
         id: 'internet',
@@ -161,6 +174,7 @@ export const INITIAL_NODES: InfrastructureNode[] = [
         peakYear: 2024,
         description: 'Global packet-switching network.',
         magnitude: 10,
+        image: '/images/infrastructure/internet_backbone.png',
     },
     {
         id: 'source-infrastructure',
@@ -172,5 +186,6 @@ export const INITIAL_NODES: InfrastructureNode[] = [
         peakYear: 2040,
         description: 'Infrastructure for super awareness and effective superintelligence.',
         magnitude: 10,
+        image: '/images/infrastructure/source_infrastructure.png',
     },
 ];
