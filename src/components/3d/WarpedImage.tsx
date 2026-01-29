@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { Leva, useControls, folder } from "leva";
 import { shaderMaterial, useTexture } from "@react-three/drei";
 import { extend } from "@react-three/fiber";
+import { useTheme } from "next-themes";
 import { SmokeParticles } from "./SmokeEffect";
 
 // --- Shader Material Definition ---
@@ -154,6 +155,11 @@ const SmokeShaderMaterial = shaderMaterial(
         uAmplitude: 0.2,
         uAngle: 0.0,
         uWaveType: 0,
+        // Colors
+        uColor1: new THREE.Color(0.0, 0.0, 0.0),
+        uColor2: new THREE.Color(0.0, 0.0, 0.0),
+        uColor3: new THREE.Color(0.0, 0.0, 0.0),
+        uColor4: new THREE.Color(0.0, 0.0, 0.0),
     },
     // Vertex Shader - COPY OF WARP SHADER TO ENSURE SYNC
     `
@@ -220,6 +226,11 @@ const SmokeShaderMaterial = shaderMaterial(
     // Fragment Shader - PARTICLE SMOKE
     `
     uniform float uTime;
+    uniform vec3 uColor1;
+    uniform vec3 uColor2;
+    uniform vec3 uColor3;
+    uniform vec3 uColor4;
+    
     varying vec2 vUv;
 
     // Pseudo-random function
@@ -317,10 +328,39 @@ const SmokeShaderMaterial = shaderMaterial(
         // Boost visibility of small particles
         alpha = clamp(alpha * 2.0, 0.0, 1.0);
         
-        // Fade out very center to not obscure the main image too much?
-        // Actually user wants "behind", so obscuring is fine as it's z-layered behind.
+        // --- 7. Color Grading ---
+        // Gradient based on distance from bottom-center (0.5, 0.0)
+        // Matching arc-waves: cx=50%, cy=100% (which is bottom in SVG coords usually, but let's assume UV 0 is bottom in Three.js plane)
+        // Standard Plane UV: (0,0) bottom-left, (1,1) top-right.
+        // So bottom-center is (0.5, 0.0).
         
-        gl_FragColor = vec4(0.0, 0.0, 0.0, alpha);
+        float dist = distance(vUv, vec2(0.5, 0.0));
+        
+        // Map distance roughly to 0..1 range for the gradient stops
+        // The arc-waves radius is 100% of viewbox.
+        // In UV space, max distance from (0.5,0) to top corners is sqrt(0.5^2 + 1^2) = ~1.12
+        
+        vec3 colorFinal = uColor1;
+        
+        // Simple linear mixing based on stops 0%, 20%, 50%, 100%
+        // 0.0 - 0.2: Mix 1 -> 2
+        // 0.2 - 0.5: Mix 2 -> 3
+        // 0.5 - 1.0: Mix 3 -> 4
+        
+        float tColor = clamp(dist, 0.0, 1.0);
+        
+        if (tColor < 0.2) {
+            float f = tColor / 0.2;
+            colorFinal = mix(uColor1, uColor2, f);
+        } else if (tColor < 0.5) {
+            float f = (tColor - 0.2) / 0.3;
+            colorFinal = mix(uColor2, uColor3, f);
+        } else {
+            float f = (tColor - 0.5) / 0.5;
+            colorFinal = mix(uColor3, uColor4, f);
+        }
+
+        gl_FragColor = vec4(colorFinal, alpha);
     }
     `
 );
@@ -376,16 +416,29 @@ declare module "@react-three/fiber" {
             toneMapped?: boolean;
             transparent?: boolean;
             depthWrite?: boolean;
+            uColor1?: THREE.Color;
+            uColor2?: THREE.Color;
+            uColor3?: THREE.Color;
+            uColor4?: THREE.Color;
         }
     }
 }
 
 // SmokeParticles component removed (imported)
 
-const ImagePlane = ({ imageSrc }: { imageSrc: string }) => {
+const ImagePlane = ({ imageSrc, onLoad, mountTime }: { imageSrc: string, onLoad?: () => void, mountTime: number }) => {
     const mesh = useRef<THREE.Mesh>(null);
     const material = useRef<THREE.ShaderMaterial>(null);
+
+    // This will suspend if not loaded
     const texture = useTexture(imageSrc);
+
+    // Trigger load complete on mount (after texture suspense resolves)
+    React.useEffect(() => {
+        const now = performance.now();
+        console.log(`[WarpedImage] 3D Ready in ${Math.round(now - mountTime)}ms total.`);
+        onLoad?.();
+    }, [onLoad, mountTime]);
 
     // Helpers to create conditionally rendered controls
     const isVertex = (get: any) => get("Warp Shader.editMode") === "Vertex";
@@ -490,6 +543,7 @@ const ImagePlane = ({ imageSrc }: { imageSrc: string }) => {
     // Merge all controls for consumption
     const controls = { ...mainControls, ...autoControls, ...detailControls };
 
+    const { theme } = useTheme();
     const smokeMaterial = useRef<THREE.ShaderMaterial>(null);
 
     // Explicitly destructure for use in useFrame to avoid access issues if accessors were used
@@ -505,6 +559,29 @@ const ImagePlane = ({ imageSrc }: { imageSrc: string }) => {
             // Sync with Main Controls (Vertex)
             smokeMaterial.current.uniforms.uEnableVertex.value = controls.enableVertex ? 1.0 : 0.0;
             smokeMaterial.current.uniforms.uWaveType.value = controls.waveType;
+
+            // Update Colors based on Theme
+            const isDark = theme === 'dark';
+
+            // Check if color uniforms exist before setting them
+            if (smokeMaterial.current.uniforms.uColor1 &&
+                smokeMaterial.current.uniforms.uColor2 &&
+                smokeMaterial.current.uniforms.uColor3 &&
+                smokeMaterial.current.uniforms.uColor4) {
+
+                if (isDark) {
+                    smokeMaterial.current.uniforms.uColor1.value.set("#000000");
+                    smokeMaterial.current.uniforms.uColor2.value.set("#000000");
+                    smokeMaterial.current.uniforms.uColor3.value.set("#000000");
+                    smokeMaterial.current.uniforms.uColor4.value.set("#000000");
+                } else {
+                    // Light Mode Gradient: #ABAB88 -> #9B4460 -> #1F1F1C -> #141B5C
+                    smokeMaterial.current.uniforms.uColor1.value.set("#ABAB88");
+                    smokeMaterial.current.uniforms.uColor2.value.set("#9B4460");
+                    smokeMaterial.current.uniforms.uColor3.value.set("#1F1F1C");
+                    smokeMaterial.current.uniforms.uColor4.value.set("#141B5C");
+                }
+            }
         }
 
         if (material.current) {
@@ -622,6 +699,9 @@ const ImagePlane = ({ imageSrc }: { imageSrc: string }) => {
     );
 };
 
+// Preload the texture to start fetching as early as possible
+useTexture.preload("/images/systemicconvergence/beksinski-1.jpg");
+
 export const WarpedImage = ({
     src = "/images/systemicconvergence/beksinski-1.jpg",
     className
@@ -629,21 +709,124 @@ export const WarpedImage = ({
     src?: string,
     className?: string
 }) => {
+    const [isLoaded, setIsLoaded] = React.useState(false);
+    const [dimensions, setDimensions] = useState<{ width: number; height: number } | null>(null);
+    const [canRenderCanvas, setCanRenderCanvas] = useState(false);
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    // Track mount time for the parent component to measure total latency
+    const mountTimeRef = React.useRef(0);
+    if (mountTimeRef.current === 0) mountTimeRef.current = performance.now();
+
+    // Debug: Log when dimensions change
+    useEffect(() => {
+        console.log('[WarpedImage] Dimensions state updated:', dimensions);
+    }, [dimensions]);
+
+    // Wait for dimensions AND next frame before rendering Canvas
+    useEffect(() => {
+        if (dimensions) {
+            // Use requestAnimationFrame to ensure DOM layout is complete
+            requestAnimationFrame(() => {
+                setCanRenderCanvas(true);
+                console.log('[WarpedImage] Canvas render enabled');
+
+                // Dispatch resize event to trigger R3F's initialization
+                setTimeout(() => {
+                    console.log('[WarpedImage] Dispatching resize event');
+                    window.dispatchEvent(new Event('resize'));
+                }, 100);
+            });
+        } else {
+            setCanRenderCanvas(false);
+        }
+    }, [dimensions]);
+
+    // ResizeObserver to monitor container dimensions
+    useEffect(() => {
+        const container = containerRef.current;
+        if (!container) {
+            console.log('[WarpedImage] No container ref');
+            return;
+        }
+
+        // Read initial dimensions synchronously
+        const rect = container.getBoundingClientRect();
+        console.log('[WarpedImage] Initial dimensions:', { width: rect.width, height: rect.height });
+        if (rect.width > 0 && rect.height > 0) {
+            setDimensions({
+                width: rect.width,
+                height: rect.height
+            });
+        }
+
+        const observer = new ResizeObserver((entries) => {
+            const entry = entries[0];
+            if (entry) {
+                console.log('[WarpedImage] ResizeObserver fired:', {
+                    width: entry.contentRect.width,
+                    height: entry.contentRect.height
+                });
+                setDimensions({
+                    width: entry.contentRect.width,
+                    height: entry.contentRect.height
+                });
+            }
+        });
+
+        observer.observe(container);
+        return () => observer.disconnect();
+    }, []);
+
     return (
-        <div className={`relative w-full overflow-hidden ${className}`}>
+        <div
+            ref={containerRef}
+            className={`relative w-full overflow-hidden ${className}`}
+            style={{ aspectRatio: '1148 / 1200' }}
+        >
             <Leva theme={{ sizes: { rootWidth: '450px' } }} hidden />
-            <div className="w-full h-full absolute inset-0">
-                <Canvas camera={{ position: [0, 0, 3], fov: 60 }}>
-                    <React.Suspense fallback={null}>
-                        <ImagePlane imageSrc={src} />
-                    </React.Suspense>
-                </Canvas>
-            </div>
+
+            {/* 3D Scene - Absolute overlay */}
+            {canRenderCanvas && dimensions ? (
+                <div
+                    className="w-full h-full absolute inset-0"
+                    style={{
+                        width: `${dimensions.width}px`,
+                        height: `${dimensions.height}px`,
+                        position: 'absolute',
+                        top: 0,
+                        left: 0
+                    }}
+                >
+                    <Canvas
+                        style={{
+                            width: `${dimensions.width}px`,
+                            height: `${dimensions.height}px`,
+                            display: 'block'
+                        }}
+                        resize={{ offsetSize: true }}
+                        dpr={[1, 2]}
+                        camera={{ position: [0, 0, 3], fov: 60 }}
+                        onCreated={(state) => {
+                            console.log(`[WarpedImage] Canvas created! Dimensions:`, dimensions, 'Canvas size:', state.size);
+                            // Force resize to ensure proper dimensions
+                            state.gl.setSize(dimensions.width, dimensions.height);
+                        }}
+                    >
+                        <React.Suspense fallback={null}>
+                            <ImagePlane imageSrc={src} mountTime={mountTimeRef.current} />
+                        </React.Suspense>
+                    </Canvas>
+                </div>
+            ) : null}
+
+            {/* Layout Sizing Placeholder (Invisible) */}
             <img
                 src={src}
                 className="w-full h-auto opacity-0 pointer-events-none"
                 alt="placeholder for sizing"
                 aria-hidden="true"
+                loading="eager"
             />
         </div>
     );
