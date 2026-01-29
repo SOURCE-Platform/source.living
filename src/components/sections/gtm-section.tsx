@@ -19,14 +19,14 @@ export function GTMSection() {
             </div>
             <div className="relative grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 md:-mx-[25%] items-start">
                 {/* Vertical Line */}
-                <div className="absolute left-1/2 top-0 bottom-0 w-px bg-border/50 hidden md:block -translate-x-1/2" />
+                <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-foreground/40 to-transparent hidden md:block -translate-x-1/2" />
                 {/* Horizontal Line */}
-                <div className="absolute top-1/2 left-0 right-0 h-px bg-border/50 hidden md:block -translate-y-1/2" />
+                <div className="absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-foreground/40 to-transparent hidden md:block -translate-y-[calc(50%+30px)]" />
                 {/* Central Star */}
                 <img
                     src="/icons/star.svg"
                     alt="Star"
-                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 hidden md:block dark:invert z-10"
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[calc(50%+30px)] w-9 h-9 hidden md:block dark:invert z-10"
                 />
                 <div className="space-y-6">
                     <ScrollScaleImage
