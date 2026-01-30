@@ -18,9 +18,11 @@ export const ChaptersList = () => {
 
     if (!currentTrack) {
         return (
-            <div className="space-y-4 opacity-50">
+            <div className="h-full flex flex-col space-y-4">
                 <div className="text-base font-sans font-normal tracking-tight text-muted-foreground uppercase">CHAPTERS</div>
-                <p className="text-sm text-muted-foreground/60">Select a track to view chapters</p>
+                <div className="flex-1 w-full bg-muted/20 rounded-xl flex items-center justify-center border border-dashed border-border/30">
+                    <p className="text-sm text-muted-foreground/60 font-medium">Select a track to view chapters</p>
+                </div>
             </div>
         );
     }
@@ -51,9 +53,9 @@ export const ChaptersList = () => {
     }
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-4 h-full flex flex-col">
             <div className="text-base font-sans font-normal tracking-tight text-muted-foreground uppercase">CHAPTERS</div>
-            <div className="space-y-1 max-h-[calc(100vh-220px)] overflow-y-auto custom-scrollbar pr-2">
+            <div className="space-y-1 flex-1 overflow-y-auto custom-scrollbar pr-2">
                 {chapters.map((chapter, index) => {
                     const isActive = index === activeChapterIndex;
                     return (

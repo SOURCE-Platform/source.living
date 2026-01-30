@@ -6,12 +6,12 @@ export const CaptionModeToggle = () => {
   const { transcriptDisplayMode, setTranscriptDisplayMode } = useGlobalAudio();
 
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 w-full">
       <button
         onClick={() => setTranscriptDisplayMode('line')}
-        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${transcriptDisplayMode === 'line'
+        className={`flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${transcriptDisplayMode === 'line'
           ? 'bg-black/10 dark:bg-white/10 text-foreground'
-          : 'text-muted-foreground hover:text-foreground'
+          : 'bg-black/5 dark:bg-white/5 text-muted-foreground hover:text-foreground hover:bg-black/10 dark:hover:bg-white/10'
           }`}
         aria-pressed={transcriptDisplayMode === 'line'}
       >
@@ -19,9 +19,9 @@ export const CaptionModeToggle = () => {
       </button>
       <button
         onClick={() => setTranscriptDisplayMode('word')}
-        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${transcriptDisplayMode === 'word'
+        className={`flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${transcriptDisplayMode === 'word'
           ? 'bg-black/10 dark:bg-white/10 text-foreground'
-          : 'text-muted-foreground hover:text-foreground'
+          : 'bg-black/5 dark:bg-white/5 text-muted-foreground hover:text-foreground hover:bg-black/10 dark:hover:bg-white/10'
           }`}
         aria-pressed={transcriptDisplayMode === 'word'}
       >
@@ -29,9 +29,9 @@ export const CaptionModeToggle = () => {
       </button>
       <button
         onClick={() => setTranscriptDisplayMode('full')}
-        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${transcriptDisplayMode === 'full'
+        className={`flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${transcriptDisplayMode === 'full'
           ? 'bg-black/10 dark:bg-white/10 text-foreground'
-          : 'text-muted-foreground hover:text-foreground'
+          : 'bg-black/5 dark:bg-white/5 text-muted-foreground hover:text-foreground hover:bg-black/10 dark:hover:bg-white/10'
           }`}
         aria-pressed={transcriptDisplayMode === 'full'}
       >

@@ -24,7 +24,7 @@ const captionContainerStyle: React.CSSProperties = {
   ...containerBaseStyle,
   display: "flex",
   justifyContent: "center",
-  alignItems: "center",
+  alignItems: "flex-start",
 };
 
 const defaultHighlightStyle: React.CSSProperties = {
@@ -37,13 +37,14 @@ const captionLineStyle: React.CSSProperties = {
   flexDirection: "column",
   gap: 6,
   alignItems: "center",
-  justifyContent: "center",
+  justifyContent: "flex-start",
   textAlign: "center",
   lineHeight: 1.5,
   color: "var(--audio-text)",
   fontSize: 20,
   minHeight: 120,
   width: "100%",
+  padding: "3rem 1.5rem 0",
 };
 
 const captionWordStyle: React.CSSProperties = {
@@ -51,6 +52,8 @@ const captionWordStyle: React.CSSProperties = {
   fontWeight: 600,
   letterSpacing: "0.06em",
   color: "var(--audio-text)",
+  borderRadius: 8,
+  padding: "4px 8px",
 };
 
 const captionSentenceWordsStyle: React.CSSProperties = {
@@ -58,7 +61,7 @@ const captionSentenceWordsStyle: React.CSSProperties = {
   flexWrap: "wrap",
   gap: 6,
   justifyContent: "center",
-  fontSize: 24,
+  fontSize: 18,
   lineHeight: 1.4,
   color: "var(--audio-text)",
   maxWidth: 500,
@@ -383,26 +386,19 @@ export const LiveCaptions: React.FC<LiveCaptionsProps> = ({
       return words.map((word, index) => {
         // Logic from renderWords
         const active = isActive ? isWordActive(word, currentTimeMs) : false;
-        const wordStart = typeof word.start === "number" ? word.start : 0;
-        const wordEnd = typeof word.end === "number" ? word.end : wordStart;
-        const wordDuration = Math.max(wordEnd - wordStart, 1);
-
-        const elapsedMs = active ? Math.min(Math.max(currentTimeMs - wordStart, 0), wordDuration) : 0;
-        const progress = active ? elapsedMs / wordDuration : 0;
-        const underlineSize = `${(progress * 100).toFixed(2)}% 1px`;
+        const wordEnd = typeof word.end === "number" ? word.end : 0;
+        const hasBeenSpoken = currentTimeMs > wordEnd && wordEnd > 0;
 
         const baseSpanStyle: React.CSSProperties = {
-          color: lineDimmedColor,
-          backgroundImage: `linear-gradient(to right, ${lineBorderColor}, ${lineBorderColor})`,
-          backgroundSize: "0% 1px",
-          backgroundPosition: "0 100%",
-          backgroundRepeat: "no-repeat",
-          transition: "color 0.2s ease, background-size 0.1s linear",
+          color: hasBeenSpoken ? "var(--audio-text)" : lineDimmedColor,
+          transition: "color 0.1s ease, background-color 0.1s ease",
+          borderRadius: 4,
+          padding: "2px 4px",
         };
 
         const activeSpanStyle: React.CSSProperties = {
           color: "var(--audio-text)",
-          backgroundSize: underlineSize,
+          background: "color-mix(in srgb, var(--audio-accent) 12%, transparent)",
         };
 
         const spanStyle: React.CSSProperties = active
@@ -481,7 +477,7 @@ export const LiveCaptions: React.FC<LiveCaptionsProps> = ({
                 key={`full-sentence-wrapper-${sentence.start}`}
                 sentence={sentence}
                 isActive={isActiveSentence}
-                currentTimeMs={isActiveSentence ? currentTimeMs : 0} // Only update time for active sentence
+                currentTimeMs={currentTimeMs} // Pass time to all sentences so they can track spoken words
                 isParagraphStart={isParagraphStart}
               />
             );

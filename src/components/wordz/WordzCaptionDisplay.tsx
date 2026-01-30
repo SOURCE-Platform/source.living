@@ -9,8 +9,10 @@ export const WordzCaptionDisplay = () => {
   // Don't show captions when no track is playing
   if (!currentTrack) {
     return (
-      <div className="p-4 border border-border/50 rounded-lg min-h-[300px] flex items-center justify-center text-muted-foreground/50 text-sm italic">
-        Live Captions
+      <div className="h-full flex flex-col items-center justify-center py-4">
+        <div className="w-full h-full bg-muted/20 rounded-xl flex items-center justify-center border border-dashed border-border/30">
+          <span className="text-sm text-muted-foreground/60 font-medium italic">Live Captions</span>
+        </div>
       </div>
     );
   }
@@ -18,8 +20,10 @@ export const WordzCaptionDisplay = () => {
   // Show "no transcript" message if transcript missing
   if (!currentTrack.transcript || currentTrack.transcript.utterances.length === 0) {
     return (
-      <div className="p-4 border border-border/50 rounded-lg min-h-[300px] flex items-center justify-center text-muted-foreground/50 text-sm italic">
-        Transcript not available
+      <div className="h-full flex flex-col items-center justify-center py-4">
+        <div className="w-full h-full bg-muted/20 rounded-xl flex items-center justify-center border border-dashed border-border/30">
+          <span className="text-sm text-muted-foreground/60 font-medium italic">Transcript not available</span>
+        </div>
       </div>
     );
   }

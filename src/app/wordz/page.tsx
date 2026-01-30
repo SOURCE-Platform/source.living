@@ -61,7 +61,7 @@ export default function WordzPage() {
                         <div className="lg:col-start-2 lg:col-span-4 flex flex-col py-4">
 
                             {/* Talks Section */}
-                            <div className="flex flex-col gap-6">
+                            <div className="flex flex-col gap-4">
                                 <div className="text-base font-sans font-normal tracking-tight text-muted-foreground uppercase">TALKS</div>
 
                                 {/* Audio List */}
@@ -82,10 +82,10 @@ export default function WordzPage() {
                         {/* COLUMN 3: Live Captions & Controls (Span 4) */}
                         <div className="hidden lg:block lg:col-start-10 lg:col-span-4 relative">
                             {/* Sticky container that spans full viewport height */}
-                            <div className="sticky top-0 h-screen flex flex-col bg-background/50 border-l border-border/50">
+                            <div className="sticky top-0 h-screen flex flex-col bg-background/50">
 
                                 {/* Moved Captions UI - Header Style */}
-                                <div className="p-4 border-b border-border/50 bg-muted/10 backdrop-blur-md z-10">
+                                <div className="p-4 border-b border-x border-border/50 bg-muted/10 backdrop-blur-md z-10 rounded-b-3xl">
                                     <div className="space-y-4">
                                         <div className="text-base font-sans font-normal tracking-tight text-muted-foreground uppercase">CAPTIONS</div>
                                         <CaptionModeToggle />
