@@ -2,6 +2,7 @@
 
 import React from "react";
 import { ChapterSummary } from "../context/types";
+import { ChaptersListIcon } from "./PlayerIcons";
 
 const formatTime = (milliseconds: number) => {
     if (!Number.isFinite(milliseconds) || milliseconds < 0) return "0:00";
@@ -25,10 +26,12 @@ export const ChapterPopup: React.FC<ChapterPopupProps> = ({ title, chapters, onC
             className="absolute bottom-[calc(100%+38px)] left-[-16px] w-[420px] bg-[#F4F4F5] dark:bg-[#1F1F28] rounded-2xl border border-black/5 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_48px_rgba(255,255,255,0.12)] overflow-hidden flex flex-col max-h-[80vh] z-[90] animate-in slide-in-from-bottom-2 fade-in duration-200 origin-bottom-left"
         >
             <div className="flex flex-col px-4 py-3 border-b border-black/5 dark:border-white/5 sticky top-0 z-10 bg-[#F4F4F5] dark:bg-[#1F1F28]">
-                <span className="text-sm font-semibold text-foreground truncate mb-1" title={title}>{title}</span>
+                <div className="flex items-center justify-between mb-1">
+                    <span className="text-sm font-semibold text-foreground truncate max-w-[85%]" title={title}>{title}</span>
+                    <ChaptersListIcon className="w-4 h-4 text-muted-foreground opacity-70 flex-shrink-0" />
+                </div>
                 <div className="flex justify-between items-center w-full">
                     <span className="text-xs font-medium text-muted-foreground">Timestamps</span>
-                    <span className="text-[10px] text-muted-foreground uppercase tracking-wider font-medium">{chapters.length} items</span>
                 </div>
             </div>
             <div className="overflow-y-auto py-1 scrollbar-thin scrollbar-thumb-black/10 dark:scrollbar-thumb-white/10 scrollbar-track-transparent">

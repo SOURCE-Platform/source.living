@@ -61,7 +61,7 @@ export const ChaptersList = () => {
                             key={index}
                             onClick={() => seekTo(chapter.start)}
                             className={cn(
-                                "group w-full text-left px-4 py-3 rounded-lg transition-all duration-200 flex items-start justify-between gap-4 border",
+                                "group w-full text-left px-4 py-3 rounded-lg transition-all duration-200 flex items-start justify-between gap-4 border cursor-pointer",
                                 isActive
                                     ? "bg-primary/5 border-primary/20 shadow-sm"
                                     : "hover:bg-muted/40 border-transparent hover:border-border/30 text-muted-foreground hover:text-foreground"
