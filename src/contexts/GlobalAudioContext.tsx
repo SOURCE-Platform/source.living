@@ -24,6 +24,8 @@ type GlobalAudioContextType = {
     setCurrentTimeMs: (timeMs: number) => void;
     setTranscriptDisplayMode: (mode: TranscriptDisplayMode) => void;
     closePlayer: () => void;
+    seekTo: (timeMs: number) => void;
+    requestedSeekTime: number | null;
 };
 
 const GlobalAudioContext = createContext<GlobalAudioContextType | null>(null);
@@ -33,6 +35,18 @@ export const GlobalAudioProvider = ({ children }: { children: ReactNode }) => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTimeMs, setCurrentTimeMs] = useState(0);
     const [transcriptDisplayMode, setTranscriptDisplayMode] = useState<TranscriptDisplayMode>('line');
+
+    const [requestedSeekTime, setRequestedSeekTime] = useState<number | null>(null);
+
+    const seekTo = useCallback((timeMs: number) => {
+        setRequestedSeekTime(timeMs);
+        // Reset after a short delay to allow re-triggering same time if needed, 
+        // though usually we seek to different times. 
+        // Better: The consumer (Player) should clear it or we use a timestamp+value object.
+        // For simplicity, we'll just set it. 
+        // To allow seeking to same time twice, maybe use an object { time: number, id: number }
+        // But for chapters, just setting time is usually enough.
+    }, []);
 
     const playTrack = useCallback((track: Track) => {
         setCurrentTrack(track);
@@ -106,7 +120,7 @@ export const GlobalAudioProvider = ({ children }: { children: ReactNode }) => {
     }, []);
 
     return (
-        <GlobalAudioContext.Provider value={{ currentTrack, isPlaying, currentTimeMs, transcriptDisplayMode, playTrack, playTrackById, toggleTrack, toggleTrackById, setIsPlaying, setCurrentTimeMs, setTranscriptDisplayMode, closePlayer }}>
+        <GlobalAudioContext.Provider value={{ currentTrack, isPlaying, currentTimeMs, transcriptDisplayMode, playTrack, playTrackById, toggleTrack, toggleTrackById, setIsPlaying, setCurrentTimeMs, setTranscriptDisplayMode, closePlayer, seekTo, requestedSeekTime }}>
             {children}
         </GlobalAudioContext.Provider>
     );

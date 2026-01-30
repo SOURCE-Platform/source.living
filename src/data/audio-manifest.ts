@@ -24,12 +24,24 @@ export const audioManifest: AudioTrack[] = [
         ]
     },
     {
-        id: "taking-relationships-yinyang",
-        title: "Taking Relationships & Yinyang",
-        audioSrc: "/audio/WORDz/Taking relationships & yinyang.m4a",
-        // Transcript will be added later by user
-        // transcript: undefined,
-        // OR use transcriptSrc for remote loading:
-        // transcriptSrc: "/audio/WORDz/transcript.json"
+        id: "jan-30",
+        title: "Jan 30",
+        audioSrc: "/audio/WORDz/jan 30.mp3",
+        transcriptSrc: "/audio/WORDz/WORDz_JSON/jan 30.json",
+        chaptersSrc: "/audio/WORDz/WORDz_JSON/jan 30_chapters.json"
+    },
+    {
+        id: "strong-talk",
+        title: "Strong Talk",
+        audioSrc: "/audio/WORDz/strong talk.mp3",
+        transcriptSrc: "/audio/WORDz/WORDz_JSON/strong talk.json",
+        chaptersSrc: "/audio/WORDz/WORDz_JSON/strong talk_chapters.json"
+    },
+    {
+        id: "talking-relationships-yinyang",
+        title: "Talking Relationships & Yinyang",
+        audioSrc: "/audio/WORDz/talking relationships & yinyang.mp3",
+        transcriptSrc: "/audio/WORDz/WORDz_JSON/talking relationships & yinyang.json",
+        chaptersSrc: "/audio/WORDz/WORDz_JSON/talking relationships & yinyang_chapters.json"
     }
 ];

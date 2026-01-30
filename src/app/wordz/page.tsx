@@ -1,6 +1,7 @@
 'use client'
 
 
+import { audioManifest } from "@/data/audio-manifest"
 import { TransitionLink } from '@/components/atoms/transition-link'
 import { GlobalAudioProvider } from "@/contexts/GlobalAudioContext"
 import { GlobalPlayer } from "@/components/audio-player/GlobalPlayer"
@@ -8,14 +9,24 @@ import { SectionPlayButton } from "@/components/audio-player/SectionPlayButton"
 import { StickyLogo } from "@/components/molecules/sticky-logo"
 import { WordzCaptionDisplay } from "@/components/wordz/WordzCaptionDisplay"
 import { CaptionModeToggle } from "@/components/wordz/CaptionModeToggle"
+import { ChaptersList } from "@/components/wordz/ChaptersList"
 
-const AUDIO_FILES = [
-    {
-        id: "taking-relationships-yinyang",
-        title: "Taking Relationships & Yinyang",
-        filename: "Taking relationships & yinyang.m4a"
-    },
-]
+// Filter or select tracks specifically for the Wordz page
+// For now, we manually select the IDs we want to show here, or filter by some property.
+// Based on current usage:
+const WORDZ_TRACK_IDS = [
+    "jan-30",
+    "strong-talk",
+    "talking-relationships-yinyang"
+];
+
+const AUDIO_FILES = audioManifest
+    .filter(track => WORDZ_TRACK_IDS.includes(track.id))
+    .map(track => ({
+        id: track.id,
+        title: track.title,
+        filename: track.audioSrc.split('/').pop() || ""
+    }));
 
 export default function WordzPage() {
     return (
@@ -61,7 +72,7 @@ export default function WordzPage() {
                     </div>
 
                     {/* Content Grid */}
-                    <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-12">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
                         {/* Audio List */}
                         <div className="space-y-8">
                             {AUDIO_FILES.map((audio) => (
@@ -80,6 +91,14 @@ export default function WordzPage() {
                                     </div>
                                 </div>
                             ))}
+                        </div>
+
+
+                        {/* Middle Column: Chapters */}
+                        <div className="hidden lg:block relative">
+                            <div className="sticky top-12 space-y-4">
+                                <ChaptersList />
+                            </div>
                         </div>
 
                         {/* Right Column: Live Captions */}

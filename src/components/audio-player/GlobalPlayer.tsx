@@ -66,6 +66,17 @@ const GlobalPlayerContent = ({
         setGlobalTranscriptDisplayMode(transcriptDisplayMode);
     }, [transcriptDisplayMode, setGlobalTranscriptDisplayMode]);
 
+    // Listen for seek requests from global context
+    const { requestedSeekTime } = useGlobalAudio();
+    const prevSeekRequestRef = useRef<number | null>(null);
+
+    useEffect(() => {
+        if (requestedSeekTime !== null && requestedSeekTime !== prevSeekRequestRef.current) {
+            prevSeekRequestRef.current = requestedSeekTime;
+            seekToMs(requestedSeekTime);
+        }
+    }, [requestedSeekTime, seekToMs]);
+
     // Compute current chapter based on playback time
     const currentChapter = useMemo(() => {
         if (!chapters?.length) return null;
