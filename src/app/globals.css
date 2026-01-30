@@ -249,6 +249,16 @@
   .custom-scrollbar::-webkit-scrollbar-corner {
     background: transparent;
   }
+
+  /* Fading Scrollbar Variant */
+  .fading-scrollbar::-webkit-scrollbar-thumb {
+    background-color: color-mix(in srgb, var(--muted-foreground), transparent 70%);
+    transition: background-color 0.2s ease;
+  }
+
+  .fading-scrollbar:hover::-webkit-scrollbar-thumb {
+    background-color: color-mix(in srgb, var(--muted-foreground), transparent 40%);
+  }
 }
 
 @layer components {
@@ -549,4 +559,9 @@
 
 .animate-scroll-right {
   animation: scroll-right 40s linear infinite;
+}
+
+/* Custom 14-column grid */
+.grid-cols-14 {
+  grid-template-columns: repeat(14, minmax(0, 1fr));
 }

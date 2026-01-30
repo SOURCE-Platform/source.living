@@ -7,7 +7,7 @@ import { SourceLogo } from "@/components/atoms/icons/source-logo";
 import { TransitionLink } from "@/components/atoms/transition-link";
 import { cn } from "@/lib/utils";
 
-export function StickyLogo() {
+export function StickyLogo({ wordmarkClassName, className }: { wordmarkClassName?: string, className?: string }) {
     const [isVisible, setIsVisible] = useState(true);
     const [mounted, setMounted] = useState(false);
     const pathname = usePathname();
@@ -54,11 +54,12 @@ export function StickyLogo() {
         <div
             className={cn(
                 "fixed top-8 left-8 z-50 transition-opacity duration-300",
-                isVisible ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+                isVisible ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
+                className
             )}
         >
             <TransitionLink href="/">
-                <SourceLogo className="h-12 w-auto" forceWhite={shouldBeWhite} />
+                <SourceLogo className="h-12 w-auto" forceWhite={shouldBeWhite} wordmarkClassName={wordmarkClassName} />
             </TransitionLink>
         </div>
     );

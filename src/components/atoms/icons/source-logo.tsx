@@ -4,9 +4,10 @@ import { cn } from "@/lib/utils";
 interface SourceLogoProps {
   className?: string;
   forceWhite?: boolean;
+  wordmarkClassName?: string;
 }
 
-export function SourceLogo({ className, forceWhite }: SourceLogoProps) {
+export function SourceLogo({ className, forceWhite, wordmarkClassName }: SourceLogoProps) {
   return (
     <div className={cn("flex items-center gap-[18px]", className)}>
       <img
@@ -26,7 +27,8 @@ export function SourceLogo({ className, forceWhite }: SourceLogoProps) {
         height={34}
         className={cn(
           "h-8 w-auto transition-colors duration-300",
-          forceWhite ? "invert-0" : "invert dark:invert-0"
+          forceWhite ? "invert-0" : "invert dark:invert-0",
+          wordmarkClassName
         )}
       />
     </div>

@@ -61,8 +61,8 @@ export const WaveformAnimation = ({
     // Bar 4: exitDelay 0.4s
 
     return (
-        <div className={cn("flex items-center justify-center h-[30px]", className)}>
-            <div className="flex items-center gap-[2px] h-full">
+        <div className={cn("flex items-center justify-center", className)}>
+            <div className="flex items-center gap-[2px] h-[30px]">
                 {bars.map((bar, index) => {
                     // Dynamic animation assignment
                     // If exiting: waveform-exit

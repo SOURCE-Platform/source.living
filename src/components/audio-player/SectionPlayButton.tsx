@@ -10,7 +10,8 @@ export const SectionPlayButton = ({
     trackId,
     transcript,
     chapters,
-    className
+    className,
+    waveformAlignment
 }: {
     title?: string;
     audioSrc?: string;
@@ -18,17 +19,20 @@ export const SectionPlayButton = ({
     transcript?: any;
     chapters?: any;
     className?: string;
+    waveformAlignment?: "left" | "right";
 }) => {
     const { toggleTrack, toggleTrackById, currentTrack, isPlaying } = useGlobalAudio();
 
     const manifestItem = trackId ? audioManifest.find(t => t.id === trackId) : null;
     const effectiveSrc = manifestItem?.audioSrc || audioSrc;
     const effectiveTitle = manifestItem?.title || title || "Audio";
+    const alignment = waveformAlignment || "right";
 
     const isCurrentTrack = currentTrack?.src === effectiveSrc;
     const isActive = isCurrentTrack && isPlaying;
 
     const handlePlay = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation();
         e.currentTarget.blur();
 
         if (trackId && toggleTrackById) {
@@ -44,7 +48,10 @@ export const SectionPlayButton = ({
     };
 
     return (
-        <div className="inline-flex items-center align-middle">
+        <div className={cn(
+            "relative inline-flex items-center align-middle",
+            alignment === "left" && isActive ? "w-[26px] justify-start" : ""
+        )}>
             <svg width="0" height="0" className="absolute block w-0 h-0 overflow-hidden" aria-hidden="true">
                 <defs>
                     <linearGradient id="playgrade" gradientTransform="rotate(22, 0.2, 0.5) translate(0.2, 0.5) scale(2.5) translate(-0.5, -0.5)">
@@ -71,11 +78,21 @@ export const SectionPlayButton = ({
                         <stop offset="0%" stopColor="#001AFF" />
                         <stop offset="100%" stopColor="#02ABFF" />
                     </linearGradient>
+                    <linearGradient id="playgrade-reverse" gradientTransform="rotate(168, 0.5, 0.5)">
+                        <stop offset="0%" stopColor="#97A1FB" />
+                        <stop offset="38%" stopColor="#FEFFE3" />
+                        <stop offset="70%" stopColor="#FFC1D5" />
+                        <stop offset="100%" stopColor="#FFC1D5" />
+                    </linearGradient>
                 </defs>
             </svg>
             <button
                 onClick={handlePlay}
-                className={`inline-flex items-center justify-center rounded-lg pb-2 pt-1 transition-colors group cursor-pointer overflow-visible ${className}`}
+                className={cn(
+                    "inline-flex items-center justify-center rounded-lg pb-2 pt-1 transition-all duration-500 group cursor-pointer overflow-visible",
+                    className,
+                    alignment === "left" && isActive && "-translate-x-[46px]"
+                )}
                 aria-label={`Play section: ${effectiveTitle}`}
                 title="Play audio for this section"
             >
@@ -106,12 +123,22 @@ export const SectionPlayButton = ({
                     </div>
                 </div>
             </button>
-            <div className={cn(
-                "overflow-hidden transition-all duration-500 ease-in-out flex items-center",
-                isActive ? "w-[40px] ml-4 opacity-100" : "w-0 ml-0 opacity-0"
-            )}>
-                <WaveformAnimation isActive={isActive} />
-            </div>
+            {alignment === "left" && (
+                <div className={cn(
+                    "absolute right-0 top-1/2 -translate-y-1/2 overflow-hidden transition-all duration-500 ease-in-out flex items-center justify-center pointer-events-none",
+                    isActive ? "w-[30px] opacity-100" : "w-0 opacity-0"
+                )}>
+                    {isActive && <WaveformAnimation isActive={isActive} />}
+                </div>
+            )}
+            {alignment === "right" && (
+                <div className={cn(
+                    "overflow-hidden transition-all duration-500 ease-in-out flex items-center pointer-events-none",
+                    isActive ? "w-[40px] ml-4 opacity-100" : "w-0 ml-0 opacity-0"
+                )}>
+                    {isActive && <WaveformAnimation isActive={isActive} />}
+                </div>
+            )}
         </div>
     );
 };

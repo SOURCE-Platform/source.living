@@ -6,7 +6,7 @@ export const CaptionModeToggle = () => {
   const { transcriptDisplayMode, setTranscriptDisplayMode } = useGlobalAudio();
 
   return (
-    <div className="flex gap-2 mb-8">
+    <div className="flex gap-2">
       <button
         onClick={() => setTranscriptDisplayMode('line')}
         className={`px-4 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${transcriptDisplayMode === 'line'

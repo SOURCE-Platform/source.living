@@ -2,6 +2,7 @@
 
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useGlobalAudio } from "@/contexts/GlobalAudioContext";
+import { ReactLenis } from "lenis/react";
 import type { TranscriptData, TranscriptUtterance, TranscriptWord } from "@/components/audio-player/context/types";
 
 import { ChapterSummary } from "@/components/audio-player/context/types";
@@ -279,6 +280,19 @@ export const LiveCaptions: React.FC<LiveCaptionsProps> = ({
     return () => window.clearTimeout(timeout);
   }, [activeWord?.text, transcriptDisplayMode]);
 
+  // State for hover detection to pause auto-scroll
+  const [isHovering, setIsHovering] = useState(false);
+
+  // Auto-scroll effect for Full Text mode
+  useEffect(() => {
+    if (transcriptDisplayMode === 'full' && activeSentence && !isHovering) {
+      const element = document.getElementById(`full-sentence-${activeSentence.start}`);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+  }, [activeSentence, transcriptDisplayMode, isHovering]);
+
   // Determine which chapter range we are actually DISPLAYING (which might trail the real time during fade)
   const currentChapterEnd = useMemo(() => {
     if (!chapters) return Infinity;
@@ -338,6 +352,91 @@ export const LiveCaptions: React.FC<LiveCaptionsProps> = ({
     );
   }
 
+  // Memoized Sentence Component for Full Text Mode
+  const FullTextSentence = React.memo(({
+    sentence,
+    isActive,
+    currentTimeMs,
+    isParagraphStart
+  }: {
+    sentence: CaptionSentence;
+    isActive: boolean;
+    currentTimeMs: number;
+    isParagraphStart: boolean;
+  }) => {
+    // Re-implement renderWords logic locally or accept as prop?
+    // Locally is cleaner to avoid function dependency issues.
+
+    const words = sentence.words;
+
+    const renderedWords = useMemo(() => {
+      if (!Array.isArray(words) || words.length === 0) return sentence.text;
+
+      // If not active, we can skip specific time calculations and render static
+      // BUT if we want past/future styling, we might need to know. 
+      // Current requirement: "active" is highlighted, others are standard text color.
+      // So if !isActive, we render all as standard.
+
+      const lineBorderColor = "var(--audio-text)";
+      const lineDimmedColor = "color-mix(in srgb, var(--audio-text) 50%, transparent)";
+
+      return words.map((word, index) => {
+        // Logic from renderWords
+        const active = isActive ? isWordActive(word, currentTimeMs) : false;
+        const wordStart = typeof word.start === "number" ? word.start : 0;
+        const wordEnd = typeof word.end === "number" ? word.end : wordStart;
+        const wordDuration = Math.max(wordEnd - wordStart, 1);
+
+        const elapsedMs = active ? Math.min(Math.max(currentTimeMs - wordStart, 0), wordDuration) : 0;
+        const progress = active ? elapsedMs / wordDuration : 0;
+        const underlineSize = `${(progress * 100).toFixed(2)}% 1px`;
+
+        const baseSpanStyle: React.CSSProperties = {
+          color: lineDimmedColor,
+          backgroundImage: `linear-gradient(to right, ${lineBorderColor}, ${lineBorderColor})`,
+          backgroundSize: "0% 1px",
+          backgroundPosition: "0 100%",
+          backgroundRepeat: "no-repeat",
+          transition: "color 0.2s ease, background-size 0.1s linear",
+        };
+
+        const activeSpanStyle: React.CSSProperties = {
+          color: "var(--audio-text)",
+          backgroundSize: underlineSize,
+        };
+
+        const spanStyle: React.CSSProperties = active
+          ? { ...baseSpanStyle, ...activeSpanStyle }
+          : baseSpanStyle;
+
+        return (
+          <span
+            key={`word-${index}`}
+            style={spanStyle}
+          >
+            {word.text}
+            {" "}
+          </span>
+        );
+      });
+    }, [words, isActive, currentTimeMs, sentence.text]);
+
+    return (
+      <React.Fragment>
+        {isParagraphStart && <div style={{ height: '1.5em', width: '100%' }} />}
+        <span
+          id={`full-sentence-${sentence.start}`}
+          style={{ display: 'inline', marginRight: '0.5em' }}
+        >
+          {renderedWords}
+        </span>
+      </React.Fragment>
+    );
+  });
+  FullTextSentence.displayName = 'FullTextSentence';
+
+  // ... LiveCaptions component ...
+
   if (transcriptDisplayMode === "full") {
     // Filter sentences for the DISPLAYED chapter
     const chapterSentences = sentences.filter(s => {
@@ -347,8 +446,19 @@ export const LiveCaptions: React.FC<LiveCaptionsProps> = ({
     });
 
     return (
-      <div
-        className={`${className} custom-scrollbar`}
+      <ReactLenis
+        root={false}
+        options={{
+          lerp: 0.1,
+          duration: 1.5,
+          smoothWheel: true,
+          // We need to ensure touch scrolling works naturally too
+          touchMultiplier: 2
+        }}
+        className={`${className} custom-scrollbar fading-scrollbar`}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
+        // Removed data-lenis-prevent
         style={{
           ...captionContainerStyle,
           alignItems: 'flex-start',
@@ -357,37 +467,23 @@ export const LiveCaptions: React.FC<LiveCaptionsProps> = ({
           padding: '1rem',
           display: 'block',
           opacity: isFadingOut ? 0 : 1,                // Control visibility
-          transition: 'opacity 300ms ease-in-out'      // Transition effect
+          transition: 'opacity 300ms ease-in-out',     // Transition effect
+          overscrollBehavior: 'contain' // Prevent scroll chaining
         }}
       >
         <div style={{ ...captionSentenceWordsStyle, display: 'block', textAlign: 'left', fontSize: 18, maxWidth: '100%' }}>
           {chapterSentences.map((sentence, sIdx) => {
             const isActiveSentence = activeSentence === sentence;
-
-            // Check if this sentence starts a new paragraph relative to the whole list?
-            // Or just check strictly against paragraphs list.
-            // paragraphs is list of timestamps.
-            const isParagraphStart = paragraphs?.some(pStart => Math.abs(pStart - sentence.start) < 10);
-
-            // Be careful if isParagraphStart check relied on index previously. 
-            // Now checking timestamp so it's robust.
+            const isParagraphStart = paragraphs?.some(pStart => Math.abs(pStart - sentence.start) < 10) ?? false;
 
             return (
-              <React.Fragment key={`full-sentence-wrapper-${sentence.start}`}>
-                {isParagraphStart && <div style={{ height: '1.5em', width: '100%' }} />}
-                <span
-                  key={`full-sentence-${sentence.start}`}
-                  // Ref to scroll only if active and we are not fading?
-                  ref={isActiveSentence ? (el) => {
-                    if (el) {
-                      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
-                  } : null}
-                  style={{ display: 'inline', marginRight: '0.5em' }}
-                >
-                  {renderWords(sentence.words, `full-sent-${sentence.start}`, { variant: 'line' })}
-                </span>
-              </React.Fragment>
+              <FullTextSentence
+                key={`full-sentence-wrapper-${sentence.start}`}
+                sentence={sentence}
+                isActive={isActiveSentence}
+                currentTimeMs={isActiveSentence ? currentTimeMs : 0} // Only update time for active sentence
+                isParagraphStart={isParagraphStart}
+              />
             );
           })}
           {chapterSentences.length === 0 && (
@@ -396,7 +492,7 @@ export const LiveCaptions: React.FC<LiveCaptionsProps> = ({
             </div>
           )}
         </div>
-      </div>
+      </ReactLenis>
     );
   }
 
