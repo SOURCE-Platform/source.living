@@ -36,7 +36,7 @@ export const WordzAudioList = () => {
                         tabIndex={0}
                         onClick={() => toggleTrackById(audio.id)}
                         className={cn(
-                            "group w-full relative flex items-center p-4 rounded-lg transition-all duration-200 cursor-pointer text-left h-[60px] outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2", // Reduced height
+                            "group w-full relative flex items-center p-4 rounded-lg transition-all duration-200 cursor-pointer text-left h-[60px] outline-none", // Reduced height
                             "hover:bg-muted/40",
                             isActive ? "bg-muted/20" : "bg-transparent"
                         )}

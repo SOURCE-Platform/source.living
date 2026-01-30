@@ -20,7 +20,7 @@ export const ChaptersList = () => {
         return (
             <div className="h-full flex flex-col space-y-4">
                 <div className="text-base font-sans font-normal tracking-tight text-muted-foreground uppercase">CHAPTERS</div>
-                <div className="flex-1 w-full bg-muted/20 rounded-xl flex items-center justify-center border border-dashed border-border/30">
+                <div className="flex-1 w-full bg-muted/20 rounded-xl flex items-center justify-center border border-dashed border-border/30 transition-opacity duration-300 animate-in fade-in">
                     <p className="text-sm text-muted-foreground/60 font-medium">Select a track to view chapters</p>
                 </div>
             </div>
@@ -63,21 +63,21 @@ export const ChaptersList = () => {
                             key={index}
                             onClick={() => seekTo(chapter.start)}
                             className={cn(
-                                "group w-full text-left px-4 py-3 rounded-lg transition-all duration-200 flex items-start justify-between gap-4 border cursor-pointer",
+                                "group w-full text-left px-4 py-3 rounded-lg transition-all duration-200 flex items-start justify-between gap-4 cursor-pointer outline-none",
                                 isActive
-                                    ? "bg-primary/5 border-primary/20 shadow-sm"
-                                    : "hover:bg-muted/40 border-transparent hover:border-border/30 text-muted-foreground hover:text-foreground"
+                                    ? "bg-muted/20"
+                                    : "hover:bg-muted/40 text-muted-foreground hover:text-foreground"
                             )}
                         >
                             <span className={cn(
                                 "text-sm font-medium leading-relaxed transition-colors",
-                                isActive ? "text-primary" : "group-hover:text-foreground"
+                                isActive ? "text-foreground" : "group-hover:text-foreground"
                             )}>
                                 {chapter.title}
                             </span>
                             <span className={cn(
                                 "text-xs font-mono mt-0.5 transition-colors",
-                                isActive ? "text-primary/70" : "text-muted-foreground/50 group-hover:text-muted-foreground"
+                                isActive ? "text-muted-foreground" : "text-muted-foreground/50 group-hover:text-muted-foreground"
                             )}>
                                 {formatTimeMs(chapter.start)}
                             </span>

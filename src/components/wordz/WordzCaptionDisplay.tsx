@@ -10,7 +10,7 @@ export const WordzCaptionDisplay = () => {
   if (!currentTrack) {
     return (
       <div className="h-full flex flex-col items-center justify-center py-4">
-        <div className="w-full h-full bg-muted/20 rounded-xl flex items-center justify-center border border-dashed border-border/30">
+        <div className="w-full h-full bg-muted/20 rounded-xl flex items-center justify-center border border-dashed border-border/30 transition-opacity duration-300 animate-in fade-in">
           <span className="text-sm text-muted-foreground/60 font-medium italic">Live Captions</span>
         </div>
       </div>

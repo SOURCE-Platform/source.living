@@ -15,7 +15,7 @@ import { WordzAudioList } from "@/components/wordz/WordzAudioList"
 export default function WordzPage() {
     return (
         <GlobalAudioProvider>
-            <main className="min-h-screen bg-background text-foreground">
+            <main className="min-h-screen bg-background text-foreground" style={{ backgroundImage: 'var(--gradient-background)', backgroundSize: 'cover', backgroundAttachment: 'fixed' }}>
 
                 <div className="w-full">
                     {/* Main Layout Grid - 14 Columns */}
@@ -23,7 +23,7 @@ export default function WordzPage() {
 
                         {/* COLUMN 0: Logo and Back Button (Span 1) */}
                         <div className="hidden lg:block lg:col-span-1">
-                            <div className="sticky top-8 flex flex-col items-center gap-6">
+                            <div className="sticky top-4 flex flex-col items-center gap-6">
                                 {/* Logo */}
                                 <StickyLogo wordmarkClassName="hidden 2xl:block" className="relative inset-auto" />
 
@@ -82,7 +82,7 @@ export default function WordzPage() {
                         {/* COLUMN 3: Live Captions & Controls (Span 4) */}
                         <div className="hidden lg:block lg:col-start-10 lg:col-span-4 relative">
                             {/* Sticky container that spans full viewport height */}
-                            <div className="sticky top-0 h-screen flex flex-col bg-background/50">
+                            <div className="sticky top-0 h-screen flex flex-col">
 
                                 {/* Moved Captions UI - Header Style */}
                                 <div className="p-4 border-b border-x border-border/50 bg-muted/10 backdrop-blur-md z-10 rounded-b-3xl">
