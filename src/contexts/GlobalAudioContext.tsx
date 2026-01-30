@@ -9,6 +9,7 @@ export type Track = {
     title: string;
     transcript?: TranscriptData;
     chapters?: ChapterSummary[];
+    paragraphs?: number[];
 };
 
 type GlobalAudioContextType = {
@@ -82,11 +83,23 @@ export const GlobalAudioProvider = ({ children }: { children: ReactNode }) => {
             }
         }
 
+        let paragraphs = manifestItem.paragraphs;
+        if (!paragraphs && manifestItem.paragraphsSrc) {
+            try {
+                const res = await fetch(manifestItem.paragraphsSrc);
+                paragraphs = await res.json();
+            } catch (e) {
+                console.error("Failed to load paragraphs", e);
+                paragraphs = [];
+            }
+        }
+
         const track: Track = {
             src: manifestItem.audioSrc,
             title: manifestItem.title,
             transcript,
-            chapters
+            chapters,
+            paragraphs
         };
 
         playTrack(track);

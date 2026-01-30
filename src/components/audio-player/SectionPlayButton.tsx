@@ -106,7 +106,12 @@ export const SectionPlayButton = ({
                     </div>
                 </div>
             </button>
-            <WaveformAnimation className="ml-4" isActive={!!isActive} />
+            <div className={cn(
+                "overflow-hidden transition-all duration-500 ease-in-out flex items-center",
+                isActive ? "w-[40px] ml-4 opacity-100" : "w-0 ml-0 opacity-0"
+            )}>
+                <WaveformAnimation isActive={isActive} />
+            </div>
         </div>
     );
 };

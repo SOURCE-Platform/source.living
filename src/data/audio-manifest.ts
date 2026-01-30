@@ -6,8 +6,10 @@ export type AudioTrack = {
     audioSrc: string;
     transcriptSrc?: string; // Path to JSON file
     chaptersSrc?: string;   // Path to JSON file
+    paragraphsSrc?: string; // Path to JSON file
     transcript?: TranscriptData; // Quick inline data
     chapters?: ChapterSummary[]; // Quick inline data
+    paragraphs?: number[];       // Quick inline data
 };
 
 export const audioManifest: AudioTrack[] = [
@@ -28,20 +30,23 @@ export const audioManifest: AudioTrack[] = [
         title: "Jan 30",
         audioSrc: "/audio/WORDz/jan 30.mp3",
         transcriptSrc: "/audio/WORDz/WORDz_JSON/jan 30.json",
-        chaptersSrc: "/audio/WORDz/WORDz_JSON/jan 30_chapters.json"
+        chaptersSrc: "/audio/WORDz/WORDz_JSON/jan 30_chapters.json",
+        paragraphsSrc: "/audio/WORDz/WORDz_JSON/jan 30_paragraphs.json"
     },
     {
         id: "strong-talk",
         title: "Strong Talk",
         audioSrc: "/audio/WORDz/strong talk.mp3",
         transcriptSrc: "/audio/WORDz/WORDz_JSON/strong talk.json",
-        chaptersSrc: "/audio/WORDz/WORDz_JSON/strong talk_chapters.json"
+        chaptersSrc: "/audio/WORDz/WORDz_JSON/strong talk_chapters.json",
+        paragraphsSrc: "/audio/WORDz/WORDz_JSON/strong talk_paragraphs.json"
     },
     {
         id: "talking-relationships-yinyang",
         title: "Talking Relationships & Yinyang",
         audioSrc: "/audio/WORDz/talking relationships & yinyang.mp3",
         transcriptSrc: "/audio/WORDz/WORDz_JSON/talking relationships & yinyang.json",
-        chaptersSrc: "/audio/WORDz/WORDz_JSON/talking relationships & yinyang_chapters.json"
+        chaptersSrc: "/audio/WORDz/WORDz_JSON/talking relationships & yinyang_chapters.json",
+        paragraphsSrc: "/audio/WORDz/WORDz_JSON/talking relationships & yinyang_paragraphs.json"
     }
 ];

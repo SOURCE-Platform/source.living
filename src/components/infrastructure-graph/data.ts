@@ -24,7 +24,7 @@ export const INITIAL_NODES: InfrastructureNode[] = [
         peakYear: 1950,
         description: 'Large-scale water storage and flood control infrastructure.',
         magnitude: 7,
-        // image: '/images/infrastructure/dams_reservoirs.png',
+        image: '/images/infrastructure/dams_reservoirs.png',
     },
     {
         id: 'aqueducts',
@@ -63,7 +63,7 @@ export const INITIAL_NODES: InfrastructureNode[] = [
         peakYear: 1900,
         description: 'Ships, ports, and sea routes enabling global trade.',
         magnitude: 8,
-        // image: '/images/infrastructure/maritime_ports.png',
+        image: '/images/infrastructure/maritime_ports.png',
     },
     {
         id: 'roads-trackways',
@@ -123,7 +123,7 @@ export const INITIAL_NODES: InfrastructureNode[] = [
         peakYear: 2000,
         description: 'Air travel infrastructure connecting continents.',
         magnitude: 9,
-        // image: '/images/infrastructure/aviation_airports.png',
+        image: '/images/infrastructure/aviation_airports.png',
     },
     {
         id: 'highways',
@@ -186,7 +186,7 @@ export const INITIAL_NODES: InfrastructureNode[] = [
         peakYear: 2030,
         description: 'Solar, wind, and sustainable power generation infrastructure.',
         magnitude: 9,
-        // image: '/images/infrastructure/renewable_energy.png',
+        image: '/images/infrastructure/renewable_energy.png',
     },
 
 
@@ -225,7 +225,7 @@ export const INITIAL_NODES: InfrastructureNode[] = [
         peakYear: 2020,
         description: 'Mobile wireless communication infrastructure.',
         magnitude: 9,
-        // image: '/images/infrastructure/cellular_networks.png',
+        image: '/images/infrastructure/cellular_networks.png',
     },
     {
         id: 'internet',
@@ -263,7 +263,7 @@ export const INITIAL_NODES: InfrastructureNode[] = [
         peakYear: 1900,
         description: 'First large-scale information distribution network.',
         magnitude: 6,
-        // image: '/images/infrastructure/postal_systems.png',
+        image: '/images/infrastructure/postal_systems.png',
     },
 
 

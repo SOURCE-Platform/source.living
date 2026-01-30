@@ -47,4 +47,4 @@ export type AudioExperienceConfig = {
   startTimeSeconds?: number;
 };
 
-export type TranscriptDisplayMode = "line" | "word";
+export type TranscriptDisplayMode = "line" | "word" | "full";

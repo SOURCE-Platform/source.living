@@ -19,7 +19,7 @@ export const ChaptersList = () => {
     if (!currentTrack) {
         return (
             <div className="space-y-4 opacity-50">
-                <h2 className="text-xl font-light tracking-tight text-muted-foreground">Chapters</h2>
+                <div className="text-base font-sans font-normal tracking-tight text-muted-foreground uppercase">CHAPTERS</div>
                 <p className="text-sm text-muted-foreground/60">Select a track to view chapters</p>
             </div>
         );
@@ -30,7 +30,7 @@ export const ChaptersList = () => {
     if (chapters.length === 0) {
         return (
             <div className="space-y-4">
-                <h2 className="text-xl font-light tracking-tight text-muted-foreground">Chapters</h2>
+                <div className="text-base font-sans font-normal tracking-tight text-muted-foreground uppercase">CHAPTERS</div>
                 <div className="p-4 bg-muted/20 rounded-lg border border-border/50">
                     <p className="text-sm text-muted-foreground text-center italic">No chapters available</p>
                 </div>
@@ -52,8 +52,8 @@ export const ChaptersList = () => {
 
     return (
         <div className="space-y-6">
-            <h2 className="text-xl font-light tracking-tight text-muted-foreground">Chapters</h2>
-            <div className="space-y-1">
+            <div className="text-base font-sans font-normal tracking-tight text-muted-foreground uppercase">CHAPTERS</div>
+            <div className="space-y-1 max-h-[calc(100vh-220px)] overflow-y-auto custom-scrollbar pr-2">
                 {chapters.map((chapter, index) => {
                     const isActive = index === activeChapterIndex;
                     return (

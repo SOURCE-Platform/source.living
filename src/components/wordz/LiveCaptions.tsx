@@ -4,12 +4,17 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useGlobalAudio } from "@/contexts/GlobalAudioContext";
 import type { TranscriptData, TranscriptUtterance, TranscriptWord } from "@/components/audio-player/context/types";
 
+import { ChapterSummary } from "@/components/audio-player/context/types";
+
 export type LiveCaptionsProps = {
   transcript: TranscriptData;
   currentTimeMs: number;
   className?: string;
+  paragraphs?: number[];
+  chapters?: ChapterSummary[];
 };
 
+// ... existing styles ...
 const containerBaseStyle: React.CSSProperties = {
   width: "100%",
 };
@@ -77,12 +82,58 @@ const isWordActive = (word: TranscriptWord, currentTimeMs: number) => {
   return currentTimeMs >= start && currentTimeMs <= end;
 };
 
+
 export const LiveCaptions: React.FC<LiveCaptionsProps> = ({
   transcript,
   currentTimeMs,
   className,
+  paragraphs,
+  chapters
 }) => {
   const { transcriptDisplayMode } = useGlobalAudio();
+
+  // State for chapter transitions
+  const [displayedChapterStart, setDisplayedChapterStart] = useState<number>(0);
+  const [isFadingOut, setIsFadingOut] = useState(false);
+
+  // Identify current active chapter
+  const activeChapterData = useMemo(() => {
+    if (!chapters || chapters.length === 0) return { start: 0, end: Infinity };
+
+    // Find chapter that contains currentTimeMs
+    const idx = chapters.findIndex((ch, i) => {
+      const nextStart = chapters[i + 1]?.start ?? Infinity;
+      return currentTimeMs >= ch.start && currentTimeMs < nextStart;
+    });
+
+    if (idx === -1) return { start: 0, end: Infinity };
+
+    const start = chapters[idx].start;
+    const end = chapters[idx + 1]?.start ?? Infinity;
+    return { start, end };
+  }, [chapters, currentTimeMs]);
+
+  // Handle Transitions
+  // Handle Transitions
+  useEffect(() => {
+    // If our reliable source of truth (time calculation) says we are in a new chapter
+    if (activeChapterData.start !== displayedChapterStart) {
+      // Start fade out
+      setIsFadingOut(true);
+
+      // Wait for fade out, then switch data and fade in
+      const timeout = setTimeout(() => {
+        setDisplayedChapterStart(activeChapterData.start);
+        setIsFadingOut(false);
+      }, 300); // Match CSS transition duration
+
+      return () => clearTimeout(timeout);
+    }
+  }, [activeChapterData.start, displayedChapterStart]);
+
+
+  // ... (keep renderWords, utterances, sentences, activeUtterance, activeWord, activeSentence calculations)
+  // Reuse existing useMemos but filter the final "full text" render
 
   const renderWords = useCallback((
     words: TranscriptWord[] | undefined,
@@ -206,6 +257,7 @@ export const LiveCaptions: React.FC<LiveCaptionsProps> = ({
   const [wordCaptionText, setWordCaptionText] = useState<string>(activeWord?.text ?? "");
   const [isWordCaptionVisible, setIsWordCaptionVisible] = useState<boolean>(Boolean(activeWord?.text));
 
+  // Word Mode Effect
   useEffect(() => {
     if (transcriptDisplayMode !== "word") {
       setIsWordCaptionVisible(false);
@@ -227,7 +279,18 @@ export const LiveCaptions: React.FC<LiveCaptionsProps> = ({
     return () => window.clearTimeout(timeout);
   }, [activeWord?.text, transcriptDisplayMode]);
 
+  // Determine which chapter range we are actually DISPLAYING (which might trail the real time during fade)
+  const currentChapterEnd = useMemo(() => {
+    if (!chapters) return Infinity;
+    const idx = chapters.findIndex(c => c.start === displayedChapterStart);
+    if (idx === -1) return Infinity;
+    // The displayed chapter ends when the NEXT chapter starts (ignoring current time, based on structure)
+    return chapters[idx + 1]?.start ?? Infinity;
+  }, [chapters, displayedChapterStart]);
+
+
   if (transcriptDisplayMode === "line") {
+    // ... (keep line mode as is)
     // Only show content if there's an active sentence
     if (!activeSentence) {
       return (
@@ -257,6 +320,7 @@ export const LiveCaptions: React.FC<LiveCaptionsProps> = ({
   }
 
   if (transcriptDisplayMode === "word") {
+    // ... (keep word mode as is)
     return (
       <div className={className} style={captionContainerStyle}>
         <div style={captionLineStyle}>
@@ -274,7 +338,69 @@ export const LiveCaptions: React.FC<LiveCaptionsProps> = ({
     );
   }
 
-  // Default to line mode if somehow in an invalid state
+  if (transcriptDisplayMode === "full") {
+    // Filter sentences for the DISPLAYED chapter
+    const chapterSentences = sentences.filter(s => {
+      // Simple logic: sentence starts belong to the chapter? 
+      // Or overlap? Usually start time falling in range is sufficient.
+      return s.start >= displayedChapterStart && s.start < currentChapterEnd;
+    });
+
+    return (
+      <div
+        className={`${className} custom-scrollbar`}
+        style={{
+          ...captionContainerStyle,
+          alignItems: 'flex-start',
+          overflowY: 'auto',
+          height: '100%',
+          padding: '1rem',
+          display: 'block',
+          opacity: isFadingOut ? 0 : 1,                // Control visibility
+          transition: 'opacity 300ms ease-in-out'      // Transition effect
+        }}
+      >
+        <div style={{ ...captionSentenceWordsStyle, display: 'block', textAlign: 'left', fontSize: 18, maxWidth: '100%' }}>
+          {chapterSentences.map((sentence, sIdx) => {
+            const isActiveSentence = activeSentence === sentence;
+
+            // Check if this sentence starts a new paragraph relative to the whole list?
+            // Or just check strictly against paragraphs list.
+            // paragraphs is list of timestamps.
+            const isParagraphStart = paragraphs?.some(pStart => Math.abs(pStart - sentence.start) < 10);
+
+            // Be careful if isParagraphStart check relied on index previously. 
+            // Now checking timestamp so it's robust.
+
+            return (
+              <React.Fragment key={`full-sentence-wrapper-${sentence.start}`}>
+                {isParagraphStart && <div style={{ height: '1.5em', width: '100%' }} />}
+                <span
+                  key={`full-sentence-${sentence.start}`}
+                  // Ref to scroll only if active and we are not fading?
+                  ref={isActiveSentence ? (el) => {
+                    if (el) {
+                      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                  } : null}
+                  style={{ display: 'inline', marginRight: '0.5em' }}
+                >
+                  {renderWords(sentence.words, `full-sent-${sentence.start}`, { variant: 'line' })}
+                </span>
+              </React.Fragment>
+            );
+          })}
+          {chapterSentences.length === 0 && (
+            <div className="text-muted-foreground italic p-4 text-center">
+              Waiting for dialogue...
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  // Default
   return (
     <div className={className} style={captionContainerStyle}>
       <div style={captionLineStyle}>
