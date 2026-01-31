@@ -16,18 +16,37 @@ export const audioManifest: AudioTrack[] = [
     {
         id: "source-setting-the-stage",
         title: "SOURCE: Setting the Stage",
-        audioSrc: "/audio/source-setting-the-stage/audio.mp3", // Kept as is if file exists, or update if renormalized
-        // transcriptSrc: "/audio/source-setting-the-stage/transcript.json",
-        // chaptersSrc: "/audio/source-setting-the-stage/chapters.json",
+        audioSrc: "/audio/source-setting-the-stage/audio.mp3",
         chapters: [
             { title: "Introduction", start: 0 },
-            { title: "The Problem", start: 30000 }, // Example
-            { title: "The Solution", start: 60000 }  // Example
+            { title: "The Problem", start: 30000 },
+            { title: "The Solution", start: 60000 }
         ]
     },
     {
+        id: "deep-talk",
+        title: "Deep talk",
+        audioSrc: "/audio/WORDz/Deep talk.mp3",
+        transcriptSrc: "/audio/WORDz/WORDz_JSON/Deep talk.json",
+        chaptersSrc: "/audio/WORDz/WORDz_JSON/Deep talk_chapters.json"
+    },
+    {
+        id: "real-talk",
+        title: "Real talk",
+        audioSrc: "/audio/WORDz/Real talk.mp3",
+        transcriptSrc: "/audio/WORDz/WORDz_JSON/Real talk.json",
+        chaptersSrc: "/audio/WORDz/WORDz_JSON/Real talk_chapters.json"
+    },
+    {
+        id: "source-data-wall",
+        title: "SOURCE data wall",
+        audioSrc: "/audio/WORDz/SOURCE data wall.mp3",
+        transcriptSrc: "/audio/WORDz/WORDz_JSON/SOURCE data wall.json",
+        chaptersSrc: "/audio/WORDz/WORDz_JSON/SOURCE data wall_chapters.json"
+    },
+    {
         id: "jan-30",
-        title: "Jan 30",
+        title: "jan 30",
         audioSrc: "/audio/WORDz/jan 30.mp3",
         transcriptSrc: "/audio/WORDz/WORDz_JSON/jan 30.json",
         chaptersSrc: "/audio/WORDz/WORDz_JSON/jan 30_chapters.json",
@@ -35,7 +54,7 @@ export const audioManifest: AudioTrack[] = [
     },
     {
         id: "strong-talk",
-        title: "Strong Talk",
+        title: "strong talk",
         audioSrc: "/audio/WORDz/strong talk.mp3",
         transcriptSrc: "/audio/WORDz/WORDz_JSON/strong talk.json",
         chaptersSrc: "/audio/WORDz/WORDz_JSON/strong talk_chapters.json",
@@ -43,7 +62,7 @@ export const audioManifest: AudioTrack[] = [
     },
     {
         id: "talking-relationships-yinyang",
-        title: "Talking Relationships & Yinyang",
+        title: "talking relationships & yinyang",
         audioSrc: "/audio/WORDz/talking relationships & yinyang.mp3",
         transcriptSrc: "/audio/WORDz/WORDz_JSON/talking relationships & yinyang.json",
         chaptersSrc: "/audio/WORDz/WORDz_JSON/talking relationships & yinyang_chapters.json",

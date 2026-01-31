@@ -19,11 +19,11 @@ export default function WordzPage() {
 
                 <div className="w-full">
                     {/* Main Layout Grid - 14 Columns */}
-                    <div className="grid grid-cols-1 lg:grid-cols-14 gap-6 px-6">
+                    <div className="grid grid-cols-1 lg:grid-cols-14 gap-6 pl-6 pr-6 lg:pr-16">
 
-                        {/* COLUMN 0: Logo and Back Button (Span 1) */}
-                        <div className="hidden lg:block lg:col-span-1">
-                            <div className="sticky top-4 flex flex-col items-center gap-6">
+                        {/* COLUMN 0: Logo and Back Button (Span 1 at lg, 2 at 2xl) */}
+                        <div className="hidden lg:block lg:col-span-1 2xl:col-span-2">
+                            <div className="sticky top-4 flex flex-col items-start gap-6">
                                 {/* Logo */}
                                 <StickyLogo wordmarkClassName="hidden 2xl:block" className="relative inset-auto" />
 
@@ -58,7 +58,7 @@ export default function WordzPage() {
                         </div>
 
                         {/* COLUMN 1: Audio List (Span 4) */}
-                        <div className="lg:col-start-2 lg:col-span-4 flex flex-col py-4">
+                        <div className="lg:col-start-2 lg:col-span-4 2xl:col-start-3 flex flex-col py-4">
 
                             {/* Talks Section */}
                             <div className="flex flex-col gap-4">
@@ -70,7 +70,7 @@ export default function WordzPage() {
                         </div>
 
                         {/* COLUMN 2: Chapters (Span 4) */}
-                        <div className="hidden lg:block lg:col-start-6 lg:col-span-4 relative">
+                        <div className="hidden lg:block lg:col-start-6 lg:col-span-4 2xl:col-start-7 relative">
                             <div className="sticky top-0 h-screen flex flex-col py-4 gap-8">
                                 {/* Chapters Section */}
                                 <div className="flex-1 overflow-hidden flex flex-col space-y-4">
@@ -80,7 +80,7 @@ export default function WordzPage() {
                         </div>
 
                         {/* COLUMN 3: Live Captions & Controls (Span 4) */}
-                        <div className="hidden lg:block lg:col-start-10 lg:col-span-4 relative">
+                        <div className="hidden lg:block lg:col-start-10 lg:col-span-4 2xl:col-start-11 relative">
                             {/* Sticky container that spans full viewport height */}
                             <div className="sticky top-0 h-screen flex flex-col">
 
