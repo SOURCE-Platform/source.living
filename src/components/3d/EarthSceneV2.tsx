@@ -61,6 +61,8 @@ export function EarthSceneV2({ setUseV2, scrollProgress = 0 }: { setUseV2?: (v: 
     const [bgTiling, setBgTiling] = useState(1);
     const [isBgScrolling, setIsBgScrolling] = useState(true);
 
+    const [loaded, setLoaded] = useState(false);
+
     const isSpinningRef = useRef(true);
     const isSunMovingRef = useRef(true);
     const rotationRef = useRef(0);
@@ -143,7 +145,11 @@ export function EarthSceneV2({ setUseV2, scrollProgress = 0 }: { setUseV2?: (v: 
         });
 
         // --- TEXTURES ---
-        const loader = new THREE.TextureLoader();
+        const manager = new THREE.LoadingManager();
+        manager.onLoad = () => {
+            setLoaded(true);
+        };
+        const loader = new THREE.TextureLoader(manager);
         const map = loader.load('/images/earth_blue_marble.jpg');
         const lights = loader.load('/images/earth_night.jpg');
         const cloudsMap = loader.load('/images/earth_clouds.png');
@@ -174,7 +180,8 @@ export function EarthSceneV2({ setUseV2, scrollProgress = 0 }: { setUseV2?: (v: 
         // --- EARTH GROUP ---
         const earthGroup = new THREE.Group();
         earthGroup.rotation.z = 23.4 * Math.PI / 180;
-        earthGroup.position.y = 0.5;
+        earthGroup.position.y = 1.5; // Moved up significantly to match green guide
+        earthGroup.scale.setScalar(0.55); // Resize to match design
         scene.add(earthGroup);
         earthGroupRef.current = earthGroup;
 
@@ -416,14 +423,15 @@ export function EarthSceneV2({ setUseV2, scrollProgress = 0 }: { setUseV2?: (v: 
 
                 // Scroll-based transformations
                 const scroll = scrollProgressRef.current;
-                // Move from y=0.5 to y=2
-                const startY = 0.5;
-                const endY = 3;
+                // Move from y=1.5 to y=3.0
+                const startY = 1.5;
+                const endY = 3.0;
                 earthGroupRef.current.position.y = startY + (endY - startY) * scroll;
 
-                // Scale from 1 to 0, but complete faster (at 0.75 progress)
+                // Scale from 0.55 to 0
+                const initialScale = 0.55;
                 const scaleProgress = Math.min(scroll / 0.75, 1);
-                const scale = Math.max(1 - scaleProgress, 0);
+                const scale = Math.max(initialScale * (1 - scaleProgress), 0);
                 earthGroupRef.current.scale.setScalar(scale);
             }
             if (cloudsRef.current) {
@@ -501,9 +509,9 @@ export function EarthSceneV2({ setUseV2, scrollProgress = 0 }: { setUseV2?: (v: 
     return (
         <>
             {/* FIXED BACKGROUND CONTAINER: Full width including under scrollbar. Mask applied for curved bottom. */}
-            <div className="absolute top-0 left-0 w-full h-[650px] overflow-hidden pointer-events-none [mask-image:url(/images/viewing-mask-earth.svg)] [mask-size:100%_100%] [mask-repeat:no-repeat] [mask-position:bottom]">
+            <div className="absolute top-0 left-0 w-full h-[90vh] overflow-hidden pointer-events-none [mask-image:url(/images/viewing-mask-earth-gradient.svg)] [mask-size:100%_auto] [mask-repeat:no-repeat] [mask-position:bottom]">
                 {/* CANVAS CONTAINER */}
-                <div ref={mountRef} className="absolute inset-0 z-0" />
+                <div ref={mountRef} className={`absolute inset-0 z-0 transition-opacity duration-1000 ${loaded ? 'opacity-100' : 'opacity-0'}`} />
             </div>
 
             {/* SIDEBAR CONTROL PANEL - Fixed to Viewport Right Edge */}

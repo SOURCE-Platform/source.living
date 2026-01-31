@@ -52,7 +52,7 @@ export function EarthSceneBackground() {
 
   return (
     <div
-      className="absolute left-0 right-0 z-0 pointer-events-none h-[650px]"
+      className="absolute left-0 right-0 z-0 pointer-events-none h-[90vh]"
       style={{ top: `${bgTopOffset}px` }}
     >
       <EarthSceneV2 scrollProgress={scrollProgress} />

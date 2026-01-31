@@ -22,9 +22,9 @@ export function VisionSection() {
                 <div className="flex items-center gap-5 w-full xs:max-w-[70%] mx-auto">
                     <h2 className="text-4xl font-bold bg-clip-text text-transparent bg-fixed bg-no-repeat dark:bg-none dark:text-foreground"
                         style={{
-                            backgroundImage: 'url(/images/viewing-mask-earth-white.svg), linear-gradient(to bottom, #101015, #101015)',
-                            backgroundSize: '100% 650px, cover',
-                            backgroundPosition: 'top center, center'
+                            backgroundImage: 'url(/images/viewing-mask-earth-gradient.svg), linear-gradient(to bottom, #000000, #000000)',
+                            backgroundSize: '100% auto, cover',
+                            backgroundPosition: 'center bottom 10vh, center'
                         }}
                     >Vision</h2>
                     <SectionPlayButton
@@ -36,9 +36,9 @@ export function VisionSection() {
                 <div
                     className="w-full xs:max-w-[70%] space-y-4 mx-auto bg-clip-text text-transparent bg-fixed bg-no-repeat dark:bg-none dark:text-muted-foreground"
                     style={{
-                        backgroundImage: 'url(/images/viewing-mask-earth-white.svg), linear-gradient(to bottom, #101015, #101015)',
-                        backgroundSize: '100% 650px, cover',
-                        backgroundPosition: 'top center, center'
+                        backgroundImage: 'url(/images/viewing-mask-earth-gradient.svg), linear-gradient(to bottom, #000000, #000000)',
+                        backgroundSize: '100% auto, cover',
+                        backgroundPosition: 'center bottom 10vh, center'
                     }}
                 >
                     <p>
