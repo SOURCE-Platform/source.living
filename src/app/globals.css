@@ -319,10 +319,7 @@
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
   }
 
-  .convergence-card:hover {
-    @apply border-primary/20 -translate-y-1;
-    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
-  }
+
 
   .description-text {
     @apply text-xl font-normal leading-relaxed text-muted-foreground;

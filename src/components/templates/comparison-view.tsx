@@ -54,22 +54,23 @@ function getDomain(url: string): string {
     }
 }
 
-// Eye icon for hover hint
+// Eye icon for hover hint - Updated to use gradient mask
 const HoverEyeIcon = ({ className }: { className?: string }) => (
-    <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className={className}
-    >
-        <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
-        <circle cx="12" cy="12" r="3" />
-    </svg>
+    <div className={`relative ${className}`}>
+        <div
+            className="absolute inset-0 bg-[image:var(--background-image-playgrade-light)] dark:bg-[image:var(--background-image-playgrade)]"
+            style={{
+                maskImage: `url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1' stroke-linecap='round' stroke-linejoin='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0'/%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3C/svg%3E")`,
+                maskSize: 'contain',
+                maskPosition: 'center',
+                maskRepeat: 'no-repeat',
+                WebkitMaskImage: `url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1' stroke-linecap='round' stroke-linejoin='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0'/%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3C/svg%3E")`,
+                WebkitMaskSize: 'contain',
+                WebkitMaskPosition: 'center',
+                WebkitMaskRepeat: 'no-repeat',
+            }}
+        />
+    </div>
 );
 
 function ProblemCard({ issue }: { issue: ConvergingIssue }) {
@@ -132,28 +133,13 @@ function ProblemCard({ issue }: { issue: ConvergingIssue }) {
 
     return (
         <div className="mb-4 last:mb-0">
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 pl-7 relative">
                 <div ref={triggerRef} className="group/menu relative w-fit">
+                    <div className="absolute -left-8 top-0.5 cursor-help">
+                        <HoverEyeIcon className="w-5 h-5" />
+                    </div>
                     <span className="text-base font-semibold text-foreground lg:cursor-help px-2 py-1 -ml-2 rounded-lg transition-colors group-hover/menu:bg-muted whitespace-normal inline decoration-clone leading-snug">
-                        {(() => {
-                            const words = issue.label.split(' ');
-                            if (words.length === 0) return issue.label;
-
-                            const lastWord = words.pop();
-                            const firstPart = words.join(' ');
-
-                            return (
-                                <>
-                                    {firstPart && `${firstPart} `}
-                                    <span className="whitespace-nowrap">
-                                        {lastWord}
-                                        <span className="inline-flex align-middle ml-2">
-                                            <HoverEyeIcon className="w-4 h-4 text-muted-foreground/60 transition-transform group-hover/menu:scale-110 group-hover/menu:text-primary/80" />
-                                        </span>
-                                    </span>
-                                </>
-                            );
-                        })()}
+                        {issue.label}
                     </span>
                     {/* Tooltip with invisible bridge */}
                     <div
@@ -254,7 +240,7 @@ function SolutionCard({ item, showProblem = true }: { item: SolutionItem; showPr
 
 function ComparisonRow({ category }: { category: CategoryData }) {
     return (
-        <div className="border border-border rounded-2xl bg-card shadow-lg mb-8 overflow-hidden">
+        <div className="border border-border rounded-2xl bg-card shadow-lg mb-8">
             {/* Header Row */}
             <div className="grid grid-cols-1 md:grid-cols-2 border-b border-border">
                 <div className="p-4 border-b md:border-b-0 md:border-r border-border">

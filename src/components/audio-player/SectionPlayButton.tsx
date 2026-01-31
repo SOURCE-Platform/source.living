@@ -66,18 +66,24 @@ export const SectionPlayButton = ({
                         <stop offset="61.98%" stopColor="#FEFFE3" />
                         <stop offset="100%" stopColor="#97A1FB" />
                     </linearGradient>
-                    <linearGradient id="playgrade-light" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#02ABFF" />
-                        <stop offset="100%" stopColor="#001AFF" />
-                    </linearGradient>
-                    <linearGradient id="playgrade-light-hover" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#02ABFF" />
-                        <stop offset="100%" stopColor="#001AFF" />
-                    </linearGradient>
-                    <linearGradient id="playgrade-light-reverse" x1="100%" y1="100%" x2="0%" y2="0%">
-                        <stop offset="0%" stopColor="#001AFF" />
-                        <stop offset="100%" stopColor="#02ABFF" />
-                    </linearGradient>
+                    <radialGradient id="playgrade-light" cx="0.3" cy="0.3" r="1">
+                        <stop offset="0%" stopColor="#ABAB88" />
+                        <stop offset="20%" stopColor="#9B4460" />
+                        <stop offset="50%" stopColor="#1F1F1C" />
+                        <stop offset="100%" stopColor="#141B5C" />
+                    </radialGradient>
+                    <radialGradient id="playgrade-light-hover" cx="0.3" cy="0.3" r="1">
+                        <stop offset="0%" stopColor="#ABAB88" />
+                        <stop offset="20%" stopColor="#9B4460" />
+                        <stop offset="50%" stopColor="#1F1F1C" />
+                        <stop offset="100%" stopColor="#141B5C" />
+                    </radialGradient>
+                    <radialGradient id="playgrade-light-reverse" cx="0.7" cy="0.7" r="1">
+                        <stop offset="0%" stopColor="#141B5C" />
+                        <stop offset="30%" stopColor="#1F1F1C" />
+                        <stop offset="60%" stopColor="#9B4460" />
+                        <stop offset="100%" stopColor="#ABAB88" />
+                    </radialGradient>
                     <linearGradient id="playgrade-reverse" gradientTransform="rotate(168, 0.5, 0.5)">
                         <stop offset="0%" stopColor="#97A1FB" />
                         <stop offset="38%" stopColor="#FEFFE3" />

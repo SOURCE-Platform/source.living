@@ -1,12 +1,15 @@
 import Image from "next/image";
 import { SectionPlayButton } from "@/components/audio-player/SectionPlayButton";
+import { CircularText } from "@/components/ui/circular-text";
+import { CrossedLines } from "@/components/ui/crossed-lines";
+import { motion } from "framer-motion";
 import { TRANSCRIPT_DATA, CHAPTERS_DATA } from "@/lib/constants";
 
 export function LongTermVisionSection() {
     return (
         <section className="space-y-4">
             <div
-                className="w-[calc(200%-200px)] ml-[calc(-50%+100px)] mb-8"
+                className="w-[calc(200%-200px)] ml-[calc(-50%+100px)] mb-8 relative"
                 style={{
                     maskImage: 'radial-gradient(60% 140% at 50% 140%, black 75%, transparent 100%), radial-gradient(60% 140% at 50% -40%, black 75%, transparent 100%)',
                     WebkitMaskImage: 'radial-gradient(60% 140% at 50% 140%, black 75%, transparent 100%), radial-gradient(60% 140% at 50% -40%, black 75%, transparent 100%)',
@@ -21,6 +24,15 @@ export function LongTermVisionSection() {
                     height={1080}
                     className="w-full h-auto"
                 />
+                <motion.div
+                    className="absolute inset-0 pointer-events-none"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ amount: 0.5, margin: "0px 0px -20% 0px" }}
+                    transition={{ duration: 1 }}
+                >
+                    <CrossedLines />
+                </motion.div>
             </div>
             <div className="flex items-center gap-5 w-full xs:max-w-[70%] mx-auto mb-2">
                 <h2 className="text-4xl font-serif text-foreground">The Long-Term Vision</h2>
@@ -31,7 +43,7 @@ export function LongTermVisionSection() {
                     chapters={CHAPTERS_DATA}
                 />
             </div>
-            <div className="w-full xs:max-w-[70%] space-y-2 mx-auto">
+            <div className="w-full xs:max-w-[70%] space-y-2 mx-auto mb-32">
                 <p className="font-semibold text-foreground">
                     SuperIntelligence Requires SuperAwareness.
                 </p>
@@ -42,9 +54,27 @@ export function LongTermVisionSection() {
                     For SuperIntelligence to be truly effective, aligned, and safe, it requires <strong className="text-foreground">SuperAwareness</strong>.
                 </p>
             </div>
-            <p className="italic border-l-4 border-foreground/30 pl-4 text-foreground font-semibold">
-                Source: We guide AI, and AI guides us.
-            </p>
+            <div className="relative flex items-center justify-center p-12 text-center h-[600px]">
+                <div className="absolute inset-0 flex items-center justify-center">
+                    <CircularText
+                        className="font-['Forum'] text-8xl font-medium text-foreground"
+                        radius={250}
+                        duration={30}
+                    >
+                        WE GUIDE AI GUIDES
+                    </CircularText>
+                </div>
+                <div className="absolute inset-0 flex items-center justify-center">
+                    <CircularText
+                        className="font-['Forum'] text-7xl font-medium text-foreground"
+                        radius={160}
+                        duration={30}
+                        reverse
+                    >
+                        WE GUIDE AI GUIDES
+                    </CircularText>
+                </div>
+            </div>
         </section>
     );
 }

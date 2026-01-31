@@ -85,9 +85,9 @@ export const WaveformAnimation = ({
                             key={index}
                             className={cn(
                                 "w-[2px] rounded-full opacity-0", // Start invisible
+                                "bg-[image:var(--background-image-playgrade-light)] dark:bg-[image:var(--background-image-playgrade)]"
                             )}
                             style={{
-                                backgroundImage: "var(--background-image-playgrade)",
                                 backgroundSize: "200% 200%",
                                 height: "100%",
                                 maxHeight: "100%",
