@@ -1,3 +1,6 @@
+"use client";
+
+import React, { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { DitheredImage } from "@/components/atoms/dithered-image";
@@ -6,6 +9,8 @@ import { TransitionLink } from "../atoms/transition-link";
 import { SectionPlayButton } from "@/components/audio-player/SectionPlayButton";
 import { Badge } from "@/components/atoms/badge";
 import { ChapterSummary } from "@/components/audio-player/context/types";
+import { CrossedLines } from "@/components/ui/crossed-lines";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 const DATA_WALL_CHAPTERS: ChapterSummary[] = [
     { title: "The Data Problem: Quantity vs. Quality", start: 0 },
@@ -29,6 +34,32 @@ const SYSTEMIC_CONVERGENCE_CHAPTERS: ChapterSummary[] = [
 
 
 export function ProblemSection() {
+    const warpedImageRef = useRef<HTMLDivElement>(null);
+    const systemicHeadingRef = useRef<HTMLDivElement>(null);
+    const scrollContainerRef = useRef<HTMLElement | null>(null);
+
+    // Get the scroll container on mount
+    React.useEffect(() => {
+        scrollContainerRef.current = document.getElementById("scroll-container");
+    }, []);
+
+    // Scroll-linked fade: opacity changes progressively over scrolling
+    const { scrollYProgress } = useScroll({
+        target: warpedImageRef,
+        container: scrollContainerRef,
+        // "start 1.5" = fade in starts 50% below viewport bottom
+        // "end -0.5" = fade out finishes 50% above viewport top (later)
+        offset: ["start 1.5", "end -0.5"]
+    });
+
+    // Map scroll progress to opacity
+    // 0-0.3: fade in, 0.3-0.7: fully visible, 0.7-1: fade out
+    const linesOpacity = useTransform(
+        scrollYProgress,
+        [0, 0.15, 0.85, 1],
+        [0, 1, 1, 0]
+    );
+
     return (
         <section className="space-y-8">
             <div className="space-y-4">
@@ -106,11 +137,13 @@ export function ProblemSection() {
 
             {/* 2. The Expanded Problem Set */}
             <div className="space-y-4 mt-24">
-                <WarpedImage
-                    src="/images/systemicconvergence/beksinski-1.jpg"
-                    className="w-full rounded-lg mb-8"
-                />
-                <div className="flex flex-row gap-6 w-full xs:max-w-[85%] mx-auto">
+                <div className="relative z-10" ref={warpedImageRef}>
+                    <WarpedImage
+                        src="/images/systemicconvergence/beksinski-1.jpg"
+                        className="w-full rounded-lg mb-8"
+                    />
+                </div>
+                <div className="flex flex-row gap-6 w-full xs:max-w-[85%] mx-auto" ref={systemicHeadingRef}>
                     <span className="text-8xl font-thin leading-none text-transparent bg-clip-text bg-[image:var(--background-image-playgrade-light)] dark:bg-[image:var(--background-image-playgrade)] select-none">2</span>
                     <div className="space-y-4 pt-2">
                         <div className="flex items-center gap-5 w-full">
@@ -126,6 +159,13 @@ export function ProblemSection() {
                         </p>
                     </div>
                 </div>
+
+                <motion.div
+                    className="fixed inset-0 w-screen h-screen pointer-events-none -z-10"
+                    style={{ opacity: linesOpacity }}
+                >
+                    <CrossedLines targetRef={warpedImageRef} />
+                </motion.div>
 
                 <div className="flex flex-col mt-10 md:-mx-24">
                     <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-12">
