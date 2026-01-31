@@ -35,6 +35,7 @@
   --header-scale: 1;
   --paragraph-spacing: 0em;
   --header-spacing: 0em;
+  --font-forum: Forum, serif;
 
   --color-chart-5: var(--chart-5);
   --color-chart-4: var(--chart-4);

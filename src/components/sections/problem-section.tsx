@@ -127,10 +127,10 @@ export function ProblemSection() {
                     </div>
                 </div>
 
-                <div className="flex flex-col rounded-lg border border-border bg-white/30 dark:bg-muted/20 mt-10">
-                    <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-border">
+                <div className="flex flex-col mt-10 md:-mx-24">
+                    <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-12">
                         <div className="p-5 pb-16 space-y-6">
-                            <h4 className="text-xl font-bold text-foreground">The Macro Problem Set</h4>
+                            <h4 className="text-3xl font-bold text-foreground font-forum">The Macro Problem Set</h4>
                             <ul className="space-y-6 text-sm text-muted-foreground list-none pl-0">
                                 <li>
                                     <strong className="text-foreground block mb-1">Political</strong>
@@ -168,7 +168,7 @@ export function ProblemSection() {
                         </div>
 
                         <div className="p-5 pb-16 space-y-6">
-                            <h4 className="text-xl font-bold text-foreground">The Micro Problem Set</h4>
+                            <h4 className="text-3xl font-bold text-foreground font-forum">The Micro Problem Set</h4>
                             <ul className="space-y-6 text-sm text-muted-foreground list-none pl-0">
                                 <li>
                                     <strong className="text-foreground block mb-1">Mental & Emotional</strong>
