@@ -43,7 +43,7 @@ export default function Home() {
           </div>
 
           {/* Infrastructure Evolution Graph - Full Width with Right Buffer */}
-          <div className="w-full mb-12 mt-32 pr-4 md:pr-[50px]">
+          <div className="w-full mb-12 mt-32 pr-0">
             <InfrastructureHistoryGraph className="h-[800px] w-full" />
           </div>
 

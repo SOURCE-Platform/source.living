@@ -565,3 +565,17 @@
 .grid-cols-14 {
   grid-template-columns: repeat(14, minmax(0, 1fr));
 }
+
+.infrastructure-graph-mask {
+  /* Default (Mobile): 50px buffer on both sides */
+  mask-image: linear-gradient(to right, transparent, black 50px, black calc(100% - 50px), transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 50px, black calc(100% - 50px), transparent);
+}
+
+@media (min-width: 1024px) {
+  .infrastructure-graph-mask {
+    /* Desktop: 50px left, 150px right buffer */
+    mask-image: linear-gradient(to right, transparent, black 15%, black 95%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 50px, black calc(100% - 150px), transparent);
+  }
+}

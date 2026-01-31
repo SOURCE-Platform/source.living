@@ -25,6 +25,7 @@ export function InfrastructureHistoryGraph({ className = '', theme: propTheme }:
     }, []);
 
     const [zoomLevel, setZoomLevel] = useState(DEFAULT_ZOOM);
+    const [initialZoom, setInitialZoom] = useState<number | null>(null);
     const [selectedNode, setSelectedNode] = useState<InfrastructureNode | null>(null);
     const [hoveredNode, setHoveredNode] = useState<InfrastructureNode | null>(null);
     const [pinnedNode, setPinnedNode] = useState<InfrastructureNode | null>(null);
@@ -45,7 +46,8 @@ export function InfrastructureHistoryGraph({ className = '', theme: propTheme }:
         if (!containerRef.current) return;
 
         const width = containerRef.current.clientWidth;
-        const focusStart = 1750;
+        const isMobile = width < 640;
+        const focusStart = isMobile ? 1900 : 1750;
         const focusEnd = 2050;
         const focusRange = focusEnd - focusStart;
 
@@ -55,6 +57,7 @@ export function InfrastructureHistoryGraph({ className = '', theme: propTheme }:
 
         // 1. Set the zoom level and target first
         setZoomLevel(finalZoom);
+        setInitialZoom(finalZoom);
         targetZoomRef.current = finalZoom;
         currentZoomRef.current = finalZoom;
 
@@ -202,14 +205,14 @@ export function InfrastructureHistoryGraph({ className = '', theme: propTheme }:
     return (
         <div ref={containerRef} className={`flex flex-col w-full relative ${className || 'h-screen'}`}>
             {/* Controls Header */}
-            <div className={`flex items-center justify-between px-4 py-2 z-10 relative mb-8`}>
-                <div className="flex items-center gap-12 ml-64">
-                    <h1 className={`text-lg font-bold ${colors.text} pointer-events-none`}>
+            <div className={`flex flex-col sm:flex-row items-center sm:items-start justify-between px-0 sm:px-4 py-2 z-10 relative pointer-events-none`}>
+                <div className="flex flex-col w-full sm:w-auto items-center sm:items-start gap-4 mb-4 sm:mb-0 sm:ml-8 xl:ml-36 pointer-events-auto">
+                    <h2 className={`text-lg font-bold ${colors.text} pointer-events-none whitespace-nowrap text-center sm:text-left`}>
                         Infrastructure Evolution
-                    </h1>
+                    </h2>
 
                     {/* Inline Legend */}
-                    <div className="flex items-center gap-6">
+                    <div className="flex flex-wrap justify-center sm:justify-start items-center gap-x-6 gap-y-2">
                         {[
                             { label: 'Water', value: 'WATER' },
                             { label: 'Transport', value: 'TRANSPORT' },
@@ -230,50 +233,22 @@ export function InfrastructureHistoryGraph({ className = '', theme: propTheme }:
                     </div>
                 </div>
 
-                <div className="flex gap-2 relative z-20 items-center">
-                    <button
-                        className={`h-12 px-4 text-sm font-bold ${effectiveTheme === 'light' ? 'text-slate-600 bg-slate-200 hover:bg-slate-300' : 'text-slate-300 bg-slate-800 hover:bg-slate-700'} rounded flex items-center justify-center`}
-                        onClick={resetView}
-                    >
-                        Reset
-                    </button>
-                    <button
-                        className={`h-12 px-4 text-sm font-bold ${effectiveTheme === 'light' ? 'text-slate-600 bg-slate-200 hover:bg-slate-300' : 'text-slate-300 bg-slate-800 hover:bg-slate-700'} rounded flex items-center justify-center`}
-                        onClick={() => {
-                            const newTarget = Math.max(0.1, targetZoomRef.current * 0.8);
-                            targetZoomRef.current = newTarget;
-                            if (animationFrameRef.current === null) {
-                                animationFrameRef.current = requestAnimationFrame(animateZoom);
-                            }
-                        }}
-                    >
-                        -
-                    </button>
-                    <span className={`text-xs ${colors.textMuted} min-w-[40px] text-center flex items-center justify-center`}>
-                        {zoomLevel.toFixed(1)}x
-                    </span>
-                    <button
-                        className={`h-12 px-4 text-sm font-bold ${effectiveTheme === 'light' ? 'text-slate-600 bg-slate-200 hover:bg-slate-300' : 'text-slate-300 bg-slate-800 hover:bg-slate-700'} rounded flex items-center justify-center`}
-                        onClick={() => {
-                            const newTarget = Math.min(20, targetZoomRef.current * 1.2);
-                            targetZoomRef.current = newTarget;
-                            if (animationFrameRef.current === null) {
-                                animationFrameRef.current = requestAnimationFrame(animateZoom);
-                            }
-                        }}
-                    >
-                        +
-                    </button>
-                </div>
+                {initialZoom && Math.abs(zoomLevel - initialZoom) > 0.01 && (
+                    <div className="flex gap-2 relative z-20 items-center transition-opacity duration-300 pointer-events-auto opacity-100">
+                        <button
+                            className={`h-12 px-4 text-sm font-bold ${effectiveTheme === 'light' ? 'text-slate-600 bg-slate-200 hover:bg-slate-300' : 'text-slate-300 bg-slate-800 hover:bg-slate-700'} rounded flex items-center justify-center uppercase tracking-wider`}
+                            onClick={resetView}
+                        >
+                            RESET ZOOM
+                        </button>
+                        {/* Zoom controls removed */}
+                    </div>
+                )}
             </div>
 
             {/* Main Graph Area */}
             <div
-                className="flex-1 relative pt-12 overflow-hidden"
-                style={{
-                    maskImage: 'linear-gradient(to right, transparent, black 15%, black 95%, transparent)',
-                    WebkitMaskImage: 'linear-gradient(to right, transparent, black 50px, black calc(100% - 150px), transparent)'
-                }}
+                className="flex-1 relative pt-12 overflow-hidden infrastructure-graph-mask"
             >
                 <TimelineCanvas
                     items={INITIAL_NODES}
@@ -283,19 +258,21 @@ export function InfrastructureHistoryGraph({ className = '', theme: propTheme }:
                     onNodeHover={setHoveredNode}
                     theme={effectiveTheme}
                 />
-            </div>
+            </div >
 
             {/* Detail Overlay - shows on click (pinned) or hover (preview) */}
-            {(pinnedNode || hoveredNode) && (
-                <div ref={detailOverlayRef}>
-                    <DetailOverlay
-                        node={pinnedNode || hoveredNode}
-                        onClose={() => setPinnedNode(null)}
-                        theme={effectiveTheme}
-                    />
-                </div>
-            )}
-        </div>
+            {
+                (pinnedNode || hoveredNode) && (
+                    <div ref={detailOverlayRef}>
+                        <DetailOverlay
+                            node={pinnedNode || hoveredNode}
+                            onClose={() => setPinnedNode(null)}
+                            theme={effectiveTheme}
+                        />
+                    </div>
+                )
+            }
+        </div >
     );
 }
 
