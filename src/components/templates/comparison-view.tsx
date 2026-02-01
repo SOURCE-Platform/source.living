@@ -133,12 +133,12 @@ function ProblemCard({ issue }: { issue: ConvergingIssue }) {
 
     return (
         <div className="mb-4 last:mb-0">
-            <div className="flex flex-col gap-1 pl-7 relative">
-                <div ref={triggerRef} className="group/menu relative w-fit">
-                    <div className="absolute -left-8 top-0.5 cursor-help">
-                        <HoverEyeIcon className="w-5 h-5" />
-                    </div>
-                    <span className="text-base font-semibold text-foreground lg:cursor-help px-2 py-1 -ml-2 rounded-lg transition-colors group-hover/menu:bg-muted whitespace-normal inline decoration-clone leading-snug">
+            <div ref={triggerRef} className="group/menu relative pl-10 pr-2 py-2 rounded-lg transition-colors lg:cursor-help hover:bg-muted">
+                <div className="absolute left-2 top-2.5">
+                    <HoverEyeIcon className="w-5 h-5" />
+                </div>
+                <div className="flex flex-col gap-1">
+                    <span className="text-base font-semibold text-foreground whitespace-normal inline decoration-clone leading-snug">
                         {issue.label}
                     </span>
                     {/* Tooltip with invisible bridge */}
@@ -173,51 +173,52 @@ function ProblemCard({ issue }: { issue: ConvergingIssue }) {
                 <p className="text-sm text-muted-foreground leading-relaxed">
                     {issue.description}
                 </p>
-
-                {/* Mobile/Accessible Modal */}
-                <Modal
-                    isOpen={isModalOpen}
-                    onClose={() => setIsModalOpen(false)}
-                    title={issue.label}
-                >
-                    <div className="space-y-6">
-                        <p className="text-sm text-muted-foreground leading-relaxed">
-                            {issue.description}
-                        </p>
-
-                        <div className="space-y-3">
-                            <h4 className="text-sm font-semibold text-foreground uppercase tracking-wide">
-                                Related Signals & Research
-                            </h4>
-                            <ul className="grid gap-2">
-                                {issue.links.map((link, i) => (
-                                    <li key={i}>
-                                        <Link
-                                            href={link.url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="block rounded-lg p-3 transition-all bg-background/50 playgrade-border playgrade-link-bg group/link"
-                                        >
-                                            <span className="block text-sm font-medium text-foreground mb-1">
-                                                {link.title}
-                                            </span>
-                                            <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
-                                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-                                                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-                                                </svg>
-                                                {getDomain(link.url)}
-                                            </div>
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
-                </Modal>
             </div>
+
+            {/* Mobile/Accessible Modal */}
+            <Modal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                title={issue.label}
+            >
+                <div className="space-y-6">
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                        {issue.description}
+                    </p>
+
+                    <div className="space-y-3">
+                        <h4 className="text-sm font-semibold text-foreground uppercase tracking-wide">
+                            Related Signals & Research
+                        </h4>
+                        <ul className="grid gap-2">
+                            {issue.links.map((link, i) => (
+                                <li key={i}>
+                                    <Link
+                                        href={link.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="block rounded-lg p-3 transition-all bg-background/50 playgrade-border playgrade-link-bg group/link"
+                                    >
+                                        <span className="block text-sm font-medium text-foreground mb-1">
+                                            {link.title}
+                                        </span>
+                                        <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                                                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                                            </svg>
+                                            {getDomain(link.url)}
+                                        </div>
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            </Modal>
         </div >
     );
+
 }
 
 function SolutionCard({ item, showProblem = true }: { item: SolutionItem; showProblem?: boolean }) {
